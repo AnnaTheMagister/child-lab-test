@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import '../styles/article.scss'
 
 function ExampleReactComponent() {
   const [clickCount, setClickCount] = useState(0)
