@@ -1,5 +1,6 @@
 import "./styles/main.scss"
 import "./styles/header.scss"
+import "./styles/footer.scss"
 import ExampleReactComponent from "./scripts/ExampleReactComponent"
 import React from "react"
 import ReactDOM from "react-dom/client"

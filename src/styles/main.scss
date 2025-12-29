@@ -10,7 +10,6 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   background-color: $bodyBgColor;
   color: $textMainColor;
   font-family: Lora;
@@ -18,10 +17,12 @@ body {
   @include atSmall {
     padding: 20px;
     font-size: 1.1rem;
+    min-height: calc(100vh - 80px - 2 * 20px);
   }
   @include atMedium {
     padding: 60px;
     font-size: 1.2rem;
+    min-height: calc(100vh - 80px - 2 * 60px);
   }
   margin: 0;
   margin-top: 80px;
