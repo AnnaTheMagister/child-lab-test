@@ -60,26 +60,15 @@ function ExampleReactComponent() {
 
 /***/ },
 
-/***/ "./src/scripts/Person.js"
-/*!*******************************!*\
-  !*** ./src/scripts/Person.js ***!
-  \*******************************/
+/***/ "./src/styles/header.scss"
+/*!********************************!*\
+  !*** ./src/styles/header.scss ***!
+  \********************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-class Person {
-  constructor(name) {
-    this.name = name;
-    this.greet();
-  }
-  greet() {
-    console.log(`Hello, my name is ${this.name}.`);
-  }
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Person);
+// extracted by mini-css-extract-plugin
+
 
 /***/ },
 
@@ -199,7 +188,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/main.scss */ "./src/styles/main.scss");
-/* harmony import */ var _scripts_Person__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scripts/Person */ "./src/scripts/Person.js");
+/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles/header.scss */ "./src/styles/header.scss");
 /* harmony import */ var _scripts_ExampleReactComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./scripts/ExampleReactComponent */ "./src/scripts/ExampleReactComponent.js");
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 
@@ -208,7 +197,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const person1 = new _scripts_Person__WEBPACK_IMPORTED_MODULE_2__["default"]("Brad");
 const root = react_dom_client__WEBPACK_IMPORTED_MODULE_4__.createRoot(document.querySelector("#render-react-example-here"));
 root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_ExampleReactComponent__WEBPACK_IMPORTED_MODULE_3__["default"], null));
 })();

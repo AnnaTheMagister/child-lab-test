@@ -6,4 +6,4 @@
     <?php wp_head(); ?>
   </head>
   <body <?php body_class(); ?>>
-    Your header content here.
+    <?php get_template_part('template-parts/global/header'); ?>
