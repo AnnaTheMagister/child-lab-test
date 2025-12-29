@@ -2,22 +2,11 @@
 @import "variables.scss";
 
 .childlab-footer {
-  width: 100%;
   background-color: #fff;
   color: $textSubtitleColor;
   text-align: center;
   margin-top: auto;
-  @include atMedium {
-    margin-bottom: -20px;
-    margin-left: -20px;
-    padding: 20px 20px;
-  }
-  @include atSmall {
-    margin-bottom: -60px;
-    margin-left: -60px;
-    margin-right: -60px;
-    padding: 20px 60px;
-  }
+  padding: 20px;
 }
 
 .childlab-footer-content {

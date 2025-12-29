@@ -1,5 +1,10 @@
 <?php
 
+require_once get_template_directory() . '/inc/example.php';
+require_once get_template_directory() . '/inc/reading-mode-support.php';
+require_once get_template_directory() . '/inc/acf/register-article-fields.php';
+
+
 function boilerplate_load_assets()
 {
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element'), '1.0', true);
@@ -17,3 +22,5 @@ function boilerplate_add_support()
 }
 
 add_action('after_setup_theme', 'boilerplate_add_support');
+
+
