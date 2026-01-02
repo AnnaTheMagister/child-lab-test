@@ -1,5 +1,3 @@
-<?php
-
 add_action( 'acf/include_fields', function() {
 	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
 		return;
@@ -93,6 +91,29 @@ add_action( 'acf/include_fields', function() {
 			'media_upload' => 1,
 			'delay' => 0,
 		),
+		array(
+			'key' => 'field_69584f0483e02',
+			'label' => 'Авторы',
+			'name' => 'authors',
+			'aria-label' => '',
+			'type' => 'user',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'role' => '',
+			'return_format' => 'array',
+			'multiple' => 0,
+			'allow_null' => 0,
+			'allow_in_bindings' => 0,
+			'bidirectional' => 0,
+			'bidirectional_target' => array(
+			),
+		),
 	),
 	'location' => array(
 		array(
@@ -113,6 +134,88 @@ add_action( 'acf/include_fields', function() {
 	'description' => '',
 	'show_in_rest' => 0,
 	'display_title' => '',
+) );
+
+	acf_add_local_field_group( array(
+	'key' => 'group_69584e787f669',
+	'title' => 'Раздел методологии поля',
+	'fields' => array(
+		array(
+			'key' => 'field_69584e7b607bb',
+			'label' => 'Цвет',
+			'name' => 'color',
+			'aria-label' => '',
+			'type' => 'color_picker',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '#FF0000',
+			'enable_opacity' => 1,
+			'return_format' => 'string',
+			'allow_in_bindings' => 0,
+			'show_custom_palette' => 0,
+			'show_color_wheel' => 1,
+			'custom_palette_source' => '',
+			'palette_colors' => '',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'taxonomy',
+				'operator' => '==',
+				'value' => 'methodology_tag',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => true,
+	'description' => '',
+	'show_in_rest' => 0,
+	'display_title' => '',
+) );
+} );
+
+add_action( 'init', function() {
+	register_taxonomy( 'methodology_tag', array(
+	0 => 'article',
+), array(
+	'labels' => array(
+		'name' => 'Разделы методологии',
+		'singular_name' => 'Раздел методологии',
+		'menu_name' => 'Разделы методологии',
+		'all_items' => 'Все Разделы методологии',
+		'edit_item' => 'Изменить Раздел методологии',
+		'view_item' => 'Посмотреть Раздел методологии',
+		'update_item' => 'Обновить Раздел методологии',
+		'add_new_item' => 'Добавить новое Раздел методологии',
+		'new_item_name' => 'Новое Раздел методологии название',
+		'search_items' => 'Поиск Разделы методологии',
+		'popular_items' => 'Популярные Разделы методологии',
+		'separate_items_with_commas' => 'Разделять разделы методологии запятыми',
+		'add_or_remove_items' => 'Добавить или удалить разделы методологии',
+		'choose_from_most_used' => 'Выберите из наиболее часто используемых разделы методологии',
+		'not_found' => 'Не найдено разделы методологии',
+		'no_terms' => 'Нет разделы методологии',
+		'items_list_navigation' => 'Разделы методологии навигация по списку',
+		'items_list' => 'Разделы методологии список',
+		'back_to_items' => '← Перейти к разделы методологии',
+		'item_link' => 'Cсылка на Раздел методологии',
+		'item_link_description' => 'Ссылка на раздел методологии',
+	),
+	'public' => true,
+	'show_in_menu' => true,
+	'show_in_rest' => true,
 ) );
 } );
 
@@ -168,5 +271,3 @@ add_action( 'init', function() {
 ) );
 } );
 
-
-?>
