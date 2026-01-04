@@ -7,34 +7,36 @@
 get_header();
 
 // Получаем текущий режим просмотра
-$reading_mode = get_reading_mode();
+$GLOBALS['mode'] = get_reading_mode();
 $post_id = get_the_ID();
 ?>
 
 
 <main class="article-main">
 
-
     <div class="article-container">
 
         <!-- Заголовок статьи -->
         <?php get_template_part('template-parts/article/header'); ?>
 
-        <!-- Боковая панель с оглавлением -->
-        <!-- <aside class="article-sidebar">
-            <?php get_template_part('template-parts/article/toc'); ?>
-        </aside> -->
+        <div class="row">
+            <!-- Боковая панель -->
+            <aside class="col-sm-3 article-sidebar">
+                <!-- Оглавление -->
+                <?php get_template_part('template-parts/article/toc'); ?>
+                <!-- Переключатель режимов -->
+                <?php get_template_part('template-parts/article/mode-toggler'); ?>
+            </aside>
 
-        <!-- Основной контент -->
-        <article class="article-content-wrapper" data-post-id="<?php echo $post_id; ?>">
-            <!-- Переключатель режимов -->
-            <?php get_template_part('template-parts/article/mode-toggler'); ?>
+            <!-- Основной контент -->
+            <article class="col-sm-9 article-content-wrapper" data-post-id="<?php echo $post_id; ?>">
 
-            <!-- Контент в выбранном режиме -->
-            <?php get_template_part('template-parts/article/mode-content'); ?>
+                <!-- Контент в выбранном режиме -->
+                <?php get_template_part('template-parts/article/mode-content'); ?>
 
-        </article>
+            </article>
 
+        </div>
     </div>
 
 

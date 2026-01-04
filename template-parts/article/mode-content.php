@@ -40,10 +40,13 @@ function display_article_content($post_id = null)
         $content = get_the_content(null, false, $post_id);
     }
 
+    $content = add_anchor_ids_to_headings($content);
+
     // Обертываем в div с классом режима
     echo '<div class="article-content ' . esc_attr($class) . '">' . $content . '</div>';
 }
 ?>
+
 
 
 

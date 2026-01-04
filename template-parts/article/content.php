@@ -24,70 +24,46 @@ $content = add_anchor_ids_to_headings($content);
 ?>
 
 <div class="article-content mode-<?php echo $reading_mode; ?>">
-    
+
     <!-- Блок с кнопками действий -->
     <?php if (!in_array($reading_mode, ['parent_short', 'scientist_short'])): ?>
-    <div class="article-actions">
-        <button class="action-btn print-article" title="Распечатать">
-            🖨️ Печать
-        </button>
-        <button class="action-btn save-article" title="Сохранить">
-            💾 Сохранить
-        </button>
-        <button class="action-btn share-article" title="Поделиться">
-            🔗 Поделиться
-        </button>
-    </div>
+        <div class="article-actions">
+            <button class="action-btn print-article" title="Распечатать">
+                🖨️ Печать
+            </button>
+            <button class="action-btn save-article" title="Сохранить">
+                💾 Сохранить
+            </button>
+            <button class="action-btn share-article" title="Поделиться">
+                🔗 Поделиться
+            </button>
+        </div>
     <?php endif; ?>
-    
+
     <!-- Основной контент -->
     <div class="content-wrapper">
         <?php echo $content; ?>
     </div>
-    
-    <!-- Ключевые тезисы (только для полных версий) -->
-    <?php 
-    if (in_array($reading_mode, ['scientist_long', 'parent_long']) && 
-        have_rows('key_points')):
-    ?>
-    <div class="key-points-summary">
-        <h3>📌 Ключевые тезисы</h3>
-        <ul class="key-points-list">
-            <?php while (have_rows('key_points')): the_row(); ?>
-            <li>
-                <span class="point-icon icon-<?php the_sub_field('point_icon'); ?>"></span>
-                <span class="point-text"><?php the_sub_field('point_text'); ?></span>
-            </li>
-            <?php endwhile; ?>
-        </ul>
-    </div>
-    <?php endif; ?>
-    
-</div>
 
-<?php
-// Функция для добавления ID к заголовкам
-function add_anchor_ids_to_headings($content) {
-    // Регулярное выражение для поиска h2 и h3
-    preg_match_all('/<h([2-3])([^>]*)>(.*?)<\/h[2-3]>/i', $content, $matches, PREG_SET_ORDER);
-    
-    if (empty($matches)) {
-        return $content;
-    }
-    
-    foreach ($matches as $index => $match) {
-        $level = $match[1];
-        $attrs = $match[2];
-        $text = strip_tags($match[3]);
-        
-        // Создаем уникальный ID
-        $anchor_id = 'section-' . sanitize_title($text) . '-' . $index;
-        
-        // Заменяем заголовок
-        $new_heading = '<h' . $level . ' id="' . $anchor_id . '"' . $attrs . '>' . $match[3] . '</h' . $level . '>';
-        $content = str_replace($match[0], $new_heading, $content);
-    }
-    
-    return $content;
-}
-?>
+    <!-- Ключевые тезисы (только для полных версий) -->
+    <?php
+    if (
+        in_array($reading_mode, ['scientist_long', 'parent_long']) &&
+        have_rows('key_points')
+    ):
+        ?>
+        <div class="key-points-summary">
+            <h3>📌 Ключевые тезисы</h3>
+            <ul class="key-points-list">
+                <?php while (have_rows('key_points')):
+                    the_row(); ?>
+                    <li>
+                        <span class="point-icon icon-<?php the_sub_field('point_icon'); ?>"></span>
+                        <span class="point-text"><?php the_sub_field('point_text'); ?></span>
+                    </li>
+                <?php endwhile; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
+</div>

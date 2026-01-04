@@ -83,6 +83,7 @@ $breakpoints: (
 // Базовые классы колонок
 @for $i from 1 through $grid-columns {
   .col-#{$i} {
+    box-sizing: border-box;
     position: relative;
     width: 100%;
     padding-left: $grid-gutter / 2;
@@ -103,6 +104,7 @@ $breakpoints: (
     // Для xs (мобильных) - всегда показываем
     @for $i from 1 through $grid-columns {
       .col-#{$breakpoint}-#{$i} {
+        box-sizing: border-box;
         position: relative;
         width: 100%;
         padding-left: $grid-gutter / 2;
@@ -164,6 +166,7 @@ $breakpoints: (
     @include respond-to($breakpoint) {
       @for $i from 1 through $grid-columns {
         .col-#{$breakpoint}-#{$i} {
+          box-sizing: border-box;
           position: relative;
           width: 100%;
           padding-left: $grid-gutter / 2;

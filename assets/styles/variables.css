@@ -1,0 +1,11 @@
+:root {
+  --color-main: background: rgba(17, 17, 17, 1);
+  --color-subtitle-1: rgba(17, 17, 17, 0.6);
+  --color-subtitle-2: rgba(17, 17, 17, 0.2);
+  --color-primary: rgba(82, 48, 208, 1);
+  --color-secondary: rgba(121, 85, 249, 1);
+  --box-shadow-default: 4px 4px 8px 0px rgba(34, 30, 80, 0.2);
+  --font-size-default: 1.4rem; /* 16px */
+  --font-size-subtitle-1: 1.3rem; /* 14px */
+  --font-size-subtitle-2: 1.2rem; /* 12px */
+}

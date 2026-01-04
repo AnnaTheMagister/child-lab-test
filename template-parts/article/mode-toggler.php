@@ -1,6 +1,6 @@
 <?php
 // В любом месте шаблона (header.php или sidebar.php)
-$current_mode = get_reading_mode();
+$current_mode = $GLOBALS['mode'];
 ?>
 
 <div class="reading-mode-switcher">
