@@ -1,0 +1,76 @@
+.article-main {
+  margin: 40px 108px;
+  padding: 32px;
+  border-radius: 32px;
+  background-color: #fff;
+  box-shadow: var(--box-shadow-default);
+}
+/* Основной контейнер */
+.article-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Боковая панель с оглавлением */
+.article-main .article-sidebar {
+  flex-shrink: 0;
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 120px);
+}
+
+/* Основной контент */
+.article-content-wrapper {
+  flex: 1;
+  min-width: 0; /* Для правильной работы flex */
+}
+
+.nav-link-prev,
+.nav-link-next {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  text-decoration: none;
+}
+
+.nav-link-prev {
+  text-align: end;
+}
+
+.nav-link-prev::before {
+  display: flex;
+  content: "←";
+}
+.nav-link-next::after {
+  display: flex;
+  content: "→";
+}
+
+/* Заголовок статьи */
+h1.article-title {
+  font-size: var(--font-size-title-1);
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  text-align: center;
+}
+
+/* Заголовок статьи */
+h2.article-subtitle {
+  font-size: var(--font-size-title-2);
+  font-weight: 400;
+  margin: 0;
+  text-align: center;
+}
+
+/* Контейнер для метаинформации статьи */
+.article-main .article-meta-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 1rem;
+}

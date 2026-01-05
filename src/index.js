@@ -2,7 +2,6 @@ import "./styles/main.scss"
 import "./styles/grid-system.scss"
 import "./styles/header.scss"
 import "./styles/footer.scss"
-import "./styles/article.scss"
 
 import "./scripts/ArticleReader"
 import ExampleReactComponent from "./scripts/ExampleReactComponent"

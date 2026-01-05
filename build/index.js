@@ -360,19 +360,6 @@ function ExampleReactComponent() {
 
 /***/ },
 
-/***/ "./src/styles/article.scss"
-/*!*********************************!*\
-  !*** ./src/styles/article.scss ***!
-  \*********************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ },
-
 /***/ "./src/styles/footer.scss"
 /*!********************************!*\
   !*** ./src/styles/footer.scss ***!
@@ -535,11 +522,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_grid_system_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles/grid-system.scss */ "./src/styles/grid-system.scss");
 /* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles/header.scss */ "./src/styles/header.scss");
 /* harmony import */ var _styles_footer_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles/footer.scss */ "./src/styles/footer.scss");
-/* harmony import */ var _styles_article_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles/article.scss */ "./src/styles/article.scss");
-/* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./scripts/ArticleReader */ "./src/scripts/ArticleReader.js");
-/* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _scripts_ExampleReactComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./scripts/ExampleReactComponent */ "./src/scripts/ExampleReactComponent.js");
-/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
+/* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./scripts/ArticleReader */ "./src/scripts/ArticleReader.js");
+/* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _scripts_ExampleReactComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./scripts/ExampleReactComponent */ "./src/scripts/ExampleReactComponent.js");
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 
 
 
@@ -549,9 +535,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-const root = react_dom_client__WEBPACK_IMPORTED_MODULE_8__.createRoot(document.querySelector("#render-react-example-here"));
-root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_ExampleReactComponent__WEBPACK_IMPORTED_MODULE_7__["default"], null));
+const root = react_dom_client__WEBPACK_IMPORTED_MODULE_7__.createRoot(document.querySelector("#render-react-example-here"));
+root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_ExampleReactComponent__WEBPACK_IMPORTED_MODULE_6__["default"], null));
 })();
 
 /******/ })()

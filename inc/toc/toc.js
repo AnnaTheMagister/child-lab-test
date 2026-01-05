@@ -13,9 +13,6 @@ class ArticleToc {
 
     // Инициализируем компоненты
     this.initTableOfContents();
-    this.initReadingProgress();
-    this.initSectionNavigation();
-    this.initModeSwitcher();
 
     // Начинаем отслеживать скролл
     this.startScrollTracking();

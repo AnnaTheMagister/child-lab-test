@@ -7,7 +7,7 @@ get_header(); ?>
 <!-- end example react component -->
 
 <?php if (have_posts()) {
-  while(have_posts()) {
+  while (have_posts()) {
     the_post(); ?>
     <div>
       <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
@@ -17,5 +17,10 @@ get_header(); ?>
 }
  get_template_part('template-parts/articles-list/tags-list');
  get_template_part('template-parts/articles-list/articles-list');
+
+
+$next_post = get_next_post();
+echo $next_post->post_title;
+
 
 get_footer();
