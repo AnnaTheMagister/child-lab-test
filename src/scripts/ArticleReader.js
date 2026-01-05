@@ -323,5 +323,5 @@ class ArticleReader {
 
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
-    window.articleReader = new ArticleReader();
+    // window.articleReader = new ArticleReader();
 });

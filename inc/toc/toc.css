@@ -1,0 +1,55 @@
+/* Оглавление */
+.table-of-contents {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--box-shadow-default);
+  max-height: 50%;
+  overflow: auto;
+  margin: 24px 24px 0 0;
+}
+
+.toc-title {
+  font-weight: 500;
+  color: var(--color-primary);
+  line-height: 120%;
+  margin: 0;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: var(--font-size-subtitle-1);
+  font-weight: 500;
+}
+
+.toc-nested {
+  padding-left: 24px;
+  font-size: var(--font-size-subtitle-2);
+  font-weight: 400;
+}
+
+.toc-item .toc-link {
+  color: var(--color-main);
+  text-decoration: none;
+  display: block;
+  padding: 6px 0;
+  transition: color 0.2s;
+}
+
+.toc-nested .toc-item .toc-link {
+  color: var(--color-subtitle-1);
+}
+
+.toc-link:hover, .toc-nested .toc-link:hover {
+  color: var(--color-secondary);
+}
+
+.toc-item.active .toc-link {
+  color: var(--color-primary);
+  font-weight: 600;
+}

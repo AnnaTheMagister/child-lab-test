@@ -13,7 +13,7 @@ body {
   background-color: $bodyBgColor;
   color: $textMainColor;
   font-family: Lora;
-  font-size: 1.9rem;
+  font-size: var(--font-size-default);
   min-height: calc(100vh - 112px);
   margin: 0;
   margin-top: 80px;
