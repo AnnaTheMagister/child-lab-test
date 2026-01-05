@@ -350,11 +350,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function ExampleReactComponent() {
-  const [clickCount, setClickCount] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "example-react-component",
-    onClick: () => setClickCount(prev => prev + 1)
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, "Hello from React!"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "You have clicked on this component ", clickCount, " times."));
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ExampleReactComponent);
 
