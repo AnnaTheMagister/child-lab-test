@@ -1,0 +1,100 @@
+:root {
+  --bg-color__primary: rgba(82, 48, 208, 1);
+  --bg-color__primary-light: rgba(238, 234, 250, 1);
+  --font-family: "Lora";
+  --img-border-radius: 16px;
+  --padding-8: 8px;
+  --avatar-border-color: #fff;
+  --text-color: #333;
+  --text-color__subtitle: #999999;
+  --text-color__title: #111111;
+  --text-color__excerpt: #555555;
+}
+
+.article-card {
+  border-radius: var(--img-border-radius);
+  box-shadow: 4px 4px 4px 0px var(--bg-color__primary-light);
+  height: 266px;
+  width: 266px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.article-card:hover {
+  box-shadow: 4px 4px 8px 0px rgba(34, 30, 80, 0.2);
+  background-color: var(--bg-color__primary-light);
+  cursor: pointer;
+}
+
+.article-img {
+  background-image: url("/77342ede25c57658e4f3ee818cab4da3c9eb03e4.jpg");
+  background-size: cover;
+  background-position: 50%;
+  height: 50%;
+  width: 100%;
+  border-radius: var(--img-border-radius);
+  gap: 8px;
+}
+.article-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+  padding: 8px;
+}
+
+.article-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.article-meta__authors {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.childlab-avatars {
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+}
+
+.childlab-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--avatar-border-color);
+  margin-right: -16px;
+}
+
+.childlab-text {
+  font-family: var(--font-family);
+  font-weight: 500;
+  color: var(--text-color__subtitle);
+  letter-spacing: -2%;
+  line-height: 120%;
+}
+
+.childlab-text__meta {
+  color: var(--text-color__subtitle);
+  font-size: 13px;
+}
+
+.childlab-text__title {
+  color: var(--text-color__title);
+  font-size: 20px;
+}
+
+.childlab-text__subtitle {
+  color: var(--text-color__title);
+  font-size: 16px;
+}
+
+.childlab-text__excerpt {
+  color: var(--text-color__excerpt);
+  font-size: 13px;
+}

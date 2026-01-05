@@ -8,7 +8,6 @@ get_header();
 
 // Получаем текущий режим просмотра
 $GLOBALS['mode'] = get_reading_mode();
-$post_id = get_the_ID();
 ?>
 
 
@@ -21,7 +20,7 @@ $post_id = get_the_ID();
 
         <div class="row">
             <!-- Боковая панель -->
-            <aside class="col-sm-3 article-sidebar">
+            <aside class="col-lg-3 col-md-12 article-sidebar">
                 <!-- Оглавление -->
                 <?php get_template_part('template-parts/article/toc'); ?>
                 <!-- Переключатель режимов -->
@@ -29,7 +28,7 @@ $post_id = get_the_ID();
             </aside>
 
             <!-- Основной контент -->
-            <article class="col-sm-9 article-content-wrapper" data-post-id="<?php echo $post_id; ?>">
+            <article class="col-lg-9 col-md-12 article-content-wrapper" data-post-id="<?php echo $post_id; ?>">
 
                 <!-- Контент в выбранном режиме -->
                 <?php get_template_part('template-parts/article/mode-content'); ?>
@@ -37,33 +36,9 @@ $post_id = get_the_ID();
             </article>
 
         </div>
+        <!-- Подвал статьи с навигацией -->
+        <?php get_template_part('template-parts/article/footer'); ?>
     </div>
-
-
-    <!-- Переключатель режимов (большой) -->
-    <?php
-    // get_template_part('template-parts/article/mode-switcher');
-    ?>
-
-    <!-- Навигация по разделам -->
-    <?php
-    // get_template_part('template-parts/article/navigation');
-    ?>
-
-    <!-- Похожие статьи -->
-    <?php
-    // get_template_part('template-parts/article/related'); 
-    ?>
-
-    <!-- Метаданные -->
-    <?php
-    // get_template_part('template-parts/article/meta');
-    ?>
-
-    <!-- Контент в выбранном режиме -->
-    <?php
-    // get_template_part('template-parts/article/content');
-    ?>
 </main>
 
 
