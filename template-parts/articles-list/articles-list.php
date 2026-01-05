@@ -2,7 +2,6 @@
 
 $posts = get_posts(array(
     'numberposts' => -1,
-    //  'category_name' => 'slider',
     'orderby' => 'date',
     'order' => 'ASC',
     'post_type' => 'article',
@@ -16,14 +15,20 @@ $posts_size = count($posts);
         <h3>Все статьи</h3>
         <button class="articles-button">Сбросить</button>
     </div>
-    <div class="articles-cards">
+    <div class="row">
         <?php
-        // print_r( count($posts));
-        
+
 
 
         foreach ($posts as $key => $post) {
             setup_postdata($post);
+
+            ?>
+            <div class="col-lg-3"><?php the_title(); ?></div>
+
+            <?php
+
+            get_template_part('template-parts/article/meta');
 
             $tags = get_the_terms($post->id, 'methodology_tag');
             //print_r(value: $tags);
@@ -48,34 +53,33 @@ $posts_size = count($posts);
 
                         <div class="article-authors">
                             <div class="article-avatars"><?php
-                                $avatars = get_field('authors');
-                                if (!empty($avatars)) {
-                                    foreach ($avatars as $avatar) {
-
-                                        ?><img src="/<?php echo $avatar['user_avatar']; ?>"
-                                            class="article-avatar-img" /><?php }
-                                } ?>
-                            </div>
-                            <div class="article-author-text">
-                            <?php
                             $avatars = get_field('authors');
                             if (!empty($avatars)) {
                                 foreach ($avatars as $avatar) {
 
-                                    echo (' ' . $avatar['display_name']);
-                                }
-                            } ?> · <?php the_date(); ?>
+                                    ?><img src="/<?php echo $avatar['user_avatar']; ?>" class="article-avatar-img" /><?php }
+                            } ?>
                             </div>
-                            
+                            <div class="article-author-text">
+                                <?php
+                                $avatars = get_field('authors');
+                                if (!empty($avatars)) {
+                                    foreach ($avatars as $avatar) {
+
+                                        echo (' ' . $avatar['display_name']);
+                                    }
+                                } ?> · <?php the_date(); ?>
+                            </div>
+
                         </div>
                         <div class="article-card-big-text ">
-                           <h2><?php the_title(); ?></h2>
+                            <h2><?php the_title(); ?></h2>
                         </div>
                         <div class="article-card-big-text">
                             <?php the_excerpt(); ?>
                         </div>
                         <div class="article-card-big-text">
-                           <p><?php the_content(); ?></p>
+                            <p><?php the_content(); ?></p>
                         </div>
                     </div>
                 </div>
@@ -127,17 +131,17 @@ $posts_size = count($posts);
                                     </div>
                                 </div> · <?php the_date(); ?>
                             </div>
-                           
+
                         </div>
-                         <div class="childlab-text childlab-text__title">
-                                <?php the_title(); ?>
-                            </div>
-                            <div class="childlab-text childlab-text__subtitle">
-                                <?php the_excerpt(); ?>
-                            </div>
-                            <div class="childlab-text childlab-text__excerpt">
-                                <?php the_content(); ?>
-                            </div>
+                        <div class="childlab-text childlab-text__title">
+                            <?php the_title(); ?>
+                        </div>
+                        <div class="childlab-text childlab-text__subtitle">
+                            <?php the_excerpt(); ?>
+                        </div>
+                        <div class="childlab-text childlab-text__excerpt">
+                            <?php the_content(); ?>
+                        </div>
 
 
                     </div>
@@ -337,7 +341,7 @@ $posts_size = count($posts);
                 </div>
 
                 <!-- </td> -->
-                 
+
                 <?php
             }
 

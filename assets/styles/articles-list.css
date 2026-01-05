@@ -11,155 +11,14 @@
   --text-color__excerpt: #555555;
 }
 
-
-.articles {
-/* display: flex;
-flex-direction: column; */
-padding: 32px;
-gap: 32px;
-
-width:auto;
-height:auto;
-
-background-color: #FFFFFF;
-border-radius: 12px 12px 32px 32px;
-
-
-}
-
-.articles-header {
-
-/* Auto layout */
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: space-between;
-padding: 0px;
-gap: 16px;
-width: 100%;
-
-}
-
-.articles-header h3{
- 
-font-family: 'Lora';
-font-style: normal;
-font-weight: 500;
-font-size: 24px;
-line-height: 120%;
-/* identical to box height, or 29px */
-letter-spacing: -0.02em;
-color: #111111;
-
-}
-
-/* button-S */
-.articles-button {
-/* Auto layout */
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 8px 24px;
-
-background: #F8F8F8;
-border-radius: 8px;
-
-font-family: 'Lora';
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 100%;
-/* identical to box height, or 16px */
-letter-spacing: -0.02em;
-
-color: #CCCCCC;
-border-width: 0;
-
-}
-
-.articles-cards {
-/* cards */
-
-/* Auto layout */
-display: flex;
-flex-direction: row;
-align-items: center;
-padding: 0px;
-gap: 32px;
-
-width:auto;
-height: auto;
-
-
-/* Inside auto layout */
-flex: none;
-order: 1;
-flex-grow: 0;
-background-color:rgb(186, 185, 187);
-
-
-}
-
-
-.article-card-big {
-/* article-card */
-
-
-/* display: flex;
-flex-direction: column;
-align-content: flex-start; */
-padding: 5px;
-gap: 12px;
-
-width: 556px;
-
-height: 556px;
-background-color:green;
-}
-.artics-column{
-
-/* Auto layout */
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 0px;
-gap: 32px;
-
-width: 266px;
-height: 556px;
-
-
-}
-
-
-
-.article-card-smoll {
-/* article-card */
-
-
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 0px;
-gap: 12px;
-
-width: 25%;
-height: 266px;
-background-color:aliceblue;
-}
-
-
-.article-card:hover {
- 
-.article-card {
+a.article-card {
   border-radius: var(--img-border-radius);
   box-shadow: 4px 4px 4px 0px var(--bg-color__primary-light);
   height: 266px;
-  width: 266px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  text-decoration: none;
 }
 
 .article-card:hover {
@@ -169,118 +28,6 @@ background-color:aliceblue;
 }
 
 .article-img {
-  /* background-size: cover; */
-  /* background-position: 50%; */
-  height: 50%;
-  width: calc(100%-16px);
-  border-radius: var(--img-border-radius);
-  /* gap: 8px; */
-  padding: 0 10px 0 10px;
-}
-
-.article-tag {
-  color: #ffffff;
-  width: 85px;
-  height: 20px;
-  font-size: 12px;
-  border-radius:10px;
-  display: inline;
-  align-content: center;  
-padding: 0 10px 0 10px;
-
-}
-
-.article-details {
-
-/* Auto layout */
-/* display: flex;
-flex-direction: row;
-align-items: center; */
-float:left;
-padding: 5px;
-gap: 4px;
-
-/* width: 228px; */
-height: 25px;
-background-color:blueviolet;
-align-content:center;
-}
-
-.article-meta {
-  /* display: flex;
-  flex-direction: row;
-  align-items: center;  */
-  /* gap: 12px;*/
-  font-size: 12px;
-}
-
-.article-authors {
-  align-items: center;
-  color:red;
-  display: flex; 
-  flex-direction: row;
-  font-size: 12px;
-}
-
-.articlre-avatars {
- /* avatars */
-
-/* Auto layout */
-/* display: flex; */
-/* flex-direction: row;
-align-items: center; */
-padding: 2px;
-isolation: isolate;
-
-width: 30px;
-height: 20px;
-
-
-}
-
-.article-avatar-img {
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  border: 2px solid #ffffff;
-  margin-right: -16px;
-  isolation: isolate;
-}
-                         
-.article-author-text{
-padding-left: 20px;
- 
-font-family: 'Lora';
-font-style: normal;
-font-weight: 500;
-font-size: 13px;
-line-height: 120%;
-/* identical to box height, or 16px */
-letter-spacing: -0.02em;
-
-color: #999999;
-
-
-
-
-}
-
-.article-card-big-text {
-/* Название статьи */
-
-
-font-family: 'Lora';
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 120%;
-/* identical to box height, or 34px */
-letter-spacing: -0.02em;
-
-color: #111111;
-
-
-
   background-image: url("/77342ede25c57658e4f3ee818cab4da3c9eb03e4.jpg");
   background-size: cover;
   background-position: 50%;
@@ -295,6 +42,7 @@ color: #111111;
   width: 100%;
   gap: 8px;
   padding: 8px;
+  height: 50%;
 }
 
 .article-meta {
@@ -352,7 +100,10 @@ color: #111111;
   font-size: 13px;
 }
 
-
-
-
-
+.truncate-to-2-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Fallback/standard property, though line-clamp includes this behavior */
+}
