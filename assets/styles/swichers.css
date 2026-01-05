@@ -1,7 +1,7 @@
 .swichers {
   width: 166px;
  
-  background-color:rgb(0, 255, 85);
+  background-color:#ffffff;
   height: 271px;
   border-radius: 16px;
   padding: 20px;
@@ -10,7 +10,7 @@
 
 .swichers h2 {
   
-  color :red;
+  color :#5230D0;
   font-size: 16px;
 
 }
@@ -19,7 +19,7 @@
   width:inherit;
   height: 90px;
 gap: 12px;
- background-color:rgb(228, 235, 25);
+ background-color:#ffffff;
 
 }
 
@@ -49,12 +49,12 @@ margin: 2px;
 width: 56px;
 height: 24px;
 border-radius:18px;
-font-size: 12px;
+font-size: 10px;
 display: flex;
 align-self: center;
 justify-content: center;
  border-width: 0;
- background-color:#d6d7af;
+ background-color:#EEEEEE;
 }
 
 .swicher_button_selected {

@@ -3,34 +3,61 @@
 $current_mode = $GLOBALS['mode'];
 ?>
 
-<div class="reading-mode-switcher">
-    <h4>Режим просмотра:</h4>
 
-    <div class="mode-buttons">
-        <!-- Ученые -->
-        <div class="mode-group">
-            <span class="group-label">Для ученых:</span>
+<div class="swichers">
+    <h2>Адаптировать статью</h2>
+    <div class="swicher">
+        <h3>Для педагога</h3>
+        <div class="swicher_bar">
             <a href="?reading_mode=scientist_long"
                 class="mode-btn <?php echo $current_mode == 'scientist_long' ? 'active' : ''; ?>">
-                📄 Полная версия
+                <div class="swicher_button">
+                    <div class="swicher_dot"></div>
+                </div>
             </a>
             <a href="?reading_mode=scientist_short"
                 class="mode-btn <?php echo $current_mode == 'scientist_short' ? 'active' : ''; ?>">
-                📝 Кратко
+                <div class="swicher_button_selected">
+                    <div class="swicher_dot"></div>
+                </div>
             </a>
+
+        </div>
+        <div class="swicher_text">
+            <p>Длинно</p>
+        </div>
+        <div class="swicher_text">
+            <p class="swicher_text_select">Коротко</p>
         </div>
 
-        <!-- Родители -->
-        <div class="mode-group">
-            <span class="group-label">Для родителей:</span>
+    </div>
+    <div class="swicher">
+        <h3>Для родителей</h3>
+        <div class="swicher_bar">
             <a href="?reading_mode=parent_long"
                 class="mode-btn <?php echo $current_mode == 'parent_long' ? 'active' : ''; ?>">
-                👨‍👩‍👧 Полная версия
+                <div class="swicher_button">
+                    <div class="swicher_dot"></div>
+                </div>
             </a>
+
             <a href="?reading_mode=parent_short"
                 class="mode-btn <?php echo $current_mode == 'parent_short' ? 'active' : ''; ?>">
-                👶 Кратко
+
+                <div class="swicher_button_selected">
+                    <div class="swicher_dot"></div>
+                </div>
             </a>
         </div>
+        <div class="swicher_text">
+            <p>Длинно</p>
+        </div>
+        <div class="swicher_text">
+            <p class="swicher_text_select">Коротко</p>
+        </div>
+
     </div>
+
+
+
 </div>
