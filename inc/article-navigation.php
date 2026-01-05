@@ -83,7 +83,7 @@ function get_prev_article()
     $next_post = get_next_article();
 
     if (empty($prev_post)) {
-        $prev_post = current(get_related_articles(null, 1, [$next_post->ID]));
+        $prev_post = current(get_related_articles(null, 1, $next_post ? [$next_post->ID] : []));
     }
 
     return $prev_post;

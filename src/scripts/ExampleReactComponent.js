@@ -1,7 +1,7 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 
 function ExampleReactComponent() {
   return <></>
 }
 
-export default ExampleReactComponent
+export default ExampleReactComponent;
