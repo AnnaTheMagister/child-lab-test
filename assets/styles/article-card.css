@@ -14,7 +14,7 @@
 a.article-card {
   border-radius: var(--img-border-radius);
   box-shadow: 4px 4px 4px 0px var(--bg-color__primary-light);
-  height: 266px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -28,7 +28,7 @@ a.article-card {
 }
 
 .article-img {
-  background-image: url("/77342ede25c57658e4f3ee818cab4da3c9eb03e4.jpg");
+  background: linear-gradient(#ff0000, blue);
   background-size: cover;
   background-position: 50%;
   height: 50%;
@@ -43,6 +43,7 @@ a.article-card {
   gap: 8px;
   padding: 8px;
   height: 50%;
+  box-sizing: border-box;
 }
 
 .article-meta {
@@ -98,4 +99,10 @@ a.article-card {
 .childlab-text__excerpt {
   color: var(--text-color__excerpt);
   font-size: 13px;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
