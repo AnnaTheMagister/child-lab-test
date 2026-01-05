@@ -20,6 +20,7 @@ add_action('wp_enqueue_scripts', 'boilerplate_load_assets');
 
 require_once get_template_directory() . '/inc/toc/toc-support.php';
 require_once get_template_directory() . '/inc/article-navigation.php';
+require_once get_template_directory() . '/inc/article-data.php';
 
 function boilerplate_add_support()
 {
