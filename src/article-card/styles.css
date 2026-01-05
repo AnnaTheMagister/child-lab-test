@@ -11,6 +11,7 @@
   --text-color__excerpt: #555555;
 }
 
+
 .article-card {
   border-radius: var(--img-border-radius);
   box-shadow: 4px 4px 4px 0px var(--bg-color__primary-light);
@@ -20,6 +21,9 @@
   flex-direction: column;
   gap: 12px;
 }
+
+
+
 
 .article-card:hover {
   box-shadow: 4px 4px 8px 0px rgba(34, 30, 80, 0.2);
@@ -101,3 +105,6 @@
   color: var(--text-color__excerpt);
   font-size: 13px;
 }
+
+
+

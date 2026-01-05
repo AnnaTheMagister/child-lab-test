@@ -1,3 +1,4 @@
+<?php
 add_action( 'acf/include_fields', function() {
 	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
 		return;
@@ -107,7 +108,7 @@ add_action( 'acf/include_fields', function() {
 			),
 			'role' => '',
 			'return_format' => 'array',
-			'multiple' => 0,
+			'multiple' => 1,
 			'allow_null' => 0,
 			'allow_in_bindings' => 0,
 			'bidirectional' => 0,
@@ -270,4 +271,5 @@ add_action( 'init', function() {
 	'delete_with_user' => false,
 ) );
 } );
+?>
 
