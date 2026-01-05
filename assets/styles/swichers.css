@@ -1,0 +1,98 @@
+.swichers {
+  width: 166px;
+ 
+  background-color:rgb(0, 255, 85);
+  height: 271px;
+  border-radius: 16px;
+  padding: 20px;
+  gap: 20px;
+}
+
+.swichers h2 {
+  
+  color :red;
+  font-size: 16px;
+
+}
+
+.swicher{
+  width:inherit;
+  height: 90px;
+gap: 12px;
+ background-color:rgb(228, 235, 25);
+
+}
+
+.swicher h3 {
+  font: normal 100% 'trebuchet ms', sans-serif;
+
+  height: 20px;
+  padding: 6px 35px 5px 28px;
+  color: #999999;
+
+  font-size: 12px;
+
+}
+
+.swicher_bar {
+width: 128px;
+border-radius:20px;
+padding: 4px;
+gap: 8px;
+background-color:#EEEEEE;
+display: flex;
+margin: 2px;
+
+}
+
+.swicher_button, .swicher_button_selected {
+width: 56px;
+height: 24px;
+border-radius:18px;
+font-size: 12px;
+display: flex;
+align-self: center;
+justify-content: center;
+ border-width: 0;
+ background-color:#d6d7af;
+}
+
+.swicher_button_selected {
+
+background-color:#876BEE;
+
+}
+.swicher_text{
+  width: 64px;
+display:inline;
+align-self: center;
+padding: 4px;
+gap: 8px;
+
+}
+.swicher_text p {
+  display:ruby;
+  font-size: 12px;
+  width: 56px;
+  color: #5230D0;
+}
+
+.swicher_text_select {
+  display:flex;
+  font-size: 12px;
+  width: 56px;
+  color:#5230D0;
+  font-weight:bolder;
+}
+
+
+.swicher_dot{
+width: 6px;
+height: 6px;
+background-color:#BBBBBB;
+border-radius: 3px;
+display: flex;
+align-self: center;
+justify-content: center;
+
+}
