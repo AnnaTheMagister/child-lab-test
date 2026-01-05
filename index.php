@@ -16,11 +16,8 @@ get_header(); ?>
   <?php }
 }
  get_template_part('template-parts/articles-list/tags-list');
- get_template_part('template-parts/articles-list/articles-list');
+ get_template_part('template-parts/articles-list/articles');
 
-
-$next_post = get_next_post();
-echo $next_post->post_title;
 
 
 get_footer();
