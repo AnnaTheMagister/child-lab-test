@@ -4,7 +4,7 @@ if ($tags && !is_wp_error($tags)):
     ?>
     <div class="container">
         <div class="main-tags-list">
-            <a href="" class="main-methodology-tag" style="background-color: rgba(138, 214, 80, 1);">
+            <a href="?methodology_tag=-1" class="main-methodology-tag" style="background-color: rgba(138, 214, 80, 1);">
                 Все
             </a>
             <?php foreach ($tags as $tag): ?>

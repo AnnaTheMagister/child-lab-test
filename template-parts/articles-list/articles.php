@@ -2,21 +2,35 @@
 
 $current_tag = get_methodology_tag();
 
-$posts = get_posts(array(
-    'numberposts' => -1,
-    'orderby' => 'date',
-    'order' => 'ASC',
-    'post_type' => 'article',
-    'tax_query' => [
-        [
-            'taxonomy' => 'methodology_tag',
-            'field' => 'id',
-            'terms' => [$current_tag],
-            'operator' => 'IN'
-        ]
-    ],
-    'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
-));
+if ($current_tag == '-1') {
+    $posts = get_posts(array(
+        'numberposts' => -1,
+        'orderby' => 'date',
+        'order' => 'ASC',
+        'post_type' => 'article',
+
+        'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
+    ));
+} else {
+
+    $posts = get_posts(array(
+        'numberposts' => -1,
+        'orderby' => 'date',
+        'order' => 'ASC',
+        'post_type' => 'article',
+        'tax_query' => [
+            [
+                'taxonomy' => 'methodology_tag',
+                'field' => 'id',
+                'terms' => [$current_tag],
+                'operator' => 'IN'
+            ]
+        ],
+        'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
+    ));
+}
+;
+
 $posts_size = count($posts);
 ?>
 
@@ -24,7 +38,7 @@ $posts_size = count($posts);
 <div class="container">
     <div class="childlab-widget">
         <header class="articles-header">
-            <?php echo $current_tag ? "Статьи по теме " . (get_term($current_tag)->name) : "Все статьи" ?>
+            <!-- <?php echo $current_tag ? "Статьи по теме " . (get_term($current_tag)->name) : "Все статьи" ?> -->
 
         </header>
         <?php foreach ($posts as $key => $post): ?>
