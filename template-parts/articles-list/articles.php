@@ -1,28 +1,47 @@
 <?php
 
+$current_tag = get_methodology_tag();
+
 $posts = get_posts(array(
     'numberposts' => -1,
     'orderby' => 'date',
     'order' => 'ASC',
     'post_type' => 'article',
+    'tax_query' => [
+        [
+            'taxonomy' => 'methodology_tag',
+            'field' => 'id',
+            'terms' => [$current_tag],
+            'operator' => 'IN'
+        ]
+    ],
     'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
 ));
 $posts_size = count($posts);
 ?>
 
-<div class="container">
 
-    <?php foreach ($posts as $key => $post): ?>
-        <?php setup_postdata($post); ?>
-        <?php if ($key % 4 == 0): ?>
-            <div class="row">
+<div class="container">
+    <div class="childlab-widget">
+        <header class="articles-header">
+            <?php echo $current_tag ? "Статьи по теме " . (get_term($current_tag)->name) : "Все статьи" ?>
+
+        </header>
+        <?php foreach ($posts as $key => $post): ?>
+            <?php setup_postdata($post); ?>
+            <?php if ($key % 4 == 0): ?>
+                <div class="row">
+                <?php endif; ?>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <?php get_template_part('template-parts/articles-list/article-card'); ?>
+                </div>
+                <?php if ($key % 4 == 3 || $key == $posts_size - 1): ?>
+                </div>
             <?php endif; ?>
-            <div class="col-lg-3 col-md-6 col-sm-12">
-                <?php get_template_part('template-parts/articles-list/article-card'); ?>
-            </div>
-            <?php if ($key % 4 == 3): ?>
-            </div>
-        <?php endif; ?>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
 </div>
-</div>
+
+<?php
+wp_reset_postdata(); // сброс
+?>
