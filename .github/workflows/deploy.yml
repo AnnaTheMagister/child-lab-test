@@ -1,0 +1,40 @@
+name: 🚀 Deploy WordPress Theme via FTP
+
+on:
+  push:
+    branches: ["main"] # Запускается только при пуше в ветку main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Получаем код из репозитория
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Устанавливаем Node.js (требуется для FTP-клиента lftp)
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      # 3. Устанавливаем мощный FTP-клиент lftp
+      - name: 📦 Install LFTP
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      # 4. Синхронизируем файлы с хостингом
+      - name: 📤 Sync files to FTP server
+        run: |
+          lftp -e "
+            set ftp:ssl-allow no;
+            set ssl:verify-certificate no;
+            open ${{ secrets.FTP_HOST }};
+            user ${{ secrets.FTP_USERNAME }} '${{ secrets.FTP_PASSWORD }}';
+            mirror --reverse --verbose --delete \
+                   --ignore-time \
+                   --exclude-glob .git/ \
+                   --exclude-glob .github/ \
+                   ./ ${{ secrets.REMOTE_PATH }};
+            bye;
+          "
