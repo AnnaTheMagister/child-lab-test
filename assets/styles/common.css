@@ -1,0 +1,6 @@
+.childlab-widget {
+  padding: 32px;
+  border-radius: 32px;
+  background-color: #fff;
+  box-shadow: var(--box-shadow-default);
+}

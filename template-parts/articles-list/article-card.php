@@ -1,6 +1,6 @@
 <a class="article-card" href="<?php the_permalink(); ?>">
     <div class="article-img" style="background-image: url('<?php the_post_thumbnail_url(); ?>');">
-        <div class="article-tags"></div>
+        <?php get_template_part('template-parts/article/tags'); ?>
     </div>
     <div class="article-details">
         <div class="article-meta childlab-text childlab-text__meta">
