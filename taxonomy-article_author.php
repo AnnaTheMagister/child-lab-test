@@ -6,7 +6,6 @@
 
 get_header();
 
+get_template_part('template-parts/team/author-section');
 
-?>
-<div>Член команды</div>
-<?php get_footer(); ?>
+get_footer(); ?>
