@@ -16,6 +16,7 @@ function boilerplate_load_assets()
   // wp_enqueue_style('ourarticlecss', get_theme_file_uri('/assets/styles/articles-list.css'));
   wp_enqueue_style('ourarticleswicherscss', get_theme_file_uri('/assets/styles/swichers.css'));
   wp_enqueue_style('teamcss', get_theme_file_uri('/assets/styles/team.css'));
+  wp_enqueue_style('methodologytagscss', get_theme_file_uri('/assets/styles/methodology-tags.css'));
 }
 
 add_action('wp_enqueue_scripts', 'boilerplate_load_assets');
@@ -37,3 +38,4 @@ function boilerplate_add_support()
 add_action('after_setup_theme', 'boilerplate_add_support');
 
 
+$GLOBALS['default_image'] = get_template_directory_uri() . '/assets/images/default-image.jfif';

@@ -47,11 +47,13 @@ function add_anchor_ids_to_headings($content)
 function generate_table_of_contents($content)
 {
     $matches = get_headings_match($content);
+    $toc = '<nav class="table-of-contents" aria-label="Содержание">';
+
     if (empty($matches)) {
-        return '<div class="toc-empty">В этой статье нет разделов</div>';
+        return $toc . '<div class="toc-empty">В этой статье нет разделов</div></div>';
     }
 
-    $toc = '<nav class="table-of-contents" aria-label="Содержание">';
+
     $toc .= '<h4 class="toc-title">Содержание</h4>';
 
     $current_level = null;

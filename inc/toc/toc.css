@@ -2,14 +2,15 @@
 .table-of-contents {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  background: white;
-  border-radius: 16px;
-  padding: 20px;
+  gap: var(--size-lg);
+  padding: var(--size-lg);
+  border-radius: var(--border-radius-widget);
+  background-color: var(--bg-color-default);
   box-shadow: var(--box-shadow-default);
   max-height: 50%;
   overflow: auto;
-  margin: 24px 24px 0 0;
+  margin: var(--size-xlg);
+  margin-left: 0;
 }
 
 .toc-title {
@@ -23,18 +24,18 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: var(--font-size-subtitle-1);
+  font-size: large;
   font-weight: 500;
 }
 
 .toc-nested {
   padding-left: 24px;
-  font-size: var(--font-size-subtitle-2);
+  font-size: medium;
   font-weight: 400;
 }
 
 .toc-item .toc-link {
-  color: var(--color-main);
+  color: var(--color-subtitle-1);
   text-decoration: none;
   display: block;
   padding: 6px 0;
@@ -42,7 +43,7 @@
 }
 
 .toc-nested .toc-item .toc-link {
-  color: var(--color-subtitle-1);
+  color: var(--color-subtitle-2);
 }
 
 .toc-link:hover, .toc-nested .toc-link:hover {

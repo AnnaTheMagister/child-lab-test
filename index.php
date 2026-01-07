@@ -15,7 +15,7 @@ get_header(); ?>
     </div>
   <?php }
 }
-get_template_part('template-parts/articles-list/tags-list');
+get_template_part('template-parts/articles-list/methodology-tags-menu');
 get_template_part('template-parts/articles-list/articles');
 
 
