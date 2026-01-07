@@ -125,24 +125,15 @@ a.article-card {
 }
 
 .main-tags-list {
-  display: flex;
-  justify-content: space-between;
-  height: 12vh;
   margin: 2rem 0;
-  gap: 2rem;
 }
 
 .main-tags-list a.main-methodology-tag {
-  margin: auto;
-  height: 100%;
-  width: 100%;
-  padding: 8px 12px;
-  border-radius: var(--img-border-radius);
   color: white;
-  text-decoration: none;
-  opacity: 1; /* Полностью непрозрачный */
-  text-align: center;
-  transition: opacity 0.3s ease; /* Плавный переход за 0.3 секунды */
+  display: flex;
+  height: 5rem;
+  align-items: end;
+  justify-content: center;
 }
 
 /* При наведении */

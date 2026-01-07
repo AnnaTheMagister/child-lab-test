@@ -6,10 +6,10 @@
   box-shadow: var(--box-shadow-default);
 }
 
-a.childlab-card-link {
+a.childlab-card-link, a.childlab-card-link:link {
   height: 100%;
   width: 100%;
-  color: initial !important;
+  color: initial;
   text-decoration: none;
   transition: opacity 0.3s ease; /* Плавный переход за 0.3 секунды */
 }
