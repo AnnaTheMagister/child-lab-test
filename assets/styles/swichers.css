@@ -1,18 +1,22 @@
 .swichers {
-  width: 166px;
-
-  background-color: #ffffff;
-  height: 271px;
-  border-radius: 16px;
-  padding: 20px;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-lg);
+  padding: var(--size-lg);
+  border-radius: var(--border-radius-widget);
+  background-color: var(--bg-color-default);
+  box-shadow: var(--box-shadow-default);
+  max-height: 38vh;
+  overflow: hidden;
+  margin: var(--size-xlg);
+  margin-left: 0;
 }
 
-.swichers h2 {
-
-  color: #5230D0;
-  font-size: 16px;
-
+.swichers-title {
+  font-weight: 500;
+  color: var(--color-primary);
+  line-height: 120%;
+  margin: 0;
 }
 
 .swicher {
@@ -20,18 +24,12 @@
   height: 90px;
   gap: 12px;
   background-color: #ffffff;
-
 }
 
-.swicher h3 {
-  font: normal 100% 'trebuchet ms', sans-serif;
-
-  height: 20px;
-  padding: 6px 35px 5px 28px;
-  color: #999999;
-
-  font-size: 12px;
-
+.swicher__label {
+  color: var(--color-label);
+  font-size: medium;
+  margin-bottom: var(--size-md);
 }
 
 .swicher_bar {
@@ -39,10 +37,9 @@
   border-radius: 20px;
   padding: 4px;
   gap: 8px;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   display: flex;
   margin: 2px;
-
 }
 
 .swicher_button,
@@ -55,13 +52,11 @@
   align-self: center;
   justify-content: center;
   border-width: 0;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
 }
 
 .swicher_button_selected {
-
-  background-color: #876BEE;
-
+  background-color: #876bee;
 }
 
 .swicher_text {
@@ -70,14 +65,13 @@
   align-self: center;
   padding: 4px;
   gap: 8px;
-
 }
 
 .swicher_text p {
   display: ruby;
   font-size: 10px;
   width: 56px;
-  color: #5230D0;
+  color: #5230d0;
 }
 
 .swicher_text_selected {
@@ -86,7 +80,7 @@
   align-self: center;
   padding: 4px;
   gap: 8px;
-  color: #5230D0;
+  color: #5230d0;
   font-weight: bolder;
 }
 
@@ -94,16 +88,15 @@
   display: ruby;
   font-size: 10px;
   width: 56px;
-  color: #5230D0;
+  color: #5230d0;
 }
 
 .swicher_dot {
   width: 6px;
   height: 6px;
-  background-color: #BBBBBB;
+  background-color: #bbbbbb;
   border-radius: 3px;
   display: flex;
   align-self: center;
   justify-content: center;
-
 }

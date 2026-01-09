@@ -1,13 +1,48 @@
 :root {
-  --color-main: background: rgba(17, 17, 17, 1);
-  --color-subtitle-1: rgba(17, 17, 17, 0.6);
-  --color-subtitle-2: rgba(17, 17, 17, 0.2);
-  --color-primary: rgba(82, 48, 208, 1);
+  --black: rgba(17, 17, 17, 1); /* #111111 */
+  --white: rgba(255, 255, 255, 1);
+  --purple: rgba(82, 48, 208, 1);
+  --dark-grey-1: rgba(153, 153, 153, 1); /* #999999 */
+  --dark-grey-2: rgba(85, 85, 85, 1); /* #555555 */
+
+  --size-xxs: 4px;
+  --size-xs: 8px;
+  --size-sm: 12px;
+  --size-md: 16px;
+  --size-lg: 20px;
+  --size-xlg: 24px;
+
+  /* Цвет текста */
+  --color-default: var(--dark-grey-1);
+  --color-title: var(--black);
+  --color-subtitle-1: var(--black);
+  --color-subtitle-2: var(--dark-grey-2);
+  --color-meta: var(--dark-grey-2);
+  --color-tag: var(--white);
+  --color-label: var(--dark-grey-1);
+  --color-primary: var(--purple);
   --color-secondary: rgba(121, 85, 249, 1);
-  --box-shadow-default: 4px 4px 8px 0px rgba(34, 30, 80, 0.2);
+
+  /* Размер текста */
   --font-size-default: 1.4rem; /* 16px */
   --font-size-subtitle-1: 1.3rem; /* 14px */
   --font-size-subtitle-2: 1.2rem; /* 12px */
   --font-size-title-1: 2.8rem; /* 48px */
   --font-size-title-1: 2.4rem; /* 24px */
+
+  /* Цвет фона */
+  --bg-color-default: var(white);
+  --bg-color-primary: var(--color-primary);
+
+  /* Отступы */
+  --padding-xs: 1rem;
+  --padding-sm: 1.4rem;
+  --padding-md: 2rem; /* 32px */
+  --padding-lg: 2.4rem;
+  --padding-xlg: 2.8rem;
+
+  /* Границы */
+  --border-radius-img: 1.4rem; /* 16px */
+  --border-radius-widget: 2rem; /* 32px */
+  --box-shadow-default: 4px 4px 8px 0px rgba(34, 30, 80, 0.2);
 }

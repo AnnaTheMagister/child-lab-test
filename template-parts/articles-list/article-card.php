@@ -1,18 +1,20 @@
+<?php $post_image_url = empty(get_the_post_thumbnail_url()) ? $GLOBALS['default_image'] : get_the_post_thumbnail_url(); ?>
+
 <a class="article-card" href="<?php the_permalink(); ?>">
-    <div class="article-img" style="background-image: url('<?php the_post_thumbnail_url(); ?>');">
-        <?php get_template_part('template-parts/article/tags'); ?>
+    <div class="article-img" style="background-image: url('<?php echo $post_image_url; ?>');">
+        <?php get_template_part('template-parts/article/article-tags'); ?>
     </div>
     <div class="article-details">
-        <div class="article-meta childlab-text childlab-text__meta">
+        <div class="article-meta childlab-text__meta">
             <?php get_template_part('template-parts/article/meta'); ?>
         </div>
-        <div class="childlab-text childlab-text__title truncate">
+        <div class="article-details__title truncate">
             <?php echo the_title(); ?>
         </div>
-        <div class="childlab-text childlab-text__subtitle truncate">
+        <div class="article-details__subtitle truncate">
             <?php the_field('subtitle'); ?>
         </div>
-        <div class="childlab-text childlab-text__excerpt truncate">
+        <div class="article-details__excerpt truncate-multiline">
             <?php echo the_excerpt(); ?>
         </div>
     </div>

@@ -1,0 +1,44 @@
+/* Список тегов на карточке и в теле статьи */
+.article-tags {
+  display: flex;
+  flex-direction: row;
+  gap: var(--size-xs);
+  margin: var(--size-xs);
+  flex-flow: wrap;
+}
+
+.article-tags__tag {
+  display: block;
+  padding: var(--size-xs) var(--size-sm);
+  border-radius: var(--border-radius-img);
+  color: var(--white);
+  font-size: smaller;
+  max-width: 100%;
+}
+
+.article-card .article-tags {
+  gap: var(--size-xxs);
+}
+
+.article-card .article-tags__tag {
+  font-size: small;
+  padding: var(--size-xxs) var(--size-xs);
+}
+
+/* Основное мею с тегами на главной странице */
+.methodology-tags-menu {
+  margin: var(--size-sm) 0;
+}
+
+.methodology-tags-menu a.methodology-tags-menu__tag {
+  color: var(--white);
+  display: flex;
+  height: 8vh;
+  align-items: end;
+  justify-content: center;
+}
+
+/* При наведении */
+.methodology-tags-menu a.methodology-tags-menu__tag:hover {
+  opacity: 0.6; /* Становится на 60% непрозрачным */
+}

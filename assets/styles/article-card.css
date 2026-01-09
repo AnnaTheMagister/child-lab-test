@@ -1,47 +1,39 @@
 :root {
-  --bg-color__primary: rgba(82, 48, 208, 1);
-  --bg-color__primary-light: rgba(238, 234, 250, 1);
-  --font-family: "Lora";
-  --img-border-radius: 16px;
-  --padding-8: 8px;
-  --avatar-border-color: #fff;
-  --text-color: #333;
   --text-color__subtitle: #999999;
   --text-color__title: #111111;
   --text-color__excerpt: #555555;
 }
 
 a.article-card {
-  border-radius: var(--img-border-radius);
-  box-shadow: 4px 4px 4px 0px var(--bg-color__primary-light);
-  height: 300px;
+  border-radius: var(--border-radius-img);
+  box-shadow: var(--box-shadow-default);
+  height: 38vh;
   display: flex;
   flex-direction: column;
-  gap: 12px;
   text-decoration: none;
+  margin: var(--size-sm) 0;
+  transition: opacity 0.3s ease; /* Плавный переход за 0.3 секунды */
 }
 
 .article-card:hover {
-  box-shadow: 4px 4px 8px 0px rgba(34, 30, 80, 0.2);
-  background-color: var(--bg-color__primary-light);
-  cursor: pointer;
+  opacity: 0.6;
 }
 
 .article-img {
-  background: linear-gradient(#ff0000, blue);
+  background: linear-gradient(var(--bg-color-primary), var(--bg-color-default));
   background-size: cover;
   background-position: 50%;
   height: 50%;
   width: 100%;
-  border-radius: var(--img-border-radius);
-  gap: 8px;
+  border-radius: var(--border-radius-img);
 }
+
 .article-details {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 8px;
-  padding: 8px;
+  gap: var(--size-xs);
+  padding: var(--size-xs);
   height: 50%;
   box-sizing: border-box;
 }
@@ -50,13 +42,21 @@ a.article-card {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 12px;
+  gap: var(--size-xs);
 }
 
 .article-meta__authors {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.article-card .article-meta__authors-names {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds the ellipsis (...) */
 }
 
 .childlab-avatars {
@@ -69,74 +69,30 @@ a.article-card {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 2px solid var(--avatar-border-color);
+  border: 2px solid var(--white);
   margin-right: -16px;
 }
 
 .childlab-text {
-  font-family: var(--font-family);
   font-weight: 500;
-  color: var(--text-color__subtitle);
-  letter-spacing: -2%;
-  line-height: 120%;
+  color: var(--color-subtitle-2);
 }
 
-.childlab-text__meta {
-  color: var(--text-color__subtitle);
-  font-size: 13px;
+.article-details__title {
+  color: var(--color-title);
+  font-size: larger;
 }
 
-.childlab-text__title {
-  color: var(--text-color__title);
-  font-size: 20px;
+.article-details__subtitle {
+  color: var(--color-subtitle-1);
+  font-size: large;
 }
 
-.childlab-text__subtitle {
-  color: var(--text-color__title);
-  font-size: 16px;
+.article-details__excerpt {
+  color: var(--color-default);
+  font-size: medium;
 }
 
-.childlab-text__excerpt {
-  color: var(--text-color__excerpt);
-  font-size: 13px;
-}
-
-.truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.tags-list {
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
-  margin: 8px;
-}
-
-.methodology-tag {
-  display: block;
-  padding: 8px 12px;
-  border-radius: var(--img-border-radius);
-}
-.tags-list .methodology-tag {
-  color: white;
-  font-size: 1rem;
-}
-
-.main-tags-list {
-  margin: 2rem 0;
-}
-
-.main-tags-list a.main-methodology-tag {
-  color: white;
-  display: flex;
-  height: 5rem;
-  align-items: end;
-  justify-content: center;
-}
-
-/* При наведении */
-.main-tags-list a.main-methodology-tag:hover {
-  opacity: 0.6; /* Становится на 60% непрозрачным */
+.article-details__excerpt p {
+  margin: 0;
 }
