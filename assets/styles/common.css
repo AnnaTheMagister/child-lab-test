@@ -75,3 +75,12 @@ a.childlab-card-link:hover .childlab-image {
   color: var(--color-meta);
   font-size: smaller;
 }
+
+
+.not-found-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-xlg);
+  margin: var(--size-xlg) auto;
+  align-items: center;
+}

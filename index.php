@@ -6,18 +6,19 @@ get_header(); ?>
 <div id="render-react-example-here"></div>
 <!-- end example react component -->
 
-<?php if (have_posts()) {
-  while (have_posts()) {
-    the_post(); ?>
-    <div>
-      <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-      <?php the_content(); ?>
-    </div>
-  <?php }
-}
-get_template_part('template-parts/articles-list/methodology-tags-menu');
-get_template_part('template-parts/articles-list/articles');
+<div class="container">
+  <?php if (have_posts()) {
+    while (have_posts()) {
+      the_post(); ?>
+      <div>
+        <h3><?php the_title(); ?></h3>
+          <?php the_content(); ?>
+      </div>
+    <?php }
+  }
+  ?>
+</div>
 
-
-
+<?php
 get_footer();
+?>
