@@ -17,6 +17,8 @@ function boilerplate_load_assets()
   wp_enqueue_style('ourarticleswicherscss', get_theme_file_uri('/assets/styles/swichers.css'));
   wp_enqueue_style('teamcss', get_theme_file_uri('/assets/styles/team.css'));
   wp_enqueue_style('methodologytagscss', get_theme_file_uri('/assets/styles/methodology-tags.css'));
+  wp_enqueue_style('projectscss', get_theme_file_uri('/assets/styles/projects.css'));
+
 }
 
 add_action('wp_enqueue_scripts', 'boilerplate_load_assets');
