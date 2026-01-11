@@ -1,4 +1,5 @@
 <?php
+
 add_action('acf/include_fields', function () {
 	if (!function_exists('acf_add_local_field_group')) {
 		return;
@@ -272,6 +273,53 @@ add_action('acf/include_fields', function () {
 	));
 
 	acf_add_local_field_group(array(
+		'key' => 'group_6963e16735f95',
+		'title' => 'Проект поля',
+		'fields' => array(
+			array(
+				'key' => 'field_6963e169b70e1',
+				'label' => 'Краткое описание',
+				'name' => 'project_description',
+				'aria-label' => '',
+				'type' => 'wysiwyg',
+				'instructions' => '',
+				'required' => 1,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'allow_in_bindings' => 0,
+				'tabs' => 'all',
+				'toolbar' => 'full',
+				'media_upload' => 1,
+				'delay' => 0,
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'projects',
+				),
+			),
+		),
+		'menu_order' => 0,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => true,
+		'description' => '',
+		'show_in_rest' => 0,
+		'display_title' => '',
+	));
+
+	acf_add_local_field_group(array(
 		'key' => 'group_69584e787f669',
 		'title' => 'Раздел методологии поля',
 		'fields' => array(
@@ -479,5 +527,6 @@ add_action('init', function () {
 		'delete_with_user' => false,
 	));
 });
+
 
 ?>
