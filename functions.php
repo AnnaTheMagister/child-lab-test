@@ -40,4 +40,19 @@ function boilerplate_add_support()
 add_action('after_setup_theme', 'boilerplate_add_support');
 
 
+
+
+
+function my_override_404()
+{
+  // Conditions required for overriding 404
+  if (is_home() && isset($_GET['methodology_tag'])) {
+    global $wp_query;
+    $wp_query->is_404 = false;
+  }
+}
+add_action('init', 'my_override_404');
+
+
 $GLOBALS['default_image'] = get_template_directory_uri() . '/assets/images/default-image.jfif';
+$GLOBALS['unknown_user_image'] = get_template_directory_uri() . '/assets/images/unknown_user.png';

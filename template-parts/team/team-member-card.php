@@ -1,13 +1,13 @@
 <?php
 if (isset($_SESSION['team_member'])) {
     $member = $_SESSION['team_member'];
-    $photo = get_field('photo', $member);
+    $photo = empty(get_field('photo', $member)) ? $GLOBALS['unknown_user_image'] : get_field('photo', $member);
     $name = get_field('first_name', $member) . ' ' . get_field('last_name', $member);
     $bio = get_field('bio', $member);
     ?>
 
 
-    <a href="?article_author=<?php echo $member->term_id; ?>" class="childlab-widget childlab-card-link author-card">
+    <a href="<?php echo get_site_url(); ?>/article_author/<?php echo $member->slug; ?>" class="childlab-widget childlab-card-link author-card">
         <div class="square-container">
             <img src="<?php echo $photo; ?>" alt="<?php echo $name; ?>" class="childlab-image square-content" />
         </div>
