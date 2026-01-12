@@ -2,12 +2,42 @@
   margin: 2rem auto;
 }
 
+.authors-list .flex-row-center {
+  height: 40vh;
+}
+
 .author-card {
-  width: 25%;
+  width: 25% !important;
 }
 
 .author-card__info {
-    text-align: center;
-    margin-top: 1rem;
-    height: 8rem;
+  text-align: center;
+  margin-top: 1rem;
+  height: 8rem;
+}
+
+.author-details {
+  display: flex;
+  flex-direction: row;
+  gap: var(--size-xlg);
+  margin: var(--size-xlg) 0;
+}
+
+.author-details__photo .childlab-image {
+  border-radius: var(--border-radius-img);
+}
+
+.author-name {
+  font-size: x-large;
+  color: var(--color-title);
+}
+
+.author-bio {
+  font-size: larger;
+  color: var(--color-subtitle-1);
+}
+
+.author-details__description {
+  font-size: large;
+  color: var(--color-default);
 }

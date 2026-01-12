@@ -4,7 +4,7 @@ if ($tags && !is_wp_error($tags)):
     ?>
     <div class="container">
         <div class="flex-row-center methodology-tags-menu">
-            <a href="?methodology_tag=-1" class="childlab-widget childlab-card-link methodology-tags-menu__tag"
+            <a href="<?php echo get_site_url()?>/?methodology_tag=-1" class="childlab-widget childlab-card-link methodology-tags-menu__tag"
                 style="background-color: rgba(138, 214, 80, 1);">
                 Все
             </a>
