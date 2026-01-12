@@ -50,7 +50,7 @@ function generate_table_of_contents($content)
     $toc = '<nav class="table-of-contents" aria-label="Содержание">';
 
     if (empty($matches)) {
-        return $toc . '<div class="toc-empty">В этой статье нет разделов</div></div>';
+        return $toc . '<div class="toc-empty">В этой статье нет разделов</div></nav>';
     }
 
 

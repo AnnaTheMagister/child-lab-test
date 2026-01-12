@@ -4,6 +4,7 @@ if (isset($_SESSION['team_member'])) {
     $photo = empty(get_field('photo', $member)) ? $GLOBALS['unknown_user_image'] : get_field('photo', $member);
     $name = get_field('first_name', $member) . ' ' . get_field('last_name', $member);
     $bio = get_field('bio', $member);
+    // print_r($member);
     ?>
 
 

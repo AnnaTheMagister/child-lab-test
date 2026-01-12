@@ -1,4 +1,4 @@
-.swichers {
+.switchers {
   display: flex;
   flex-direction: column;
   gap: var(--size-lg);
@@ -12,27 +12,27 @@
   margin-left: 0;
 }
 
-.swichers-title {
+.switchers-title {
   font-weight: 500;
   color: var(--color-primary);
   line-height: 120%;
   margin: 0;
 }
 
-.swicher {
+.switcher {
   width: inherit;
   height: 90px;
   gap: 12px;
   background-color: #ffffff;
 }
 
-.swicher__label {
+.switcher__label {
   color: var(--color-label);
   font-size: medium;
   margin-bottom: var(--size-md);
 }
 
-.swicher_bar {
+.switcher_bar {
   width: 128px;
   border-radius: 20px;
   padding: 4px;
@@ -42,8 +42,8 @@
   margin: 2px;
 }
 
-.swicher_button,
-.swicher_button_selected {
+.switcher_button,
+.switcher_button_selected {
   width: 56px;
   height: 24px;
   border-radius: 18px;
@@ -55,11 +55,11 @@
   background-color: #eeeeee;
 }
 
-.swicher_button_selected {
+.switcher_button_selected {
   background-color: #876bee;
 }
 
-.swicher_text {
+.switcher_text {
   width: 64px;
   display: inline;
   align-self: center;
@@ -67,14 +67,14 @@
   gap: 8px;
 }
 
-.swicher_text p {
+.switcher_text p {
   display: ruby;
   font-size: 10px;
   width: 56px;
   color: #5230d0;
 }
 
-.swicher_text_selected {
+.switcher_text_selected {
   width: 64px;
   display: inline;
   align-self: center;
@@ -84,14 +84,14 @@
   font-weight: bolder;
 }
 
-.swicher_text_selected p {
+.switcher_text_selected p {
   display: ruby;
   font-size: 10px;
   width: 56px;
   color: #5230d0;
 }
 
-.swicher_dot {
+.switcher_dot {
   width: 6px;
   height: 6px;
   background-color: #bbbbbb;

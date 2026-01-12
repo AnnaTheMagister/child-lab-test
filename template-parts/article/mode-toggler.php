@@ -37,78 +37,78 @@ switch ($current_mode) {
 
 ?>
 
-<div class="swichers">
-    <h4 class="swichers-title">Адаптировать статью</h4>
-    <div class="swicher">
-        <div class="swicher__label">Роль</div>
-        <div class="swicher_bar">
+<div class="switchers">
+    <h4 class="switchers-title">Адаптировать статью</h4>
+    <div class="switcher">
+        <div class="switcher__label">Роль</div>
+        <div class="switcher_bar">
 
             <a href="?reading_mode=parent_<?php echo ($mode_longist); ?>"
                 class="mode-btn <?php echo $current_mode == 'scientist_long' ? 'active' : ''; ?>">
-                <div class="swicher_button<?php if ($mode_scientist == 'parent') {
+                <div class="switcher_button<?php if ($mode_scientist == 'parent') {
                     echo '_selected';
                 }
                 ; ?>">
-                    <div class="swicher_dot"></div>
+                    <div class="switcher_dot"></div>
                 </div>
             </a>
             <a href="?reading_mode=scientist_<?php echo ($mode_longist); ?>"
                 class="mode-btn <?php echo $current_mode == 'scientist_short' ? 'active' : ''; ?>">
-                <div class="swicher_button<?php if ($mode_scientist == 'scientist') {
+                <div class="switcher_button<?php if ($mode_scientist == 'scientist') {
                     echo '_selected';
                 }
                 ; ?>">
-                    <div class="swicher_dot"></div>
+                    <div class="switcher_dot"></div>
                 </div>
             </a>
 
         </div>
-        <div class="swicher_text">
-            <p class="swicher_text<?php if ($mode_scientist == 'parent') {
+        <div class="switcher_text">
+            <p class="switcher_text<?php if ($mode_scientist == 'parent') {
                 echo '_selected';
             }
             ; ?>">Родитель</p>
         </div>
-        <div class="swicher_text">
-            <p class="swicher_text<?php if ($mode_scientist == 'scientist') {
+        <div class="switcher_text">
+            <p class="switcher_text<?php if ($mode_scientist == 'scientist') {
                 echo '_selected';
             }
             ; ?>">Педагог</p>
         </div>
 
     </div>
-    <div class="swicher">
-        <div class="swicher__label">Длина</div>
-        <div class="swicher_bar">
+    <div class="switcher">
+        <div class="switcher__label">Длина</div>
+        <div class="switcher_bar">
             <a href="?reading_mode=<?php echo ($mode_scientist); ?>_short"
                 class="mode-btn <?php echo $current_mode == 'parent_short' ? 'active' : ''; ?>">
-                <div class="swicher_button<?php if ($mode_longist == 'short') {
+                <div class="switcher_button<?php if ($mode_longist == 'short') {
                     echo '_selected';
                 }
                 ; ?>">
-                    <div class="swicher_dot"></div>
+                    <div class="switcher_dot"></div>
                 </div>
             </a>
 
             <a href="?reading_mode=<?php echo ($mode_scientist); ?>_long"
                 class="mode-btn <?php echo $current_mode == 'parent_long' ? 'active' : ''; ?>">
 
-                <div class="swicher_button<?php if ($mode_longist == 'long') {
+                <div class="switcher_button<?php if ($mode_longist == 'long') {
                     echo '_selected';
                 }
                 ; ?>">
-                    <div class="swicher_dot"></div>
+                    <div class="switcher_dot"></div>
                 </div>
             </a>
         </div>
-        <div class="swicher_text">
-            <p class="swicher_text<?php if ($mode_longist == 'short') {
+        <div class="switcher_text">
+            <p class="switcher_text<?php if ($mode_longist == 'short') {
                 echo '_selected';
             }
             ; ?>">Коротко</p>
         </div>
-        <div class="swicher_text">
-            <p class="swicher_text<?php if ($mode_longist == 'long') {
+        <div class="switcher_text">
+            <p class="switcher_text<?php if ($mode_longist == 'long') {
                 echo '_selected';
             }
             ; ?>">Длинно</p>
