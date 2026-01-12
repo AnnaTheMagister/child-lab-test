@@ -14,11 +14,13 @@ function boilerplate_load_assets()
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element'), '1.0', true);
   wp_enqueue_style('ourmaincss', get_theme_file_uri('/build/index.css'));
   // wp_enqueue_style('ourarticlecss', get_theme_file_uri('/assets/styles/articles-list.css'));
-  wp_enqueue_style('ourarticleswicherscss', get_theme_file_uri('/assets/styles/swichers.css'));
+  wp_enqueue_style('ourarticleswitcherscss', get_theme_file_uri('/assets/styles/switchers.css'));
   wp_enqueue_style('teamcss', get_theme_file_uri('/assets/styles/team.css'));
   wp_enqueue_style('methodologytagscss', get_theme_file_uri('/assets/styles/methodology-tags.css'));
   wp_enqueue_style('projectscss', get_theme_file_uri('/assets/styles/projects.css'));
-
+  // подключение библиотечки для svg
+  wp_enqueue_style('svgscss', get_theme_file_uri('/inc/svg-pattern-generator/styles.css'));
+  wp_enqueue_script('svgjs', get_theme_file_uri('/inc/svg-pattern-generator/scripts.js'), array('wp-element'), '1.0', true);
 }
 
 add_action('wp_enqueue_scripts', 'boilerplate_load_assets');
@@ -39,19 +41,6 @@ function boilerplate_add_support()
 
 add_action('after_setup_theme', 'boilerplate_add_support');
 
-
-
-
-
-function my_override_404()
-{
-  // Conditions required for overriding 404
-  if (is_home() && isset($_GET['methodology_tag'])) {
-    global $wp_query;
-    $wp_query->is_404 = false;
-  }
-}
-add_action('init', 'my_override_404');
 
 
 $GLOBALS['default_image'] = get_template_directory_uri() . '/assets/images/default-image.jfif';
