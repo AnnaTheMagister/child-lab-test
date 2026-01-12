@@ -1,5 +1,7 @@
 <?php
 
+require_once get_template_directory() . '/inc/acf/helpers.php';
+
 add_action('acf/include_fields', function () {
 	if (!function_exists('acf_add_local_field_group')) {
 		return;
@@ -346,6 +348,19 @@ add_action('acf/include_fields', function () {
 				'custom_palette_source' => '',
 				'palette_colors' => '',
 			),
+			array(
+				'key' => 'field_696572ed9c3b7',
+				'label' => 'SVG паттерн',
+				'name' => 'svg_pattern',
+				'type' => 'select',
+				'instructions' => 'Choose an image from the theme folder',
+				'required' => 0,
+				'choices' => get_theme_images_list(),
+				'allow_null' => 1,
+				'ui' => 1,
+				'ajax' => 0,
+				'return_format' => 'url',
+			),
 		),
 		'location' => array(
 			array(
@@ -523,10 +538,13 @@ add_action('init', function () {
 			1 => 'editor',
 			2 => 'excerpt',
 			3 => 'thumbnail',
+			4 => 'custom-fields',
+			5 => 'post-formats',
 		),
 		'delete_with_user' => false,
 	));
 });
+
 
 
 ?>

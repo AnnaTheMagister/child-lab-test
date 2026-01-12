@@ -1,7 +1,6 @@
 // SVG Pattern Generator Module
 class SVGPatternGenerator {
   constructor(container, svgUrl, options = {}) {
-
     this.container =
       typeof container === "string"
         ? document.querySelector(container)
@@ -34,10 +33,12 @@ class SVGPatternGenerator {
     }
 
     // Создаем контейнер для паттернов
+    this.containerWrapper = document.createElement("div");
+    this.containerWrapper.className = "svg-pattern-container";
     this.patternContainer = document.createElement("div");
     this.patternContainer.className = "svg-pattern-background";
-    this.container.classList.add("svg-pattern-container");
-    this.container.appendChild(this.patternContainer);
+    this.containerWrapper.appendChild(this.patternContainer);
+    this.container.appendChild(this.containerWrapper);
 
     // Определяем примерный размер SVG
     this.calculateSVGSize();
@@ -51,7 +52,7 @@ class SVGPatternGenerator {
 
   calculateSVGSize() {
     // Для упрощения используем фиксированный размер
-    // В реальном проекте можно парсить SVG или задавать в опциях
+    // позже можно парсить SVG или задавать в опциях
     this.itemSize = this.options.itemSize || 100;
   }
 
@@ -149,10 +150,10 @@ class SVGPatternGenerator {
 
     // Если не удалось найти позицию без пересечений,
     // возвращаем случайную позицию
-    return {
-      x: Math.random() * (containerWidth - itemSize),
-      y: Math.random() * (containerHeight - itemSize),
-    };
+    //   return {
+    //     x: Math.random() * (containerWidth - itemSize),
+    //     y: Math.random() * (containerHeight - itemSize),
+    //   };
   }
 
   checkOverlap(x1, y1, w1, h1, occupied) {
@@ -194,6 +195,19 @@ function createSVGPattern(selector, svgUrl, options = {}) {
 
 // Инициализация при загрузке страницы
 document.addEventListener("DOMContentLoaded", () => {
-    console.log('!!!!DOM')
   window.createSVGPattern = createSVGPattern;
+
+  const selector = document.querySelectorAll("[data-svg-url]");
+
+  selector.forEach((elem) => {
+    createSVGPattern(elem, elem.dataset.svgUrl, {
+      count: 10,
+      minScale: 0.6,
+      maxScale: 0.4,
+      minRotate: -180,
+      maxRotate: 180,
+      spacing: 5,
+      opacity: 0.5,
+    });
+  });
 });
