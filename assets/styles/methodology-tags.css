@@ -27,16 +27,38 @@
 
 /* Основное мею с тегами на главной странице */
 .methodology-tags-menu {
+  display: flex;
   margin: var(--size-sm) 0;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .methodology-tags-menu a.methodology-tags-menu__tag {
   color: var(--white);
   display: flex;
-  height: 8vh;
+  height: 16vh;
   align-items: end;
   justify-content: center;
   position: relative;
+  margin: var(--size-xs) 0;
+  box-sizing: border-box;
+}
+
+.methodology-tags-menu .methodology-tag-width-4 {
+  width: calc(100% / 4 - 8px) !important;
+}
+
+.methodology-tags-menu .methodology-tag-width-5 {
+  width: calc(100% / 5 - 8px) !important;
+}
+
+.methodology-tags-menu .methodology-tag-width-6 {
+  width: calc(100% / 6 - 8px) !important;
+}
+
+.methodology-tag__active {
+  border: 2px solid rgba(0,0,0,0); 
+  box-shadow: inset 0px 0px 0px 4px white;
 }
 
 /* При наведении */
