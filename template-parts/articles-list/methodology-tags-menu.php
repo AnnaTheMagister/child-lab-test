@@ -6,7 +6,7 @@ $current_tag = get_methodology_tag();
 if ($tags && !is_wp_error($tags)):
 
     ?>
-    <?php $items_in_row = 3 + ((count($tags) % 6)) / 2 + 1; ?>
+    <?php $items_in_row = 3 + intdiv(((count($tags) % 6)), 2) + 1; ?>
     <div class="container">
         <div class="methodology-tags-menu">
             <a href="<?php echo get_site_url() ?>/?methodology=-1"
