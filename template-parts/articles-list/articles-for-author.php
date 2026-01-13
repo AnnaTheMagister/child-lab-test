@@ -29,7 +29,7 @@ $posts_size = count($posts);
 
 <div class="container">
     <div class="childlab-widget">
-        <header class="articles-header">
+        <header class="articles-list__header">
             Статьи автора
         </header>
         <?php foreach ($posts as $key => $post): ?>

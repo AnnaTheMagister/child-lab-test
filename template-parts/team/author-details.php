@@ -11,59 +11,52 @@ function get_author_description($author_id)
     return $content ?? '-';
 }
 ?>
-<div class="childlab-widget author-details">
-    <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-6">
-            <!-- Фото автора -->
-            <?php
-            $author_photo = empty(get_field('photo', 'article_author_' . $author_id)) ? $GLOBALS['unknown_user_image'] : get_field('photo', 'article_author_' . $author_id);
-            if ($author_photo):
-                ?>
-
-                <div class="author-details__photo">
-                    <img src="<?php echo esc_url($author_photo); ?>" alt="<?php echo esc_attr($name); ?>"
-                        class="childlab-image" />
-                </div>
-            <?php endif; ?>
-        </div>
-        <div class="col-lg-8 col-md-8 col-sm-6">
-
-            <!-- Имя и фамилия -->
-            <h1 class="author-name">
+<div class="container">
+    <div class="childlab-widget author-details">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 author-details__photo-container">
+                <!-- Фото автора -->
                 <?php
-                $first_name = get_field('first_name', 'article_author_' . $author_id);
-                $last_name = get_field('last_name', 'article_author_' . $author_id);
+                $author_photo = get_article_author_image($author_term);
+                if ($author_photo):
+                    ?>
 
-                if ($first_name && $last_name) {
-                    echo esc_html($first_name . ' ' . $last_name);
-                } else {
-                    echo esc_html($author_term->name);
-                }
-                ?>
-            </h1>
+                    <div class="author-details__photo">
+                        <img src="<?php echo esc_url($author_photo); ?>" alt="<?php echo esc_attr($name); ?>"
+                            class="childlab-image" />
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-6">
 
-            <!-- Главная информация (bio) -->
-            <?php
-            $author_bio = get_field('bio', 'article_author_' . $author_id);
-            if ($author_bio):
-                ?>
-                <div class="author-bio">
-                    <?php echo esc_html($author_bio); ?>
+                <!-- Имя и фамилия -->
+                <h1 class="author-details__name">
+                    <?php echo get_article_author_name($author_term); ?>
+                </h1>
+
+                <!-- Главная информация (bio) -->
+                <?php
+                $author_bio = get_field('bio', 'article_author_' . $author_id);
+                if ($author_bio):
+                    ?>
+                    <div class="author-details__bio">
+                        <?php echo esc_html($author_bio); ?>
+                    </div>
+                <?php endif; ?>
+
+
+                <!-- Описание (info) -->
+                <div class="d-lg-block d-md-none d-sm-none">
+                    <div class="author-details__description">
+                        <?php echo get_author_description($author_id); ?>
+                    </div>
                 </div>
-            <?php endif; ?>
+            </div>
 
-
-            <!-- Описание (info) -->
-            <div class="d-lg-block d-md-none d-sm-none">
+            <div class="d-lg-none">
                 <div class="author-details__description">
                     <?php echo get_author_description($author_id); ?>
                 </div>
-            </div>
-        </div>
-
-        <div class="d-lg-none">
-            <div class="author-details__description">
-                <?php echo get_author_description($author_id); ?>
             </div>
         </div>
     </div>

@@ -30,6 +30,7 @@ require_once get_template_directory() . '/inc/toc/toc-support.php';
 require_once get_template_directory() . '/inc/article-navigation.php';
 require_once get_template_directory() . '/inc/article-data.php';
 require_once get_template_directory() . '/inc/articles-list.php';
+require_once get_template_directory() . '/inc/author-data.php';
 
 function boilerplate_add_support()
 {
@@ -45,3 +46,11 @@ add_action('after_setup_theme', 'boilerplate_add_support');
 
 $GLOBALS['default_image'] = get_template_directory_uri() . '/assets/images/default-image.jfif';
 $GLOBALS['unknown_user_image'] = get_template_directory_uri() . '/assets/images/unknown_user.png';
+
+
+/** Подключаем шрифты */
+function enqueue_lora_font()
+{
+  wp_enqueue_style('lora-font', 'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+}
+add_action('wp_enqueue_scripts', 'enqueue_lora_font');

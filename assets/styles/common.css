@@ -4,6 +4,7 @@
   border-radius: var(--border-radius-widget);
   background-color: var(--bg-color-default);
   box-shadow: var(--box-shadow-default);
+  margin-bottom: var(--size-xlg);
 }
 
 a.childlab-card-link,

@@ -10,7 +10,7 @@ $published_date = get_the_date('d.m.Y');
             <div class="article-meta__authors">
                 <div class="childlab-avatars">
                     <?php foreach ($authors as $index => $author): ?>
-                        <img src="<?php echo get_field('photo', $author); ?>" class="childlab-avatar" />
+                        <img src="<?php echo get_article_author_image($author); ?>" class="childlab-avatar" />
                     <?php endforeach; ?>
                 </div>
                 <div class="article-meta__authors-names">
