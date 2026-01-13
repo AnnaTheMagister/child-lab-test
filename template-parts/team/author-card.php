@@ -1,10 +1,9 @@
 <?php
 if (isset($_SESSION['team_member'])) {
     $member = $_SESSION['team_member'];
-    $photo = empty(get_field('photo', $member)) ? $GLOBALS['unknown_user_image'] : get_field('photo', $member);
-    $name = get_field('first_name', $member) . ' ' . get_field('last_name', $member);
+    $photo = get_article_author_image($member);
+    $name = get_article_author_name($member);
     $bio = get_field('bio', $member);
-    // print_r($member);
     ?>
 
 
@@ -13,7 +12,7 @@ if (isset($_SESSION['team_member'])) {
             <img src="<?php echo $photo; ?>" alt="<?php echo $name; ?>" class="childlab-image square-content" />
         </div>
         <div class="author-card__info">
-            <h2><?php echo $name; ?></h2>
+            <h2 class="author-card__name"><?php echo $name; ?></h2>
             <h3 class="author-card__bio"><?php echo $bio; ?></h3>
         </div>
     </a>

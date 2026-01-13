@@ -1,19 +1,40 @@
 .authors-list {
-  margin: 2rem auto;
+  margin: var(--size-lg) auto;
 }
 
-.authors-list .flex-row-center {
+.authors-list .row {
+  justify-content: center;
+}
+
+.authors-list .author-card {
   height: 40vh;
-}
-
-.author-card {
-  width: 25% !important;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-sm);
+  box-sizing: border-box;
 }
 
 .author-card__info {
   text-align: center;
-  margin-top: 1rem;
-  height: 8rem;
+  margin-top: var(--size-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-md);
+}
+
+.author-card__name {
+  margin: 0;
+  font-size: var(--font-size-32);
+  font-weight: var(--font-weight-500);
+  color: var(--color-title);
+}
+
+.author-card__bio {
+  margin: 0;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-400);
+  color: var(--color-title);
 }
 
 .author-details {
@@ -23,21 +44,54 @@
   margin: var(--size-xlg) 0;
 }
 
+.author-details__photo-container,
+.author-details__photo {
+  height: 100%;
+  max-height: 40vh;
+}
+
 .author-details__photo .childlab-image {
   border-radius: var(--border-radius-img);
 }
 
-.author-name {
-  font-size: x-large;
+.author-details__name {
+  margin: 0;
+  font-size: var(--font-size-32);
+  font-weight: var(--font-weight-500);
   color: var(--color-title);
 }
 
-.author-bio {
-  font-size: larger;
-  color: var(--color-subtitle-1);
+.author-details__bio {
+  margin: 0;
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-400);
+  color: var(--color-title);
 }
 
 .author-details__description {
-  font-size: large;
+  margin: 0;
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-400);
   color: var(--color-default);
+}
+
+.authors-menu {
+  margin: calc(2 * var(--size-xlg)) 0;
+}
+
+.authors-menu a.authors-menu__item {
+  padding: var(--size-xs) var(--size-md);
+  border-radius: var(--border-radius-8);
+  background-color: var(--white);
+  text-decoration: none;
+}
+
+.authors-menu a.authors-menu__item:hover {
+  background-color: var(--light-purple-2);
+  box-shadow: var(--box-shadow-default);
+  color: var(--purple-2);
+}
+
+.authors-menu a.authors-menu__item.active {
+  background-color: var(--light-purple-1);
 }

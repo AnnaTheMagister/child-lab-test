@@ -37,7 +37,7 @@ $posts_size = count($posts);
 
 <div class="container">
     <div class="childlab-widget">
-        <header class="articles-header">
+        <header class="articles-list__header">
             <!-- <?php echo $current_tag ? "Статьи по теме " . (get_term($current_tag)->name) : "Все статьи" ?> -->
 
         </header>

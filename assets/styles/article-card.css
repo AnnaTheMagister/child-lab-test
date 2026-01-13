@@ -96,3 +96,10 @@ a.article-card {
 .article-details__excerpt p {
   margin: 0;
 }
+
+
+.articles-list__header {
+  font-size: var(--font-size-24);
+  font-weight: var(--font-weight-500);
+  color: var(--color-subtitle-1);
+}
