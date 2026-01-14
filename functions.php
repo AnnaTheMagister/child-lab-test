@@ -46,7 +46,7 @@ add_action('after_setup_theme', 'boilerplate_add_support');
 
 $GLOBALS['default_image'] = get_template_directory_uri() . '/assets/images/default-image.jfif';
 $GLOBALS['unknown_user_image'] = get_template_directory_uri() . '/assets/images/unknown_user.png';
-
+$GLOBALS['default_projects_image'] = get_template_directory_uri() . '/assets/images/default-projects.jpg';
 
 /** Подключаем шрифты */
 function enqueue_lora_font()

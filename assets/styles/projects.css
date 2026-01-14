@@ -15,26 +15,28 @@
   height: 8rem;
 }
 
-.project {
+.projects {
 
-  height: 36vh;
-  padding: var(--size-lg);
+  height: 25vh;
+  padding: 48px;
+  border-radius:var(--border-radius-widget);
   background-color: var(--purple);
   background-size: cover;
   display: flex;
   flex-direction: column;
-  gap: var(--size-lg);
+ 
 
 }
 
 .project-title {
   color: #ffffff;
-  font-size: larger;
+  font-size: var( --font-size-title-1);
+  padding-top: 0px;
 }
 
 .project-description {
   color: var(--white);
-  font-size: larger;
+  font-size: var(--font-size-24);
 
 }
 
