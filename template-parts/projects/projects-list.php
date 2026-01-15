@@ -16,10 +16,10 @@ $posts = get_posts(array(
 
         ?>
 
-        <div class="childlab-widget project" style="background-image: url('<?php the_post_thumbnail_url(); ?>');">
+        <?php $img_projects = empty(get_the_post_thumbnail_url()) ? $GLOBALS['default_projects_image']:get_the_post_thumbnail_url();?>
+        <div class="childlab-widget projects" style="background-image: url('<?php echo $img_projects?>');">
             <h2 class="project-title"><?php the_title(); ?></h2>
-
-            <div class="project-description truncate-multiline"><?php the_content(); ?></div>
+            <div class="project-description truncate-multiline"><?php the_field('project_description'); ?></div>
             <a class="project-link" href="<?php the_permalink(  );?>">Подробнее</a>
         </div>
    
