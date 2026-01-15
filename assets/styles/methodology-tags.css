@@ -57,7 +57,7 @@
 }
 
 .methodology-tag__active {
-  border: 2px solid rgba(0,0,0,0); 
+  border: 2px solid rgba(0, 0, 0, 0);
   box-shadow: inset 0px 0px 0px 4px white;
 }
 
@@ -72,4 +72,23 @@
   left: 0;
   right: 0;
   bottom: 40%;
+}
+
+.methodology {
+  margin-top: var(--size-xlg);
+}
+
+.methodology__header {
+}
+
+.methodology__tree-wrapper {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.9)
+    ),
+    url(../images/tree.png);
+  background-size: 100%;
+  width: 100%;
+  height: 50vh;
+  background-repeat: no-repeat;
 }

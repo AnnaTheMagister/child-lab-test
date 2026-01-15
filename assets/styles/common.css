@@ -1,3 +1,30 @@
+h1 {
+  font-size: var(--font-size-48);
+  font-weight: var(--font-weight-500);
+  color: var(--color-title);
+  margin: var(--size-md) 0;
+}
+
+h2 {
+  font-size: var(--font-size-24);
+  font-weight: var(--font-weight-500);
+  color: var(--color-title);
+  margin: var(--size-sm) 0;
+}
+
+p {
+}
+
+.text-block {
+  overflow-wrap: break-word;
+}
+.plain-text {
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-400);
+  color: var(--black);
+  line-height: 175%;
+}
+
 /* применяется к блокам с виджетами для скругления углов, цвета фона и теней */
 .childlab-widget {
   padding: var(--padding-md);
@@ -21,7 +48,7 @@ a.childlab-card-link:hover {
 }
 
 a.childlab-card-link:hover .childlab-image {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .square-container {
@@ -77,11 +104,35 @@ a.childlab-card-link:hover .childlab-image {
   font-size: smaller;
 }
 
-
 .not-found-page {
   display: flex;
   flex-direction: column;
   gap: var(--size-xlg);
   margin: var(--size-xlg) auto;
   align-items: center;
+}
+
+.article-wrapper {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5) 0,
+      rgba(255, 255, 255, 1) 30%,
+      var(--light-grey-1)
+    ),
+    url("../images/article-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: contain, 100%;
+  background-position:
+    0 0,
+    0 -20%;
+}
+
+.post-wrapper {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5) 0,
+      rgba(255, 255, 255, 1) 30%,
+      var(--light-grey-1)
+    ),
+    url("../images/post-bg.png");
+  background-repeat: no-repeat;
+  background-size: contain, 100%;
 }

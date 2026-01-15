@@ -8,5 +8,5 @@ get_header();
 
 
 ?>
-<div>Дерево методологии</div>
+<?php get_template_part('template-parts/methodology/methodology-section'); ?>
 <?php get_footer(); ?>

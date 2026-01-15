@@ -7,6 +7,7 @@
   --light-purple-2: rgba(238, 234, 250, 0.8);
   --dark-grey-1: rgba(153, 153, 153, 1); /* #999999 */
   --dark-grey-2: rgba(85, 85, 85, 1); /* #555555 */
+  --light-grey-1: rgba(248, 248, 248, 1); /* #F8F8F8 */
 
   --size-xxs: 4px;
   --size-xs: 8px;
@@ -16,9 +17,11 @@
   --size-xlg: 24px;
 
   --font-size-16: 16px;
+  --font-size-18: 18px;
   --font-size-20: 20px;
   --font-size-24: 24px;
   --font-size-32: 32px;
+  --font-size-48: 48px;
 
   --font-weight-400: 400;
   --font-weight-500: 500;
@@ -39,7 +42,7 @@
   --font-size-subtitle-1: 1.3rem; /* 14px */
   --font-size-subtitle-2: 1.2rem; /* 12px */
   --font-size-title-1: 2.8rem; /* 48px */
-  --font-size-title-2: 2.4rem; /* 24px */
+  --font-size-title-2: var(--font-size-24);
 
   /* Цвет фона */
   --bg-color-default: var(--white);
@@ -56,5 +59,5 @@
   --border-radius-8: 8px;
   --border-radius-img: 1.4rem; /* 16px */
   --border-radius-widget: 2rem; /* 32px */
-  --box-shadow-default: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --box-shadow-default: 0 0px 40px rgba(56, 87, 97, 0.1);
 }

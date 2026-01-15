@@ -6,7 +6,7 @@
     </div>
     <div class="article-details">
         <div class="article-meta childlab-text__meta">
-            <?php get_template_part('template-parts/article/meta'); ?>
+            <?php echo get_article_meta_render() ?>
         </div>
         <div class="article-details__title truncate-multiline">
             <?php echo the_title(); ?>
