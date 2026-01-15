@@ -20,7 +20,7 @@ $subtitle = get_field('subtitle');
             <?php endif; ?>
             <div class="article-meta-container">
                 <?php get_template_part('template-parts/article/meta'); ?>
-                <?php get_template_part('template-parts/article/article-tags'); ?>
+                <?php echo get_article_tags_render(get_the_ID()); ?>
             </div>
         </div>
         <div class="col-lg-3 order-lg-3 order-md-2 col-md-6 pl-4">

@@ -1,5 +1,5 @@
 <?php
-$tags = get_terms('article_author');
+$tags = get_terms(array('taxonomy' => 'article_author', 'hide_empty' => false));
 if ($tags && !is_wp_error($tags)):
     ?>
     <div class="container authors-list">
