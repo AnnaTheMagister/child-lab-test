@@ -45,4 +45,40 @@ function display_article_content($post_id = null)
     return '<div class="article-content ' . esc_attr($class) . '">' . $content . '</div>';
 }
 
+function get_article_tags_render($post_id)
+{
+    $tags = get_the_terms(get_post($post_id), 'methodology_tag');
+    $tags_render = '';
+    if ($tags && !is_wp_error($tags)) {
+        foreach ($tags as $tag) {
+            $color = get_field('color', $tag) ?? 'rgba(100, 100, 100, 0.5)';
+            $tags_render .= '<div class="article-tags__tag truncate" title="' . $tag->name . '" style="background-color: ' . $color . '">' . $tag->name . '</div>';
+        }
+    }
+    return "<div class='article-tags'>{$tags_render}</div>";
+}
+
+function get_article_meta_render()
+{
+    $authors = get_the_terms(get_the_ID(), 'article_author');
+    $published_date = get_the_date('d.m.Y');
+
+    $avatars = '';
+    $names = '';
+    if ($authors) {
+        foreach ($authors as $index => $author) {
+            $avatars .= '<img src="' . get_article_author_image($author) . '" class="childlab-avatar" />';
+            $first_name = get_field('first_name', $author);
+            $names .= (($index != 0 ? ', ' : '') . $first_name);
+        }
+    }
+    $avatars_render = '<div class="childlab-avatars">' . $avatars . '</div>';
+    $names_render = '<div class="article-meta__authors-names">' . $names . ' </div>';
+    $authors_render = "<div class='article-meta__authors'>" . $avatars_render . $names_render . "</div>";
+    $divider = $authors && $published_date ? '<div> · </div>' : '';
+    $date_render = '<div>' . $published_date . '</div>';
+
+    return '<div class="article-meta"><div class="article-meta childlab-text childlab-text__meta">' . $authors_render . $divider . $date_render . '</div></div>';
+}
+
 ?>

@@ -22,6 +22,6 @@ $published_date = get_the_date('d.m.Y');
             </div>
         <?php endif; ?>
         <div>· <?php echo $published_date ?></div>
-        </div>
-
     </div>
+
+</div>

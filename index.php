@@ -2,10 +2,6 @@
 
 get_header(); ?>
 
-<!-- example react component -->
-<div id="render-react-example-here"></div>
-<!-- end example react component -->
-
 <div class="container">
   <?php if (have_posts()) {
     while (have_posts()) {

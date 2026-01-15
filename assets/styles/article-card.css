@@ -5,8 +5,6 @@
 }
 
 a.article-card {
-  border-radius: var(--border-radius-img);
-  box-shadow: var(--box-shadow-default);
   height: 38vh;
   display: flex;
   flex-direction: column;
@@ -79,13 +77,15 @@ a.article-card {
 }
 
 .article-details__title {
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-500);
   color: var(--color-title);
-  font-size: larger;
 }
 
 .article-details__subtitle {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-400);
   color: var(--color-subtitle-1);
-  font-size: large;
 }
 
 .article-details__excerpt {
@@ -96,7 +96,6 @@ a.article-card {
 .article-details__excerpt p {
   margin: 0;
 }
-
 
 .articles-list__header {
   font-size: var(--font-size-24);

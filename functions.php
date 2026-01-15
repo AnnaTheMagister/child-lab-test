@@ -1,6 +1,7 @@
 <?php
 
-require_once get_template_directory() . '/inc/example.php';
+require_once get_template_directory() . '/inc/common.php';
+require_once get_template_directory() . '/inc/article-data.php';
 require_once get_template_directory() . '/inc/reading-mode-support.php';
 require_once get_template_directory() . '/inc/acf/register-article-fields.php';
 
@@ -28,7 +29,6 @@ add_action('wp_enqueue_scripts', 'boilerplate_load_assets');
 
 require_once get_template_directory() . '/inc/toc/toc-support.php';
 require_once get_template_directory() . '/inc/article-navigation.php';
-require_once get_template_directory() . '/inc/article-data.php';
 require_once get_template_directory() . '/inc/articles-list.php';
 require_once get_template_directory() . '/inc/author-data.php';
 
