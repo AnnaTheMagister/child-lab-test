@@ -1981,6 +1981,7 @@ body {
   padding: 8px 16px;
   border-radius: 8px;
   text-decoration: none;
+  color: #5230D0;
 }
 .childlab-primary-menu .menu-item a:hover {
   background-color: rgba(238, 234, 250, 0.8);

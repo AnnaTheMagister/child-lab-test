@@ -84,6 +84,7 @@
   padding: var(--size-xs) var(--size-md);
   border-radius: var(--border-radius-8);
   background-color: var(--white);
+  color: var(--purple);
   text-decoration: none;
 }
 
