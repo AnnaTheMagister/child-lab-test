@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tag Graph Demo - Ориентация текста</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .panels {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .controls, .tag-editor {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .tag-editor {
+            min-width: 350px;
+        }
+        
+        .control-group {
+            margin-bottom: 20px;
+        }
+        
+        .control-group h3, .tag-editor h3 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .direction-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .direction-btn {
+            padding: 10px;
+        }
+        
+        .direction-btn.horizontal {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .direction-btn.vertical {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .direction-btn.auto {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .text-orientation-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .text-orientation-btn {
+            padding: 10px;
+        }
+        
+        .text-orientation-btn.horizontal {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+        
+        .text-orientation-btn.vertical {
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+            color: #333;
+        }
+        
+        select, input[type="range"], input[type="text"], input[type="color"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            margin-bottom: 10px;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .range-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .range-group input[type="range"] {
+            flex: 1;
+        }
+        
+        .range-value {
+            min-width: 40px;
+            text-align: center;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .graph-container {
+            width: 100%;
+            height: 650px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .info-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        
+        .info-panel h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            padding: 15px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 5px;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .instructions h4 {
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .instructions ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            color: #555;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .instructions li:before {
+            content: "•";
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .json-editor {
+            margin-top: 20px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+        }
+        
+        .json-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .json-buttons button {
+            flex: 1;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .panels {
+                flex-direction: column;
+            }
+            
+            .graph-container {
+                height: 500px;
+            }
+            
+            .buttons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .direction-buttons, .text-orientation-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Граф тегов с ориентацией текста</h1>
+        <div class="subtitle">Двойной клик меняет направление тега • Правый клик меняет ориентацию текста</div>
+        
+        <div class="panels">
+            <div class="controls">
+                <div class="control-group">
+                    <h3>📐 Режимы расположения</h3>
+                    <div class="buttons-grid">
+                        <button id="horizontalBtn">
+                            <span>→</span> Горизонтально
+                        </button>
+                        <button id="verticalBtn">
+                            <span>↓</span> Вертикально
+                        </button>
+                        <button id="circularBtn">
+                            <span>⭕</span> Круговой
+                        </button>
+                        <button id="gridBtn">
+                            <span>▦</span> Сетка
+                        </button>
+                        <button id="manualBtn">
+                            <span>🖱️</span> Ручной
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>🎨 Настройки графа</h3>
+                    <div class="range-group">
+                        <label>Кривизна линий:</label>
+                        <input type="range" id="curveSlider" min="0" max="1" step="0.1" value="0.5">
+                        <span id="curveValue" class="range-value">0.5</span>
+                    </div>
+                    <div class="range-group">
+                        <label>Толщина линий:</label>
+                        <input type="range" id="widthSlider" min="1" max="10" step="1" value="3">
+                        <span id="widthValue" class="range-value">3</span>
+                    </div>
+                    <div class="range-group">
+                        <label>Расстояние:</label>
+                        <input type="range" id="spacingSlider" min="50" max="300" step="10" value="100">
+                        <span id="spacingValue" class="range-value">100</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>🔄 Управление графом</h3>
+                    <div class="buttons-grid">
+                        <button id="addTagBtn">
+                            <span>➕</span> Добавить тег
+                        </button>
+                        <button id="exportBtn">
+                            <span>💾</span> Экспорт JSON
+                        </button>
+                        <button id="importBtn">
+                            <span>📂</span> Импорт JSON
+                        </button>
+                        <button id="resetBtn">
+                            <span>🔄</span> Сброс
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tag-editor">
+                <div class="control-group">
+                    <h3>🏷️ Редактор тега</h3>
+                    <div id="selectedTagInfo">
+                        <p style="color: #666; text-align: center; padding: 20px;">
+                            Выберите тег для редактирования
+                        </p>
+                    </div>
+                    <div id="tagEditorControls" style="display: none;">
+                        <div class="form-group">
+                            <label>Название:</label>
+                            <input type="text" id="tagNameInput" placeholder="Введите название">
+                        </div>
+                        <div class="form-group">
+                            <label>Цвет:</label>
+                            <input type="color" id="tagColorInput" value="#667eea">
+                        </div>
+                        <div class="form-group">
+                            <label>Направление тега:</label>
+                            <div class="direction-buttons">
+                                <button class="direction-btn horizontal" data-direction="h">
+                                    → Горизонтальное
+                                </button>
+                                <button class="direction-btn vertical" data-direction="v">
+                                    ↓ Вертикальное
+                                </button>
+                                <button class="direction-btn auto" data-direction="auto">
+                                    ↻ Авто
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Ориентация текста:</label>
+                            <div class="text-orientation-buttons">
+                                <button class="text-orientation-btn horizontal" data-orientation="horizontal">
+                                    ↔ Горизонтальная
+                                </button>
+                                <button class="text-orientation-btn vertical" data-orientation="vertical">
+                                    ↕ Вертикальная
+                                </button>
+                            </div>
+                        </div>
+                        <div class="buttons-grid">
+                            <button id="updateTagBtn">
+                                <span>✓</span> Обновить
+                            </button>
+                            <button id="deleteTagBtn" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                <span>🗑️</span> Удалить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>📊 Статистика</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Всего тегов</div>
+                            <div class="stat-value" id="tagCount">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Связей</div>
+                            <div class="stat-value" id="connectionCount">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Режим</div>
+                            <div class="stat-value" id="layoutMode">horizontal</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="graph" class="graph-container"></div>
+        
+        <div class="info-panel">
+            <div class="instructions">
+                <h4>📋 Инструкция по управлению</h4>
+                <ul>
+                    <li><strong>Левый клик</strong> - выбрать тег для редактирования</li>
+                    <li><strong>Двойной клик</strong> на тег - изменить направление (→, ↓, ↻)</li>
+                    <li><strong>Правый клик</strong> на тег - изменить ориентацию текста (↔, ↕)</li>
+                    <li><strong>Перетаскивание</strong> - переместить тег</li>
+                    <li><strong>Тройное касание</strong> на мобильном - изменить ориентацию текста</li>
+                </ul>
+            </div>
+            
+            <div class="json-editor">
+                <h3>📝 Редактор JSON</h3>
+                <textarea id="jsonEditor" placeholder='Вставьте JSON или отредактируйте текущий...'></textarea>
+                <div class="json-buttons">
+                    <button id="updateFromJsonBtn">
+                        <span>🔄</span> Обновить из JSON
+                    </button>
+                    <button id="copyJsonBtn">
+                        <span>📋</span> Копировать JSON
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для добавления тега -->
+    <div id="addTagModal" class="modal">
+        <div class="modal-content">
+            <h3>➕ Добавить новый тег</h3>
+            <div class="form-group">
+                <label>ID (уникальный):</label>
+                <input type="text" id="newTagId" placeholder="tag-id" value="">
+            </div>
+            <div class="form-group">
+                <label>Название:</label>
+                <input type="text" id="newTagName" placeholder="Название тега">
+            </div>
+            <div class="form-group">
+                <label>Цвет:</label>
+                <input type="color" id="newTagColor" value="#667eea">
+            </div>
+            <div class="form-group">
+                <label>Направление тега:</label>
+                <select id="newTagDirection">
+                    <option value="h">Горизонтальное (→)</option>
+                    <option value="v">Вертикальное (↓)</option>
+                    <option value="auto">Автоматическое (↻)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Ориентация текста:</label>
+                <select id="newTagTextOrientation">
+                    <option value="horizontal">Горизонтальная (↔)</option>
+                    <option value="vertical">Вертикальная (↕)</option>
+                </select>
+            </div>
+            <div class="buttons-grid">
+                <button id="confirmAddTagBtn">
+                    <span>✓</span> Добавить
+                </button>
+                <button id="cancelAddTagBtn" style="background: #6c757d;">
+                    <span>✕</span> Отмена
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для импорта JSON -->
+    <div id="importModal" class="modal">
+        <div class="modal-content">
+            <h3>📂 Импорт JSON</h3>
+            <p>Вставьте JSON конфигурации графа:</p>
+            <textarea id="importJsonTextarea" placeholder='{"tags": [...], "connections": [...], "config": {...}}' rows="10"></textarea>
+            <div class="buttons-grid">
+                <button id="confirmImportBtn">
+                    <span>📥</span> Импортировать
+                </button>
+                <button id="cancelImportBtn" style="background: #6c757d;">
+                    <span>✕</span> Отмена
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="tag-graph.js"></script>
+    <script>
+        // Пример данных с разными направлениями и ориентациями текста
+        const initialTags = [
+            { id: 'react', name: 'React', color: '#61DAFB', direction: 'h', textOrientation: 'horizontal' },
+            { id: 'typescript', name: 'TypeScript', color: '#3178C6', direction: 'h', textOrientation: 'horizontal' },
+            { id: 'nodejs', name: 'Node.js', color: '#339933', direction: 'v', textOrientation: 'vertical' },
+            { id: 'graphql', name: 'GraphQL', color: '#E10098', direction: 'v', textOrientation: 'vertical' },
+            { id: 'mongodb', name: 'MongoDB', color: '#47A248', direction: 'auto', textOrientation: 'horizontal' },
+            { id: 'docker', name: 'Docker', color: '#2496ED', direction: 'auto', textOrientation: 'vertical' },
+            { id: 'aws', name: 'AWS', color: '#FF9900', direction: 'h', textOrientation: 'horizontal' },
+            { id: 'kubernetes', name: 'Kubernetes', color: '#326CE5', direction: 'v', textOrientation: 'vertical' }
+        ];
+        
+        const initialConnections = [
+            { source: 'react', target: 'typescript', strength: 0.9 },
+            { source: 'react', target: 'graphql', strength: 0.7 },
+            { source: 'nodejs', target: 'typescript', strength: 0.8 },
+            { source: 'nodejs', target: 'mongodb', strength: 0.6 },
+            { source: 'nodejs', target: 'graphql', strength: 0.8 },
+            { source: 'docker', target: 'nodejs', strength: 0.7 },
+            { source: 'docker', target: 'aws', strength: 0.6 },
+            { source: 'docker', target: 'kubernetes', strength: 0.8 },
+            { source: 'aws', target: 'kubernetes', strength: 0.7 },
+            { source: 'mongodb', target: 'aws', strength: 0.5 }
+        ];
+        
+        let graph;
+        let selectedTagId = null;
+        
+        function initGraph() {
+            graph = new TagGraph({
+                container: document.getElementById('graph'),
+                tags: JSON.parse(JSON.stringify(initialTags)),
+                connections: JSON.parse(JSON.stringify(initialConnections)),
+                layout: 'horizontal',
+                spacing: 120,
+                padding: 60,
+                curveIntensity: 0.5,
+                lineWidth: 3,
+                textOrientation: 'horizontal',
+                backgroundColor: '#f8f9fa',
+                interactive: true,
+                onTagClick: (tag) => {
+                    selectedTagId = tag.id;
+                    updateTagEditor();
+                    updateInfoPanel();
+                    console.log('Выбран тег:', tag.name);
+                },
+                onTagDrag: (tag, x, y) => {
+                    console.log(`Перемещение ${tag.name}`);
+                },
+                onTagDirectionChange: (tag) => {
+                    console.log(`Направление ${tag.name} изменено на: ${tag.direction}`);
+                    updateTagEditor();
+                    updateInfoPanel();
+                    updateJSONEditor();
+                },
+                onTagTextOrientationChange: (tag) => {
+                    console.log(`Ориентация текста ${tag.name} изменена на: ${tag.textOrientation}`);
+                    updateTagEditor();
+                    updateInfoPanel();
+                    updateJSONEditor();
+                }
+            });
+            
+            updateInfoPanel();
+            updateJSONEditor();
+        }
+        
+        function updateInfoPanel() {
+            document.getElementById('tagCount').textContent = graph.getTags().length;
+            document.getElementById('connectionCount').textContent = graph.getConnections().length;
+            document.getElementById('layoutMode').textContent = graph.config.layout;
+            
+            // Показываем статистику
+            const stats = graph.getTagStats();
+            console.log('Статистика графа:', stats);
+        }
+        
+        function updateTagEditor() {
+            const tagEditor = document.getElementById('tagEditorControls');
+            const tagInfo = document.getElementById('selectedTagInfo');
+            
+            if (selectedTagId) {
+                const tag = graph.getTags().find(t => t.id === selectedTagId);
+                if (tag) {
+                    tagEditor.style.display = 'block';
+                    tagInfo.style.display = 'none';
+                    
+                    document.getElementById('tagNameInput').value = tag.name;
+                    document.getElementById('tagColorInput').value = tag.color;
+                    
+                    // Обновляем активные кнопки направления
+                    document.querySelectorAll('.direction-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.dataset.direction === tag.direction) {
+                            btn.classList.add('active');
+                        }
+                    });
+                    
+                    // Обновляем активные кнопки ориентации текста
+                    document.querySelectorAll('.text-orientation-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.dataset.orientation === tag.textOrientation) {
+                            btn.classList.add('active');
+                        }
+                    });
+                }
+            } else {
+                tagEditor.style.display = 'none';
+                tagInfo.style.display = 'block';
+            }
+        }
+        
+        function updateJSONEditor() {
+            const json = graph.exportAsJSON();
+            document.getElementById('jsonEditor').value = JSON.stringify(json, null, 2);
+        }
+        
+        // Обработчики кнопок layout
+        document.getElementById('horizontalBtn').addEventListener('click', () => {
+            graph.setLayout('horizontal');
+            updateButtons('horizontalBtn');
+            updateInfoPanel();
+            updateJSONEditor();
+        });
+        
+        document.getElementById('verticalBtn').addEventListener('click', () => {
+            graph.setLayout('vertical');
+            updateButtons('verticalBtn');
+            updateInfoPanel();
+            updateJSONEditor();
+        });
+        
+        document.getElementById('circularBtn').addEventListener('click', () => {
+            graph.setLayout('circular');
+            updateButtons('circularBtn');
+            updateInfoPanel();
+            updateJSONEditor();
+        });
+        
+        document.getElementById('gridBtn').addEventListener('click', () => {
+            graph.setLayout('grid');
+            updateButtons('gridBtn');
+            updateInfoPanel();
+            updateJSONEditor();
+        });
+        
+        document.getElementById('manualBtn').addEventListener('click', () => {
+            graph.setLayout('manual');
+            updateButtons('manualBtn');
+            updateInfoPanel();
+            updateJSONEditor();
+        });
+        
+        // Обработчики слайдеров
+        document.getElementById('curveSlider').addEventListener('input', (e) => {
+            const value = parseFloat(e.target.value);
+            document.getElementById('curveValue').textContent = value.toFixed(1);
+            graph.setConfig({ curveIntensity: value });
+            updateJSONEditor();
+        });
+        
+        document.getElementById('widthSlider').addEventListener('input', (e) => {
+            const value = parseInt(e.target.value);
+            document.getElementById('widthValue').textContent = value;
+            graph.setConfig({ lineWidth: value });
+            updateJSONEditor();
+        });
+        
+        document.getElementById('spacingSlider').addEventListener('input', (e) => {
+            const value = parseInt(e.target.value);
+            document.getElementById('spacingValue').textContent = value;
+            graph.setConfig({ spacing: value });
+            graph.calculateLayout();
+            graph.render();
+            updateJSONEditor();
+        });
+        
+        // Кнопки направления в редакторе тега
+        document.querySelectorAll('.direction-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (selectedTagId) {
+                    const direction = btn.dataset.direction;
+                    graph.setTagDirection(selectedTagId, direction);
+                    
+                    // Обновляем активную кнопку
+                    document.querySelectorAll('.direction-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    btn.classList.add('active');
+                    
+                    updateJSONEditor();
+                }
+            });
+        });
+        
+        // Кнопки ориентации текста в редакторе тега
+        document.querySelectorAll('.text-orientation-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (selectedTagId) {
+                    const orientation = btn.dataset.orientation;
+                    graph.setTagTextOrientation(selectedTagId, orientation);
+                    
+                    // Обновляем активную кнопку
+                    document.querySelectorAll('.text-orientation-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    btn.classList.add('active');
+                    
+                    updateJSONEditor();
+                }
+            });
+        });
+        
+        // Кнопки управления тегом
+        document.getElementById('updateTagBtn').addEventListener('click', () => {
+            if (selectedTagId) {
+                const name = document.getElementById('tagNameInput').value;
+                const color = document.getElementById('tagColorInput').value;
+                
+                graph.updateTag(selectedTagId, { name, color });
+                updateJSONEditor();
+            }
+        });
+        
+        document.getElementById('deleteTagBtn').addEventListener('click', () => {
+            if (selectedTagId && confirm('Удалить этот тег?')) {
+                graph.removeTag(selectedTagId);
+                selectedTagId = null;
+                updateTagEditor();
+                updateInfoPanel();
+                updateJSONEditor();
+            }
+        });
+        
+        // Модальное окно добавления тега
+        const addTagModal = document.getElementById('addTagModal');
+        const importModal = document.getElementById('importModal');
+        
+        document.getElementById('addTagBtn').addEventListener('click', () => {
+            document.getElementById('newTagId').value = 'tag-' + Date.now();
+            document.getElementById('newTagName').value = '';
+            document.getElementById('newTagColor').value = '#667eea';
+            addTagModal.style.display = 'flex';
+        });
+        
+        document.getElementById('confirmAddTagBtn').addEventListener('click', () => {
+            const newTag = {
+                id: document.getElementById('newTagId').value,
+                name: document.getElementById('newTagName').value,
+                color: document.getElementById('newTagColor').value,
+                direction: document.getElementById('newTagDirection').value,
+                textOrientation: document.getElementById('newTagTextOrientation').value
+            };
+            
+            if (newTag.name) {
+                graph.addTag(newTag);
+                
+                // Добавляем случайную связь
+                const existingTags = graph.getTags().filter(t => t.id !== newTag.id);
+                if (existingTags.length > 0) {
+                    const randomTag = existingTags[Math.floor(Math.random() * existingTags.length)];
+                    graph.addConnection({
+                        source: newTag.id,
+                        target: randomTag.id,
+                        strength: Math.random() * 0.5 + 0.5
+                    });
+                }
+                
+                addTagModal.style.display = 'none';
+                updateInfoPanel();
+                updateJSONEditor();
+            } else {
+                alert('Введите название тега!');
+            }
+        });
+        
+        document.getElementById('cancelAddTagBtn').addEventListener('click', () => {
+            addTagModal.style.display = 'none';
+        });
+        
+        // Экспорт/импорт JSON
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            const json = graph.exportAsJSON();
+            const dataStr = JSON.stringify(json, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = 'tag-graph-' + new Date().toISOString().slice(0,10) + '.json';
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        });
+        
+        document.getElementById('importBtn').addEventListener('click', () => {
+            document.getElementById('importJsonTextarea').value = '';
+            importModal.style.display = 'flex';
+        });
+        
+        document.getElementById('confirmImportBtn').addEventListener('click', () => {
+            try {
+                const jsonText = document.getElementById('importJsonTextarea').value;
+                const jsonData = JSON.parse(jsonText);
+                
+                if (!jsonData.tags || !jsonData.connections) {
+                    throw new Error('Неверный формат JSON');
+                }
+                
+                graph.importFromJSON(jsonData);
+                selectedTagId = null;
+                updateTagEditor();
+                updateInfoPanel();
+                updateJSONEditor();
+                importModal.style.display = 'none';
+                
+                alert('Граф успешно загружен из JSON!');
+            } catch (error) {
+                alert('Ошибка загрузки JSON: ' + error.message);
+            }
+        });
+        
+        document.getElementById('cancelImportBtn').addEventListener('click', () => {
+            importModal.style.display = 'none';
+        });
+        
+        document.getElementById('updateFromJsonBtn').addEventListener('click', () => {
+            try {
+                const jsonText = document.getElementById('jsonEditor').value;
+                const jsonData = JSON.parse(jsonText);
+                
+                if (!jsonData.tags || !jsonData.connections) {
+                    throw new Error('Неверный формат JSON');
+                }
+                
+                graph.importFromJSON(jsonData);
+                selectedTagId = null;
+                updateTagEditor();
+                updateInfoPanel();
+                
+                alert('Граф обновлен из JSON!');
+            } catch (error) {
+                alert('Ошибка обновления из JSON: ' + error.message);
+            }
+        });
+        
+        document.getElementById('copyJsonBtn').addEventListener('click', () => {
+            const jsonEditor = document.getElementById('jsonEditor');
+            jsonEditor.select();
+            document.execCommand('copy');
+            
+            // Временная подсказка
+            const originalText = jsonEditor.value;
+            jsonEditor.value = '✅ JSON скопирован в буфер обмена!';
+            setTimeout(() => {
+                jsonEditor.value = originalText;
+            }, 1500);
+        });
+        
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            if (confirm('Сбросить граф к начальному состоянию?')) {
+                graph.destroy();
+                initGraph();
+                selectedTagId = null;
+                updateTagEditor();
+                updateButtons('horizontalBtn');
+            }
+        });
+        
+        // Закрытие модальных окон по клику вне
+        window.addEventListener('click', (e) => {
+            if (e.target === addTagModal) {
+                addTagModal.style.display = 'none';
+            }
+            if (e.target === importModal) {
+                importModal.style.display = 'none';
+            }
+        });
+        
+        function updateButtons(activeId) {
+            ['horizontalBtn', 'verticalBtn', 'circularBtn', 'gridBtn', 'manualBtn'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (id === activeId) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', initGraph);
+        
+        // Пример загрузки JSON с разными ориентациями текста
+        function loadExampleJSON() {
+            const exampleJSON = {
+                "tags": [
+                    { "id": "frontend", "name": "Frontend Development", "color": "#FF6B6B", "direction": "h", "textOrientation": "horizontal", "x": 150, "y": 150 },
+                    { "id": "backend", "name": "Backend Systems", "color": "#4ECDC4", "direction": "v", "textOrientation": "vertical", "x": 400, "y": 150 },
+                    { "id": "database", "name": "Database Management", "color": "#FFD166", "direction": "h", "textOrientation": "vertical", "x": 650, "y": 150 },
+                    { "id": "devops", "name": "DevOps & Infrastructure", "color": "#06D6A0", "direction": "v", "textOrientation": "horizontal", "x": 400, "y": 350 },
+                    { "id": "mobile", "name": "Mobile Development", "color": "#118AB2", "direction": "auto", "textOrientation": "horizontal", "x": 150, "y": 350 },
+                    { "id": "ai", "name": "AI & Machine Learning", "color": "#EF476F", "direction": "auto", "textOrientation": "vertical", "x": 650, "y": 350 }
+                ],
+                "connections": [
+                    { "source": "frontend", "target": "backend", "strength": 0.9 },
+                    { "source": "backend", "target": "database", "strength": 0.8 },
+                    { "source": "backend", "target": "devops", "strength": 0.7 },
+                    { "source": "devops", "target": "database", "strength": 0.6 },
+                    { "source": "frontend", "target": "mobile", "strength": 0.7 },
+                    { "source": "mobile", "target": "backend", "strength": 0.6 },
+                    { "source": "backend", "target": "ai", "strength": 0.5 },
+                    { "source": "database", "target": "ai", "strength": 0.8 }
+                ],
+                "config": {
+                    "layout": "manual",
+                    "spacing": 120,
+                    "padding": 60,
+                    "curveIntensity": 0.4,
+                    "lineWidth": 4,
+                    "textOrientation": "horizontal"
+                }
+            };
+            
+            // Загрузить пример через 2 секунды после загрузки страницы
+            setTimeout(() => {
+                if (confirm('Загрузить пример графа с разными ориентациями текста?')) {
+                    graph.importFromJSON(exampleJSON);
+                    updateInfoPanel();
+                    updateJSONEditor();
+                }
+            }, 2000);
+        }
+        
+        // Запускаем пример через некоторое время
+        window.addEventListener('load', () => {
+            setTimeout(loadExampleJSON, 1000);
+        });
+    </script>
+</body>
+</html>

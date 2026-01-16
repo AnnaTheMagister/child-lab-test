@@ -3,6 +3,8 @@
 require_once get_template_directory() . '/inc/common.php';
 require_once get_template_directory() . '/inc/article-data.php';
 require_once get_template_directory() . '/inc/reading-mode-support.php';
+require_once get_template_directory() . '/inc/svg-pattern-generator/svg-pattern-support.php';
+require_once get_template_directory() . '/inc/mindmap/mindmap-support.php';
 require_once get_template_directory() . '/inc/acf/register-article-fields.php';
 
 
@@ -14,14 +16,10 @@ function boilerplate_load_assets()
   wp_enqueue_style('cssarticlecard', get_theme_file_uri('/assets/styles/article-card.css'));
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element'), '1.0', true);
   wp_enqueue_style('ourmaincss', get_theme_file_uri('/build/index.css'));
-  // wp_enqueue_style('ourarticlecss', get_theme_file_uri('/assets/styles/articles-list.css'));
   wp_enqueue_style('ourarticleswitcherscss', get_theme_file_uri('/assets/styles/switchers.css'));
   wp_enqueue_style('teamcss', get_theme_file_uri('/assets/styles/team.css'));
   wp_enqueue_style('methodologytagscss', get_theme_file_uri('/assets/styles/methodology-tags.css'));
   wp_enqueue_style('projectscss', get_theme_file_uri('/assets/styles/projects.css'));
-  // подключение библиотечки для svg
-  wp_enqueue_style('svgscss', get_theme_file_uri('/inc/svg-pattern-generator/styles.css'));
-  wp_enqueue_script('svgjs', get_theme_file_uri('/inc/svg-pattern-generator/scripts.js'), array('wp-element'), '1.0', true);
 }
 
 add_action('wp_enqueue_scripts', 'boilerplate_load_assets');
