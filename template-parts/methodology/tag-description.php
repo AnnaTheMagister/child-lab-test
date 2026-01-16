@@ -1,8 +1,16 @@
 <?php
-$term = get_queried_object();
-if ($term && $term->taxonomy == "methodology_tag") {
-    echo '<div class="text-block"><h2>' . $term->name . '</h2><div class="plain-text"> ' . $term->description . ' </div></div>';
+$term_data = get_methodology_data_for_page();
+
+$empty_placeholder = '<div class="empty-placeholder">Выберите элемент на дереве, чтобы прочитать о нём подробнее</div>';
+
+if ($term_data) {
+    if (empty($term_data) && !is_wp_error($term_data)) {
+        echo $empty_placeholder;
+    } else {
+        echo '<h2>' . $term_data->name . '</h2>';
+        echo '<div>' . $term_data->description . '</div>';
+    }
 } else {
-    echo '<div class="empty-placeholder">Выберите элемент на дереве, чтобы прочитать о нём подробнее</div>';
+    echo $empty_placeholder;
 }
 ?>

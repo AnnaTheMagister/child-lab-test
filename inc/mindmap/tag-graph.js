@@ -3,7 +3,7 @@ class TagGraph {
   constructor(config) {
     this.config = {
       spacing: 100,
-      padding: 40,
+      padding: 20,
       curveIntensity: 0.5,
       lineWidth: 3,
       interactive: true,
@@ -70,7 +70,7 @@ class TagGraph {
   }
 
   calculateLayout() {
-    const { layout, spacing = 100, padding = 40 } = this.config;
+    const { layout, spacing = 100, padding = 20 } = this.config;
     const width = this.canvas.width / window.devicePixelRatio;
     const height = this.canvas.height / window.devicePixelRatio;
 
@@ -209,7 +209,7 @@ class TagGraph {
     ctx.shadowOffsetY = 2;
 
     // Определяем размеры кнопки в зависимости от ориентации текста
-    const padding = 20;
+    const padding = 10;
     const lineHeight = 20;
     const charWidth = 10; // Примерная ширина символа
     const lines = name.split(" ").reduce((acc, word) => {
@@ -305,7 +305,7 @@ class TagGraph {
       ctx.rotate(-Math.PI / 2); // Поворачиваем на 90 градусов против часовой
 
       lines.forEach((line, index) => {
-        const lineY = -padding / 2 + index * lineHeight + lineHeight / 2;
+        const lineY = -padding  + lineHeight / 2;
         ctx.fillText(line, 0, lineY);
       });
 

@@ -83,12 +83,23 @@
 
 .methodology__tree-wrapper {
   background-image: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.9)
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.5)
     ),
     url(../images/tree.png);
-  background-size: 100%;
+  background-size: 192%;
   width: 100%;
-  height: 50vh;
+  height: 800px;
   background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.methodology__description {
+  min-height: 800px;
+  max-height: 800px;
+  overflow: auto;
+}
+
+.methodology__description:has(.empty-placeholder) {
+  align-content: center;
 }
