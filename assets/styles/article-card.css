@@ -102,3 +102,13 @@ a.article-card {
   font-weight: var(--font-weight-500);
   color: var(--color-subtitle-1);
 }
+.article-button {
+  display: inline-block;
+  padding: 12px;
+  text-decoration: none;
+  background-color: var(--purple);
+  color: var(--white);
+  border-radius: var(--border-radius-img);
+  width: fit-content;
+
+}
