@@ -1,10 +1,12 @@
 <?php
 
 $current_tag = get_methodology_tag();
+$articles_count = get_articles_count();
+
 
 if ($current_tag == '-1') {
     $posts = get_posts(array(
-        'numberposts' => -1,
+        'numberposts' =>$articles_count,
         'orderby' => 'date',
         'order' => 'ASC',
         'post_type' => 'article',
@@ -14,7 +16,7 @@ if ($current_tag == '-1') {
 } else {
 
     $posts = get_posts(array(
-        'numberposts' => -1,
+        'numberposts' => $articles_count,
         'orderby' => 'date',
         'order' => 'ASC',
         'post_type' => 'article',
@@ -38,7 +40,15 @@ $posts_size = count($posts);
 <div class="container">
     <div class="childlab-widget">
         <header class="articles-list__header">
-            <!-- <?php echo $current_tag ? "Статьи по теме " . (get_term($current_tag)->name) : "Все статьи" ?> -->
+            <?php 
+            if (isset($current_tag)&&(!($current_tag == '-1'))) {
+                   $tag_name= "Тема :".get_term($current_tag)->name ;
+            } else {
+              
+                  $tag_name="Все статьи";
+               
+            }
+            echo $tag_name ?>
 
         </header>
         <?php foreach ($posts as $key => $post): ?>
@@ -53,7 +63,21 @@ $posts_size = count($posts);
                 </div>
             <?php endif; ?>
         <?php endforeach; ?>
+        <div class="row">
+            <?php
+
+           if (((+$articles_count)<=$posts_size)) {
+          
+            ?>
+            <a class="article-button" href="<?php echo get_site_url() ?>/?methodology=<?php echo $current_tag?>&articles_count=<?php
+             $articles_count=''.(+$articles_count+5);
+             echo $articles_count?>" >Показать еще</a>
+             <?php
+           }
+           ?>
+        </div>
     </div>
+
 </div>
 
 <?php
