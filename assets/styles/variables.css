@@ -8,6 +8,7 @@
   --dark-grey-1: rgba(153, 153, 153, 1); /* #999999 */
   --dark-grey-2: rgba(85, 85, 85, 1); /* #555555 */
   --light-grey-1: rgba(248, 248, 248, 1); /* #F8F8F8 */
+  --light-grey-2: #cccccc;
 
   --size-xxs: 4px;
   --size-xs: 8px;

@@ -13,15 +13,15 @@
                 </div>
             </div>
             <div class="col-lg-5">
-                <div class="childlab-widget">
+                <div class="childlab-widget methodology__description">
                     <?php get_template_part('template-parts/methodology/tag-description'); ?>
                 </div>
             </div>
         </div>
 
     </div>
-    <?php $term = get_queried_object();
-    if ($term && $term->taxonomy == "methodology_tag") {
+    <?php $term = get_methodology_data_for_page();
+    if ($term && $term->term_id) {
         echo get_articles_list_by_taxonomy('methodology_tag', $term->term_id, "Статьи по теме");
     }
     ?>
