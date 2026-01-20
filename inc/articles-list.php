@@ -6,6 +6,11 @@ function get_methodology_tag()
     return $_GET['methodology'] ?? '-1'; // По умолчанию
 }
 
+function get_articles_count()
+{
+    return $_GET['articles_count'] ?? '5'; // По умолчанию
+}
+
 
 function get_articles_list_by_taxonomy($taxonomy, $term_id, $title, $empty_placeholder_msg = 'Нет статей по этой теме')
 {
