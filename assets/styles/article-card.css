@@ -5,12 +5,23 @@
 }
 
 a.article-card {
-  height: 38vh;
   display: flex;
   flex-direction: column;
   text-decoration: none;
   margin: var(--size-sm) 0;
   transition: opacity 0.3s ease; /* Плавный переход за 0.3 секунды */
+}
+
+a.article-card .block {
+  flex-grow: 0;    /* не растягивается */
+  flex-shrink: 0;  /* не сжимается */
+  flex-basis: auto; /* ширина по контенту */
+}
+a.article-card .block.stretch {
+  flex-grow: 1;    /* растягивается */
+  flex-shrink: 1;  /* сжимается */
+  flex-basis: 0%;  /* начальная точка 0 */
+  min-width: 0;
 }
 
 .article-card:hover {
@@ -21,7 +32,7 @@ a.article-card {
   background: linear-gradient(var(--bg-color-primary), var(--bg-color-default));
   background-size: cover;
   background-position: 50%;
-  height: 50%;
+  height: 131px;
   width: 100%;
   border-radius: var(--border-radius-img);
 }

@@ -1,0 +1,205 @@
+/* =============== ГАМБУРГЕР-МЕНЮ ДЛЯ МОБИЛЬНЫХ =============== */
+
+/* Контейнер для кнопки гамбургера */
+.childlab-menu-toggle {
+  display: none; /* Скрыто на десктопе */
+  position: relative;
+  z-index: 1001;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  margin-left: auto;
+}
+
+/* Иконка гамбургера */
+.childlab-menu-toggle__icon {
+  display: block;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto;
+}
+
+.childlab-menu-toggle__icon span {
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: var(--purple); /* Цвет из вашей палитры */
+  border-radius: 4px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    top 0.3s ease;
+}
+
+.childlab-menu-toggle__icon span:nth-child(1) {
+  top: 6px;
+}
+
+.childlab-menu-toggle__icon span:nth-child(2) {
+  top: 11px;
+  transform-origin: left center;
+}
+
+.childlab-menu-toggle__icon span:nth-child(3) {
+  top: 16px;
+  transform-origin: left center;
+}
+
+/* Анимация при открытии */
+.childlab-menu-toggle[aria-expanded="true"]
+  .childlab-menu-toggle__icon
+  span:nth-child(1) {
+  top: 11px;
+  transform: rotate(45deg);
+}
+
+.childlab-menu-toggle[aria-expanded="true"]
+  .childlab-menu-toggle__icon
+  span:nth-child(2) {
+  opacity: 0;
+  width: 0%;
+}
+
+.childlab-menu-toggle[aria-expanded="true"]
+  .childlab-menu-toggle__icon
+  span:nth-child(3) {
+  top: 19px;
+  left: 3px;
+  transform: rotate(-45deg);
+}
+
+/* =============== АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ =============== */
+
+@media screen and (max-width: 768px) {
+  .childlab-main-navigation {
+    display: none;
+  }
+  .menu-open .childlab-main-navigation {
+    display: flex;
+  }
+  /* Корректируем хедер для мобильных */
+  header.childlab-header {
+    padding: 0 var(--size-sm);
+    height: var(--header-height-mobile);
+  }
+
+  /* Показываем кнопку гамбургера */
+  .childlab-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Скрываем обычное меню */
+  .childlab-primary-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 50px);
+    background: #fff;
+    opacity: 0.8;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    z-index: 1000;
+    margin: 0;
+    padding: 20px 0 40px;
+    gap: 0;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Когда меню открыто */
+  .childlab-primary-menu[aria-expanded="true"] {
+    display: flex;
+    animation: slideDown 0.3s ease forwards;
+    height: auto;
+    margin-top: var(--header-height-mobile);
+  }
+
+  /* Анимация появления */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      /* transform: translateY(-10px); */
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Стили для пунктов меню на мобильных */
+  .childlab-primary-menu .menu-item {
+    width: 100%;
+    margin: 0;
+  }
+
+  .childlab-primary-menu .menu-item a {
+    display: flex;
+    align-items: center;
+    padding: 18px 24px;
+    border-radius: 0;
+    font-size: 16px;
+    border-bottom: 1px solid var(--light-purple-1);
+    transition: background-color 0.3s ease;
+  }
+
+  .childlab-primary-menu .menu-item a:hover {
+    background-color: var(--light-purple-2);
+    box-shadow: none;
+  }
+
+  .childlab-primary-menu .current-menu-item a {
+    background-color: var(--light-purple-1);
+    position: relative;
+  }
+
+  .childlab-primary-menu .current-menu-item a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--purple);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .childlab-primary-menu .menu-item:last-child a {
+    border-bottom: none;
+  }
+
+  /* Логотип на мобильных */
+  .childlab-site-branding {
+    height: 28px;
+    width: 94px;
+  }
+}
+
+/* =============== ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ =============== */
+@media screen and (max-width: 480px) {
+  header.childlab-header {
+    padding: 0 var(--size-xs);
+    gap: 0;
+  }
+
+  .childlab-primary-menu .menu-item a {
+    padding: 16px 20px;
+  }
+
+  .childlab-site-branding {
+    height: 24px;
+    width: 80px;
+  }
+}

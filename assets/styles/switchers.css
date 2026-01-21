@@ -71,7 +71,7 @@
   display: ruby;
   font-size: 10px;
   width: 56px;
-  color: #5230d0;
+  color: var(--purple);
 }
 
 .switcher_text_selected {
@@ -80,7 +80,7 @@
   align-self: center;
   padding: 4px;
   gap: 8px;
-  color: #5230d0;
+  color: var(--purple);
   font-weight: bolder;
 }
 
@@ -88,7 +88,7 @@
   display: ruby;
   font-size: 10px;
   width: 56px;
-  color: #5230d0;
+  color: var(--purple);
 }
 
 .switcher_dot {

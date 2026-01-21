@@ -36,7 +36,7 @@ function get_articles_list_by_taxonomy($taxonomy, $term_id, $title, $empty_place
 
     foreach ($posts as $key => $post) {
         the_post($post);
-        $articles_list .= '<div class="col-lg-3 col-md-6 col-sm-12">' . get_article_card() . '</div>';
+        $articles_list .= '<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">' . get_article_card() . '</div>';
 
         wp_reset_postdata();
     }

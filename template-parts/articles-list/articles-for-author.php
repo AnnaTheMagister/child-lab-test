@@ -33,12 +33,12 @@ $posts_size = count($posts);
             Статьи автора
         </header>
         <?php foreach ($posts as $key => $post): ?>
-            <?php setup_postdata($post); ?>
-            <?php if ($key % 4 == 0): ?>
+            <?php setup_postdata($post); ?>(
+            <?php if ($key % 4 == 0): ?>)
                 <div class="row">
                 <?php endif; ?>
                 <div class="col-lg-3 col-md-6 col-sm-12">
-                    <?php get_template_part('template-parts/articles-list/article-card'); ?>
+                    <?php echo get_article_card(); ?>
                 </div>
                 <?php if ($key % 4 == 3 || $key == $posts_size - 1): ?>
                 </div>

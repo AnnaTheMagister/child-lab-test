@@ -12,6 +12,8 @@ function boilerplate_load_assets()
 {
   wp_enqueue_style('cssvariables', get_theme_file_uri('/assets/styles/variables.css'));
   wp_enqueue_style('csscommon', get_theme_file_uri('/assets/styles/common.css'));
+  wp_enqueue_style('cssheader', get_theme_file_uri('/assets/styles/header.css'));
+  wp_enqueue_script('headerjs', get_theme_file_uri('/assets/scripts/header.js'), array('wp-element'), '1.0', true);
   wp_enqueue_style('csssinglearticle', get_theme_file_uri('/assets/styles/single-article.css'));
   wp_enqueue_style('cssarticlecard', get_theme_file_uri('/assets/styles/article-card.css'));
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element'), '1.0', true);

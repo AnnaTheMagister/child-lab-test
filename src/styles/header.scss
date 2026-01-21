@@ -1,9 +1,14 @@
 @import "variables.scss";
+@import "grid-system.scss";
+
+#wpadminbar {
+  position: fixed;
+}
 
 .childlab-header {
   position: fixed;
-  width: calc(100% - 80px);
-  height: 80px;
+  width: 100%;
+  height: var(--header-height);
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -31,18 +36,22 @@
   display: flex;
   list-style: none;
   gap: 20px;
+  transition: opacity 0.3s ease;
 
   .menu-item a {
-    padding: 8px 16px;
+    padding: var(--size-xs) var(--size-md);
     border-radius: 8px;
 
     text-decoration: none;
-    color: $primaryColor;
+    color: var(--purple);
+    font-weight: var(--font-wight-500);
+    font-size: var(--font-size-16);
+    transition: all 0.3s ease;
     &:hover {
       background-color: $menuHoverBgColor;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
-      color: $primaryColor;
+      color: var(--purple);
     }
   }
 
