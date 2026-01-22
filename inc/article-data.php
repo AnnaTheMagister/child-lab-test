@@ -74,7 +74,7 @@ function get_article_meta_render()
     }
     $avatars_render = '<div class="childlab-avatars">' . $avatars . '</div>';
     $names_render = '<div class="article-meta__authors-names">' . $names . ' </div>';
-    $authors_render = "<div class='article-meta__authors'>" . $avatars_render . $names_render . "</div>";
+    $authors_render = $authors ? "<div class='article-meta__authors'>" . $avatars_render . $names_render . "</div>" : "";
     $divider = $authors && $published_date ? '<div> · </div>' : '';
     $date_render = '<div>' . $published_date . '</div>';
 

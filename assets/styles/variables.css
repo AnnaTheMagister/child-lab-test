@@ -61,4 +61,10 @@
   --border-radius-img: 1.4rem; /* 16px */
   --border-radius-widget: 2rem; /* 32px */
   --box-shadow-default: 0 0px 40px rgba(56, 87, 97, 0.1);
+
+
+
+  --header-height: 80px;
+  --header-height-mobile: 64px;
+
 }
