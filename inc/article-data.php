@@ -78,7 +78,7 @@ function get_article_meta_render()
     $divider = $authors && $published_date ? '<div> · </div>' : '';
     $date_render = '<div>' . $published_date . '</div>';
 
-    return '<div class="article-meta"><div class="article-meta childlab-text childlab-text__meta">' . $authors_render . $divider . $date_render . '</div></div>';
+    return '<div class="article-meta">' . $authors_render . $divider . $date_render . '</div>';
 }
 
 ?>

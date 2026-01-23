@@ -82,9 +82,10 @@ a.article-card .block.stretch {
   margin-right: -16px;
 }
 
-.childlab-text {
-  font-weight: 500;
-  color: var(--color-subtitle-2);
+.article-meta {
+  font-weight: var(--font-weight-500);
+  font-size: var(--font-size-13);
+  color: var(--dark-grey-1);
 }
 
 .article-details__title {

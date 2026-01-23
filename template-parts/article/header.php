@@ -5,10 +5,10 @@ $subtitle = get_field('subtitle');
 
 <header>
     <div class="row">
-        <div class="col-lg-3 order-lg-1 order-md-1 col-md-6 pr-4">
+        <div class="col-lg-3 order-lg-1 order-md-1 col-md-6  col-xs-6 pr-4">
             <?php echo get_post_link(get_prev_article(), "nav-link-prev") ?>
         </div>
-        <div class="col-lg-6 order-lg-2 order-md-3 col-md-12">
+        <div class="col-lg-6 order-lg-2 order-md-3 col-md-12 order-xs-3 col-xs-12">
             <!-- Основной заголовок -->
             <h1 class="article-title">
                 <?php the_title(); ?>
@@ -23,7 +23,7 @@ $subtitle = get_field('subtitle');
                 <?php echo get_article_tags_render(get_the_ID()); ?>
             </div>
         </div>
-        <div class="col-lg-3 order-lg-3 order-md-2 col-md-6 pl-4">
+        <div class="col-lg-3 order-lg-3 order-md-2 col-md-6 col-xs-6 pl-4">
             <?php echo get_post_link(get_next_article(), "nav-link-next") ?>
         </div>
     </div>

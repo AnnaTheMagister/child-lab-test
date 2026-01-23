@@ -1,15 +1,16 @@
 .article-main {
-  margin: 40px 108px;
-  padding: 32px;
-  border-radius: 32px;
-  background-color: #fff;
-  box-shadow: var(--box-shadow-default);
-}
-/* Основной контейнер */
-.article-container {
+  margin: var(--size-xxlg) 0;
   display: flex;
   flex-direction: column;
   gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .article-main {
+    margin: 0;
+    background: var(--light-grey-1);
+    box-shadow: none;
+  }
 }
 
 /* Боковая панель с оглавлением */
@@ -18,6 +19,14 @@
   position: sticky;
   top: 100px;
   max-height: calc(100vh - 120px);
+}
+
+@media (max-width: 992px) {
+  .article-main .article-sidebar {
+    flex-shrink: 0;
+    position: static;
+    max-height: 100%;
+  }
 }
 
 /* Основной контент */
@@ -30,15 +39,19 @@
 .nav-link-next {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 20px;
-  text-decoration: none;
+  font-weight: var(--font-wight-500);
+  font-size: var(--font-size-16);
 }
 
 .nav-link-prev {
-  text-align: end;
+  justify-content: start;
 }
 
+.nav-link-next {
+  justify-content: end;
+}
 .nav-link-prev::before {
   display: flex;
   content: "←";
@@ -50,18 +63,11 @@
 
 /* Заголовок статьи */
 h1.article-title {
-  font-size: var(--font-size-title-1);
-  font-weight: 500;
-  line-height: 1.2;
-  margin: 0;
   text-align: center;
 }
 
 /* Заголовок статьи */
 h2.article-subtitle {
-  font-size: var(--font-size-title-2);
-  font-weight: 400;
-  margin: 0;
   text-align: center;
 }
 
@@ -73,4 +79,8 @@ h2.article-subtitle {
   gap: 12px;
   justify-content: center;
   margin-top: 1rem;
+}
+
+.article-main .article-meta {
+  font-size: var(--font-size-16);
 }

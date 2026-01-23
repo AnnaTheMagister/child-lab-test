@@ -46,11 +46,25 @@
   color: var(--color-subtitle-2);
 }
 
-.toc-link:hover, .toc-nested .toc-link:hover {
+.toc-link:hover,
+.toc-nested .toc-link:hover {
   color: var(--color-secondary);
 }
 
 .toc-item.active .toc-link {
   color: var(--color-primary);
   font-weight: 600;
+}
+
+@media (max-width: 992px) {
+  .table-of-contents {
+    padding: var(--size-lg) 0;
+    border-radius: 0;
+    background-color: var(--color-grey-1);
+    box-shadow: none;
+    max-height: 100%;
+    overflow: auto;
+    border-top: 1px solid var(--light-grey-2);
+    border-bottom: 1px solid var(--light-grey-2);
+  }
 }
