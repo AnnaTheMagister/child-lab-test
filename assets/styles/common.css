@@ -3,13 +3,15 @@ h1 {
   font-weight: var(--font-weight-500);
   color: var(--color-title);
   margin: var(--size-md) 0;
+  line-height: 1;
 }
 
 h2 {
   font-size: var(--font-size-24);
-  font-weight: var(--font-weight-500);
+  font-weight: var(--font-weight-400);
   color: var(--color-title);
   margin: var(--size-sm) 0;
+  line-height: 1;
 }
 
 p {
@@ -27,7 +29,7 @@ p {
 
 /* применяется к блокам с виджетами для скругления углов, цвета фона и теней */
 .childlab-widget {
-  padding: var(--padding-md);
+  padding: var(--size-xxlg);
   border-radius: var(--border-radius-widget);
   background-color: var(--bg-color-default);
   box-shadow: var(--box-shadow-default);
@@ -126,6 +128,12 @@ a.childlab-card-link:hover .childlab-image {
     0 -20%;
 }
 
+@media (max-width: 768px) {
+  .article-wrapper {
+    background: var(--light-grey-1);
+  }
+}
+
 .post-wrapper {
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.5) 0,
@@ -135,6 +143,12 @@ a.childlab-card-link:hover .childlab-image {
     url("../images/post-bg.png");
   background-repeat: no-repeat;
   background-size: contain, 100%;
+}
+
+@media (max-width: 768px) {
+  .post-wrapper {
+    background: var(--light-grey-1);
+  }
 }
 
 .empty-placeholder {

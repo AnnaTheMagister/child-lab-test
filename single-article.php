@@ -12,16 +12,15 @@ $GLOBALS['mode'] = get_reading_mode();
 
 <div class="article-wrapper article-wrapper-article">
 
-    <main class="article-main">
-
-        <div class="article-container">
+    <div class="container">
+        <main class="childlab-widget article-main">
 
             <!-- Заголовок статьи -->
             <?php get_template_part('template-parts/article/header'); ?>
 
             <div class="row">
                 <!-- Боковая панель -->
-                <aside class="col-lg-3 col-md-12 article-sidebar">
+                <aside class="col-lg-3 col-md-12 col-xs-12 article-sidebar">
                     <!-- Оглавление -->
                     <?php get_template_part('template-parts/article/toc'); ?>
                     <!-- Переключатель режимов -->
@@ -29,7 +28,7 @@ $GLOBALS['mode'] = get_reading_mode();
                 </aside>
 
                 <!-- Основной контент -->
-                <article class="col-lg-9 col-md-12 article-content-wrapper" data-post-id="<?php echo $post_id; ?>">
+                <article class="col-lg-9 col-md-12 col-xs-12 article-content-wrapper" data-post-id="<?php echo $post_id; ?>">
 
                     <!-- Контент в выбранном режиме -->
                     <?php get_template_part('template-parts/article/mode-content'); ?>
@@ -39,9 +38,9 @@ $GLOBALS['mode'] = get_reading_mode();
             </div>
             <!-- Подвал статьи с навигацией -->
             <?php get_template_part('template-parts/article/footer'); ?>
-        </div>
-    </main>
 
+        </main>
+    </div>
 </div>
 
 <?php get_footer(); ?>

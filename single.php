@@ -9,12 +9,11 @@ get_header();
 ?>
 
 <div class="post-wrapper">
-    <main class="article-main">
-
-        <div class="article-container">
+    <div class="container">
+        <main class="childlab-widget article-main">
 
             <div class="row">
-                <div class="col-lg-3 order-lg-1 order-md-1 col-md-6 pr-4">
+                <div class="col-lg-3 order-lg-1 order-md-1 col-md-6 col-xs-6 pr-4">
                     <a class="nav-link-prev" href="<?php echo get_site_url(); ?>">На главную</a>
 
                 </div>
@@ -28,14 +27,15 @@ get_header();
 
             <div class="row">
                 <!-- Боковая панель -->
-                <aside class="col-lg-3 col-md-12 article-sidebar">
+                <aside class="col-lg-3 col-md-12 col-xs-12 article-sidebar">
                     <!-- Оглавление -->
                     <?php echo generate_table_of_contents(get_the_content()); ?>
 
                 </aside>
 
                 <!-- Основной контент -->
-                <article class="col-lg-9 col-md-12 article-content-wrapper" data-post-id="<?php echo $post_id; ?>">
+                <article class="col-lg-9 col-md-12 col-xs-12 article-content-wrapper"
+                    data-post-id="<?php echo $post_id; ?>">
 
                     <?php the_content(); ?>
 
@@ -49,8 +49,8 @@ get_header();
 
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 </div>
 
 

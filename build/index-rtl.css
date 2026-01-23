@@ -10,6 +10,10 @@ body {
   box-sizing: border-box;
 }
 
+a {
+  color: var(--purple);
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -37,12 +41,6 @@ body {
   align-items: center;
   justify-content: center;
   gap: var(--size-lg);
-}
-
-@media screen and (max-width: 992px) {
-  body {
-    background-color: aqua;
-  }
 }
 /*!****************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/styles/grid-system.scss ***!
@@ -3941,13 +3939,13 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   gap: 36px;
   z-index: 1000;
-  margin-top: -80px;
+  margin-top: calc(0px - var(--header-height));
 }
 
 .childlab-site-branding {
   display: flex;
   align-items: center;
-  height: 32px;
+  height: 36px;
   width: 106px;
   overflow: hidden;
 }

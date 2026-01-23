@@ -68,25 +68,12 @@ function get_related_articles($post_id = null, $limit = 3, $exclude_ids = [], $o
 
 function get_next_article($post_id = null)
 {
-    $next_post = get_adjacent_post(true, '', true, 'methodology_tag');
-
-    if (empty($next_post)) {
-        $next_post = current(get_related_articles(null, 1, []));
-    }
-
-    return $next_post;
+    return get_next_post(false, [], 'methodology_tag');
 }
 
 function get_prev_article()
 {
-    $prev_post = get_adjacent_post(true, '', false, 'methodology_tag');
-    $next_post = get_next_article();
-
-    if (empty($prev_post)) {
-        $prev_post = current(get_related_articles(null, 1, $next_post ? [$next_post->ID] : []));
-    }
-
-    return $prev_post;
+    return get_previous_post(false, [], 'methodology_tag');
 }
 
 function get_post_link($related_post, $class)

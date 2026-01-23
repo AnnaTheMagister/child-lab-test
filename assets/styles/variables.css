@@ -16,7 +16,9 @@
   --size-md: 16px;
   --size-lg: 20px;
   --size-xlg: 24px;
+  --size-xxlg: 32px;
 
+  --font-size-13: 13px;
   --font-size-16: 16px;
   --font-size-18: 18px;
   --font-size-20: 20px;
@@ -62,9 +64,9 @@
   --border-radius-widget: 2rem; /* 32px */
   --box-shadow-default: 0 0px 40px rgba(56, 87, 97, 0.1);
 
-
-
   --header-height: 80px;
   --header-height-mobile: 64px;
 
+  --admin-bar-height: 32px;
+  --admin-bar-height-mobile: 46px;
 }
