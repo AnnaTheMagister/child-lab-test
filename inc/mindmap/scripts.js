@@ -1,316 +1,444 @@
-const initialData = {
-  tags: [
-    {
-      id: "Agency",
-      name: "Субъектность",
-      color: "#90b636",
-      textOrientation: "horizontal",
-      x: 330,
-      y: 50,
-    },
-    {
-      id: "Self_regulatory_abilities",
-      name: "Регуляторные способности",
-      color: "#38d37c",
-      textOrientation: "horizontal",
-      x: 210,
-      y: 120,
-    },
-    {
-      id: "Cognitive_abilities",
-      name: "Познавательные способности",
-      color: "#dcc22d",
-      textOrientation: "horizontal",
-      x: 450,
-      y: 120,
-    },
-    {
-      id: "Communicative_abilities",
-      name: "Коммуникативные способности",
-      color: "#db508f",
-      textOrientation: "horizontal",
-      x: 330,
-      y: 200,
-    },
-    {
-      id: "Planning",
-      name: "Планирование",
-      color: "#64af38",
-      textOrientation: "horizontal",
-      x: 80,
-      y: 70,
-    },
-    {
-      id: "Imagination",
-      name: "Воображение",
-      color: "#becc1c",
-      direction: "auto",
-      textOrientation: "horizontal",
-      x: 580,
-      y: 70,
-    },
-    {
-      id: "Dialectical_thinking",
-      name: "Диалектическое мышление",
-      color: "#f3c932",
-      textOrientation: "horizontal",
-      x: 580,
-      y: 180,
-    },
-    {
-      id: "Anticipation",
-      name: "Предвосхищение",
-      color: "#e99030",
-      textOrientation: "horizontal",
-      x: 550,
-      y: 250,
-    },
-    {
-      id: "argumentation",
-      name: "Аргументация",
-      color: "#ea6695",
-      direction: "auto",
-      textOrientation: "horizontal",
-      x: 490,
-      y: 300,
-    },
-    {
-      id: "Decentration",
-      name: "Децентрация",
-      color: "#D34FB5",
-      direction: "auto",
-      textOrientation: "horizontal",
-      x: 330,
-      y: 300,
-    },
-    {
-      id: "Volitional_control",
-      color: "#49C64F",
-      name: "Произвольность",
-      textOrientation: "horizontal",
-      x: 80,
-      y: 160,
-    },
-    {
-      id: "moral_reasoning",
-      color: "#B949D4",
-      name: "Моральные суждения",
-      textOrientation: "horizontal",
-      x: 330,
-      y: 370,
-    },
-    {
-      id: "reflection",
-      color: "#9AD04A",
-      name: "Рефлексия",
-      textOrientation: "horizontal",
-      x: 180,
-      y: 290,
-    },
-    {
-      id: "construction",
-      color: "#6E41D8",
-      name: "Конструирование",
-      textOrientation: "vertical",
-      x: 360,
-      y: 530,
-    },
-    {
-      id: "shared_reading",
-      color: "#4164D9",
-      name: "Совместное чтение",
-      textOrientation: "vertical",
-      x: 320,
-      y: 570,
-    },
-    {
-      id: "children_storytelling",
-      color: "#50D4CB",
-      name: "Детское сочинительство",
-      textOrientation: "vertical",
-      x: 280,
-      y: 550,
-    },
-    {
-      id: "experimentation",
-      color: "#42A0CC",
-      name: "Экспериментирование",
-      textOrientation: "vertical",
-      x: 400,
-      y: 550,
-    },
-    {
-      id: "game",
-      color: "#aA8740",
-      name: "Игра",
-      textOrientation: "horizontal",
-      x: 330,
-      y: 710,
-    },
-    {
-      id: "attachment",
-      color: "#8A6720",
-      name: "Привязанность",
-      textOrientation: "horizontal",
-      x: 330,
-      y: 750,
-    },
-  ],
-  connections: [
-    {
-      source: "Cognitive_abilities",
-      target: "Imagination",
-      strength: 1,
-    },
-    {
-      source: "Cognitive_abilities",
-      target: "Agency",
-      strength: 5,
-    },
-    {
-      source: "Cognitive_abilities",
-      target: "Communicative_abilities",
-      strength: 5,
-    },
-    {
-      source: "Cognitive_abilities",
-      target: "Self_regulatory_abilities",
-      strength: 5,
-    },
-    {
-      source: "Self_regulatory_abilities",
-      target: "Agency",
-      strength: 5,
-    },
-    {
-      source: "Self_regulatory_abilities",
-      target: "Communicative_abilities",
-      strength: 5,
-    },
-    {
-      source: "Agency",
-      target: "Communicative_abilities",
-      strength: 5,
-    },
-    {
-      source: "Planning",
-      target: "Self_regulatory_abilities",
-      strength: 1,
-    },
-    {
-      source: "Dialectical_thinking",
-      target: "Cognitive_abilities",
-      strength: 1,
-    },
-    {
-      source: "Anticipation",
-      target: "Cognitive_abilities",
-      strength: 1,
-    },
-    {
-      source: "argumentation",
-      target: "Cognitive_abilities",
-      strength: 1,
-    },
-    {
-      source: "Communicative_abilities",
-      target: "argumentation",
-      strength: 1,
-    },
-    {
-      source: "Communicative_abilities",
-      target: "Decentration",
-      strength: 1,
-    },
-    {
-      source: "Self_regulatory_abilities",
-      target: "Volitional_control",
-      strength: 1,
-    },
-    {
-      source: "moral_reasoning",
-      target: "Cognitive_abilities",
-      strength: 1,
-    },
-    {
-      source: "reflection",
-      target: "Cognitive_abilities",
-      strength: 1,
-    },
-    {
-      source: "reflection",
-      target: "Self_regulatory_abilities",
-      strength: 1,
-    },
-    {
-      source: "construction",
-      target: "moral_reasoning",
-      strength: 1,
-    },
-    {
-      source: "experimentation",
-      target: "moral_reasoning",
-      strength: 1,
-    },
-    {
-      source: "moral_reasoning",
-      target: "children_storytelling",
-      strength: 1,
-    },
-    {
-      source: "moral_reasoning",
-      target: "shared_reading",
-      strength: 1,
-    },
-    {
-      source: "construction",
-      target: "game",
-      strength: 1,
-    },
-    {
-      source: "experimentation",
-      target: "game",
-      strength: 1,
-    },
-    {
-      source: "game",
-      target: "children_storytelling",
-      strength: 1,
-    },
-    {
-      source: "game",
-      target: "shared_reading",
-      strength: 1,
-    },
-        {
-      source: "game",
-      target: "attachment",
-      strength: 1,
-    },
-  ],
-  config: {
-    layout: "horizontal",
-    spacing: 120,
-    padding: 60,
-    curveIntensity: 0.5,
-    lineWidth: 3,
+// scripts.js - данные для примера с координатами в процентах
+
+const initialTags = [
+  {
+    id: "Agency",
+    name: "Субъектность",
+    color: "#90b636",
     textOrientation: "horizontal",
+    fontSize: 20,
+    xPercent: 50.0,
+    yPercent: 4
   },
+  {
+    id: "Self_regulatory_abilities",
+    name: "Регуляторные \n способности",
+    color: "#38d37c",
+    textOrientation: "horizontal",
+    fontSize: 16,
+    xPercent: 25,
+    yPercent: 18.0
+  },
+  {
+    id: "Cognitive_abilities",
+    name: "Познавательные \n способности",
+    color: "#dcc22d",
+    textOrientation: "horizontal",
+    fontSize: 16,
+    xPercent: 76,
+    yPercent: 18.0
+  },
+  {
+    id: "Communicative_abilities",
+    name: "Коммуникативные \n способности",
+    color: "#db508f",
+    textOrientation: "horizontal",
+    fontSize: 16,
+    xPercent: 50.0,
+    yPercent: 27.0
+  },
+  {
+    id: "Planning",
+    name: "Планирование",
+    color: "#64af38",
+    textOrientation: "horizontal",
+    fontSize: 13,
+    xPercent: 10,
+    yPercent: 10
+  },
+  {
+    id: "Imagination",
+    name: "Воображение",
+    color: "#becc1c",
+    textOrientation: "horizontal",
+    fontSize: 13,
+    xPercent: 90,
+    yPercent: 10
+  },
+  {
+    id: "Dialectical_thinking",
+    name: "Диалектическое \n мышление",
+    color: "#f3c932",
+    textOrientation: "horizontal",
+    fontSize: 13,
+    xPercent: 89,
+    yPercent: 27
+  },
+  {
+    id: "Anticipation",
+    name: "Предвосхищение",
+    color: "#e99030",
+    textOrientation: "horizontal",
+    fontSize: 13,
+    xPercent: 85,
+    yPercent: 35
+  },
+  {
+    id: "argumentation",
+    name: "Аргументация",
+    color: "#ea6695",
+    textOrientation: "horizontal",
+    fontSize: 13,
+    xPercent: 76,
+    yPercent: 42
+  },
+  {
+    id: "Decentration",
+    name: "Децентрация",
+    color: "#D34FB5",
+    textOrientation: "horizontal",
+    fontSize: 13,
+    xPercent: 50.0,
+    yPercent: 35
+  },
+  {
+    id: "Volitional_control",
+    name: "Произвольность",
+    color: "#49C64F",
+    textOrientation: "horizontal",
+    fontSize: 13,
+    xPercent: 11,
+    yPercent: 25
+  },
+  {
+    id: "moral_reasoning",
+    name: "Моральные суждения",
+    color: "#B949D4",
+    textOrientation: "horizontal",
+    fontSize: 13,
+    xPercent: 50.0,
+    yPercent: 48
+  },
+  {
+    id: "reflection",
+    name: "Рефлексия",
+    color: "#9AD04A",
+    textOrientation: "horizontal",
+    fontSize: 13,
+    xPercent: 25,
+    yPercent: 42
+  },
+  {
+    id: "construction",
+    name: "Конструирование",
+    color: "#6E41D8",
+    textOrientation: "vertical",
+    fontSize: 13,
+    xPercent: 52,
+    yPercent: 67
+  },
+  {
+    id: "shared_reading",
+    name: "Совместное чтение",
+    color: "#4164D9",
+    textOrientation: "vertical",
+    fontSize: 13,
+    xPercent: 47,
+    yPercent: 71
+  },
+  {
+    id: "children_storytelling",
+    name: "Детское сочинительство",
+    color: "#50D4CB",
+    textOrientation: "vertical",
+    fontSize: 13,
+    xPercent: 42,
+    yPercent: 67
+  },
+  {
+    id: "experimentation",
+    name: "Экспериментирование",
+    color: "#42A0CC",
+    textOrientation: "vertical",
+    fontSize: 13,
+    xPercent: 57,
+    yPercent: 66
+  },
+  {
+    id: "game",
+    name: "Игра",
+    color: "#aA8740",
+    textOrientation: "horizontal",
+    fontSize: 32,
+    xPercent: 50.0,
+    yPercent: 87
+  },
+  {
+    id: "attachment",
+    name: "Привязанность",
+    color: "#8A6720",
+    textOrientation: "horizontal",
+    fontSize: 20,
+    xPercent: 50.0,
+    yPercent: 97
+  }
+];
+
+const initialConnections = [
+  {
+    source: "Agency",
+    target: "Self_regulatory_abilities",
+    curveIntensity: 0,
+    connectFrom: 'bottom',
+    connectTo: 'right',
+    lineWidth: 4
+  },
+  {
+    source: "Agency",
+    target: "Cognitive_abilities",
+    curveIntensity: 0,
+    connectFrom: 'bottom',
+    connectTo: 'left',
+    lineWidth: 4
+  },
+  {
+    source: "Self_regulatory_abilities",
+    target: "Cognitive_abilities",
+    curveIntensity: 0,
+    connectFrom: 'right',
+    connectTo: 'left',
+    lineWidth: 4
+  },
+  {
+    source: "Self_regulatory_abilities",
+    target: "Communicative_abilities",
+    curveIntensity: 0,
+    connectFrom: 'right',
+    connectTo: 'top',
+    lineWidth: 4
+  },
+  {
+    source: "Cognitive_abilities",
+    target: "Communicative_abilities",
+    curveIntensity: 0,
+    connectFrom: 'left',
+    connectTo: 'top',
+    lineWidth: 4
+  },
+  {
+    source: "Agency",
+    target: "Communicative_abilities",
+    curveIntensity: 0,
+    connectFrom: 'bottom',
+    connectTo: 'top',
+    lineWidth: 4
+  },
+  {
+    source: "Cognitive_abilities",
+    target: "Imagination",
+    curveIntensity: -0.4,
+    connectFrom: 'top',
+    connectTo: 'left',
+    lineWidth: 2
+  },
+  {
+    source: "Planning",
+    target: "Self_regulatory_abilities",
+    curveIntensity: -0.4,
+    connectFrom: 'right',
+    connectTo: 'top',
+    lineWidth: 2
+  },
+  {
+    source: "Dialectical_thinking",
+    target: "Cognitive_abilities",
+    curveIntensity: -0.3,
+    connectFrom: 'left',
+    connectTo: 'bottom',
+    shiftTo: -0.05,
+    lineWidth: 2
+  },
+  {
+    source: "Anticipation",
+    target: "Cognitive_abilities",
+    curveIntensity: -0.2,
+    connectFrom: 'top',
+    shiftFrom: -0.8,
+    connectTo: 'bottom',
+    shiftTo: -0.2,
+    lineWidth: 2
+  },
+  {
+    source: "argumentation",
+    target: "Cognitive_abilities",
+    curveIntensity: 0.05,
+    connectFrom: 'top',
+    shiftFrom: -0.8,
+    connectTo: 'bottom',
+    shiftTo: -0.3,
+    lineWidth: 2
+  },
+  {
+    source: "Communicative_abilities",
+    target: "argumentation",
+    curveIntensity: 0.3,
+    connectFrom: 'bottom',
+    shiftFrom: 0.9,
+    connectTo: 'left',
+    lineWidth: 2
+  },
+  {
+    source: "Communicative_abilities",
+    target: "Decentration",
+    curveIntensity: 0.2,
+    connectFrom: 'bottom',
+    connectTo: 'top',
+    lineWidth: 2
+  },
+  {
+    source: "Self_regulatory_abilities",
+    target: "Volitional_control",
+    curveIntensity: -0.2,
+    connectFrom: 'bottom',
+    shiftFrom: 0.2,
+    connectTo: 'right',
+    lineWidth: 2
+  },
+  {
+    source: "moral_reasoning",
+    target: "Cognitive_abilities",
+    curveIntensity: 0.2,
+    connectFrom: 'top',
+    shiftFrom: 0.6,
+    connectTo: 'bottom',
+    shiftTo: -0.5,
+    lineWidth: 2
+  },
+  {
+    source: "reflection",
+    target: "Cognitive_abilities",
+    curveIntensity: 0.6,
+    connectFrom: 'right',
+    connectTo: 'bottom',
+    shiftTo: -0.7,
+    lineWidth: 2
+  },
+  {
+    source: "reflection",
+    target: "Self_regulatory_abilities",
+    curveIntensity: 0.2,
+    connectFrom: 'top',
+    connectTo: 'bottom',
+    shiftTo: 0.5,
+    lineWidth: 2
+  },
+  {
+    source: "construction",
+    target: "moral_reasoning",
+    curveIntensity: -0.2,
+    connectFrom: 'top',
+    shiftFrom: 2,
+    connectTo: 'bottom',
+    shiftTo: 0.45,
+    lineWidth: 2
+  },
+  {
+    source: "experimentation",
+    target: "moral_reasoning",
+    curveIntensity: -0.1,
+    connectFrom: 'top',
+    connectTo: 'bottom',
+    shiftTo: 1,
+    lineWidth: 2
+  },
+  {
+    source: "moral_reasoning",
+    target: "children_storytelling",
+    curveIntensity: 0.3,
+    connectFrom: 'bottom',
+    shiftFrom: -1,
+    connectTo: 'top',
+    lineWidth: 2
+  },
+  {
+    source: "moral_reasoning",
+    target: "shared_reading",
+    curveIntensity: 0.1,
+    connectFrom: 'bottom',
+    shiftFrom: -0.4,
+    connectTo: 'top',
+    shiftTo: -2,
+    lineWidth: 2
+  },
+  {
+    source: "construction",
+    target: "attachment",
+    curveIntensity: 0.05,
+    connectFrom: 'bottom',
+    shiftFrom: 2,
+    connectTo: 'top',
+    shiftTo: 0.2,
+    lineWidth: 2
+  },
+  {
+    source: "experimentation",
+    target: "attachment",
+    curveIntensity: 0.05,
+    connectFrom: 'bottom',
+    shiftFrom: 3,
+    connectTo: 'top',
+    shiftTo: 0.7,
+    lineWidth: 2
+  },
+  {
+    source: "children_storytelling",
+    target: "attachment",
+    curveIntensity: -0.1,
+    connectFrom: 'bottom',
+    shiftFrom: -6,
+    connectTo: 'top',
+    shiftTo: -0.7,
+    lineWidth: 2
+  },
+  {
+    source: "shared_reading",
+    target: "attachment",
+    curveIntensity: -0.05,
+    connectFrom: 'bottom',
+    shiftFrom: -3,
+    connectTo: 'top',
+    shiftTo: -0.2,
+    lineWidth: 2
+  },
+  {
+    source: "shared_reading",
+    target: "children_storytelling",
+    curveIntensity: 0.3,
+    connectFrom: 'top',
+    shiftFrom: 2,
+    connectTo: 'left',
+    shiftTo: -1.2,
+    lineWidth: 2
+  },
+  {
+    source: "experimentation",
+    target: "construction",
+    curveIntensity: 0.4,
+    connectFrom: 'right',
+    shiftFrom: -1.4,
+    connectTo: 'right',
+    shiftTo: 1,
+    lineWidth: 2
+  },
+];
+
+
+const initialConfig = {
+  curveIntensity: 0.5,
+  lineWidth: 3,
+  textOrientation: "horizontal",
 };
 
 function initGraph() {
   graph = new TagGraph({
     container: document.getElementById("graph"),
-    tags: JSON.parse(JSON.stringify(initialData.tags)),
-    connections: JSON.parse(JSON.stringify(initialData.connections)),
-    layout: "manual",
-    spacing: 60,
-    padding: 20,
+    tags: JSON.parse(JSON.stringify(initialTags)),
+    connections: JSON.parse(JSON.stringify(initialConnections)),
     curveIntensity: 0.7,
     lineWidth: 2,
     textOrientation: "horizontal",
     backgroundColor: "rgba(255, 255, 255, 0.4)",
-    interactive: true,
+    interactive: false,
     onTagClick: (tag) => {
       if ("URLSearchParams" in window) {
         let searchParams = new URLSearchParams(window.location.search);

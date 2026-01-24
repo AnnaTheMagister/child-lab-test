@@ -79,17 +79,16 @@
 }
 
 .methodology__header {
+  background-color: aqua;
 }
 
 .methodology__tree-wrapper {
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url(../images/tree.png);
-  background-size: 192%;
+  background-image: url(../images/tree.png);
+  background-size: cover;
   width: 100%;
+  min-width: 660px;
   height: 800px;
+  max-height: 800px;
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
