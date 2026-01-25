@@ -438,7 +438,7 @@ function initGraph() {
     lineWidth: 2,
     textOrientation: "horizontal",
     backgroundColor: "rgba(255, 255, 255, 0.4)",
-    interactive: false,
+    interactive: true,
     onTagClick: (tag) => {
       if ("URLSearchParams" in window) {
         let searchParams = new URLSearchParams(window.location.search);

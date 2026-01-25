@@ -79,7 +79,7 @@
 }
 
 .methodology__header {
-  background-color: aqua;
+  color: var(--black);
 }
 
 .methodology__tree-wrapper {

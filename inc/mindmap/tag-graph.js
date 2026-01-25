@@ -430,14 +430,14 @@ class TagGraph {
 
   setupInteractivity() {
     this.canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
-    this.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
+    // this.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
     this.canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
     this.canvas.addEventListener('click', this.handleClick.bind(this));
     this.canvas.addEventListener('mouseleave', this.handleMouseLeave.bind(this));
     this.canvas.addEventListener('contextmenu', this.handleContextMenu.bind(this));
 
     this.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
-    this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+    // this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
     this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this));
 
     this.canvas.style.cursor = 'default';
