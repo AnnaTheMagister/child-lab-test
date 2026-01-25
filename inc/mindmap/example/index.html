@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tag Graph Demo - Адаптивный граф тегов</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Адаптивный граф тегов</h1>
+        <div class="subtitle">Координаты в процентах • Правый клик меняет ориентацию текста</div>
+        
+        <div class="panels">
+            <div class="controls">
+                <div class="control-group">
+                    <h3>📐 Режимы расположения</h3>
+                    <div class="buttons-grid">
+                        <button id="horizontalBtn">
+                            <span>→</span> Горизонтально
+                        </button>
+                        <button id="verticalBtn">
+                            <span>↓</span> Вертикально
+                        </button>
+                        <button id="circularBtn">
+                            <span>⭕</span> Круговой
+                        </button>
+                        <button id="gridBtn">
+                            <span>▦</span> Сетка
+                        </button>
+                        <button id="manualBtn">
+                            <span>🖱️</span> Ручной
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>⚙️ Настройки графа</h3>
+                    <div class="range-group">
+                        <label>Расстояние:</label>
+                        <input type="range" id="spacingSlider" min="50" max="300" step="10" value="100">
+                        <span id="spacingValue" class="range-value">100</span>
+                    </div>
+                    <div class="range-group">
+                        <label>Отступ:</label>
+                        <input type="range" id="paddingSlider" min="20" max="100" step="5" value="40">
+                        <span id="paddingValue" class="range-value">40</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>🎨 Настройки тегов</h3>
+                    <div class="range-group">
+                        <label>Размер шрифта:</label>
+                        <input type="range" id="fontSizeSlider" min="8" max="24" step="1" value="14">
+                        <span id="fontSizeValue" class="range-value">14</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>🔗 Настройки соединений</h3>
+                    <div class="range-group">
+                        <label>Толщина линий:</label>
+                        <input type="range" id="lineWidthSlider" min="1" max="10" step="1" value="3">
+                        <span id="lineWidthValue" class="range-value">3</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>🔄 Управление графом</h3>
+                    <div class="buttons-grid">
+                        <button id="addTagBtn">
+                            <span>➕</span> Добавить тег
+                        </button>
+                        <button id="addConnectionBtn">
+                            <span>🔗</span> Добавить связь
+                        </button>
+                        <button id="exportBtn">
+                            <span>💾</span> Экспорт JSON
+                        </button>
+                        <button id="importBtn">
+                            <span>📂</span> Импорт JSON
+                        </button>
+                        <button id="resetBtn">
+                            <span>🔄</span> Сброс
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tag-editor">
+                <div class="control-group">
+                    <h3>🏷️ Редактор тега</h3>
+                    <div id="selectedTagInfo">
+                        <p style="color: #666; text-align: center; padding: 20px;">
+                            Выберите тег для редактирования
+                        </p>
+                    </div>
+                    <div id="tagEditorControls" style="display: none;">
+                        <div class="form-group">
+                            <label>Название:</label>
+                            <input type="text" id="tagNameInput" placeholder="Введите название">
+                        </div>
+                        <div class="form-group">
+                            <label>Цвет:</label>
+                            <input type="color" id="tagColorInput" value="#667eea">
+                        </div>
+                        <div class="form-group">
+                            <label>Размер шрифта:</label>
+                            <input type="number" id="tagFontSizeInput" min="8" max="24" value="14">
+                        </div>
+                        <div class="form-group">
+                            <label>Ориентация текста:</label>
+                            <div class="text-orientation-buttons">
+                                <button class="text-orientation-btn horizontal" data-orientation="horizontal">
+                                    ↔ Горизонтальная
+                                </button>
+                                <button class="text-orientation-btn vertical" data-orientation="vertical">
+                                    ↕ Вертикальная
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Координаты (в %):</label>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="number" id="tagXInput" placeholder="X %" min="0" max="100" step="0.1" style="flex: 1;">
+                                <input type="number" id="tagYInput" placeholder="Y %" min="0" max="100" step="0.1" style="flex: 1;">
+                            </div>
+                        </div>
+                        <div class="buttons-grid">
+                            <button id="updateTagBtn">
+                                <span>✓</span> Обновить
+                            </button>
+                            <button id="deleteTagBtn" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                <span>🗑️</span> Удалить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>🔗 Редактор связи</h3>
+                    <div id="selectedConnectionInfo">
+                        <p style="color: #666; text-align: center; padding: 20px;">
+                            Выберите связь для редактирования (клик на линию)
+                        </p>
+                    </div>
+                    <div id="connectionEditorControls" style="display: none;">
+                        <div class="form-group">
+                            <label>Кривизна (0 = прямая):</label>
+                            <input type="range" id="connectionCurveSlider" min="0" max="1" step="0.1" value="0">
+                            <span id="connectionCurveValue" class="range-value">0</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Толщина линии:</label>
+                            <input type="range" id="connectionWidthSlider" min="1" max="10" step="1" value="3">
+                            <span id="connectionWidthValue" class="range-value">3</span>
+                        </div>
+                        <div class="buttons-grid">
+                            <button id="updateConnectionBtn">
+                                <span>✓</span> Обновить
+                            </button>
+                            <button id="deleteConnectionBtn" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                <span>🗑️</span> Удалить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <h3>📊 Статистика</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Тегов</div>
+                            <div class="stat-value" id="tagCount">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Связей</div>
+                            <div class="stat-value" id="connectionCount">0</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Режим</div>
+                            <div class="stat-value" id="layoutMode">horizontal</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="graph" class="graph-container"></div>
+        
+        <div class="info-panel">
+            <div class="instructions">
+                <h4>📋 Особенности графа</h4>
+                <ul>
+                    <li><strong>Адаптивные координаты</strong> - позиции сохраняются в процентах</li>
+                    <li><strong>Неориентированный граф</strong> - дублирующие связи игнорируются</li>
+                    <li><strong>Без стрелок</strong> - линии без направления</li>
+                    <li><strong>Индивидуальные настройки</strong> - для каждого тега и связи</li>
+                    <li><strong>Правый клик</strong> на тег - изменить ориентацию текста</li>
+                    <li><strong>Наведение</strong> на тег - прозрачность 0.6</li>
+                    <li><strong>Выделенный тег</strong> - белая граница</li>
+                </ul>
+            </div>
+            
+            <div class="json-editor">
+                <h3>📝 Редактор JSON</h3>
+                <textarea id="jsonEditor" placeholder='Вставьте JSON или отредактируйте текущий...'></textarea>
+                <div class="json-buttons">
+                    <button id="updateFromJsonBtn">
+                        <span>🔄</span> Обновить из JSON
+                    </button>
+                    <button id="copyJsonBtn">
+                        <span>📋</span> Копировать JSON
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальные окна -->
+    <div id="addTagModal" class="modal">
+        <div class="modal-content">
+            <h3>➕ Добавить новый тег</h3>
+            <div class="form-group">
+                <label>ID (уникальный):</label>
+                <input type="text" id="newTagId" placeholder="tag-id" value="">
+            </div>
+            <div class="form-group">
+                <label>Название:</label>
+                <input type="text" id="newTagName" placeholder="Название тега">
+            </div>
+            <div class="form-group">
+                <label>Цвет:</label>
+                <input type="color" id="newTagColor" value="#667eea">
+            </div>
+            <div class="form-group">
+                <label>Размер шрифта:</label>
+                <input type="number" id="newTagFontSize" min="8" max="24" value="14">
+            </div>
+            <div class="form-group">
+                <label>Ориентация текста:</label>
+                <select id="newTagTextOrientation">
+                    <option value="horizontal">Горизонтальная (↔)</option>
+                    <option value="vertical">Вертикальная (↕)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Координаты (в % от размера контейнера):</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="number" id="newTagX" placeholder="X %" min="0" max="100" step="0.1" value="50" style="flex: 1;">
+                    <input type="number" id="newTagY" placeholder="Y %" min="0" max="100" step="0.1" value="50" style="flex: 1;">
+                </div>
+            </div>
+            <div class="buttons-grid">
+                <button id="confirmAddTagBtn">
+                    <span>✓</span> Добавить
+                </button>
+                <button id="cancelAddTagBtn" style="background: #6c757d;">
+                    <span>✕</span> Отмена
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="addConnectionModal" class="modal">
+        <div class="modal-content">
+            <h3>🔗 Добавить новую связь</h3>
+            <div class="form-group">
+                <label>От тега:</label>
+                <select id="connectionSource">
+                    <option value="">-- Выберите тег --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>К тегу:</label>
+                <select id="connectionTarget">
+                    <option value="">-- Выберите тег --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Кривизна линии (0 = прямая):</label>
+                <input type="range" id="newConnectionCurve" min="0" max="1" step="0.1" value="0">
+                <span id="newConnectionCurveValue">0</span>
+            </div>
+            <div class="form-group">
+                <label>Толщина линии:</label>
+                <input type="range" id="newConnectionWidth" min="1" max="10" step="1" value="3">
+                <span id="newConnectionWidthValue">3</span>
+            </div>
+            <div class="buttons-grid">
+                <button id="confirmAddConnectionBtn">
+                    <span>✓</span> Добавить
+                </button>
+                <button id="cancelAddConnectionBtn" style="background: #6c757d;">
+                    <span>✕</span> Отмена
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="importModal" class="modal">
+        <div class="modal-content">
+            <h3>📂 Импорт JSON</h3>
+            <p>Вставьте JSON конфигурации графа:</p>
+            <textarea id="importJsonTextarea" placeholder='{"tags": [...], "connections": [...], "config": {...}}' rows="10"></textarea>
+            <div class="buttons-grid">
+                <button id="confirmImportBtn">
+                    <span>📥</span> Импортировать
+                </button>
+                <button id="cancelImportBtn" style="background: #6c757d;">
+                    <span>✕</span> Отмена
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../tag-graph.js"></script>
+    <script src="../scripts.js"></script>
+    <script src="example.js"></script>
+</body>
+</html>
