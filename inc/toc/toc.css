@@ -4,10 +4,10 @@
   flex-direction: column;
   gap: var(--size-lg);
   padding: var(--size-lg);
-  border-radius: var(--border-radius-widget);
+  border-radius: var(--size-md);
   background-color: var(--bg-color-default);
   box-shadow: var(--box-shadow-default);
-  max-height: 50%;
+  max-height: 38vh;
   overflow: auto;
   margin: var(--size-xlg);
   margin-left: 0;
@@ -20,17 +20,21 @@
   margin: 0;
 }
 
+h4.toc-title {
+  font-size: var(--font-size-16);
+}
+
 .toc-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: large;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .toc-nested {
   padding-left: 24px;
-  font-size: medium;
+  font-size: 14px;
   font-weight: 400;
 }
 
@@ -49,11 +53,13 @@
 .toc-link:hover,
 .toc-nested .toc-link:hover {
   color: var(--color-secondary);
+  text-decoration: underline;
 }
 
 .toc-item.active .toc-link {
   color: var(--color-primary);
-  font-weight: 600;
+  font-weight: 400;
+  text-decoration: underline;
 }
 
 @media (max-width: 992px) {

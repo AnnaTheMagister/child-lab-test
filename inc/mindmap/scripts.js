@@ -97,7 +97,7 @@ const initialTags = [
     color: "#49C64F",
     textOrientation: "horizontal",
     fontSize: 13,
-    xPercent: 11,
+    xPercent: 14,
     yPercent: 25
   },
   {

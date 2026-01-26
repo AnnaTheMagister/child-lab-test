@@ -8,7 +8,7 @@ if ($term_data) {
         echo $empty_placeholder;
     } else {
         echo '<h2>' . $term_data->name . '</h2>';
-        echo '<div>' . $term_data->description . '</div>';
+        echo '<p class="methodology__description-text">' . $term_data->description . '</p>';
     }
 } else {
     echo $empty_placeholder;

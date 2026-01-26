@@ -14,7 +14,40 @@ h2 {
   line-height: 1;
 }
 
+h3 {
+  font-size: var(--font-size-24);
+  font-weight: var(--font-weight-500);
+  color: var(--black);
+}
+
+h4 {
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-500);
+  color: var(--black);
+}
+
 p {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-400);
+  line-height: 1.75;
+  color: var(--black);
+}
+
+b {
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  h3 {
+    font-size: var(--font-size-20);
+  }
+
+  h4 {
+    font-size: var(--font-size-16);
+  }
+  p {
+    font-size: var(--font-size-14);
+  }
 }
 
 .page-layout {
@@ -166,4 +199,10 @@ a.childlab-card-link:hover .childlab-image {
   font-size: var(--font-size-32);
   font-weight: var(--font-weight-400);
   color: var(--light-grey-2);
+}
+
+@media (max-width: 768px) {
+  .empty-placeholder {
+    font-size: var(--font-size-20);
+  }
 }

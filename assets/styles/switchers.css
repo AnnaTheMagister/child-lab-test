@@ -3,10 +3,10 @@
   flex-direction: column;
   gap: var(--size-lg);
   padding: var(--size-lg);
-  border-radius: var(--border-radius-widget);
+  border-radius: var(--size-md);
   background-color: var(--bg-color-default);
   box-shadow: var(--box-shadow-default);
-  max-height: 38vh;
+  max-height: 41vh;
   overflow: hidden;
   margin: var(--size-xlg);
   margin-left: 0;
@@ -19,6 +19,10 @@
   margin: 0;
 }
 
+h4.switchers-title {
+  font-size: var(--font-size-16);
+}
+
 .switcher {
   width: inherit;
   height: 90px;
@@ -28,8 +32,8 @@
 
 .switcher__label {
   color: var(--color-label);
-  font-size: medium;
-  margin-bottom: var(--size-md);
+  font-size: var(--font-size-14);
+  margin-bottom: var(--size-sm);
 }
 
 .switcher_bar {
@@ -81,12 +85,12 @@
   padding: 4px;
   gap: 8px;
   color: var(--purple);
-  font-weight: bolder;
 }
 
-.switcher_text_selected p {
+p.switcher_text_selected {
   display: ruby;
-  font-size: 10px;
+  font-size: 12px;
+  font-weight: 500;
   width: 56px;
   color: var(--purple);
 }
@@ -99,4 +103,8 @@
   display: flex;
   align-self: center;
   justify-content: center;
+}
+
+.switcher_button_selected .switcher_dot {
+  display: none;
 }
