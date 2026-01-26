@@ -51,14 +51,15 @@
 
 .nav-link-next {
   justify-content: end;
+  text-align: right;
 }
 .nav-link-prev::before {
   display: flex;
-  content: "←";
+  content: url("../images/arrow-left.svg");
 }
 .nav-link-next::after {
   display: flex;
-  content: "→";
+  content: url("../images/arrow-right.svg");;
 }
 
 /* Заголовок статьи */

@@ -324,13 +324,13 @@ class TagGraph {
 
     let bgColor = color;
     if (this.hoveredTag === tag && this.activeTag !== tag) {
-      bgColor = this.lightenColor(color, 0.3);
+      bgColor = this.lightenColor(color, 0.2);
     }
 
     ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
     ctx.shadowBlur = 10;
-    ctx.shadowOffsetX = 2;
-    ctx.shadowOffsetY = 2;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
 
     const rect = this.getTagButtonRect(tag);
 
@@ -338,9 +338,13 @@ class TagGraph {
     this.roundRect(ctx, rect.x, rect.y, rect.width, rect.height, borderRadius);
     ctx.fill();
 
+    ctx.font = `${fontSize}px Lora`;
+
     if (this.activeTag === tag) {
-      ctx.shadowColor = "rgba(255, 255, 255, 0.5)";
-      ctx.shadowBlur = 15;
+      ctx.shadowColor = tag.color;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.shadowBlur = 8;
       ctx.strokeStyle = "#FFFFFF";
       ctx.lineWidth = 2;
       ctx.stroke();
@@ -348,7 +352,7 @@ class TagGraph {
 
     ctx.shadowColor = "transparent";
     ctx.fillStyle = "#FFFFFF";
-    ctx.font = `${fontSize}px Lora`;
+
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
@@ -436,9 +440,6 @@ class TagGraph {
     ctx.strokeStyle = gradient;
     ctx.lineWidth = lineWidth;
     ctx.lineCap = "round";
-
-    ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
-    ctx.shadowBlur = 5;
 
     ctx.beginPath();
     ctx.moveTo(sourcePoint.x, sourcePoint.y);
@@ -815,7 +816,7 @@ class TagGraph {
     ctx.clearRect(0, 0, width, height);
 
     if (this.config.backgroundColor) {
-      ctx.fillStyle = this.config.backgroundColor;
+      ctx.fillStyle = "rgba(255,255,255,0)";
       ctx.fillRect(0, 0, width, height);
     }
 

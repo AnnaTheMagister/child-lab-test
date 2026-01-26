@@ -63,7 +63,7 @@ $posts_size = count($posts);
                 </div>
             <?php endif; ?>
         <?php endforeach; ?>
-        <div class="row">
+        <div class="row article-button__wrapper">
             <?php
 
            if (((+$articles_count)<=$posts_size)) {

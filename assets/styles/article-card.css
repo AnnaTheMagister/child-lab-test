@@ -115,12 +115,18 @@ a.article-card .block.stretch {
   font-weight: var(--font-weight-500);
   color: var(--color-subtitle-1);
 }
+
+
+.article-button__wrapper {
+  justify-content: center;
+}
+
 .article-button {
   display: inline-block;
-  padding: 12px;
+  padding:8px 24px;
   text-decoration: none;
   background-color: var(--purple);
   color: var(--white);
-  border-radius: var(--border-radius-img);
+  border-radius: 8px;
   width: fit-content;
 }
