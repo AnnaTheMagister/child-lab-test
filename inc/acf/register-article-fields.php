@@ -31,6 +31,8 @@ add_action('acf/include_fields', function () {
 				'placeholder' => '',
 				'prepend' => '',
 				'append' => '',
+				'show_in_graphql' => 1, // Добавлено для AJAX/REST API
+				'show_in_rest' => 1,    // Добавлено для REST API
 			),
 			array(
 				'key' => 'field_6951f81054002',
@@ -52,6 +54,8 @@ add_action('acf/include_fields', function () {
 				'toolbar' => 'full',
 				'media_upload' => 1,
 				'delay' => 0,
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
 			),
 			array(
 				'key' => 'field_6952c71b217e9',
@@ -73,6 +77,8 @@ add_action('acf/include_fields', function () {
 				'toolbar' => 'full',
 				'media_upload' => 1,
 				'delay' => 0,
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
 			),
 			array(
 				'key' => 'field_6951f80554001',
@@ -94,6 +100,8 @@ add_action('acf/include_fields', function () {
 				'toolbar' => 'full',
 				'media_upload' => 1,
 				'delay' => 0,
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
 			),
 			array(
 				'key' => 'field_6951f1ee0de17',
@@ -115,6 +123,8 @@ add_action('acf/include_fields', function () {
 				'toolbar' => 'full',
 				'media_upload' => 1,
 				'delay' => 0,
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
 			),
 		),
 		'location' => array(
@@ -134,7 +144,7 @@ add_action('acf/include_fields', function () {
 		'hide_on_screen' => '',
 		'active' => true,
 		'description' => '',
-		'show_in_rest' => 0,
+		'show_in_rest' => 1, // Включение всей группы полей в REST API
 		'display_title' => '',
 	));
 
@@ -162,6 +172,8 @@ add_action('acf/include_fields', function () {
 				'placeholder' => '',
 				'prepend' => '',
 				'append' => '',
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
 			),
 			array(
 				'key' => 'field_695db90374030',
@@ -183,6 +195,8 @@ add_action('acf/include_fields', function () {
 				'placeholder' => '',
 				'prepend' => '',
 				'append' => '',
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
 			),
 			array(
 				'key' => 'field_695db93874031',
@@ -209,6 +223,8 @@ add_action('acf/include_fields', function () {
 				'mime_types' => '',
 				'allow_in_bindings' => 0,
 				'preview_size' => 'medium',
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
 			),
 			array(
 				'key' => 'field_695db97974032',
@@ -230,6 +246,8 @@ add_action('acf/include_fields', function () {
 				'placeholder' => '',
 				'prepend' => '',
 				'append' => '',
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
 			),
 			array(
 				'key' => 'field_695db9d474033',
@@ -251,6 +269,8 @@ add_action('acf/include_fields', function () {
 				'toolbar' => 'full',
 				'media_upload' => 1,
 				'delay' => 0,
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
 			),
 		),
 		'location' => array(
@@ -270,7 +290,7 @@ add_action('acf/include_fields', function () {
 		'hide_on_screen' => '',
 		'active' => true,
 		'description' => '',
-		'show_in_rest' => 0,
+		'show_in_rest' => 1,
 		'display_title' => '',
 	));
 
@@ -298,6 +318,8 @@ add_action('acf/include_fields', function () {
 				'toolbar' => 'full',
 				'media_upload' => 1,
 				'delay' => 0,
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
 			),
 		),
 		'location' => array(
@@ -317,7 +339,7 @@ add_action('acf/include_fields', function () {
 		'hide_on_screen' => '',
 		'active' => true,
 		'description' => '',
-		'show_in_rest' => 0,
+		'show_in_rest' => 1,
 		'display_title' => '',
 	));
 
@@ -347,6 +369,8 @@ add_action('acf/include_fields', function () {
 				'show_color_wheel' => 1,
 				'custom_palette_source' => '',
 				'palette_colors' => '',
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
 			),
 			array(
 				'key' => 'field_696572ed9c3b7',
@@ -360,6 +384,31 @@ add_action('acf/include_fields', function () {
 				'ui' => 1,
 				'ajax' => 0,
 				'return_format' => 'url',
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
+			),
+			array(
+				'key' => 'field_methodology_tag_order',
+				'label' => 'Порядок отображения',
+				'name' => 'order',
+				'type' => 'number',
+				'instructions' => 'Число, определяющее порядок отображения раздела на странице. Разделы сортируются по возрастанию значения (от меньшего к большему). Если у нескольких разделов одинаковое значение, сортировка происходит по алфавиту.',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '50',
+					'class' => 'order-field',
+					'id' => 'methodology-order',
+				),
+				'default_value' => 0,
+				'min' => 0,
+				'max' => 999,
+				'step' => 1,
+				'placeholder' => '0',
+				'prepend' => 'Позиция:',
+				'append' => '',
+				'show_in_graphql' => 1,
+				'show_in_rest' => 1,
 			),
 		),
 		'location' => array(
@@ -379,9 +428,23 @@ add_action('acf/include_fields', function () {
 		'hide_on_screen' => '',
 		'active' => true,
 		'description' => '',
-		'show_in_rest' => 0,
+		'show_in_rest' => 1,
 		'display_title' => '',
 	));
+});
+
+// Функция для сортировки taxonomy terms по полю order
+add_action('pre_get_terms', function ($query) {
+	if (is_admin() && !wp_doing_ajax()) {
+		return;
+	}
+
+	$taxonomy = $query->query_vars['taxonomy'] ?? '';
+	if (is_array($taxonomy) && in_array('methodology_tag', $taxonomy) || $taxonomy === 'methodology_tag') {
+		$query->query_vars['meta_key'] = 'order';
+		$query->query_vars['orderby'] = 'meta_value_num';
+		$query->query_vars['order'] = 'ASC';
+	}
 });
 
 add_action('init', function () {
@@ -416,6 +479,7 @@ add_action('init', function () {
 		'show_in_menu' => true,
 		'show_in_rest' => true,
 		'show_admin_column' => true,
+		'rest_base' => 'article-authors', // Для REST API
 	));
 
 	register_taxonomy('methodology_tag', array(
@@ -447,6 +511,9 @@ add_action('init', function () {
 		'public' => true,
 		'show_in_menu' => true,
 		'show_in_rest' => true,
+		'rest_base' => 'methodology-tags', // Для REST API
+		'sort' => true,
+		'meta_box_cb' => 'post_categories_meta_box',
 	));
 });
 
@@ -496,6 +563,7 @@ add_action('init', function () {
 			5 => 'Подзаголовок',
 		),
 		'delete_with_user' => false,
+		'rest_base' => 'articles', // Для REST API
 	));
 
 	register_post_type('projects', array(
@@ -542,6 +610,7 @@ add_action('init', function () {
 			5 => 'post-formats',
 		),
 		'delete_with_user' => false,
+		'rest_base' => 'projects', // Для REST API
 	));
 });
 
