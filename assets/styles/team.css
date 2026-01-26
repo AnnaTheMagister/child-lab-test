@@ -7,8 +7,6 @@
 }
 
 .authors-list .author-card {
-  height: 40vh;
-  width: auto;
   display: flex;
   flex-direction: column;
   gap: var(--size-sm);
