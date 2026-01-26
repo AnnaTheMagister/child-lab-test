@@ -13,14 +13,14 @@ a.article-card {
 }
 
 a.article-card .block {
-  flex-grow: 0;    /* не растягивается */
-  flex-shrink: 0;  /* не сжимается */
+  flex-grow: 0; /* не растягивается */
+  flex-shrink: 0; /* не сжимается */
   flex-basis: auto; /* ширина по контенту */
 }
 a.article-card .block.stretch {
-  flex-grow: 1;    /* растягивается */
-  flex-shrink: 1;  /* сжимается */
-  flex-basis: 0%;  /* начальная точка 0 */
+  flex-grow: 1; /* растягивается */
+  flex-shrink: 1; /* сжимается */
+  flex-basis: 0%; /* начальная точка 0 */
   min-width: 0;
 }
 
@@ -122,5 +122,4 @@ a.article-card .block.stretch {
   color: var(--white);
   border-radius: var(--border-radius-img);
   width: fit-content;
-
 }
