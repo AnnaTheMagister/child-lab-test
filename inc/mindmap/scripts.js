@@ -43,7 +43,7 @@ const initialTags = [
     color: "#64af38",
     textOrientation: "horizontal",
     fontSize: 13,
-    xPercent: 10,
+    xPercent: 12,
     yPercent: 10
   },
   {
@@ -52,7 +52,7 @@ const initialTags = [
     color: "#becc1c",
     textOrientation: "horizontal",
     fontSize: 13,
-    xPercent: 90,
+    xPercent: 88,
     yPercent: 10
   },
   {
@@ -61,7 +61,7 @@ const initialTags = [
     color: "#f3c932",
     textOrientation: "horizontal",
     fontSize: 13,
-    xPercent: 89,
+    xPercent: 87,
     yPercent: 27
   },
   {
@@ -432,6 +432,7 @@ const initialConfig = {
 function initGraph() {
   graph = new TagGraph({
     container: document.getElementById("graph"),
+    activeTagSlug: window.location.search.split('=')[1] ?? 'Agency',
     tags: JSON.parse(JSON.stringify(initialTags)),
     connections: JSON.parse(JSON.stringify(initialConnections)),
     curveIntensity: 0.7,

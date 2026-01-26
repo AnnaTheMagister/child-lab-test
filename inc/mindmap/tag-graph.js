@@ -2,21 +2,23 @@
 class TagGraph {
   constructor(config) {
     this.config = {
-      spacing: 100,
       padding: 20,
+      scale: 1,
       interactive: true,
-      ...config
+      enableDragging: false,
+      enableContextMenu: false,
+      ...config,
     };
 
     this.tagConfig = {
       fontSize: 14,
       borderRadius: 16,
-      ...config.tagConfig
+      ...config.tagConfig,
     };
 
     this.connectionConfig = {
       lineWidth: 3,
-      ...config.connectionConfig
+      ...config.connectionConfig,
     };
 
     this.tags = [...config.tags];
@@ -26,10 +28,11 @@ class TagGraph {
     this.animationFrameId = null;
     this.mousePos = { x: 0, y: 0 };
     this.hoveredTag = null;
-    this.activeTag = null;
+    this.activeTag =
+      this.tags.find(({ id }) => id === this.config.activeTagSlug) || null;
 
-    this.canvas = document.createElement('canvas');
-    this.ctx = this.canvas.getContext('2d');
+    this.canvas = document.createElement("canvas");
+    this.ctx = this.canvas.getContext("2d");
 
     this.initCanvas();
     this.calculateLayout();
@@ -56,11 +59,13 @@ class TagGraph {
           source: conn.source,
           target: conn.target,
           curveIntensity: conn.curveIntensity || 0,
-          lineWidth: conn.lineWidth || this.connectionConfig.lineWidth,
-          connectFrom: conn.connectFrom || 'auto',
-          connectTo: conn.connectTo || 'auto',
+          lineWidth:
+            (conn.lineWidth || this.connectionConfig.lineWidth) *
+            this.config.scale,
+          connectFrom: conn.connectFrom || "auto",
+          connectTo: conn.connectTo || "auto",
           shiftFrom: conn.shiftFrom || 0, // новое поле
-          shiftTo: conn.shiftTo || 0     // новое поле
+          shiftTo: conn.shiftTo || 0, // новое поле
         });
       }
     }
@@ -70,14 +75,14 @@ class TagGraph {
 
   initCanvas() {
     const container = this.config.container;
-    this.canvas.style.width = '100%';
-    this.canvas.style.height = '100%';
-    this.canvas.style.display = 'block';
+    this.canvas.style.width = "100%";
+    this.canvas.style.height = "100%";
+    this.canvas.style.display = "block";
 
     container.appendChild(this.canvas);
     this.resizeCanvas();
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       this.resizeCanvas();
       this.calculateLayout();
       this.render();
@@ -93,6 +98,8 @@ class TagGraph {
     this.canvas.height = rect.height * dpr;
 
     this.ctx.scale(dpr, dpr);
+
+    this.updateScale();
   }
 
   calculateLayout() {
@@ -100,7 +107,7 @@ class TagGraph {
     const height = this.canvas.height / window.devicePixelRatio;
 
     // Конвертируем координаты из процентов в пиксели
-    this.tags.forEach(tag => {
+    this.tags.forEach((tag) => {
       if (tag.xPercent !== undefined && tag.yPercent !== undefined) {
         tag.x = (width * tag.xPercent) / 100;
         tag.y = (height * tag.yPercent) / 100;
@@ -108,26 +115,46 @@ class TagGraph {
     });
   }
 
+  updateScale() {
+    console.log("!!!", window.innerWidth, window.devicePixelRatio);
+    if (window.devicePixelRatio > 1 && window.devicePixelRatio < 2) {
+      this.config.scale = 0.9;
+    } else if (window.devicePixelRatio >= 2 && window.devicePixelRatio < 3) {
+      this.config.scale = 0.8;
+    } else if (window.devicePixelRatio >= 3) {
+      this.config.scale = 0.7;
+    }
+  }
+
   getTagButtonRect(tag) {
     const { x = 0, y = 0 } = tag;
-    const fontSize = tag.fontSize || this.tagConfig.fontSize;
+    const fontSize =
+      (tag.fontSize || this.tagConfig.fontSize) * this.config.scale;
     const lineHeight = fontSize * 1.2;
     const charWidth = fontSize * 0.6;
 
-    const lines = this.getTextLines(tag.name, tag.textOrientation, tag.fontSize);
+    const lines = this.getTextLines(
+      tag.name,
+      tag.textOrientation,
+      tag.fontSize,
+    );
 
     let width, height;
 
-    if (tag.textOrientation === 'vertical') {
-      const paddingVertical = 16;
-      const paddingHorizontal = 6;
-      const maxLineLength = Math.max(...lines.map(line => line.length));
+    if (tag.textOrientation === "vertical") {
+      const paddingVertical = 16 * this.config.scale;
+      const paddingHorizontal = 6 * this.config.scale;
+      const maxLineLength = Math.max(...lines.map((line) => line.length));
       width = lineHeight * lines.length + paddingHorizontal * 2;
       height = charWidth * maxLineLength + paddingVertical * 2;
     } else {
-      const paddingVertical = 6;
-      const paddingHorizontal = 16;
-      width = Math.max(...lines.map(line => this.measureTextWidth(line, fontSize))) + paddingHorizontal * 2;
+      const paddingVertical = 6 * this.config.scale;
+      const paddingHorizontal = 16 * this.config.scale;
+      width =
+        Math.max(
+          ...lines.map((line) => this.measureTextWidth(line, fontSize)),
+        ) +
+        paddingHorizontal * 2;
       height = lineHeight * lines.length + paddingVertical * 2;
     }
 
@@ -137,16 +164,19 @@ class TagGraph {
       width,
       height,
       centerX: x,
-      centerY: y
+      centerY: y,
     };
   }
 
   getConnectionPoint(tag, side, shift = 0) {
     const rect = this.getTagButtonRect(tag);
-    const borderRadius = tag.borderRadius !== undefined ? tag.borderRadius : this.tagConfig.borderRadius;
+    const borderRadius =
+      (tag.borderRadius !== undefined
+        ? tag.borderRadius
+        : this.tagConfig.borderRadius) * this.config.scale;
 
     switch (side) {
-      case 'top':
+      case "top":
         // Центр верхней стороны с учетом смещения
         // shift: -1 = крайний левый, 0 = центр, 1 = крайний правый
         const topStartX = rect.x + borderRadius;
@@ -156,10 +186,10 @@ class TagGraph {
 
         return {
           x: topCenterX + shift * topShiftRange,
-          y: rect.y
+          y: rect.y,
         };
 
-      case 'bottom':
+      case "bottom":
         // Центр нижней стороны с учетом смещения
         const bottomStartX = rect.x + borderRadius;
         const bottomEndX = rect.x + rect.width - borderRadius;
@@ -168,10 +198,10 @@ class TagGraph {
 
         return {
           x: bottomCenterX + shift * bottomShiftRange,
-          y: rect.y + rect.height
+          y: rect.y + rect.height,
         };
 
-      case 'left':
+      case "left":
         // Центр левой стороны с учетом смещения
         const leftStartY = rect.y + borderRadius;
         const leftEndY = rect.y + rect.height - borderRadius;
@@ -180,10 +210,10 @@ class TagGraph {
 
         return {
           x: rect.x,
-          y: leftCenterY + shift * leftShiftRange
+          y: leftCenterY + shift * leftShiftRange,
         };
 
-      case 'right':
+      case "right":
         // Центр правой стороны с учетом смещения
         const rightStartY = rect.y + borderRadius;
         const rightEndY = rect.y + rect.height - borderRadius;
@@ -192,10 +222,10 @@ class TagGraph {
 
         return {
           x: rect.x + rect.width,
-          y: rightCenterY + shift * rightShiftRange
+          y: rightCenterY + shift * rightShiftRange,
         };
 
-      case 'auto':
+      case "auto":
       default:
         // Для центра возвращаем центр
         return { x: rect.centerX, y: rect.centerY };
@@ -213,40 +243,40 @@ class TagGraph {
 
     // Выбираем сторону в зависимости от угла
     const angle = Math.atan2(dy, dx);
-    const angleDeg = angle * 180 / Math.PI;
+    const angleDeg = (angle * 180) / Math.PI;
 
     // Для источника
     let sourceSide;
     if (Math.abs(angleDeg) <= 45) {
-      sourceSide = 'right';
+      sourceSide = "right";
     } else if (Math.abs(angleDeg) >= 135) {
-      sourceSide = 'left';
+      sourceSide = "left";
     } else if (angleDeg > 45 && angleDeg < 135) {
-      sourceSide = 'bottom';
+      sourceSide = "bottom";
     } else {
-      sourceSide = 'top';
+      sourceSide = "top";
     }
 
     // Для цели (противоположная сторона)
     let targetSide;
     if (Math.abs(angleDeg) <= 45) {
-      targetSide = 'left';
+      targetSide = "left";
     } else if (Math.abs(angleDeg) >= 135) {
-      targetSide = 'right';
+      targetSide = "right";
     } else if (angleDeg > 45 && angleDeg < 135) {
-      targetSide = 'top';
+      targetSide = "top";
     } else {
-      targetSide = 'bottom';
+      targetSide = "bottom";
     }
 
     return {
       sourceSide,
-      targetSide
+      targetSide,
     };
   }
 
   lightenColor(color, amount = 0.3) {
-    color = color.replace('#', '');
+    color = color.replace("#", "");
 
     const r = parseInt(color.slice(0, 2), 16);
     const g = parseInt(color.slice(2, 4), 16);
@@ -256,18 +286,23 @@ class TagGraph {
     const lightG = Math.round(g + (255 - g) * amount);
     const lightB = Math.round(b + (255 - b) * amount);
 
-    return `#${lightR.toString(16).padStart(2, '0')}${lightG.toString(16).padStart(2, '0')}${lightB.toString(16).padStart(2, '0')}`;
+    return `#${lightR.toString(16).padStart(2, "0")}${lightG
+      .toString(16)
+      .padStart(2, "0")}${lightB.toString(16).padStart(2, "0")}`;
   }
 
-  getTextLines(text, textOrientation = 'vertical', fontSize = 13) {
-    if (textOrientation === 'vertical') {
-      return [text]
+  getTextLines(text, textOrientation = "vertical", fontSize = 13) {
+    if (textOrientation === "vertical") {
+      return [text];
     }
-    return text.split('\n').reduce((acc, word) => {
+    return text.split("\n").reduce((acc, word) => {
       if (!acc.length) return [word];
       const lastLine = acc[acc.length - 1];
-      if (this.measureTextWidth(lastLine + ' ' + word, fontSize) <= 150) {
-        acc[acc.length - 1] = lastLine + ' ' + word;
+      if (
+        this.measureTextWidth(lastLine + " " + word, fontSize) <=
+        150 * this.config.scale
+      ) {
+        acc[acc.length - 1] = lastLine + " " + word;
       } else {
         acc.push(word);
       }
@@ -277,9 +312,13 @@ class TagGraph {
 
   drawTag(tag) {
     const ctx = this.ctx;
-    const { x = 0, y = 0, name, color, textOrientation = 'horizontal' } = tag;
-    const fontSize = tag.fontSize || this.tagConfig.fontSize;
-    const borderRadius = tag.borderRadius !== undefined ? tag.borderRadius : this.tagConfig.borderRadius;
+    const { x = 0, y = 0, name, color, textOrientation = "horizontal" } = tag;
+    const fontSize =
+      (tag.fontSize || this.tagConfig.fontSize) * this.config.scale;
+    const borderRadius =
+      (tag.borderRadius !== undefined
+        ? tag.borderRadius
+        : this.tagConfig.borderRadius) * this.config.scale;
 
     ctx.save();
 
@@ -288,7 +327,7 @@ class TagGraph {
       bgColor = this.lightenColor(color, 0.3);
     }
 
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+    ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
     ctx.shadowBlur = 10;
     ctx.shadowOffsetX = 2;
     ctx.shadowOffsetY = 2;
@@ -300,23 +339,23 @@ class TagGraph {
     ctx.fill();
 
     if (this.activeTag === tag) {
-      ctx.shadowColor = 'rgba(255, 255, 255, 0.5)';
+      ctx.shadowColor = "rgba(255, 255, 255, 0.5)";
       ctx.shadowBlur = 15;
-      ctx.strokeStyle = '#FFFFFF';
+      ctx.strokeStyle = "#FFFFFF";
       ctx.lineWidth = 2;
       ctx.stroke();
     }
 
-    ctx.shadowColor = 'transparent';
-    ctx.fillStyle = '#FFFFFF';
+    ctx.shadowColor = "transparent";
+    ctx.fillStyle = "#FFFFFF";
     ctx.font = `${fontSize}px Lora`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
 
     const lineHeight = fontSize * 1.2;
     const lines = this.getTextLines(name, textOrientation, fontSize);
 
-    if (textOrientation === 'vertical') {
+    if (textOrientation === "vertical") {
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(-Math.PI / 2);
@@ -324,17 +363,19 @@ class TagGraph {
       const totalTextHeight = lines.length * lineHeight;
 
       lines.forEach((line, index) => {
-        const lineY = -totalTextHeight / 2 + (index * lineHeight) + lineHeight / 2;
+        const lineY =
+          -totalTextHeight / 2 + index * lineHeight + lineHeight / 2;
         ctx.fillText(line, 0, lineY);
       });
 
       ctx.restore();
     } else {
       const totalTextHeight = lines.length * lineHeight;
-      const startY = rect.y + (rect.height - totalTextHeight) / 2 + lineHeight / 2;
+      const startY =
+        rect.y + (rect.height - totalTextHeight) / 2 + lineHeight / 2;
 
       lines.forEach((line, index) => {
-        const lineY = startY + (index * lineHeight);
+        const lineY = startY + index * lineHeight;
         ctx.fillText(line, x, lineY);
       });
     }
@@ -343,8 +384,8 @@ class TagGraph {
   }
 
   drawConnection(conn) {
-    const source = this.tags.find(t => t.id === conn.source);
-    const target = this.tags.find(t => t.id === conn.target);
+    const source = this.tags.find((t) => t.id === conn.source);
+    const target = this.tags.find((t) => t.id === conn.target);
 
     if (!source || !target) {
       return;
@@ -352,19 +393,22 @@ class TagGraph {
 
     const ctx = this.ctx;
     const curveIntensity = conn.curveIntensity || 0;
-    const lineWidth = conn.lineWidth || this.connectionConfig.lineWidth;
+    const lineWidth =
+      (conn.lineWidth || this.connectionConfig.lineWidth) * this.config.scale;
     const shiftFrom = conn.shiftFrom || 0; // смещение начала (от -1 до 1)
-    const shiftTo = conn.shiftTo || 0;     // смещение конца (от -1 до 1)
+    const shiftTo = conn.shiftTo || 0; // смещение конца (от -1 до 1)
 
     const sourceRect = this.getTagButtonRect(source);
     const targetRect = this.getTagButtonRect(target);
 
     let sourceSide, targetSide;
 
-    if (conn.connectFrom === 'auto' || conn.connectTo === 'auto') {
+    if (conn.connectFrom === "auto" || conn.connectTo === "auto") {
       const autoSides = this.getAutoConnectionPoint(sourceRect, targetRect);
-      sourceSide = conn.connectFrom === 'auto' ? autoSides.sourceSide : conn.connectFrom;
-      targetSide = conn.connectTo === 'auto' ? autoSides.targetSide : conn.connectTo;
+      sourceSide =
+        conn.connectFrom === "auto" ? autoSides.sourceSide : conn.connectFrom;
+      targetSide =
+        conn.connectTo === "auto" ? autoSides.targetSide : conn.connectTo;
     } else {
       sourceSide = conn.connectFrom;
       targetSide = conn.connectTo;
@@ -377,18 +421,23 @@ class TagGraph {
     ctx.save();
 
     const gradient = ctx.createLinearGradient(
-      sourcePoint.x, sourcePoint.y,
-      targetPoint.x, targetPoint.y
+      sourcePoint.x,
+      sourcePoint.y,
+      targetPoint.x,
+      targetPoint.y,
     );
     gradient.addColorStop(0, source.color);
-    gradient.addColorStop(0.5, this.blendColors(source.color, target.color, 0.5));
+    gradient.addColorStop(
+      0.5,
+      this.blendColors(source.color, target.color, 0.5),
+    );
     gradient.addColorStop(1, target.color);
 
     ctx.strokeStyle = gradient;
     ctx.lineWidth = lineWidth;
-    ctx.lineCap = 'round';
+    ctx.lineCap = "round";
 
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+    ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
     ctx.shadowBlur = 5;
 
     ctx.beginPath();
@@ -429,18 +478,32 @@ class TagGraph {
   }
 
   setupInteractivity() {
-    this.canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
-    // this.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
-    this.canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
-    this.canvas.addEventListener('click', this.handleClick.bind(this));
-    this.canvas.addEventListener('mouseleave', this.handleMouseLeave.bind(this));
-    this.canvas.addEventListener('contextmenu', this.handleContextMenu.bind(this));
+    this.canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
+    this.canvas.addEventListener("mousemove", this.handleMouseMove.bind(this));
+    this.canvas.addEventListener("mouseup", this.handleMouseUp.bind(this));
+    this.canvas.addEventListener("click", this.handleClick.bind(this));
+    this.canvas.addEventListener(
+      "mouseleave",
+      this.handleMouseLeave.bind(this),
+    );
+    if (this.config.enableContextMenu) {
+      this.canvas.addEventListener(
+        "contextmenu",
+        this.handleContextMenu.bind(this),
+      );
+    }
 
-    this.canvas.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
-    // this.canvas.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
-    this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this));
+    this.canvas.addEventListener(
+      "touchstart",
+      this.handleTouchStart.bind(this),
+      { passive: false },
+    );
+    this.canvas.addEventListener("touchmove", this.handleTouchMove.bind(this), {
+      passive: false,
+    });
+    this.canvas.addEventListener("touchend", this.handleTouchEnd.bind(this));
 
-    this.canvas.style.cursor = 'default';
+    this.canvas.style.cursor = "default";
   }
 
   handleMouseDown(e) {
@@ -452,12 +515,14 @@ class TagGraph {
     this.mousePos.x = (e.clientX - rect.left) * scaleX;
     this.mousePos.y = (e.clientY - rect.top) * scaleY;
 
-    this.dragTarget = this.getTagAt(this.mousePos.x, this.mousePos.y);
-    this.isDragging = !!this.dragTarget;
+    if (this.config.enableDragging) {
+      this.dragTarget = this.getTagAt(this.mousePos.x, this.mousePos.y);
+      this.isDragging = !!this.dragTarget;
 
-    if (this.dragTarget) {
-      this.canvas.style.cursor = 'grabbing';
-      this.startAnimation();
+      if (this.dragTarget) {
+        this.canvas.style.cursor = "grabbing";
+        this.startAnimation();
+      }
     }
   }
 
@@ -486,17 +551,21 @@ class TagGraph {
       this.dragTarget.yPercent = (this.dragTarget.y / height) * 100;
 
       if (this.config.onTagDrag) {
-        this.config.onTagDrag(this.dragTarget, this.dragTarget.xPercent, this.dragTarget.yPercent);
+        this.config.onTagDrag(
+          this.dragTarget,
+          this.dragTarget.xPercent,
+          this.dragTarget.yPercent,
+        );
       }
     } else {
-      this.canvas.style.cursor = this.hoveredTag ? 'grab' : 'default';
+      this.canvas.style.cursor = this.hoveredTag ? "pointer" : "default";
     }
   }
 
   handleMouseUp() {
     this.isDragging = false;
     this.dragTarget = null;
-    this.canvas.style.cursor = this.hoveredTag ? 'grab' : 'default';
+    this.canvas.style.cursor = this.hoveredTag ? "pointer" : "default";
     this.stopAnimation();
   }
 
@@ -543,7 +612,8 @@ class TagGraph {
 
     const tag = this.getTagAt(x, y);
     if (tag) {
-      tag.textOrientation = tag.textOrientation === 'horizontal' ? 'vertical' : 'horizontal';
+      tag.textOrientation =
+        tag.textOrientation === "horizontal" ? "vertical" : "horizontal";
       this.render();
 
       if (this.config.onTagTextOrientationChange) {
@@ -562,11 +632,13 @@ class TagGraph {
     this.mousePos.x = (touch.clientX - rect.left) * scaleX;
     this.mousePos.y = (touch.clientY - rect.top) * scaleY;
 
-    this.dragTarget = this.getTagAt(this.mousePos.x, this.mousePos.y);
-    this.isDragging = !!this.dragTarget;
+    if (this.config.enableDragging) {
+      this.dragTarget = this.getTagAt(this.mousePos.x, this.mousePos.y);
+      this.isDragging = !!this.dragTarget;
 
-    if (this.dragTarget) {
-      this.startAnimation();
+      if (this.dragTarget) {
+        this.startAnimation();
+      }
     }
   }
 
@@ -590,7 +662,11 @@ class TagGraph {
       this.dragTarget.yPercent = (this.dragTarget.y / height) * 100;
 
       if (this.config.onTagDrag) {
-        this.config.onTagDrag(this.dragTarget, this.dragTarget.xPercent, this.dragTarget.yPercent);
+        this.config.onTagDrag(
+          this.dragTarget,
+          this.dragTarget.xPercent,
+          this.dragTarget.yPercent,
+        );
       }
     }
   }
@@ -627,7 +703,8 @@ class TagGraph {
 
       const tag = this.getTagAt(x, y);
       if (tag) {
-        tag.textOrientation = tag.textOrientation === 'horizontal' ? 'vertical' : 'horizontal';
+        tag.textOrientation =
+          tag.textOrientation === "horizontal" ? "vertical" : "horizontal";
         this.render();
 
         if (this.config.onTagTextOrientationChange) {
@@ -648,8 +725,12 @@ class TagGraph {
       const rect = this.getTagButtonRect(tag);
       const padding = 10;
 
-      if (x > rect.x - padding && x < rect.x + rect.width + padding &&
-        y > rect.y - padding && y < rect.y + rect.height + padding) {
+      if (
+        x > rect.x - padding &&
+        x < rect.x + rect.width + padding &&
+        y > rect.y - padding &&
+        y < rect.y + rect.height + padding
+      ) {
         return tag;
       }
     }
@@ -681,8 +762,8 @@ class TagGraph {
   }
 
   blendColors(color1, color2, ratio) {
-    color1 = color1.replace('#', '');
-    color2 = color2.replace('#', '');
+    color1 = color1.replace("#", "");
+    color2 = color2.replace("#", "");
 
     const r1 = parseInt(color1.slice(0, 2), 16);
     const g1 = parseInt(color1.slice(2, 4), 16);
@@ -696,11 +777,13 @@ class TagGraph {
     const g = Math.round(g1 * (1 - ratio) + g2 * ratio);
     const b = Math.round(b1 * (1 - ratio) + b2 * ratio);
 
-    return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+    return `#${r.toString(16).padStart(2, "0")}${g
+      .toString(16)
+      .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
   }
 
   roundRect(ctx, x, y, width, height, radius) {
-    if (typeof radius === 'number') {
+    if (typeof radius === "number") {
       radius = { tl: radius, tr: radius, br: radius, bl: radius };
     } else {
       radius = { ...{ tl: 0, tr: 0, br: 0, bl: 0 }, ...radius };
@@ -711,7 +794,12 @@ class TagGraph {
     ctx.lineTo(x + width - radius.tr, y);
     ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
     ctx.lineTo(x + width, y + height - radius.br);
-    ctx.quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height);
+    ctx.quadraticCurveTo(
+      x + width,
+      y + height,
+      x + width - radius.br,
+      y + height,
+    );
     ctx.lineTo(x + radius.bl, y + height);
     ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
     ctx.lineTo(x, y + radius.tl);
@@ -731,17 +819,17 @@ class TagGraph {
       ctx.fillRect(0, 0, width, height);
     }
 
-    this.connections.forEach(conn => {
+    this.connections.forEach((conn) => {
       this.drawConnection(conn);
     });
 
-    this.tags.forEach(tag => {
+    this.tags.forEach((tag) => {
       this.drawTag(tag);
     });
   }
 
   updateTag(id, updates) {
-    const tag = this.tags.find(t => t.id === id);
+    const tag = this.tags.find((t) => t.id === id);
     if (tag) {
       Object.assign(tag, updates);
 
@@ -767,22 +855,22 @@ class TagGraph {
   }
 
   setTagTextOrientation(id, orientation) {
-    const tag = this.tags.find(t => t.id === id);
-    if (tag && (orientation === 'horizontal' || orientation === 'vertical')) {
+    const tag = this.tags.find((t) => t.id === id);
+    if (tag && (orientation === "horizontal" || orientation === "vertical")) {
       tag.textOrientation = orientation;
       this.render();
     }
   }
 
   setActiveTag(id) {
-    const tag = this.tags.find(t => t.id === id);
+    const tag = this.tags.find((t) => t.id === id);
     this.activeTag = tag || null;
     this.render();
   }
 
   addTag(tag) {
     if (!tag.textOrientation) {
-      tag.textOrientation = 'horizontal';
+      tag.textOrientation = "horizontal";
     }
     if (!tag.fontSize) {
       tag.fontSize = this.tagConfig.fontSize;
@@ -805,9 +893,9 @@ class TagGraph {
   }
 
   removeTag(id) {
-    this.tags = this.tags.filter(t => t.id !== id);
+    this.tags = this.tags.filter((t) => t.id !== id);
     this.connections = this.connections.filter(
-      c => c.source !== id && c.target !== id
+      (c) => c.source !== id && c.target !== id,
     );
     if (this.activeTag && this.activeTag.id === id) {
       this.activeTag = null;
@@ -817,9 +905,10 @@ class TagGraph {
   }
 
   addConnection(conn) {
-    const existingConnections = this.connections.filter(c =>
-      (c.source === conn.source && c.target === conn.target) ||
-      (c.source === conn.target && c.target === conn.source)
+    const existingConnections = this.connections.filter(
+      (c) =>
+        (c.source === conn.source && c.target === conn.target) ||
+        (c.source === conn.target && c.target === conn.source),
     );
 
     if (existingConnections.length === 0) {
@@ -828,10 +917,10 @@ class TagGraph {
         target: conn.target,
         curveIntensity: conn.curveIntensity || 0,
         lineWidth: conn.lineWidth || this.connectionConfig.lineWidth,
-        connectFrom: conn.connectFrom || 'auto',
-        connectTo: conn.connectTo || 'auto',
+        connectFrom: conn.connectFrom || "auto",
+        connectTo: conn.connectTo || "auto",
         shiftFrom: conn.shiftFrom || 0,
-        shiftTo: conn.shiftTo || 0
+        shiftTo: conn.shiftTo || 0,
       });
       this.render();
     }
@@ -839,8 +928,11 @@ class TagGraph {
 
   removeConnection(sourceId, targetId) {
     this.connections = this.connections.filter(
-      c => !((c.source === sourceId && c.target === targetId) ||
-        (c.source === targetId && c.target === sourceId))
+      (c) =>
+        !(
+          (c.source === sourceId && c.target === targetId) ||
+          (c.source === targetId && c.target === sourceId)
+        ),
     );
     this.render();
   }
@@ -863,12 +955,15 @@ class TagGraph {
   }
 
   setConnectionConfig(newConnectionConfig) {
-    this.connectionConfig = { ...this.connectionConfig, ...newConnectionConfig };
+    this.connectionConfig = {
+      ...this.connectionConfig,
+      ...newConnectionConfig,
+    };
     this.render();
   }
 
   getTags() {
-    return this.tags.map(tag => ({ ...tag }));
+    return this.tags.map((tag) => ({ ...tag }));
   }
 
   getConnections() {
@@ -877,7 +972,7 @@ class TagGraph {
 
   exportAsJSON() {
     return {
-      tags: this.tags.map(tag => ({
+      tags: this.tags.map((tag) => ({
         id: tag.id,
         name: tag.name,
         color: tag.color,
@@ -885,9 +980,9 @@ class TagGraph {
         fontSize: tag.fontSize,
         borderRadius: tag.borderRadius,
         xPercent: tag.xPercent,
-        yPercent: tag.yPercent
+        yPercent: tag.yPercent,
       })),
-      connections: this.connections.map(conn => ({
+      connections: this.connections.map((conn) => ({
         source: conn.source,
         target: conn.target,
         curveIntensity: conn.curveIntensity,
@@ -895,20 +990,19 @@ class TagGraph {
         connectFrom: conn.connectFrom,
         connectTo: conn.connectTo,
         shiftFrom: conn.shiftFrom,
-        shiftTo: conn.shiftTo
+        shiftTo: conn.shiftTo,
       })),
       config: {
         layout: this.config.layout,
-        spacing: this.config.spacing,
-        padding: this.config.padding
+        padding: this.config.padding,
       },
       tagConfig: {
         fontSize: this.tagConfig.fontSize,
-        borderRadius: this.tagConfig.borderRadius
+        borderRadius: this.tagConfig.borderRadius,
       },
       connectionConfig: {
-        lineWidth: this.connectionConfig.lineWidth
-      }
+        lineWidth: this.connectionConfig.lineWidth,
+      },
     };
   }
 
@@ -917,12 +1011,15 @@ class TagGraph {
     this.connections = this.processConnections(json.connections || []);
     this.config = { ...this.config, ...json.config };
     this.tagConfig = { ...this.tagConfig, ...json.tagConfig };
-    this.connectionConfig = { ...this.connectionConfig, ...json.connectionConfig };
+    this.connectionConfig = {
+      ...this.connectionConfig,
+      ...json.connectionConfig,
+    };
 
     const width = this.canvas.width / window.devicePixelRatio;
     const height = this.canvas.height / window.devicePixelRatio;
 
-    this.tags.forEach(tag => {
+    this.tags.forEach((tag) => {
       if (tag.xPercent !== undefined && tag.yPercent !== undefined) {
         tag.x = (width * tag.xPercent) / 100;
         tag.y = (height * tag.yPercent) / 100;
@@ -943,6 +1040,6 @@ class TagGraph {
   }
 }
 
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   window.TagGraph = TagGraph;
 }

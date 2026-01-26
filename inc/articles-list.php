@@ -47,7 +47,7 @@ function get_articles_list_by_taxonomy($taxonomy, $term_id, $title, $empty_place
     }
 
 
-    return "<div class='childlab-widget'>{$header}<div class='row'>{$articles_list}</div></div>";
+    return "<div class='childlab-widget articles-list'>{$header}<div class='row'>{$articles_list}</div></div>";
 }
 
 function get_article_card()
