@@ -116,7 +116,6 @@
     padding: 20px 0 40px;
     gap: 0;
     overflow-y: auto;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   }
 
   /* Когда меню открыто */
@@ -141,8 +140,8 @@
 
   /* Стили для пунктов меню на мобильных */
   .childlab-primary-menu .menu-item {
-    width: 100%;
-    margin: 0;
+    width: calc(100% - 2 * var(--size-xlg));
+    margin: 0 var(--size-xlg);
   }
 
   .childlab-primary-menu .menu-item a {
@@ -151,7 +150,6 @@
     padding: 18px 24px;
     border-radius: 0;
     font-size: 16px;
-    border-bottom: 1px solid var(--light-purple-1);
     transition: background-color 0.3s ease;
   }
 
@@ -163,17 +161,6 @@
   .childlab-primary-menu .current-menu-item a {
     background-color: var(--light-purple-1);
     position: relative;
-  }
-
-  .childlab-primary-menu .current-menu-item a::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: var(--purple);
-    border-radius: 0 4px 4px 0;
   }
 
   .childlab-primary-menu .menu-item:last-child a {

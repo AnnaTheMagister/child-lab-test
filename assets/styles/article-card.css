@@ -42,7 +42,7 @@ a.article-card .block.stretch {
   flex-direction: column;
   width: 100%;
   gap: var(--size-xs);
-  padding: var(--size-xs);
+  padding-top: var(--size-xs);
   height: 50%;
   box-sizing: border-box;
 }
@@ -110,6 +110,7 @@ a.article-card .block.stretch {
 }
 
 .articles-list__header {
+  margin-bottom: var(--size-md);
   font-size: var(--font-size-24);
   font-weight: var(--font-weight-500);
   color: var(--color-subtitle-1);

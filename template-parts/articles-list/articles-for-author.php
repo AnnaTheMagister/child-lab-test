@@ -33,8 +33,8 @@ $posts_size = count($posts);
             Статьи автора
         </header>
         <?php foreach ($posts as $key => $post): ?>
-            <?php setup_postdata($post); ?>(
-            <?php if ($key % 4 == 0): ?>)
+            <?php setup_postdata($post); ?>
+            <?php if ($key % 4 == 0): ?>
                 <div class="row">
                 <?php endif; ?>
                 <div class="col-lg-3 col-md-6 col-sm-12">

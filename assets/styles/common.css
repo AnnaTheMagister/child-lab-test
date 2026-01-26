@@ -17,6 +17,16 @@ h2 {
 p {
 }
 
+.page-layout {
+  padding: var(--size-xxxlg) 0;
+}
+
+@media (max-width: 768px) {
+  .page-layout {
+    padding: var(--size-lg) 0;
+  }
+}
+
 .text-block {
   overflow-wrap: break-word;
 }

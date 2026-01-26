@@ -65,7 +65,7 @@ function get_article_card()
 
     $article_excerpt_render = "<div class='article-details__excerpt truncate-multiline'>" . get_the_excerpt() . "</div>";
 
-    $article_content_render = '<div article-details>' . $article_meta_render . $article_title_render . $article_subtitle_render . $article_excerpt_render . '</div>';
+    $article_content_render = '<div class="article-details">' . $article_meta_render . $article_title_render . $article_subtitle_render . $article_excerpt_render . '</div>';
 
     return "<a class='article-card' href='" . get_the_permalink() . "'>" . $article_image_render . $article_content_render . "</a>";
 }
