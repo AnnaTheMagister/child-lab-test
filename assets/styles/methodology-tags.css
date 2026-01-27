@@ -48,6 +48,14 @@
   font-weight: var(--font-weight-500);
 }
 
+.methodology-tags-menu .methodology-tag-width-2 {
+  width: calc(100% / 2 - 8px) !important;
+}
+
+.methodology-tags-menu .methodology-tag-width-3 {
+  width: calc(100% / 3 - 8px) !important;
+}
+
 .methodology-tags-menu .methodology-tag-width-4 {
   width: calc(100% / 4 - 8px) !important;
 }

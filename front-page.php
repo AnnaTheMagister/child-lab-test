@@ -4,8 +4,8 @@
     <?php the_content() ?>
 </div>
 
+<div id="render-react-example-here"></div>
 <?php
-get_template_part('template-parts/articles-list/methodology-tags-menu');
 get_template_part('template-parts/articles-list/articles');
 ?>
 
