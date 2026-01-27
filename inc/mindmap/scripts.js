@@ -8,7 +8,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 20,
     xPercent: 50.0,
-    yPercent: 4
+    yPercent: 4,
   },
   {
     id: "Self_regulatory_abilities",
@@ -17,7 +17,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 16,
     xPercent: 25,
-    yPercent: 18.0
+    yPercent: 18.0,
   },
   {
     id: "Cognitive_abilities",
@@ -26,7 +26,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 16,
     xPercent: 76,
-    yPercent: 18.0
+    yPercent: 18.0,
   },
   {
     id: "Communicative_abilities",
@@ -35,7 +35,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 16,
     xPercent: 50.0,
-    yPercent: 27.0
+    yPercent: 27.0,
   },
   {
     id: "Planning",
@@ -44,7 +44,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 13,
     xPercent: 12,
-    yPercent: 10
+    yPercent: 10,
   },
   {
     id: "Imagination",
@@ -53,7 +53,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 13,
     xPercent: 88,
-    yPercent: 10
+    yPercent: 10,
   },
   {
     id: "Dialectical_thinking",
@@ -62,7 +62,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 13,
     xPercent: 87,
-    yPercent: 27
+    yPercent: 27,
   },
   {
     id: "Anticipation",
@@ -71,7 +71,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 13,
     xPercent: 85,
-    yPercent: 35
+    yPercent: 35,
   },
   {
     id: "argumentation",
@@ -80,7 +80,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 13,
     xPercent: 76,
-    yPercent: 42
+    yPercent: 42,
   },
   {
     id: "Decentration",
@@ -89,7 +89,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 13,
     xPercent: 50.0,
-    yPercent: 35
+    yPercent: 35,
   },
   {
     id: "Volitional_control",
@@ -98,7 +98,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 13,
     xPercent: 14,
-    yPercent: 25
+    yPercent: 25,
   },
   {
     id: "moral_reasoning",
@@ -107,7 +107,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 13,
     xPercent: 50.0,
-    yPercent: 48
+    yPercent: 48,
   },
   {
     id: "reflection",
@@ -116,7 +116,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 13,
     xPercent: 25,
-    yPercent: 42
+    yPercent: 42,
   },
   {
     id: "construction",
@@ -125,7 +125,7 @@ const initialTags = [
     textOrientation: "vertical",
     fontSize: 13,
     xPercent: 52,
-    yPercent: 67
+    yPercent: 67,
   },
   {
     id: "shared_reading",
@@ -134,7 +134,7 @@ const initialTags = [
     textOrientation: "vertical",
     fontSize: 13,
     xPercent: 47,
-    yPercent: 71
+    yPercent: 71,
   },
   {
     id: "children_storytelling",
@@ -143,7 +143,7 @@ const initialTags = [
     textOrientation: "vertical",
     fontSize: 13,
     xPercent: 42,
-    yPercent: 67
+    yPercent: 67,
   },
   {
     id: "experimentation",
@@ -152,7 +152,7 @@ const initialTags = [
     textOrientation: "vertical",
     fontSize: 13,
     xPercent: 57,
-    yPercent: 66
+    yPercent: 66,
   },
   {
     id: "game",
@@ -161,7 +161,7 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 32,
     xPercent: 50.0,
-    yPercent: 87
+    yPercent: 87,
   },
   {
     id: "attachment",
@@ -170,8 +170,8 @@ const initialTags = [
     textOrientation: "horizontal",
     fontSize: 20,
     xPercent: 50.0,
-    yPercent: 97
-  }
+    yPercent: 97,
+  },
 ];
 
 const initialConnections = [
@@ -179,249 +179,248 @@ const initialConnections = [
     source: "Agency",
     target: "Self_regulatory_abilities",
     curveIntensity: 0,
-    connectFrom: 'bottom',
-    connectTo: 'right',
-    lineWidth: 4
+    connectFrom: "bottom",
+    connectTo: "right",
+    lineWidth: 4,
   },
   {
     source: "Agency",
     target: "Cognitive_abilities",
     curveIntensity: 0,
-    connectFrom: 'bottom',
-    connectTo: 'left',
-    lineWidth: 4
+    connectFrom: "bottom",
+    connectTo: "left",
+    lineWidth: 4,
   },
   {
     source: "Self_regulatory_abilities",
     target: "Cognitive_abilities",
     curveIntensity: 0,
-    connectFrom: 'right',
-    connectTo: 'left',
-    lineWidth: 4
+    connectFrom: "right",
+    connectTo: "left",
+    lineWidth: 4,
   },
   {
     source: "Self_regulatory_abilities",
     target: "Communicative_abilities",
     curveIntensity: 0,
-    connectFrom: 'right',
-    connectTo: 'top',
-    lineWidth: 4
+    connectFrom: "right",
+    connectTo: "top",
+    lineWidth: 4,
   },
   {
     source: "Cognitive_abilities",
     target: "Communicative_abilities",
     curveIntensity: 0,
-    connectFrom: 'left',
-    connectTo: 'top',
-    lineWidth: 4
+    connectFrom: "left",
+    connectTo: "top",
+    lineWidth: 4,
   },
   {
     source: "Agency",
     target: "Communicative_abilities",
     curveIntensity: 0,
-    connectFrom: 'bottom',
-    connectTo: 'top',
-    lineWidth: 4
+    connectFrom: "bottom",
+    connectTo: "top",
+    lineWidth: 4,
   },
   {
     source: "Cognitive_abilities",
     target: "Imagination",
     curveIntensity: -0.4,
-    connectFrom: 'top',
-    connectTo: 'left',
-    lineWidth: 2
+    connectFrom: "top",
+    connectTo: "left",
+    lineWidth: 2,
   },
   {
     source: "Planning",
     target: "Self_regulatory_abilities",
     curveIntensity: -0.4,
-    connectFrom: 'right',
-    connectTo: 'top',
-    lineWidth: 2
+    connectFrom: "right",
+    connectTo: "top",
+    lineWidth: 2,
   },
   {
     source: "Dialectical_thinking",
     target: "Cognitive_abilities",
     curveIntensity: -0.3,
-    connectFrom: 'left',
-    connectTo: 'bottom',
+    connectFrom: "left",
+    connectTo: "bottom",
     shiftTo: -0.05,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "Anticipation",
     target: "Cognitive_abilities",
     curveIntensity: -0.2,
-    connectFrom: 'top',
+    connectFrom: "top",
     shiftFrom: -0.8,
-    connectTo: 'bottom',
+    connectTo: "bottom",
     shiftTo: -0.2,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "argumentation",
     target: "Cognitive_abilities",
     curveIntensity: 0.05,
-    connectFrom: 'top',
+    connectFrom: "top",
     shiftFrom: -0.8,
-    connectTo: 'bottom',
+    connectTo: "bottom",
     shiftTo: -0.3,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "Communicative_abilities",
     target: "argumentation",
     curveIntensity: 0.3,
-    connectFrom: 'bottom',
+    connectFrom: "bottom",
     shiftFrom: 0.9,
-    connectTo: 'left',
-    lineWidth: 2
+    connectTo: "left",
+    lineWidth: 2,
   },
   {
     source: "Communicative_abilities",
     target: "Decentration",
     curveIntensity: 0.2,
-    connectFrom: 'bottom',
-    connectTo: 'top',
-    lineWidth: 2
+    connectFrom: "bottom",
+    connectTo: "top",
+    lineWidth: 2,
   },
   {
     source: "Self_regulatory_abilities",
     target: "Volitional_control",
     curveIntensity: -0.2,
-    connectFrom: 'bottom',
+    connectFrom: "bottom",
     shiftFrom: 0.2,
-    connectTo: 'right',
-    lineWidth: 2
+    connectTo: "right",
+    lineWidth: 2,
   },
   {
     source: "moral_reasoning",
     target: "Cognitive_abilities",
     curveIntensity: 0.2,
-    connectFrom: 'top',
+    connectFrom: "top",
     shiftFrom: 0.6,
-    connectTo: 'bottom',
+    connectTo: "bottom",
     shiftTo: -0.5,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "reflection",
     target: "Cognitive_abilities",
     curveIntensity: 0.6,
-    connectFrom: 'right',
-    connectTo: 'bottom',
+    connectFrom: "right",
+    connectTo: "bottom",
     shiftTo: -0.7,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "reflection",
     target: "Self_regulatory_abilities",
     curveIntensity: 0.2,
-    connectFrom: 'top',
-    connectTo: 'bottom',
+    connectFrom: "top",
+    connectTo: "bottom",
     shiftTo: 0.5,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "construction",
     target: "moral_reasoning",
     curveIntensity: -0.2,
-    connectFrom: 'top',
+    connectFrom: "top",
     shiftFrom: 2,
-    connectTo: 'bottom',
+    connectTo: "bottom",
     shiftTo: 0.45,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "experimentation",
     target: "moral_reasoning",
     curveIntensity: -0.1,
-    connectFrom: 'top',
-    connectTo: 'bottom',
+    connectFrom: "top",
+    connectTo: "bottom",
     shiftTo: 1,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "moral_reasoning",
     target: "children_storytelling",
     curveIntensity: 0.3,
-    connectFrom: 'bottom',
+    connectFrom: "bottom",
     shiftFrom: -1,
-    connectTo: 'top',
-    lineWidth: 2
+    connectTo: "top",
+    lineWidth: 2,
   },
   {
     source: "moral_reasoning",
     target: "shared_reading",
     curveIntensity: 0.1,
-    connectFrom: 'bottom',
+    connectFrom: "bottom",
     shiftFrom: -0.4,
-    connectTo: 'top',
+    connectTo: "top",
     shiftTo: -2,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "construction",
     target: "attachment",
     curveIntensity: 0.05,
-    connectFrom: 'bottom',
+    connectFrom: "bottom",
     shiftFrom: 2,
-    connectTo: 'top',
+    connectTo: "top",
     shiftTo: 0.2,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "experimentation",
     target: "attachment",
     curveIntensity: 0.05,
-    connectFrom: 'bottom',
+    connectFrom: "bottom",
     shiftFrom: 3,
-    connectTo: 'top',
+    connectTo: "top",
     shiftTo: 0.7,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "children_storytelling",
     target: "attachment",
     curveIntensity: -0.1,
-    connectFrom: 'bottom',
+    connectFrom: "bottom",
     shiftFrom: -6,
-    connectTo: 'top',
+    connectTo: "top",
     shiftTo: -0.7,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "shared_reading",
     target: "attachment",
     curveIntensity: -0.05,
-    connectFrom: 'bottom',
+    connectFrom: "bottom",
     shiftFrom: -3,
-    connectTo: 'top',
+    connectTo: "top",
     shiftTo: -0.2,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "shared_reading",
     target: "children_storytelling",
     curveIntensity: 0.3,
-    connectFrom: 'top',
+    connectFrom: "top",
     shiftFrom: 2,
-    connectTo: 'left',
+    connectTo: "left",
     shiftTo: -1.2,
-    lineWidth: 2
+    lineWidth: 2,
   },
   {
     source: "experimentation",
     target: "construction",
     curveIntensity: 0.4,
-    connectFrom: 'right',
+    connectFrom: "right",
     shiftFrom: -1.4,
-    connectTo: 'right',
+    connectTo: "right",
     shiftTo: 1,
-    lineWidth: 2
+    lineWidth: 2,
   },
 ];
-
 
 const initialConfig = {
   curveIntensity: 0.5,
@@ -432,7 +431,7 @@ const initialConfig = {
 function initGraph() {
   graph = new TagGraph({
     container: document.getElementById("graph"),
-    activeTagSlug: window.location.search.split('=')[1] ?? 'Agency',
+    activeTagSlug: window.location.search.split("=")[1] ?? "Agency",
     tags: JSON.parse(JSON.stringify(initialTags)),
     connections: JSON.parse(JSON.stringify(initialConnections)),
     curveIntensity: 0.7,
@@ -464,7 +463,7 @@ function initGraph() {
     },
     onTagTextOrientationChange: (tag) => {
       console.log(
-        `Ориентация текста ${tag.name} изменена на: ${tag.textOrientation}`
+        `Ориентация текста ${tag.name} изменена на: ${tag.textOrientation}`,
       );
       updateTagEditor();
       updateInfoPanel();

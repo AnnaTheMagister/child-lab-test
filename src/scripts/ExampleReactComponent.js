@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function ExampleReactComponent() {
-  return <></>
+  return <>ExampleReactComponent</>
 }
 
 export default ExampleReactComponent;

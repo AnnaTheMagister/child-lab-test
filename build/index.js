@@ -334,10 +334,211 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /***/ },
 
-/***/ "./src/scripts/ExampleReactComponent.js"
-/*!**********************************************!*\
-  !*** ./src/scripts/ExampleReactComponent.js ***!
-  \**********************************************/
+/***/ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx"
+/*!***********************************************************************!*\
+  !*** ./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx ***!
+  \***********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FrontListComponent: () => (/* binding */ FrontListComponent)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Loader_Loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Loader/Loader */ "./src/scripts/widgets/Loader/Loader.tsx");
+/* harmony import */ var _distributeTags__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./distributeTags */ "./src/scripts/widgets/FrontListComponent/distributeTags.ts");
+
+
+
+
+const DEFAULT_TAG = {
+  id: -1,
+  name: "Все",
+  acf: {
+    color: "rgba(138, 214, 80, 1)"
+  }
+};
+const getScreenSize = size => {
+  if (size > 1200) {
+    return "xlg";
+  }
+  if (size <= 1200 && size > 992) {
+    return "lg";
+  }
+  if (size <= 992 && size > 768) {
+    return "md";
+  }
+  if (size <= 768) {
+    return "sm";
+  }
+  return "sm";
+};
+const getMaxTagsInRow = size => size === "lg" || size == "xlg" ? 6 : size === "md" || size === "sm" ? 3 : 2;
+const FrontListComponent = () => {
+  const [tagsData, setTagsData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [tagsLoading, setTagsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [maxTagsInRow, setMaxTagsInRow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getMaxTagsInRow(getScreenSize(window.innerWidth)));
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    window.addEventListener("resize", () => {
+      setMaxTagsInRow(getMaxTagsInRow(getScreenSize(window.innerWidth)));
+    });
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetch("http://localhost/childlab.local/wp-json/wp/v2/methodology-tags").then(response => response.json()).then(data => {
+      setTagsData([DEFAULT_TAG, ...data.filter(t => t.acf.order > 0).sort((t1, t2) => t1.acf.order - t2.acf.order)]);
+      setTagsLoading(false);
+    });
+  }, []);
+  const distributedTags = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!tagsData.length) {
+      return [];
+    }
+    const distribution = (0,_distributeTags__WEBPACK_IMPORTED_MODULE_2__.distributeTags)(tagsData.length, maxTagsInRow);
+    let currentRow = 0;
+    let acc = 0;
+    return tagsData.map((tag, id) => {
+      if (id >= acc + distribution[currentRow]) {
+        acc += distribution[currentRow];
+        currentRow++;
+      }
+      return {
+        ...tag,
+        width: distribution[currentRow]
+      };
+    });
+  }, [tagsData, maxTagsInRow]);
+  console.log("!!!", distributedTags);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "methodology-tags-menu"
+  }, tagsLoading && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Loader_Loader__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    fullScreen: false
+  }), distributedTags.map(tag => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MethodologyTagComponent, {
+      key: tag.id,
+      ...tag
+    });
+  })));
+};
+const DEFAULT_SVG_PATTERN = "./wp-content/themes/childlab-react/assets/images/svg-patterns/all.svg";
+const MethodologyTagComponent = tag => {
+  var _tag$acf$color, _tag$width;
+  const backgroundColor = (_tag$acf$color = tag.acf.color) !== null && _tag$acf$color !== void 0 ? _tag$acf$color : "#f00";
+  const svg_pattern = tag.acf.svg_pattern ? tag.acf.svg_pattern : DEFAULT_SVG_PATTERN;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: `?methodology=${tag.id}`,
+    className: `childlab-widget childlab-card-link methodology-tags-menu__tag methodology-tag-width-${(_tag$width = tag.width) !== null && _tag$width !== void 0 ? _tag$width : 4}`,
+    style: {
+      backgroundColor
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "methodology-tags-menu__svg-background",
+    ref: ref => {
+      createSVGPattern(ref, svg_pattern, {
+        count: 10,
+        minScale: 0.6,
+        maxScale: 0.4,
+        minRotate: -180,
+        maxRotate: 180,
+        spacing: 5,
+        opacity: 0.5
+      });
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    title: tag.name,
+    class: "truncate"
+  }, tag.name));
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/FrontListComponent/distributeTags.ts"
+/*!******************************************************************!*\
+  !*** ./src/scripts/widgets/FrontListComponent/distributeTags.ts ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   distributeTags: () => (/* binding */ distributeTags)
+/* harmony export */ });
+const distributeTags = (tagsLength, maxTagsInRow) => {
+  // Вычисляем минимальное количество элементов в ряду
+  const minTagsInRow = Math.ceil(maxTagsInRow / 2);
+
+  // Если всего элементов меньше или равно максимуму, возвращаем один ряд
+  if (tagsLength <= maxTagsInRow) {
+    return [tagsLength];
+  }
+
+  // Вычисляем минимальное количество рядов
+  const minRows = Math.ceil(tagsLength / maxTagsInRow);
+
+  // Пробуем распределить элементы по рядам
+  for (let rows = minRows; rows <= Math.ceil(tagsLength / minTagsInRow); rows++) {
+    // Пытаемся распределить элементы поровну
+    const baseCount = Math.floor(tagsLength / rows);
+    const remainder = tagsLength % rows;
+    const distribution = [];
+
+    // Создаем распределение
+    for (let i = 0; i < rows; i++) {
+      // Первые remainder рядов получают на 1 элемент больше
+      distribution.push(i < remainder ? baseCount + 1 : baseCount);
+    }
+
+    // Проверяем, удовлетворяет ли распределение ограничениям
+    const isValid = distribution.every(count => count >= minTagsInRow && count <= maxTagsInRow);
+    if (isValid) {
+      return distribution;
+    }
+  }
+
+  // Если не удалось найти распределение, используем жадный алгоритм
+  const result = [];
+  let remaining = tagsLength;
+  while (remaining > 0) {
+    // Пытаемся взять максимальное количество
+    let count = Math.min(maxTagsInRow, remaining);
+
+    // Если оставшихся меньше минимального, корректируем предыдущий ряд
+    if (remaining - count < minTagsInRow && remaining - count > 0) {
+      // Вычисляем, сколько нужно оставить для следующего ряда
+      const nextRowMin = minTagsInRow;
+      count = remaining - nextRowMin;
+    }
+
+    // Убедимся, что count не меньше минимального
+    count = Math.max(count, Math.min(minTagsInRow, remaining));
+    result.push(count);
+    remaining -= count;
+  }
+  return result;
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/Loader/Loader.css"
+/*!***********************************************!*\
+  !*** ./src/scripts/widgets/Loader/Loader.css ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "./src/scripts/widgets/Loader/Loader.tsx"
+/*!***********************************************!*\
+  !*** ./src/scripts/widgets/Loader/Loader.tsx ***!
+  \***********************************************/
 (__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -347,12 +548,56 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Loader_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Loader.css */ "./src/scripts/widgets/Loader/Loader.css");
 
 
-function ExampleReactComponent() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ExampleReactComponent);
+
+const Loader = ({
+  size = "medium",
+  fullScreen = false,
+  className = ""
+}) => {
+  const loaderClass = `loader-container ${fullScreen ? "full-screen" : ""} ${className}`;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: loaderClass,
+    "data-testid": "loader"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `loader-spinner loader-${size}`
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Loader);
+
+/***/ },
+
+/***/ "./src/scripts/widgets/index.ts"
+/*!**************************************!*\
+  !*** ./src/scripts/widgets/index.ts ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FrontListComponent: () => (/* reexport safe */ _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__.FrontListComponent)
+/* harmony export */ });
+/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+
 
 /***/ },
 
@@ -506,7 +751,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles/header.scss */ "./src/styles/header.scss");
 /* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scripts/ArticleReader */ "./src/scripts/ArticleReader.js");
 /* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _scripts_ExampleReactComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./scripts/ExampleReactComponent */ "./src/scripts/ExampleReactComponent.js");
+/* harmony import */ var _scripts_widgets__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./scripts/widgets */ "./src/scripts/widgets/index.ts");
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 
 
@@ -517,7 +762,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const root = react_dom_client__WEBPACK_IMPORTED_MODULE_6__.createRoot(document.querySelector("#render-react-example-here"));
-root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_ExampleReactComponent__WEBPACK_IMPORTED_MODULE_5__["default"], null));
+root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_5__.FrontListComponent, null));
 })();
 
 /******/ })()
