@@ -10,37 +10,42 @@ get_header();
 $GLOBALS['mode'] = get_reading_mode();
 ?>
 
-<div class="article-wrapper article-wrapper-article">
+<?php $post_image_url = empty(get_the_post_thumbnail_url($post->ID)) ? $GLOBALS['default_image'] :
+    get_the_post_thumbnail_url($post->ID); ?>
 
-    <div class="container">
-        <main class="childlab-widget article-main">
+<div class="article-background" style="background-image: url(<?php echo $post_image_url; ?>)"></div>
 
-            <!-- Заголовок статьи -->
-            <?php get_template_part('template-parts/article/header'); ?>
 
-            <div class="row">
-                <!-- Боковая панель -->
-                <aside class="col-lg-3 col-md-12 col-xs-12 article-sidebar">
-                    <!-- Оглавление -->
-                    <?php get_template_part('template-parts/article/toc'); ?>
-                    <!-- Переключатель режимов -->
-                    <?php get_template_part('template-parts/article/mode-toggler'); ?>
-                </aside>
+<div class="container">
+    <main class="childlab-widget article-main">
 
-                <!-- Основной контент -->
-                <article class="col-lg-9 col-md-12 col-xs-12 article-content-wrapper" data-post-id="<?php echo $post_id; ?>">
+        <!-- Заголовок статьи -->
+        <?php get_template_part('template-parts/article/header'); ?>
 
-                    <!-- Контент в выбранном режиме -->
-                    <?php get_template_part('template-parts/article/mode-content'); ?>
+        <div class="row">
+            <!-- Боковая панель -->
+            <aside class="col-lg-3 col-md-12 col-xs-12 article-sidebar">
+                <!-- Оглавление -->
+                <?php get_template_part('template-parts/article/toc'); ?>
+                <!-- Переключатель режимов -->
+                <?php get_template_part('template-parts/article/mode-toggler'); ?>
+            </aside>
 
-                </article>
+            <!-- Основной контент -->
+            <article class="col-lg-9 col-md-12 col-xs-12 article-content-wrapper"
+                data-post-id="<?php echo $post_id; ?>">
 
-            </div>
-            <!-- Подвал статьи с навигацией -->
-            <?php get_template_part('template-parts/article/footer'); ?>
+                <!-- Контент в выбранном режиме -->
+                <?php get_template_part('template-parts/article/mode-content'); ?>
 
-        </main>
-    </div>
+            </article>
+
+        </div>
+        <!-- Подвал статьи с навигацией -->
+        <?php get_template_part('template-parts/article/footer'); ?>
+
+    </main>
+
 </div>
 
 <?php get_footer(); ?>
