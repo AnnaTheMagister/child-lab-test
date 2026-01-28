@@ -87,8 +87,34 @@
 }
 
 @media (max-width: 768px) {
+  .methodology-tags-menu {
+    gap: var(--size-xs);
+  }
   .methodology-tags-menu a.methodology-tags-menu__tag {
     height: 85px;
+    padding: var(--size-sm);
+    border-radius: 6px;
+    font-size: 11px;
+  }
+
+  .methodology-tags-menu .methodology-tag-width-2 {
+    width: calc(100% / 2 - 6px) !important;
+  }
+
+  .methodology-tags-menu .methodology-tag-width-3 {
+    width: calc(100% / 3 - 6px) !important;
+  }
+
+  .methodology-tags-menu .methodology-tag-width-4 {
+    width: calc(100% / 4 - 6px) !important;
+  }
+
+  .methodology-tags-menu .methodology-tag-width-5 {
+    width: calc(100% / 5 - 6px) !important;
+  }
+
+  .methodology-tags-menu .methodology-tag-width-6 {
+    width: calc(100% / 6 - 6px) !important;
   }
 }
 
@@ -147,7 +173,6 @@
     border-radius: 0;
     padding: 0;
     box-shadow: none;
-    margin-bottom: var(--size-lg);
   }
   .methodology__description {
     max-height: fit-content;

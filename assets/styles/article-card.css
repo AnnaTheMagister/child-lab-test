@@ -32,7 +32,7 @@ a.article-card .block.stretch {
   background: linear-gradient(var(--bg-color-primary), var(--bg-color-default));
   background-size: cover;
   background-position: 50%;
-  height: 131px;
+  height: 200px;
   width: 100%;
   border-radius: var(--border-radius-img);
 }

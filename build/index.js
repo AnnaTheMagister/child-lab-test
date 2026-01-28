@@ -371,10 +371,10 @@ const getScreenSize = size => {
   if (size <= 992 && size > 768) {
     return "md";
   }
-  if (size <= 768) {
+  if (size <= 768 && size > 576) {
     return "sm";
   }
-  return "sm";
+  return "xs";
 };
 const getMaxTagsInRow = size => size === "lg" || size == "xlg" ? 6 : size === "md" || size === "sm" ? 3 : 2;
 const FrontListComponent = () => {

@@ -137,13 +137,13 @@ const initialTags = [
     yPercent: 71,
   },
   {
-    id: "children_storytelling",
-    name: "Детское сочинительство",
+    id: "storytelling",
+    name: "Сочинительство",
     color: "#50D4CB",
     textOrientation: "vertical",
     fontSize: 13,
     xPercent: 42,
-    yPercent: 67,
+    yPercent: 66,
   },
   {
     id: "experimentation",
@@ -343,7 +343,7 @@ const initialConnections = [
   },
   {
     source: "moral_reasoning",
-    target: "children_storytelling",
+    target: "storytelling",
     curveIntensity: 0.3,
     connectFrom: "bottom",
     shiftFrom: -1,
@@ -381,7 +381,7 @@ const initialConnections = [
     lineWidth: 2,
   },
   {
-    source: "children_storytelling",
+    source: "storytelling",
     target: "attachment",
     curveIntensity: -0.1,
     connectFrom: "bottom",
@@ -402,7 +402,7 @@ const initialConnections = [
   },
   {
     source: "shared_reading",
-    target: "children_storytelling",
+    target: "storytelling",
     curveIntensity: 0.3,
     connectFrom: "top",
     shiftFrom: 2,

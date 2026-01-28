@@ -21,14 +21,14 @@ const getScreenSize = (size: number) => {
   if (size <= 992 && size > 768) {
     return "md";
   }
-  if (size <= 768) {
+  if (size <= 768 && size > 576) {
     return "sm";
   }
-  return "sm";
+  return "xs";
 };
 
 const getMaxTagsInRow = (size: string) =>
-  size === "lg" || size == "xlg" ? 6 : size === "md" || size === "sm" ? 3 : 2;
+  (size === "lg" || size == "xlg") ? 6 : (size === "md" || size === "sm") ? 3 : 2;
 
 export const FrontListComponent = () => {
   const [tagsData, setTagsData] = useState<MethodologyTag[]>([]);
