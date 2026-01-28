@@ -386,7 +386,7 @@ const FrontListComponent = () => {
     });
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    fetch("http://localhost/childlab.local/wp-json/wp/v2/methodology-tags").then(response => response.json()).then(data => {
+    fetch("/childlab.local/wp-json/wp/v2/methodology-tags").then(response => response.json()).then(data => {
       setTagsData([DEFAULT_TAG, ...data.filter(t => t.acf.order > 0).sort((t1, t2) => t1.acf.order - t2.acf.order)]);
       setTagsLoading(false);
     });
