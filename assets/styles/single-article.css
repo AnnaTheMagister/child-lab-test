@@ -1,5 +1,5 @@
 .article-main {
-  margin: var(--size-xxlg) 0;
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -59,7 +59,7 @@
 }
 .nav-link-next::after {
   display: flex;
-  content: url("../images/arrow-right.svg");;
+  content: url("../images/arrow-right.svg");
 }
 
 /* Заголовок статьи */
