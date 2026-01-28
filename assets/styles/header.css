@@ -169,7 +169,7 @@
 
   /* Логотип на мобильных */
   .childlab-site-branding {
-    width: 120px;
+    width: 120px !important;
   }
 }
 
@@ -185,6 +185,6 @@
   }
 
   .childlab-site-branding {
-    width: 120px
+    width: 120px !important;
   }
 }

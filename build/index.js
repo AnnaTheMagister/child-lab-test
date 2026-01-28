@@ -353,7 +353,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const BASE_URL = window.location.host === 'localhost' ? 'http://localhost/childlab.local/' : window.location.origin;
+const BASE_URL = window.location.host === 'localhost' ? 'http://localhost/childlab.local' : window.location.origin;
 const DEFAULT_TAG = {
   id: -1,
   name: "Все",
@@ -387,7 +387,7 @@ const FrontListComponent = () => {
     });
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    fetch(BASE_URL + "/wp-json/wp/v2/methodology-tags").then(response => response.json()).then(data => {
+    fetch(BASE_URL + "/wp-json/wp/v2/methodology-tags?per_page=100").then(response => response.json()).then(data => {
       setTagsData([DEFAULT_TAG, ...data.filter(t => t.acf.order > 0).sort((t1, t2) => t1.acf.order - t2.acf.order)]);
       setTagsLoading(false);
     });
