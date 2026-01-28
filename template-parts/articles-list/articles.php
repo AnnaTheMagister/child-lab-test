@@ -57,7 +57,7 @@ $posts_size = count($posts);
                 <div class="row">
                 <?php endif; ?>
                 <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-                    <?php echo get_article_card(); ?>
+                    <?php echo get_article_card($post); ?>
                 </div>
                 <?php if ($key % 4 == 3 || $key == $posts_size - 1): ?>
                 </div>

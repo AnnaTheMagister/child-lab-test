@@ -31,43 +31,43 @@ function get_articles_list_by_taxonomy($taxonomy, $term_id, $title, $empty_place
     ));
 
 
+    $header = '<header class="articles-list__header">' . ($title ? $title : "Статьи") . '</header>';
 
-    $header = '<header class="articles-list__header">' . $title ? $title : "Статьи" . '</header>';
-
-    $empty_placeholder = '<div class="empty-placeholder">' . $empty_placeholder_msg . '</div>';
+    $empty_placeholder = '<div class="empty-wrapper"><div class="empty-placeholder">' . $empty_placeholder_msg . '</div></div>';
 
 
     $articles_list = '';
 
-    foreach ($posts as $key => $post) {
-        the_post($post);
-        $articles_list .= '<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">' . get_article_card() . '</div>';
-
-        wp_reset_postdata();
+    if (empty($posts)) {
+        $articles_list = $empty_placeholder;
+    } else {
+        foreach ($posts as $key => $post) {
+            $articles_list .= '<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">' . get_article_card($post) . '</div>';
+        }
     }
 
 
-    return "<div class='childlab-widget articles-list'>{$header}<div class='row'>{$articles_list}</div></div>";
+    return "<div class='childlab-widget articles-list'>" . $header . "<div class='row'>{$articles_list}</div></div>";
 }
 
-function get_article_card()
+function get_article_card($post)
 {
-    $post_image_url = empty(get_the_post_thumbnail_url()) ? $GLOBALS['default_image'] : get_the_post_thumbnail_url();
+    $post_image_url = empty(get_the_post_thumbnail_url($post->ID)) ? $GLOBALS['default_image'] : get_the_post_thumbnail_url($post->ID);
 
-    $tags_render = get_article_tags_render(get_the_ID());
+    $tags_render = get_article_tags_render($post->ID);
     $article_image_render = "<div class='article-img' style='background-image: url(" . $post_image_url . ");'>" . $tags_render . "</div>";
 
     $article_meta_render = "<div class='article-meta childlab-text__meta'>" . get_article_meta_render() . '</div>';
 
-    $article_title_render = "<div class='article-details__title truncate-multiline'>" . get_the_title() . "</div>";
+    $article_title_render = "<div class='article-details__title truncate-multiline'>" . get_the_title($post->ID) . "</div>";
 
-    $article_subtitle_render = "<div class='article-details__subtitle truncate'>" . get_field('subtitle') . "</div>";
+    $article_subtitle_render = "<div class='article-details__subtitle truncate'>" . get_field('subtitle', $post->ID) . "</div>";
 
-    $article_excerpt_render = "<div class='article-details__excerpt truncate-multiline'>" . get_the_excerpt() . "</div>";
+    $article_excerpt_render = "<div class='article-details__excerpt truncate-multiline'>" . get_the_excerpt($post->ID) . "</div>";
 
     $article_content_render = '<div class="article-details">' . $article_meta_render . $article_title_render . $article_subtitle_render . $article_excerpt_render . '</div>';
 
-    return "<a class='article-card' href='" . get_the_permalink() . "'>" . $article_image_render . $article_content_render . "</a>";
+    return "<a class='article-card' href='" . get_the_permalink($post->ID) . "'>" . $article_image_render . $article_content_render . "</a>";
 }
 
 

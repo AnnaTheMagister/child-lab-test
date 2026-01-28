@@ -193,6 +193,13 @@ a.childlab-card-link:hover .childlab-image {
   }
 }
 
+.empty-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
 .empty-placeholder {
   display: flex;
   text-align: center;
@@ -205,4 +212,9 @@ a.childlab-card-link:hover .childlab-image {
   .empty-placeholder {
     font-size: var(--font-size-20);
   }
+}
+
+
+.articles-list {
+  margin-top: 8px;
 }

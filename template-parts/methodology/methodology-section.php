@@ -25,6 +25,14 @@
             </div>
         </div>
 
+        <?php if (!$term_data): ?>
+            <div
+                class="col-lg-5 col-md-12 col-sm-12 col-xs-12 order-lg-4 order-xlg-4 order-xxlg-4 d-xs-none d-sm-none d-md-none d-lg-block d-xlg-block d-xxlg-block">
+                <div class="childlab-widget methodology__description">
+                    <?php echo $empty_placeholder ?>
+                </div>
+            </div>
+        <?php endif; ?>
         <?php if ($term_data): ?>
             <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 order-xs-3 order-sm-3 order-md-3 order-lg-3">
                 <div class="childlab-widget methodology__description">
@@ -35,7 +43,11 @@
 
 
     </div>
+
+</div>
+<div class="container">
     <?php $term = get_methodology_data_for_page();
+
     if ($term && $term->term_id) {
         echo get_articles_list_by_taxonomy('methodology_tag', $term->term_id, "Статьи по теме");
     }
