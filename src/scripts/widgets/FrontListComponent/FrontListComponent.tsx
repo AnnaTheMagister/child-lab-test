@@ -2,7 +2,7 @@ import React, { useState, useEffect, FC, useMemo } from "react";
 import Loader from "../Loader/Loader";
 import { MethodologyTag } from "../../entities/MethodologyTags";
 import { distributeTags } from "./distributeTags";
-const BASE_URL = window.location.host === 'localhost' ? 'http://localhost/childlab.local/' : window.location.origin
+const BASE_URL = window.location.host === 'localhost' ? 'http://localhost/childlab.local' : window.location.origin
 const DEFAULT_TAG = {
   id: -1,
   name: "Все",
@@ -44,7 +44,7 @@ export const FrontListComponent = () => {
   }, []);
 
   useEffect(() => {
-    fetch(BASE_URL + "/wp-json/wp/v2/methodology-tags")
+    fetch(BASE_URL + "/wp-json/wp/v2/methodology-tags?per_page=100")
       .then((response) => response.json())
       .then((data: MethodologyTag[]) => {
         setTagsData([
