@@ -44,7 +44,7 @@ export const FrontListComponent = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost/childlab.local/wp-json/wp/v2/methodology-tags")
+    fetch("/childlab.local/wp-json/wp/v2/methodology-tags")
       .then((response) => response.json())
       .then((data: MethodologyTag[]) => {
         setTagsData([
