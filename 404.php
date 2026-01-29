@@ -3,8 +3,12 @@
 get_header(); ?>
 
 <div class="container not-found-page">
-    <h1>Ой! Страница не найдена!</h1>
-    <p>К сожалению, мы не можем найти запрошенную вами страницу</p>
+    <h1>404</h1>
+    <h2>Страница не найдена</h2>
+    <p>Такой страницы у нас нет... Может, вернёмся на главную?</p>
+    <a class="not-found-page-link" href="<?php echo get_home_url(); ?>"><div>На главную</div></a>
 </div>
+
+
 
 <?php get_footer(); ?>
