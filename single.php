@@ -13,7 +13,7 @@ get_header();
 
 
 <?php
-$content = get_the_content();
+$content = apply_filters('the_content', get_the_content());
 $content = add_anchor_ids_to_headings($content);
 $toc = generate_table_of_contents(get_the_content());
 

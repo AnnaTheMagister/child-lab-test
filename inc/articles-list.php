@@ -8,7 +8,7 @@ function get_methodology_tag()
 
 function get_articles_count()
 {
-    return $_GET['articles_count'] ?? '5'; // По умолчанию
+    return $_GET['articles_count'] ?? '20'; // По умолчанию
 }
 
 

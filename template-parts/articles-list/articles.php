@@ -8,7 +8,7 @@ if ($current_tag == '-1') {
     $posts = get_posts(array(
         'numberposts' =>$articles_count,
         'orderby' => 'date',
-        'order' => 'ASC',
+        'order' => 'DESC',
         'post_type' => 'article',
 
         'suppress_filters' => true, // подавление работы фильтров изменения SQL запроса
@@ -18,7 +18,7 @@ if ($current_tag == '-1') {
     $posts = get_posts(array(
         'numberposts' => $articles_count,
         'orderby' => 'date',
-        'order' => 'ASC',
+        'order' => 'DESC',
         'post_type' => 'article',
         'tax_query' => [
             [
@@ -70,7 +70,7 @@ $posts_size = count($posts);
           
             ?>
             <a class="article-button" href="<?php echo get_site_url() ?>/?methodology=<?php echo $current_tag?>&articles_count=<?php
-             $articles_count=''.(+$articles_count+5);
+             $articles_count=''.(+$articles_count+20);
              echo $articles_count?>" >Показать еще</a>
              <?php
            }
