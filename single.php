@@ -11,6 +11,25 @@ get_header();
 <?php $post_image_url = empty(get_the_post_thumbnail_url($post->ID)) ? $GLOBALS['default_image'] :
     get_the_post_thumbnail_url($post->ID); ?>
 
+
+<?php
+$content = get_the_content();
+$content = add_anchor_ids_to_headings($content);
+$toc = generate_table_of_contents(get_the_content());
+
+function get_back_link()
+{
+    $post_type = get_post_type();
+    $link = '<a class="nav-link-prev" href=' . get_site_url() . '>На главную</a>';
+    if ($post_type === 'projects') {
+        $link = '<a class="nav-link-prev" href=' . get_site_url() . '/projects' . '>К проектам</a>';
+    }
+    return '<div class="col-lg-3 order-lg-1 order-md-1 col-md-6 col-xs-6 pr-4">' . $link . '</div>';
+}
+
+?>
+
+
 <div class="article-background" style="background-image: url(<?php echo $post_image_url; ?>)"></div>
 
 
@@ -18,10 +37,7 @@ get_header();
     <main class="childlab-widget article-main">
 
         <div class="row">
-            <div class="col-lg-3 order-lg-1 order-md-1 col-md-6 col-xs-6 pr-4">
-                <a class="nav-link-prev" href="<?php echo get_site_url(); ?>">На главную</a>
-
-            </div>
+            <?php echo get_back_link(); ?>
             <div class="col-lg-6 order-lg-2 order-md-3 col-md-12">
                 <!-- Основной заголовок -->
                 <h1 class="article-title">
@@ -32,27 +48,27 @@ get_header();
 
         <div class="row">
             <!-- Боковая панель -->
-            <aside class="col-lg-3 col-md-12 col-xs-12 article-sidebar">
-                <!-- Оглавление -->
-                <?php echo generate_table_of_contents(get_the_content()); ?>
+            <?php if (!empty($toc)): ?>
+                <aside class="col-lg-3 col-md-12 col-xs-12 article-sidebar">
+                    <!-- Оглавление -->
+                    <?php echo $toc; ?>
 
-            </aside>
+                </aside>
+            <?php endif; ?>
 
             <!-- Основной контент -->
-            <article class="col-lg-9 col-md-12 col-xs-12 article-content-wrapper"
+            <article class="<?php !empty($toc) ? 'col-lg-9 col-md-12 col-xs-12' : "" ?> article-content-wrapper"
                 data-post-id="<?php echo $post_id; ?>">
 
-                <?php the_content(); ?>
+                <?php get_back_link();
+                echo $content; ?>
 
             </article>
 
         </div>
 
         <div class="row">
-            <div class="col-lg-3 order-lg-1 order-md-1 col-md-6 pr-4">
-                <a class="nav-link-prev" href="<?php echo get_site_url(); ?>">На главную</a>
-
-            </div>
+            <?php echo get_back_link(); ?>
         </div>
     </main>
 </div>

@@ -15,7 +15,6 @@ $GLOBALS['mode'] = get_reading_mode();
 
 <div class="article-background" style="background-image: url(<?php echo $post_image_url; ?>)"></div>
 
-
 <div class="container">
     <main class="childlab-widget article-main">
 
