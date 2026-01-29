@@ -334,6 +334,85 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /***/ },
 
+/***/ "./src/scripts/shared/switcher.js"
+/*!****************************************!*\
+  !*** ./src/scripts/shared/switcher.js ***!
+  \****************************************/
+() {
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Элементы
+  const switcher = document.getElementById("readingModeSwitcher");
+  const toggleBtn = document.getElementById("mobileSwitcherToggle");
+  const closeBtn = document.getElementById("switcherClose");
+
+  // Проверяем, мобильное ли устройство
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  // Открытие виджета
+  function openSwitcher() {
+    switcher.classList.add("active");
+    // Создаем оверлей если его нет
+    let overlay = document.querySelector(".switchers-overlay");
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.className = "switchers-overlay";
+      document.body.appendChild(overlay);
+    }
+    overlay.classList.add("active");
+    overlay.addEventListener("click", closeSwitcher);
+    document.body.style.overflow = "hidden";
+  }
+
+  // Закрытие виджета
+  function closeSwitcher() {
+    switcher.classList.remove("active");
+    const overlay = document.querySelector(".switchers-overlay");
+    if (overlay) {
+      overlay.classList.remove("active");
+      overlay.removeEventListener("click", closeSwitcher);
+    }
+    document.body.style.overflow = "";
+  }
+
+  // Обработчики событий
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", openSwitcher);
+  }
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeSwitcher);
+  }
+
+  // Закрытие при нажатии Escape
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && switcher.classList.contains("active")) {
+      closeSwitcher();
+    }
+  });
+
+  // Адаптация при изменении размера окна
+  window.addEventListener("resize", function () {
+    if (!isMobile() && switcher.classList.contains("active")) {
+      closeSwitcher();
+    }
+  });
+
+  // Закрытие при клике на ссылки внутри виджета (если нужно)
+  const switcherLinks = switcher.querySelectorAll("a");
+  switcherLinks.forEach(link => {
+    link.addEventListener("click", function () {
+      if (isMobile()) {
+        // Закрываем виджет только на мобильных
+        setTimeout(closeSwitcher, 300); // Небольшая задержка для плавности
+      }
+    });
+  });
+});
+
+/***/ },
+
 /***/ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx"
 /*!***********************************************************************!*\
   !*** ./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx ***!
@@ -752,8 +831,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles/header.scss */ "./src/styles/header.scss");
 /* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scripts/ArticleReader */ "./src/scripts/ArticleReader.js");
 /* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _scripts_widgets__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./scripts/widgets */ "./src/scripts/widgets/index.ts");
-/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
+/* harmony import */ var _scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./scripts/shared/switcher */ "./src/scripts/shared/switcher.js");
+/* harmony import */ var _scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _scripts_widgets__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./scripts/widgets */ "./src/scripts/widgets/index.ts");
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 
 
 
@@ -762,8 +843,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const root = react_dom_client__WEBPACK_IMPORTED_MODULE_6__.createRoot(document.querySelector("#render-react-example-here"));
-root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_5__.FrontListComponent, null));
+
+const root = react_dom_client__WEBPACK_IMPORTED_MODULE_7__.createRoot(document.querySelector("#render-react-example-here"));
+root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_6__.FrontListComponent, null));
 })();
 
 /******/ })()
