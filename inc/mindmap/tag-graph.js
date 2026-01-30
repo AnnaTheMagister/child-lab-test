@@ -300,7 +300,7 @@ class TagGraph {
       const lastLine = acc[acc.length - 1];
       if (
         this.measureTextWidth(lastLine + " " + word, fontSize) <=
-        150 * this.config.scale
+        100 * this.config.scale
       ) {
         acc[acc.length - 1] = lastLine + " " + word;
       } else {
