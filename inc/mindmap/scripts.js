@@ -3,7 +3,7 @@
 const initialTags = [
   {
     id: "Agency",
-    name: "Субъектность",
+    name: wp.i18n.__("Субъектность", 'childlab'),
     color: "#90b636",
     textOrientation: "horizontal",
     fontSize: 20,
@@ -12,7 +12,7 @@ const initialTags = [
   },
   {
     id: "Self_regulatory_abilities",
-    name: "Регуляторные \n способности",
+    name: wp.i18n.__("Регуляторные \n способности", 'childlab'),
     color: "#38d37c",
     textOrientation: "horizontal",
     fontSize: 16,

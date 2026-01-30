@@ -6,7 +6,7 @@ $articles_count = get_articles_count();
 
 if ($current_tag == '-1') {
     $posts = get_posts(array(
-        'numberposts' =>$articles_count,
+        'numberposts' => $articles_count,
         'orderby' => 'date',
         'order' => 'DESC',
         'post_type' => 'article',
@@ -40,13 +40,13 @@ $posts_size = count($posts);
 <div class="container">
     <div class="childlab-widget">
         <header class="articles-list__header">
-            <?php 
-            if (isset($current_tag)&&(!($current_tag == '-1'))) {
-                   $tag_name= "Тема :".get_term($current_tag)->name ;
+            <?php
+            if (isset($current_tag) && (!($current_tag == '-1'))) {
+                $tag_name = esc_html__("Статьи по теме", 'childlab') . get_term($current_tag)->name;
             } else {
-              
-                  $tag_name="Все статьи";
-               
+
+                $tag_name = esc_html__("Все статьи", 'childlab');
+
             }
             echo $tag_name ?>
 
@@ -66,15 +66,15 @@ $posts_size = count($posts);
         <div class="row article-button__wrapper">
             <?php
 
-           if (((+$articles_count)<=$posts_size)) {
-          
+            if (((+$articles_count) <= $posts_size)) {
+
+                ?>
+                <a class="article-button" href="<?php echo get_site_url() ?>/?methodology=<?php echo $current_tag ?>&articles_count=<?php
+                     $articles_count = '' . (+$articles_count + 20);
+                     echo $articles_count ?>">Показать еще</a>
+                <?php
+            }
             ?>
-            <a class="article-button" href="<?php echo get_site_url() ?>/?methodology=<?php echo $current_tag?>&articles_count=<?php
-             $articles_count=''.(+$articles_count+20);
-             echo $articles_count?>" >Показать еще</a>
-             <?php
-           }
-           ?>
         </div>
     </div>
 

@@ -4,6 +4,6 @@
         ©
         <?php
         echo date("Y");
-        ?> ChildLab — Ольга и Игорь Шиян
+        ?> ChildLab — <?php esc_html_e("Ольга и Игорь Шиян", 'childlab') ?>
     </div>
 </div>
