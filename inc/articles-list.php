@@ -42,7 +42,7 @@ function get_articles_list_by_taxonomy($taxonomy, $term_id, $title, $empty_place
         $articles_list = $empty_placeholder;
     } else {
         foreach ($posts as $key => $post) {
-            $articles_list .= '<div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">' . get_article_card($post) . '</div>';
+            $articles_list .= '<div class="col-sm-12">' . get_article_card($post) . '</div>';
         }
     }
 

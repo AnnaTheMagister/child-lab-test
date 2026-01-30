@@ -53,6 +53,14 @@ msgstr "Article"
 msgid "запись"
 msgstr "post"
 
+#: single.php:23
+msgid "На главную"
+msgstr "Main page"
+
+#: single.php:25
+msgid "К проектам"
+msgstr "Projects"
+
 #. Template Name of the theme
 msgid "Член команды"
 msgstr "Author"
@@ -60,6 +68,34 @@ msgstr "Author"
 #. Template Name of the theme
 msgid "Раздел методологии"
 msgstr ""
+
+#: template-parts/article/mode-toggler.php:55
+msgid "Адаптировать статью"
+msgstr "Adapt the article"
+
+#: template-parts/article/mode-toggler.php:60
+msgid "Роль"
+msgstr "Role"
+
+#: template-parts/article/mode-toggler.php:85
+msgid "Родитель"
+msgstr "Parent"
+
+#: template-parts/article/mode-toggler.php:91
+msgid "Педагог"
+msgstr "Educator"
+
+#: template-parts/article/mode-toggler.php:97
+msgid "Длина"
+msgstr "Length"
+
+#: template-parts/article/mode-toggler.php:122
+msgid "Коротко"
+msgstr "Short"
+
+#: template-parts/article/mode-toggler.php:128
+msgid "Длинно"
+msgstr "Long"
 
 #: template-parts/articles-list/articles-for-author.php:33
 msgid "Статьи автора"
@@ -82,6 +118,16 @@ msgstr "Olga and Igor Shiyan"
 #: template-parts/methodology/tag-description.php:4
 msgid "Выберите элемент на дереве, чтобы прочитать о нём подробнее"
 msgstr "Select an element on the tree to read articles related to this topic"
+
+#: template-parts/methodology/methodology-section.php:11
+#: template-parts/methodology/methodology-section.php:21
+msgid "Методология"
+msgstr "Methodology"
+
+#: template-parts/methodology/methodology-section.php:12
+#: template-parts/methodology/methodology-section.php:22
+msgid "Наша методология «дерева» отражает то, что способности не появляются сами по себе — они вырастают из отношений и активной деятельности ребёнка"
+msgstr "Our “tree” methodology reflects the idea that abilities do not emerge on their own — they grow out of relationships and a child’s active engagement in meaningful activities."
 
 #: template-parts/projects/projects-list.php:24
 msgid "Подробнее"

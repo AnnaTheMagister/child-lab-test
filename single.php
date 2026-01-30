@@ -20,9 +20,9 @@ $toc = generate_table_of_contents(get_the_content());
 function get_back_link()
 {
     $post_type = get_post_type();
-    $link = '<a class="nav-link-prev" href=' . get_site_url() . '>На главную</a>';
+    $link = '<a class="nav-link-prev" href=' . get_site_url() . '>' . esc_html__('На главную', 'childlab') . '</a>';
     if ($post_type === 'projects') {
-        $link = '<a class="nav-link-prev" href=' . get_site_url() . '/projects' . '>К проектам</a>';
+        $link = '<a class="nav-link-prev" href=' . get_site_url() . '/projects' . '>' . esc_html__('К проектам', 'childlab') . '</a>';
     }
     return '<div class="col-lg-3 order-lg-1 order-md-1 col-md-6 col-xs-6 pr-4">' . $link . '</div>';
 }

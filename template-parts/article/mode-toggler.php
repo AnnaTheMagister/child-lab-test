@@ -52,12 +52,12 @@ switch ($current_mode) {
         </svg>
     </button>
 
-    <h4 class="switchers-title">Адаптировать статью</h4>
+    <h4 class="switchers-title"><?php esc_html_e("Адаптировать статью", "childlab") ?></h4>
     <div class="container">
         <div class="row switchers-container">
             <div>
                 <div class="switcher">
-                    <div class="switcher__label">Роль</div>
+                    <div class="switcher__label"><?php esc_html_e("Роль", "childlab") ?></div>
                     <div class="switcher_bar">
                         <a href="?reading_mode=parent_<?php echo ($mode_longist); ?>"
                             class="mode-btn <?php echo $current_mode == 'scientist_long' ? 'active' : ''; ?>">
@@ -82,19 +82,19 @@ switch ($current_mode) {
                         <p class="switcher_text<?php if ($mode_scientist == 'parent') {
                             echo '_selected';
                         }
-                        ; ?>">Родитель</p>
+                        ; ?>"><?php esc_html_e("Родитель", "childlab") ?></p>
                     </div>
                     <div class="switcher_text">
                         <p class="switcher_text<?php if ($mode_scientist == 'scientist') {
                             echo '_selected';
                         }
-                        ; ?>">Педагог</p>
+                        ; ?>"><?php esc_html_e("Педагог", "childlab") ?></p>
                     </div>
                 </div>
             </div>
             <div>
                 <div class="switcher">
-                    <div class="switcher__label">Длина</div>
+                    <div class="switcher__label"><?php esc_html_e("Длина", "childlab") ?></div>
                     <div class="switcher_bar">
                         <a href="?reading_mode=<?php echo ($mode_scientist); ?>_short"
                             class="mode-btn <?php echo $current_mode == 'parent_short' ? 'active' : ''; ?>">
@@ -119,13 +119,13 @@ switch ($current_mode) {
                         <p class="switcher_text<?php if ($mode_longist == 'short') {
                             echo '_selected';
                         }
-                        ; ?>">Коротко</p>
+                        ; ?>"><?php esc_html_e("Коротко", "childlab") ?></p>
                     </div>
                     <div class="switcher_text">
                         <p class="switcher_text<?php if ($mode_longist == 'long') {
                             echo '_selected';
                         }
-                        ; ?>">Длинно</p>
+                        ; ?>"><?php esc_html_e("Длинно", "childlab") ?></p>
                     </div>
                 </div>
             </div>

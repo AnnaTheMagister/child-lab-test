@@ -124,6 +124,14 @@
 .methodology__header {
   color: var(--black);
 }
+.methodology__header h1 {
+  font-size: 32px;
+  line-height: 1;
+}
+.methodology__header p {
+  font-size: 20px;
+  line-height: 1.2;
+}
 
 .methodology__tree-wrapper {
   display: flex;
@@ -182,6 +190,12 @@
     border-radius: var(--border-radius-widget);
     background-color: var(--bg-color-default);
     box-shadow: var(--box-shadow-default);
-    margin-bottom: var(--size-lg);
+    margin-top: var(--size-lg);
+  }
+  .methodology__header h1 {
+    font-size: 20px;
+  }
+  .methodology__header p {
+    font-size: 14px;
   }
 }
