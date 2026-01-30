@@ -47,14 +47,14 @@ function add_anchor_ids_to_headings($content)
 function generate_table_of_contents($content)
 {
     $matches = get_headings_match($content);
-    $toc = '<nav class="table-of-contents" aria-label="Содержание">';
+    $toc = '<nav class="table-of-contents" aria-label="' . esc_html__('Содержание', 'childlab') . '">';
 
     if (empty($matches)) {
         return;
     }
 
 
-    $toc .= '<h4 class="toc-title">Содержание</h4>';
+    $toc .= '<h4 class="toc-title">' . esc_html__('Содержание', 'childlab') . '</h4>';
 
     $current_level = null;
     foreach ($matches as $index => $match) {
