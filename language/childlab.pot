@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-30T18:07:41+00:00\n"
+"POT-Creation-Date: 2026-01-30T19:09:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: childlab\n"
@@ -62,12 +62,40 @@ msgstr ""
 msgid "Раздел методологии"
 msgstr ""
 
+#: template-parts/article/mode-toggler.php:55
+msgid "Адаптировать статью"
+msgstr ""
+
+#: template-parts/article/mode-toggler.php:60
+msgid "Роль"
+msgstr ""
+
+#: template-parts/article/mode-toggler.php:85
+msgid "Родитель"
+msgstr ""
+
+#: template-parts/article/mode-toggler.php:91
+msgid "Педагог"
+msgstr ""
+
+#: template-parts/article/mode-toggler.php:97
+msgid "Длина"
+msgstr ""
+
+#: template-parts/article/mode-toggler.php:122
+msgid "Коротко"
+msgstr ""
+
+#: template-parts/article/mode-toggler.php:128
+msgid "Длинно"
+msgstr ""
+
 #: template-parts/articles-list/articles-for-author.php:33
 msgid "Статьи автора"
 msgstr ""
 
 #: template-parts/articles-list/articles.php:45
-#: template-parts/methodology/methodology-section.php:53
+#: template-parts/methodology/methodology-section.php:64
 msgid "Статьи по теме"
 msgstr ""
 
@@ -79,13 +107,27 @@ msgstr ""
 msgid "Ольга и Игорь Шиян"
 msgstr ""
 
-#: template-parts/methodology/methodology-section.php:5
+#: template-parts/methodology/methodology-section.php:6
 #: template-parts/methodology/tag-description.php:4
 msgid "Выберите элемент на дереве, чтобы прочитать о нём подробнее"
 msgstr ""
 
+#: template-parts/methodology/methodology-section.php:11
+#: template-parts/methodology/methodology-section.php:21
+msgid "Методология"
+msgstr ""
+
+#: template-parts/methodology/methodology-section.php:12
+#: template-parts/methodology/methodology-section.php:22
+msgid "Наша методология «дерева» отражает то, что способности не появляются сами по себе — они вырастают из отношений и активной деятельности ребёнка"
+msgstr ""
+
 #: template-parts/projects/projects-list.php:24
 msgid "Подробнее"
+msgstr ""
+
+#: build/index.js:438
+msgid "Все"
 msgstr ""
 
 #: inc/mindmap/scripts.js:6
