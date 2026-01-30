@@ -21,7 +21,7 @@ $posts = get_posts(array(
             <h2 class="project-title" title="<?php the_title(); ?>"><?php the_title(); ?></h2>
             <div class="project-description truncate-multiline"><?php the_field('project_description'); ?></div>
             <a class="project-link" href="<?php the_permalink(); ?>">
-                <div>Подробнее</div> <img class="svg-icon"
+                <div><?php esc_html_e("Подробнее", "childlab") ?></div> <img class="svg-icon"
                     src="<?php echo get_template_directory_uri() . '/assets/images/arrow-right.svg' ?>" />
             </a>
         </div>

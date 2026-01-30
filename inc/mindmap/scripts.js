@@ -21,7 +21,7 @@ const initialTags = [
   },
   {
     id: "Cognitive_abilities",
-    name: "Познавательные \n способности",
+    name: wp.i18n.__("Познавательные \n способности", 'childlab'),
     color: "#dcc22d",
     textOrientation: "horizontal",
     fontSize: 16,
@@ -30,7 +30,7 @@ const initialTags = [
   },
   {
     id: "Communicative_abilities",
-    name: "Коммуникативные \n способности",
+    name: wp.i18n.__("Коммуникативные \n способности", 'childlab'),
     color: "#db508f",
     textOrientation: "horizontal",
     fontSize: 16,
@@ -39,7 +39,7 @@ const initialTags = [
   },
   {
     id: "Planning",
-    name: "Планирование",
+    name: wp.i18n.__("Планирование", 'childlab'),
     color: "#64af38",
     textOrientation: "horizontal",
     fontSize: 13,
@@ -48,7 +48,7 @@ const initialTags = [
   },
   {
     id: "Imagination",
-    name: "Воображение",
+    name: wp.i18n.__("Воображение", 'childlab'),
     color: "#becc1c",
     textOrientation: "horizontal",
     fontSize: 13,
@@ -57,7 +57,7 @@ const initialTags = [
   },
   {
     id: "Dialectical_thinking",
-    name: "Диалектическое \n мышление",
+    name: wp.i18n.__("Диалектическое \n мышление", 'childlab'),
     color: "#f3c932",
     textOrientation: "horizontal",
     fontSize: 13,
@@ -66,7 +66,7 @@ const initialTags = [
   },
   {
     id: "Anticipation",
-    name: "Предвосхищение",
+    name: wp.i18n.__("Предвосхищение", 'childlab'),
     color: "#e99030",
     textOrientation: "horizontal",
     fontSize: 13,
@@ -75,7 +75,7 @@ const initialTags = [
   },
   {
     id: "argumentation",
-    name: "Аргументация",
+    name: wp.i18n.__("Аргументация", 'childlab'),
     color: "#ea6695",
     textOrientation: "horizontal",
     fontSize: 13,
@@ -84,7 +84,7 @@ const initialTags = [
   },
   {
     id: "Decentration",
-    name: "Децентрация",
+    name: wp.i18n.__("Децентрация", 'childlab'),
     color: "#D34FB5",
     textOrientation: "horizontal",
     fontSize: 13,
@@ -93,7 +93,7 @@ const initialTags = [
   },
   {
     id: "Volitional_control",
-    name: "Произвольность",
+    name: wp.i18n.__("Произвольность", 'childlab'),
     color: "#49C64F",
     textOrientation: "horizontal",
     fontSize: 13,
@@ -102,7 +102,7 @@ const initialTags = [
   },
   {
     id: "moral_reasoning",
-    name: "Моральные суждения",
+    name: wp.i18n.__("Моральные суждения", 'childlab'),
     color: "#B949D4",
     textOrientation: "horizontal",
     fontSize: 13,
@@ -111,7 +111,7 @@ const initialTags = [
   },
   {
     id: "reflection",
-    name: "Рефлексия",
+    name: wp.i18n.__("Рефлексия", 'childlab'),
     color: "#9AD04A",
     textOrientation: "horizontal",
     fontSize: 13,
@@ -120,7 +120,7 @@ const initialTags = [
   },
   {
     id: "construction",
-    name: "Конструирование",
+    name: wp.i18n.__("Конструирование", 'childlab'),
     color: "#6E41D8",
     textOrientation: "vertical",
     fontSize: 13,
@@ -129,7 +129,7 @@ const initialTags = [
   },
   {
     id: "shared_reading",
-    name: "Совместное чтение",
+    name: wp.i18n.__("Совместное чтение", 'childlab'),
     color: "#4164D9",
     textOrientation: "vertical",
     fontSize: 13,
@@ -138,7 +138,7 @@ const initialTags = [
   },
   {
     id: "storytelling",
-    name: "Сочинительство",
+    name: wp.i18n.__("Сочинительство", 'childlab'),
     color: "#50D4CB",
     textOrientation: "vertical",
     fontSize: 13,
@@ -147,7 +147,7 @@ const initialTags = [
   },
   {
     id: "experimentation",
-    name: "Экспериментирование",
+    name: wp.i18n.__("Экспериментирование", 'childlab'),
     color: "#42A0CC",
     textOrientation: "vertical",
     fontSize: 13,
@@ -156,7 +156,7 @@ const initialTags = [
   },
   {
     id: "game",
-    name: "Игра",
+    name: wp.i18n.__("Игра", 'childlab'),
     color: "#aA8740",
     textOrientation: "horizontal",
     fontSize: 32,
@@ -165,7 +165,7 @@ const initialTags = [
   },
   {
     id: "attachment",
-    name: "Привязанность",
+    name: wp.i18n.__("Привязанность", 'childlab'),
     color: "#8A6720",
     textOrientation: "horizontal",
     fontSize: 20,

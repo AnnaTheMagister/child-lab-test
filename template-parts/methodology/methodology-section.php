@@ -2,7 +2,7 @@
     <div class="childlab-widget methodology">
         <div class="row">
             <?php $term_data = get_methodology_data_for_page(); ?>
-            <?php $empty_placeholder = '<div class="empty-placeholder">Выберите элемент на дереве, чтобы прочитать о нём подробнее</div>'; ?>
+            <?php $empty_placeholder = '<div class="empty-placeholder">' . esc_html__('Выберите элемент на дереве, чтобы прочитать о нём подробнее', 'childlab') . '</div>'; ?>
             <?php if (!$term_data): ?>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 order-xs-2 order-sm-2 order-md-2 order-lg-1">
                     <div class="methodology__header">
@@ -50,7 +50,7 @@
     <?php $term = get_methodology_data_for_page();
 
     if ($term && $term->term_id) {
-        echo get_articles_list_by_taxonomy('methodology_tag', $term->term_id, "Статьи по теме");
+        echo get_articles_list_by_taxonomy('methodology_tag', $term->term_id, esc_html__("Статьи по теме", 'childlab'));
     }
     ?>
 </div>

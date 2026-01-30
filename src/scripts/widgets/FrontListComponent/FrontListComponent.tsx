@@ -5,7 +5,7 @@ import { distributeTags } from "./distributeTags";
 const BASE_URL = window.location.host === 'localhost' ? 'http://localhost/childlab.local' : window.location.origin
 const DEFAULT_TAG = {
   id: -1,
-  name: "Все",
+  name: window.wp.i18n.__("Все", "childlab"),
   acf: {
     color: "rgba(138, 214, 80, 1)",
   },

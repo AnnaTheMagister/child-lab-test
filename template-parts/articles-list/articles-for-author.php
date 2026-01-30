@@ -26,7 +26,7 @@ $posts = get_posts(array(
 $posts_size = count($posts);
 ?>
 
-
+<?php if ($posts_size > 0): ?>
 <div class="container">
     <div class="childlab-widget">
         <header class="articles-list__header">
@@ -46,6 +46,8 @@ $posts_size = count($posts);
         <?php endforeach; ?>
     </div>
 </div>
+
+<?php endif; ?>
 
 <?php
 wp_reset_postdata(); // сброс
