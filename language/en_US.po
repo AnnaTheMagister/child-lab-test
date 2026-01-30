@@ -53,6 +53,14 @@ msgstr "Article"
 msgid "запись"
 msgstr "post"
 
+#: single.php:23
+msgid "На главную"
+msgstr "Main page"
+
+#: single.php:25
+msgid "К проектам"
+msgstr "Projects"
+
 #. Template Name of the theme
 msgid "Член команды"
 msgstr "Author"
