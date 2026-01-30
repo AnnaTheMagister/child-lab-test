@@ -489,7 +489,6 @@ const FrontListComponent = () => {
       };
     });
   }, [tagsData, maxTagsInRow]);
-  console.log("!!!", distributedTags);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "container"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -503,7 +502,7 @@ const FrontListComponent = () => {
     });
   })));
 };
-const DEFAULT_SVG_PATTERN = "./wp-content/themes/childlab-react/assets/images/svg-patterns/all.svg";
+const DEFAULT_SVG_PATTERN = BASE_URL + "/wp-content/themes/child-lab-test/assets/images/svg-patterns/all.svg";
 const MethodologyTagComponent = tag => {
   var _tag$acf$color, _tag$width;
   const backgroundColor = (_tag$acf$color = tag.acf.color) !== null && _tag$acf$color !== void 0 ? _tag$acf$color : "#f00";
