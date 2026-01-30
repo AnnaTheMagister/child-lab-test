@@ -74,8 +74,6 @@ export const FrontListComponent = () => {
     });
   }, [tagsData, maxTagsInRow]);
 
-  console.log("!!!", distributedTags);
-
   return (
     <div className="container">
       <div className="methodology-tags-menu">
@@ -89,7 +87,7 @@ export const FrontListComponent = () => {
 };
 
 const DEFAULT_SVG_PATTERN =
-  "./wp-content/themes/childlab-react/assets/images/svg-patterns/all.svg";
+  BASE_URL + "/wp-content/themes/child-lab-test/assets/images/svg-patterns/all.svg";
 
 const MethodologyTagComponent: FC<MethodologyTag & { width: number }> = (
   tag,

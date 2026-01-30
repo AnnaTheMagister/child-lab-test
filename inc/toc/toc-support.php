@@ -4,8 +4,8 @@ add_action('wp_enqueue_scripts', 'load_toc_assets');
 
 function load_toc_assets()
 {
-    wp_enqueue_script('tocjs', get_theme_file_uri('inc/toc/toc.js'), array('wp-element'), '1.0', true);
-    wp_enqueue_style('toccss', get_theme_file_uri('inc/toc/toc.css'));
+    wp_enqueue_script('tocjs', get_theme_file_uri('inc/toc/toc.js'), array('wp-element'), filemtime(filename: get_template_directory() . ('/inc/toc/toc.js')), true);
+    wp_enqueue_style('toccss', get_theme_file_uri('inc/toc/toc.css'), array(), filemtime(get_template_directory() . ('/inc/toc/toc.css')));
 }
 
 // Функция для поика заголовков по регулярке

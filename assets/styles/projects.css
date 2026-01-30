@@ -26,16 +26,21 @@
 }
 
 .project-title {
-  color: var(--white);
+  color: var(--black);
   font-size: var(--font-size-48);
   font-weight: var(--font-weight-500);
   padding-top: 0px;
   margin: 4px 0;
+  width: 50%;
+}
+
+.project-description {
+  width: 50%;
 }
 
 .project-description,
 .project-description * {
-  color: var(--white);
+  color: var(--black);
   font-size: var(--font-size-24);
   font-weight: var(--font-weight-400);
   margin: 0;
@@ -73,11 +78,15 @@
 
   .project-title {
     font-size: 20px;
+    width: 100%;
   }
   .project-description,
   .project-description * {
     font-size: 14px;
     line-height: 1.25;
+  }
+  .project-description {
+    width: 100%;
   }
   .project-link div {
     font-size: 12px;
