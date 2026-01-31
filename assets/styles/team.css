@@ -36,8 +36,6 @@
 }
 
 .author-details {
-  display: flex;
-  flex-direction: row;
   gap: var(--size-xlg);
   margin: var(--size-xlg) 0;
 }
@@ -94,4 +92,10 @@
 
 .authors-menu a.authors-menu__item.active {
   background-color: var(--light-purple-1);
+}
+
+@media (max-width: 576px) {
+  .authors-list .row {
+    gap: 20px;
+  }
 }

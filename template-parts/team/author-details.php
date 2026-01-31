@@ -14,7 +14,7 @@ function get_author_description($author_id)
 <div class="container">
     <div class="childlab-widget author-details">
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6 author-details__photo-container">
+            <div class="col-xl-4 col-xxlg-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 author-details__photo-container">
                 <!-- Фото автора -->
                 <?php
                 $author_photo = get_article_author_image($author_term);
@@ -27,7 +27,7 @@ function get_author_description($author_id)
                     </div>
                 <?php endif; ?>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-6">
+            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
 
                 <!-- Имя и фамилия -->
                 <h1 class="author-details__name">
@@ -46,14 +46,14 @@ function get_author_description($author_id)
 
 
                 <!-- Описание (info) -->
-                <div class="d-lg-block d-md-none d-sm-none">
+                <div class="d-lg-block d-md-none d-sm-none d-xs-none">
                     <div class="author-details__description">
                         <?php echo get_author_description($author_id); ?>
                     </div>
                 </div>
             </div>
 
-            <div class="d-lg-none">
+            <div class="d-lg-none d-xl-none">
                 <div class="author-details__description">
                     <?php echo get_author_description($author_id); ?>
                 </div>
