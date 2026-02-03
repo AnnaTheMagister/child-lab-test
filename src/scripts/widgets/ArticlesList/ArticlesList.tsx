@@ -3,10 +3,14 @@ import { BASE_URL, DEFAULT_IMAGE_URL } from "../../shared/consts";
 import { useCurrentSearch } from "../../shared/useCurrentSearch";
 import { useMethodologyTags } from "../../entities/MethodologyTags";
 import Loader from "../Loader/Loader";
+import { getScreenSize } from "../FrontListComponent/FrontListComponent";
 
 export const ArticlesListComponent = () => {
   const [articlesData, setArticlesData] = useState([]);
   const { currentTaxonomy, currentTag } = useCurrentSearch();
+  const [screenSize, setScreenSize] = useState(
+    getScreenSize(window.innerWidth),
+  );
 
   useEffect(() => {
     fetch(BASE_URL + "/wp-json/wp/v2/articles?_embed")
@@ -14,10 +18,16 @@ export const ArticlesListComponent = () => {
       .then((data) => setArticlesData(data));
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setScreenSize(getScreenSize(window.innerWidth));
+    });
+  }, []);
+
   const filteredArticles = useMemo(() => {
     if (!articlesData) return [];
     if (currentTaxonomy === "methodology") {
-      if (parseInt(currentTag)) {
+      if (parseInt(currentTag) > 0) {
         return articlesData.filter(
           (art) =>
             art["methodology-tags"]?.some(
@@ -48,12 +58,42 @@ export const ArticlesListComponent = () => {
         </div>
       </div>
     );
-  } else {
+  } else if (
+    filteredArticles.length < 3 ||
+    screenSize == "sm" ||
+    screenSize == "xs"
+  ) {
     content = (
       <>
         {filteredArticles.map((art) => (
           <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
-            <ArticleCardComponent key={art.id} {...art} />
+            <ArticleCardComponent key={art.id} {...art} size="default" />
+          </div>
+        ))}
+      </>
+    );
+  } else {
+    content = (
+      <>
+        <div class="col-lg-6 col-md-12">
+          <ArticleCardComponent
+            key={filteredArticles[0].id}
+            {...filteredArticles[0]}
+            size="large"
+          />
+        </div>
+        <div class="col-lg-6 col-md-12">
+          <div class="row">
+            {filteredArticles.slice(1, 5).map((art) => (
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <ArticleCardComponent key={art.id} {...art} size="small" />
+              </div>
+            ))}
+          </div>
+        </div>
+        {filteredArticles.slice(5).map((art) => (
+          <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+            <ArticleCardComponent key={art.id} {...art} size="small" />
           </div>
         ))}
       </>
@@ -73,6 +113,7 @@ export const ArticlesListComponent = () => {
 export const ArticleCardComponent: FC = (article) => {
   console.log("!!", article);
 
+  const size = article.size ?? "small";
   const imgSrc = article?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
   const imageUrl = imgSrc ? imgSrc : DEFAULT_IMAGE_URL;
 
@@ -80,7 +121,7 @@ export const ArticleCardComponent: FC = (article) => {
   return (
     <a className="article-card" href={article.link}>
       <div
-        className="article-img"
+        className={`article-img article-img__${size}`}
         style={{
           backgroundImage: `url(${imageUrl})`,
         }}

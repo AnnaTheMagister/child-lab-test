@@ -37,6 +37,18 @@ a.article-card .block.stretch {
   border-radius: var(--border-radius-img);
 }
 
+.article-img.article-img__default {
+  height: 200px;
+}
+
+.article-img.article-img__small {
+  height: 131px;
+}
+
+.article-img.article-img__large {
+  height: 382px;
+}
+
 .article-details {
   display: flex;
   flex-direction: column;
@@ -116,14 +128,13 @@ a.article-card .block.stretch {
   color: var(--color-subtitle-1);
 }
 
-
 .article-button__wrapper {
   justify-content: center;
 }
 
 .article-button {
   display: inline-block;
-  padding:8px 24px;
+  padding: 8px 24px;
   text-decoration: none;
   background-color: var(--purple);
   color: var(--white);
