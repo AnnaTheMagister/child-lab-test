@@ -1,8 +1,13 @@
 import React, { useState, useEffect, FC, useMemo } from "react";
 import Loader from "../Loader/Loader";
-import { MethodologyTag } from "../../entities/MethodologyTags";
+import {
+  MethodologyTag,
+  useMethodologyTags,
+} from "../../entities/MethodologyTags";
 import { distributeTags } from "./distributeTags";
-const BASE_URL = window.location.host === 'localhost' ? 'http://localhost/childlab.local' : window.location.origin
+import { BASE_URL } from "../../shared/consts";
+import { useCurrentSearch } from "../../shared/useCurrentSearch";
+
 const DEFAULT_TAG = {
   id: -1,
   name: window.wp.i18n.__("Все", "childlab"),
@@ -28,11 +33,10 @@ const getScreenSize = (size: number) => {
 };
 
 const getMaxTagsInRow = (size: string) =>
-  (size === "lg" || size == "xlg") ? 6 : (size === "md" || size === "sm") ? 3 : 2;
+  size === "lg" || size == "xlg" ? 6 : size === "md" || size === "sm" ? 3 : 2;
 
 export const FrontListComponent = () => {
-  const [tagsData, setTagsData] = useState<MethodologyTag[]>([]);
-  const [tagsLoading, setTagsLoading] = useState(true);
+  const { methodologyTags, tagsLoading } = useMethodologyTags();
   const [maxTagsInRow, setMaxTagsInRow] = useState(
     getMaxTagsInRow(getScreenSize(window.innerWidth)),
   );
@@ -43,19 +47,18 @@ export const FrontListComponent = () => {
     });
   }, []);
 
-  useEffect(() => {
-    fetch(BASE_URL + "/wp-json/wp/v2/methodology-tags?per_page=100")
-      .then((response) => response.json())
-      .then((data: MethodologyTag[]) => {
-        setTagsData([
-          DEFAULT_TAG,
-          ...data
-            .filter((t) => t.acf.order > 0)
-            .sort((t1, t2) => t1.acf.order - t2.acf.order),
-        ]);
-        setTagsLoading(false);
-      });
-  }, []);
+  const tagsData = useMemo(
+    () =>
+      methodologyTags.length
+        ? [
+            DEFAULT_TAG,
+            ...methodologyTags
+              .filter((t) => t.acf.order > 0)
+              .sort((t1, t2) => t1.acf.order - t2.acf.order),
+          ]
+        : [],
+    [methodologyTags],
+  );
 
   const distributedTags = useMemo(() => {
     if (!tagsData.length) {
@@ -87,20 +90,33 @@ export const FrontListComponent = () => {
 };
 
 const DEFAULT_SVG_PATTERN =
-  BASE_URL + "/wp-content/themes/child-lab-test/assets/images/svg-patterns/all.svg";
+  BASE_URL +
+  "/wp-content/themes/child-lab-test/assets/images/svg-patterns/all.svg";
 
 const MethodologyTagComponent: FC<MethodologyTag & { width: number }> = (
   tag,
 ) => {
+  const { currentTaxonomy, currentTag } = useCurrentSearch();
+
   const backgroundColor = tag.acf.color ?? "#f00";
   const svg_pattern = tag.acf.svg_pattern
     ? tag.acf.svg_pattern
     : DEFAULT_SVG_PATTERN;
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    history.pushState({}, "", `?methodology=${tag.id}`);
+    window.dispatchEvent(new Event("pushstate"));
+  };
+
   return (
     <a
       href={`?methodology=${tag.id}`}
+      onClick={handleClick}
       className={`childlab-widget childlab-card-link methodology-tags-menu__tag methodology-tag-width-${
         tag.width ?? 4
+      } ${
+        currentTag == tag.id || !currentTag && tag.id == -1 ? "methodology-tag__active" : ""
       }`}
       style={{ backgroundColor }}
     >

@@ -31,7 +31,10 @@
       "Экспериментирование": ["Experimentation"],
       "Игра": ["Play"],
       "Привязанность": ["Attachment"],
-      "Все": ["All"]
+      "Все": ["All"],
+      "Все статьи": ["All articles"],
+      "Статьи по теме": ["Related articles"],
+      "Нет статей по этой теме": ["No articles on this topic"]
     }
   }
 }

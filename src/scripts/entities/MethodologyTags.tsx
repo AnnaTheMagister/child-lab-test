@@ -1,4 +1,5 @@
-// types/methodology-tag.types.ts
+import React, { useState, useEffect, createContext, useContext } from "react";
+import { BASE_URL } from "../shared/consts";
 
 export interface MethodologyTagTargetHint {
   allow: string[];
@@ -198,3 +199,35 @@ export interface MethodologyTagsStats {
   leastPopularTag?: MethodologyTag;
   tagsByTaxonomy: Record<string, number>;
 }
+
+export const MethodologyTagsContext = createContext({
+  methodologyTags: [],
+  tagsLoading: true,
+});
+
+export const MethodologyTagsContextProvider = ({ children }) => {
+  const [methodologyTags, setMethodologyTags] = useState([]);
+  const [tagsLoading, setTagsLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(BASE_URL + "/wp-json/wp/v2/methodology-tags?per_page=100")
+      .then((response) => response.json())
+      .then((data: MethodologyTag[]) => {
+        setMethodologyTags(data);
+        setTagsLoading(false);
+      });
+  }, []);
+
+  const context = {
+    methodologyTags,
+    tagsLoading,
+  };
+
+  return (
+    <MethodologyTagsContext.Provider value={context}>
+      {children}
+    </MethodologyTagsContext.Provider>
+  );
+};
+
+export const useMethodologyTags = () => useContext(MethodologyTagsContext);
