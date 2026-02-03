@@ -10,6 +10,7 @@ require_once get_template_directory() . '/inc/acf/register-article-fields.php';
 
 function boilerplate_load_assets()
 {
+
   wp_enqueue_style('cssvariables', get_theme_file_uri('/assets/styles/variables.css'), array(), filemtime(get_template_directory() . ('/assets/styles/variables.css')));
   wp_enqueue_style('csscommon', get_theme_file_uri('/assets/styles/common.css'), array(), filemtime(get_template_directory() . ('/assets/styles/common.css')));
   wp_enqueue_style('cssheader', get_theme_file_uri('/assets/styles/header.css'), array(), filemtime(get_template_directory() . ('/assets/styles/header.css')));
@@ -19,6 +20,7 @@ function boilerplate_load_assets()
   wp_enqueue_script('ourmainjs', get_theme_file_uri('/build/index.js'), array('wp-element', 'wp-i18n'), filemtime(get_template_directory() . ('/build/index.js')), true);
 
   wp_set_script_translations('ourmainjs', 'childlab', get_template_directory() . '/language/js');
+  wp_localize_script('ourmainjs', 'themeData', array('templateUrl' => get_template_directory_uri(), ));
 
 
   wp_enqueue_style('ourmaincss', get_theme_file_uri('/build/index.css'), array(), filemtime(get_template_directory() . ('/build/index.css')));

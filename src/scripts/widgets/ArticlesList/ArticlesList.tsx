@@ -111,8 +111,6 @@ export const ArticlesListComponent = () => {
 };
 
 export const ArticleCardComponent: FC = (article) => {
-  console.log("!!", article);
-
   const size = article.size ?? "small";
   const imgSrc = article?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
   const imageUrl = imgSrc ? imgSrc : DEFAULT_IMAGE_URL;
@@ -185,7 +183,6 @@ function formatDate(date) {
 
 export const ArticleMetaInfoComponent = (article) => {
   const authors = article["article-authors"];
-  console.log("!!!!", authors);
   const date = formatDate(article.date);
   return <div className="article-meta">{date}</div>;
 };
