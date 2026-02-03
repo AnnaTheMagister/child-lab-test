@@ -116,7 +116,6 @@ class TagGraph {
   }
 
   updateScale() {
-    console.log("!!!", window.innerWidth, window.devicePixelRatio);
     if (window.devicePixelRatio > 1 && window.devicePixelRatio < 2) {
       this.config.scale = 0.9;
     } else if (window.devicePixelRatio >= 2 && window.devicePixelRatio < 3) {

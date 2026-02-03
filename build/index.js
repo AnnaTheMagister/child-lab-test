@@ -691,7 +691,6 @@ const ArticlesListComponent = () => {
 };
 const ArticleCardComponent = article => {
   var _article$size;
-  console.log("!!", article);
   const size = (_article$size = article.size) !== null && _article$size !== void 0 ? _article$size : "small";
   const imgSrc = article?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
   const imageUrl = imgSrc ? imgSrc : _shared_consts__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_IMAGE_URL;
@@ -754,7 +753,6 @@ function formatDate(date) {
 }
 const ArticleMetaInfoComponent = article => {
   const authors = article["article-authors"];
-  console.log("!!!!", authors);
   const date = formatDate(article.date);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "article-meta"
@@ -887,6 +885,16 @@ const MethodologyTagComponent = tag => {
     history.pushState({}, "", `?methodology=${tag.id}`);
     window.dispatchEvent(new Event("pushstate"));
   };
+  const handleCreateSvg = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(ref => {
+    createSVGPattern(ref, svg_pattern, {
+      count: 10,
+      minScale: 1,
+      maxScale: 1,
+      minRotate: -180,
+      maxRotate: 180,
+      spacing: 0
+    });
+  }, []);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: `?methodology=${tag.id}`,
     onClick: handleClick,
@@ -896,17 +904,7 @@ const MethodologyTagComponent = tag => {
     }
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "methodology-tags-menu__svg-background",
-    ref: ref => {
-      createSVGPattern(ref, svg_pattern, {
-        count: 10,
-        minScale: 0.6,
-        maxScale: 0.4,
-        minRotate: -180,
-        maxRotate: 180,
-        spacing: 5,
-        opacity: 0.5
-      });
-    }
+    ref: handleCreateSvg
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     title: tag.name,
     class: "truncate"

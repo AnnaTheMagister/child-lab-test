@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC, useMemo } from "react";
+import React, { useState, useEffect, FC, useMemo, useCallback } from "react";
 import Loader from "../Loader/Loader";
 import {
   MethodologyTag,
@@ -51,11 +51,11 @@ export const FrontListComponent = () => {
     () =>
       methodologyTags.length
         ? [
-            DEFAULT_TAG,
-            ...methodologyTags
-              .filter((t) => t.acf.order > 0)
-              .sort((t1, t2) => t1.acf.order - t2.acf.order),
-          ]
+          DEFAULT_TAG,
+          ...methodologyTags
+            .filter((t) => t.acf.order > 0)
+            .sort((t1, t2) => t1.acf.order - t2.acf.order),
+        ]
         : [],
     [methodologyTags],
   );
@@ -109,30 +109,29 @@ const MethodologyTagComponent: FC<MethodologyTag & { width: number }> = (
     window.dispatchEvent(new Event("pushstate"));
   };
 
+  const handleCreateSvg = useCallback((ref) => {
+    createSVGPattern(ref, svg_pattern, {
+      count: 10,
+      minScale: 1,
+      maxScale: 1,
+      minRotate: -180,
+      maxRotate: 180,
+      spacing: 0
+    });
+  }, [])
+
   return (
     <a
       href={`?methodology=${tag.id}`}
       onClick={handleClick}
-      className={`childlab-widget childlab-card-link methodology-tags-menu__tag methodology-tag-width-${
-        tag.width ?? 4
-      } ${
-        currentTag == tag.id || !currentTag && tag.id == -1 ? "methodology-tag__active" : ""
-      }`}
+      className={`childlab-widget childlab-card-link methodology-tags-menu__tag methodology-tag-width-${tag.width ?? 4
+        } ${currentTag == tag.id || !currentTag && tag.id == -1 ? "methodology-tag__active" : ""
+        }`}
       style={{ backgroundColor }}
     >
       <div
         className="methodology-tags-menu__svg-background"
-        ref={(ref) => {
-          createSVGPattern(ref, svg_pattern, {
-            count: 10,
-            minScale: 0.6,
-            maxScale: 0.4,
-            minRotate: -180,
-            maxRotate: 180,
-            spacing: 5,
-            opacity: 0.5,
-          });
-        }}
+        ref={handleCreateSvg}
       />
       <span title={tag.name} class="truncate">
         {tag.name}
