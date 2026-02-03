@@ -334,6 +334,134 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /***/ },
 
+/***/ "./src/scripts/entities/MethodologyTags.tsx"
+/*!**************************************************!*\
+  !*** ./src/scripts/entities/MethodologyTags.tsx ***!
+  \**************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MethodologyTagsContext: () => (/* binding */ MethodologyTagsContext),
+/* harmony export */   MethodologyTagsContextProvider: () => (/* binding */ MethodologyTagsContextProvider),
+/* harmony export */   filterTagsBySearch: () => (/* binding */ filterTagsBySearch),
+/* harmony export */   getSortedTags: () => (/* binding */ getSortedTags),
+/* harmony export */   getTagsByColor: () => (/* binding */ getTagsByColor),
+/* harmony export */   useMethodologyTags: () => (/* binding */ useMethodologyTags)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/consts */ "./src/scripts/shared/consts.ts");
+
+
+
+
+// Тип для массива тегов
+
+// Тип для ответа API (если используется WordPress REST API)
+
+// Тип для фильтрации тегов
+
+// Тип для создания/обновления тега
+
+// Тип для группировки тегов (например, по цветам или порядку)
+
+// Тип для сортировки тегов
+
+// Хелперы для работы с тегами
+const getSortedTags = (tags, sortBy = "order") => {
+  return [...tags].sort((a, b) => {
+    switch (sortBy) {
+      case "order":
+        return parseInt(a.acf.order) - parseInt(b.acf.order);
+      case "name":
+        return a.name.localeCompare(b.name);
+      case "count":
+        return b.count - a.count;
+      case "id":
+        return a.id - b.id;
+      default:
+        return 0;
+    }
+  });
+};
+const getTagsByColor = tags => {
+  return tags.reduce((acc, tag) => {
+    const color = tag.acf.color;
+    if (!acc[color]) {
+      acc[color] = [];
+    }
+    acc[color].push(tag);
+    return acc;
+  }, {});
+};
+const filterTagsBySearch = (tags, searchTerm) => {
+  if (!searchTerm.trim()) return tags;
+  const term = searchTerm.toLowerCase();
+  return tags.filter(tag => tag.name.toLowerCase().includes(term) || tag.description.toLowerCase().includes(term) || tag.slug.toLowerCase().includes(term));
+};
+
+// Тип для пропсов компонента тега
+
+// Тип для пропсов компонента списка тегов
+
+// Тип для состояния тегов в Redux/Context/Zustand
+
+// Тип для хука useMethodologyTags
+
+// Тип для API запросов
+
+// Тип для компонента предварительного просмотра тега
+
+// Тип для статистики тегов
+
+const MethodologyTagsContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  methodologyTags: [],
+  tagsLoading: true
+});
+const MethodologyTagsContextProvider = ({
+  children
+}) => {
+  const [methodologyTags, setMethodologyTags] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [tagsLoading, setTagsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/methodology-tags?per_page=100").then(response => response.json()).then(data => {
+      setMethodologyTags(data);
+      setTagsLoading(false);
+    });
+  }, []);
+  const context = {
+    methodologyTags,
+    tagsLoading
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MethodologyTagsContext.Provider, {
+    value: context
+  }, children);
+};
+const useMethodologyTags = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MethodologyTagsContext);
+
+/***/ },
+
+/***/ "./src/scripts/shared/consts.ts"
+/*!**************************************!*\
+  !*** ./src/scripts/shared/consts.ts ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   BASE_URL: () => (/* binding */ BASE_URL),
+/* harmony export */   DEFAULT_IMAGE_URL: () => (/* binding */ DEFAULT_IMAGE_URL),
+/* harmony export */   MEDIA_URL: () => (/* binding */ MEDIA_URL)
+/* harmony export */ });
+const BASE_URL = window.location.host === "localhost" ? "http://localhost/childlab.local" : window.location.origin;
+const MEDIA_URL = BASE_URL + "/wp-json/wp/v2/media/";
+const DEFAULT_IMAGE_URL = BASE_URL + "/wp-content/themes/childlab-react/assets/images/post-bg.jpg";
+
+/***/ },
+
 /***/ "./src/scripts/shared/switcher.js"
 /*!****************************************!*\
   !*** ./src/scripts/shared/switcher.js ***!
@@ -413,6 +541,211 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ },
 
+/***/ "./src/scripts/shared/useCurrentSearch.ts"
+/*!************************************************!*\
+  !*** ./src/scripts/shared/useCurrentSearch.ts ***!
+  \************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getSearchParams: () => (/* binding */ getSearchParams),
+/* harmony export */   useCurrentSearch: () => (/* binding */ useCurrentSearch)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+const getSearchParams = () => {
+  let searchParams = new URLSearchParams(window.location.search);
+  return [...searchParams.entries()];
+};
+const useCurrentSearch = () => {
+  const [currentSearch, setCurrentSearch] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getSearchParams());
+  const currentTaxonomy = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => currentSearch?.[0]?.[0] === "methodology" ? "methodology" : null, [currentSearch]);
+  const currentTag = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    var _currentSearch$0$;
+    return (_currentSearch$0$ = currentSearch?.[0]?.[1]) !== null && _currentSearch$0$ !== void 0 ? _currentSearch$0$ : null;
+  }, [currentSearch]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    window.addEventListener("pushstate", () => {
+      setCurrentSearch(getSearchParams);
+    });
+  }, []);
+  return {
+    currentTaxonomy,
+    currentTag
+  };
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/ArticlesList/ArticlesList.tsx"
+/*!***********************************************************!*\
+  !*** ./src/scripts/widgets/ArticlesList/ArticlesList.tsx ***!
+  \***********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ArticleCardComponent: () => (/* binding */ ArticleCardComponent),
+/* harmony export */   ArticleMetaInfoComponent: () => (/* binding */ ArticleMetaInfoComponent),
+/* harmony export */   ArticleTagsComponent: () => (/* binding */ ArticleTagsComponent),
+/* harmony export */   ArticlesListComponent: () => (/* binding */ ArticlesListComponent)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/consts */ "./src/scripts/shared/consts.ts");
+/* harmony import */ var _shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/useCurrentSearch */ "./src/scripts/shared/useCurrentSearch.ts");
+/* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
+/* harmony import */ var _Loader_Loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Loader/Loader */ "./src/scripts/widgets/Loader/Loader.tsx");
+
+
+
+
+
+
+const ArticlesListComponent = () => {
+  const [articlesData, setArticlesData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const {
+    currentTaxonomy,
+    currentTag
+  } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__.useCurrentSearch)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/articles?_embed").then(response => response.json()).then(data => setArticlesData(data));
+  }, []);
+  const filteredArticles = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!articlesData) return [];
+    if (currentTaxonomy === "methodology") {
+      if (parseInt(currentTag)) {
+        return articlesData.filter(art => art["methodology-tags"]?.some(tag => tag === parseInt(currentTag)));
+      } else {
+        return articlesData;
+      }
+    }
+    return articlesData;
+  }, [articlesData, currentTaxonomy, currentTag]);
+  const title = currentTaxonomy === "methodology" && parseInt(currentTag) !== -1 ? window.wp.i18n.__("Статьи по теме", "childlab") : window.wp.i18n.__("Все статьи", "childlab");
+  let content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+  if (!articlesData.length) {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Loader_Loader__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      fullScreen: false
+    });
+  } else if (!filteredArticles.length) {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      class: "empty-wrapper"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      class: "empty-placeholder"
+    }, window.wp.i18n.__("Нет статей по этой теме", "childlab")));
+  } else {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, filteredArticles.map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "col-lg-3 col-md-6 col-sm-12 col-xs-12"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleCardComponent, {
+      key: art.id,
+      ...art
+    }))));
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "childlab-widget articles-list"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", {
+    className: "articles-list__header"
+  }, title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "row"
+  }, content)));
+};
+const ArticleCardComponent = article => {
+  console.log("!!", article);
+  const imgSrc = article?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+  const imageUrl = imgSrc ? imgSrc : _shared_consts__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_IMAGE_URL;
+  const excerptText = article.excerpt.rendered.replace(/<[^>]+>/g, "");
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    className: "article-card",
+    href: article.link
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-img",
+    style: {
+      backgroundImage: `url(${imageUrl})`
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleTagsComponent, {
+    ...article
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-details"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-meta childlab-text__meta"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleMetaInfoComponent, {
+    ...article
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-details__title truncate-multiline"
+  }, article.title.rendered), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-details__subtitle truncate"
+  }, article.acf.subtitle), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-details__excerpt truncate-multiline"
+  }, excerptText)));
+};
+function formatDate(date) {
+  if (typeof date == "number") {
+    // перевести секунды в миллисекунды и преобразовать к Date
+    date = new Date(date * 1000);
+  } else if (typeof date == "string") {
+    // строка в стандартном формате автоматически будет разобрана в дату
+    date = new Date(date);
+  } else if (Array.isArray(date)) {
+    date = new Date(date[0], date[1], date[2]);
+  }
+  // преобразования для поддержки полиморфизма завершены,
+  // теперь мы работаем с датой (форматируем её)
+
+  return date.toLocaleString("ru", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "2-digit"
+  });
+
+  /*
+  // можно и вручную, если лень добавлять в старый IE поддержку локализации
+  var day = date.getDate();
+  if (day < 10) day = '0' + day;
+   var month = date.getMonth() + 1;
+  if (month < 10) month = '0' + month;
+   // взять 2 последние цифры года
+  var year = date.getFullYear() % 100;
+  if (year < 10) year = '0' + year;
+   var formattedDate = day + '.' + month + '.' + year;
+   return formattedDate;
+  */
+}
+const ArticleMetaInfoComponent = article => {
+  const authors = article["article-authors"];
+  console.log("!!!!", authors);
+  const date = formatDate(article.date);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-meta"
+  }, date);
+};
+const ArticleTagsComponent = article => {
+  const {
+    methodologyTags
+  } = (0,_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_3__.useMethodologyTags)();
+  const articleTags = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => methodologyTags.filter(m => article["methodology-tags"].includes(m.id)), [methodologyTags, article]);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-tags"
+  }, articleTags.map(m => {
+    var _m$acf$color;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      key: m.id,
+      className: "article-tags__tag truncate",
+      style: {
+        backgroundColor: (_m$acf$color = m.acf.color) !== null && _m$acf$color !== void 0 ? _m$acf$color : "rgba(100, 100, 100, 0.5)"
+      }
+    }, m.name);
+  }));
+};
+
+/***/ },
+
 /***/ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx"
 /*!***********************************************************************!*\
   !*** ./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx ***!
@@ -427,12 +760,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Loader_Loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Loader/Loader */ "./src/scripts/widgets/Loader/Loader.tsx");
-/* harmony import */ var _distributeTags__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./distributeTags */ "./src/scripts/widgets/FrontListComponent/distributeTags.ts");
+/* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
+/* harmony import */ var _distributeTags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./distributeTags */ "./src/scripts/widgets/FrontListComponent/distributeTags.ts");
+/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/consts */ "./src/scripts/shared/consts.ts");
+/* harmony import */ var _shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/useCurrentSearch */ "./src/scripts/shared/useCurrentSearch.ts");
 
 
 
 
-const BASE_URL = window.location.host === 'localhost' ? 'http://localhost/childlab.local' : window.location.origin;
+
+
+
 const DEFAULT_TAG = {
   id: -1,
   name: window.wp.i18n.__("Все", "childlab"),
@@ -457,25 +795,22 @@ const getScreenSize = size => {
 };
 const getMaxTagsInRow = size => size === "lg" || size == "xlg" ? 6 : size === "md" || size === "sm" ? 3 : 2;
 const FrontListComponent = () => {
-  const [tagsData, setTagsData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const [tagsLoading, setTagsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const {
+    methodologyTags,
+    tagsLoading
+  } = (0,_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_2__.useMethodologyTags)();
   const [maxTagsInRow, setMaxTagsInRow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getMaxTagsInRow(getScreenSize(window.innerWidth)));
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     window.addEventListener("resize", () => {
       setMaxTagsInRow(getMaxTagsInRow(getScreenSize(window.innerWidth)));
     });
   }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    fetch(BASE_URL + "/wp-json/wp/v2/methodology-tags?per_page=100").then(response => response.json()).then(data => {
-      setTagsData([DEFAULT_TAG, ...data.filter(t => t.acf.order > 0).sort((t1, t2) => t1.acf.order - t2.acf.order)]);
-      setTagsLoading(false);
-    });
-  }, []);
+  const tagsData = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => methodologyTags.length ? [DEFAULT_TAG, ...methodologyTags.filter(t => t.acf.order > 0).sort((t1, t2) => t1.acf.order - t2.acf.order)] : [], [methodologyTags]);
   const distributedTags = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     if (!tagsData.length) {
       return [];
     }
-    const distribution = (0,_distributeTags__WEBPACK_IMPORTED_MODULE_2__.distributeTags)(tagsData.length, maxTagsInRow);
+    const distribution = (0,_distributeTags__WEBPACK_IMPORTED_MODULE_3__.distributeTags)(tagsData.length, maxTagsInRow);
     let currentRow = 0;
     let acc = 0;
     return tagsData.map((tag, id) => {
@@ -502,14 +837,24 @@ const FrontListComponent = () => {
     });
   })));
 };
-const DEFAULT_SVG_PATTERN = BASE_URL + "/wp-content/themes/child-lab-test/assets/images/svg-patterns/all.svg";
+const DEFAULT_SVG_PATTERN = _shared_consts__WEBPACK_IMPORTED_MODULE_4__.BASE_URL + "/wp-content/themes/child-lab-test/assets/images/svg-patterns/all.svg";
 const MethodologyTagComponent = tag => {
   var _tag$acf$color, _tag$width;
+  const {
+    currentTaxonomy,
+    currentTag
+  } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_5__.useCurrentSearch)();
   const backgroundColor = (_tag$acf$color = tag.acf.color) !== null && _tag$acf$color !== void 0 ? _tag$acf$color : "#f00";
   const svg_pattern = tag.acf.svg_pattern ? tag.acf.svg_pattern : DEFAULT_SVG_PATTERN;
+  const handleClick = e => {
+    e.preventDefault();
+    history.pushState({}, "", `?methodology=${tag.id}`);
+    window.dispatchEvent(new Event("pushstate"));
+  };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: `?methodology=${tag.id}`,
-    className: `childlab-widget childlab-card-link methodology-tags-menu__tag methodology-tag-width-${(_tag$width = tag.width) !== null && _tag$width !== void 0 ? _tag$width : 4}`,
+    onClick: handleClick,
+    className: `childlab-widget childlab-card-link methodology-tags-menu__tag methodology-tag-width-${(_tag$width = tag.width) !== null && _tag$width !== void 0 ? _tag$width : 4} ${currentTag == tag.id || !currentTag && tag.id == -1 ? "methodology-tag__active" : ""}`,
     style: {
       backgroundColor
     }
@@ -673,9 +1018,12 @@ const Loader = ({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ArticlesListComponent: () => (/* reexport safe */ _ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_1__.ArticlesListComponent),
 /* harmony export */   FrontListComponent: () => (/* reexport safe */ _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__.FrontListComponent)
 /* harmony export */ });
 /* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+/* harmony import */ var _ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArticlesList/ArticlesList */ "./src/scripts/widgets/ArticlesList/ArticlesList.tsx");
+
 
 
 /***/ },
@@ -834,6 +1182,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _scripts_widgets__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./scripts/widgets */ "./src/scripts/widgets/index.ts");
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
+/* harmony import */ var _scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./scripts/entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
 
 
 
@@ -843,8 +1192,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const root = react_dom_client__WEBPACK_IMPORTED_MODULE_7__.createRoot(document.querySelector("#render-react-example-here"));
-root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_6__.FrontListComponent, null));
+
+const methodologyTagsMenu = react_dom_client__WEBPACK_IMPORTED_MODULE_7__.createRoot(document.querySelector("#methodology-tags-menu"));
+methodologyTagsMenu.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_8__.MethodologyTagsContextProvider, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_6__.FrontListComponent, null)));
+const articlesList = react_dom_client__WEBPACK_IMPORTED_MODULE_7__.createRoot(document.querySelector("#articles-list-component"));
+articlesList.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_8__.MethodologyTagsContextProvider, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_6__.ArticlesListComponent, null)));
 })();
 
 /******/ })()
