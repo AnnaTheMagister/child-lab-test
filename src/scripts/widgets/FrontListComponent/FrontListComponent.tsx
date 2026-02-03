@@ -16,7 +16,7 @@ const DEFAULT_TAG = {
   },
 };
 
-const getScreenSize = (size: number) => {
+export const getScreenSize = (size: number) => {
   if (size > 1200) {
     return "xlg";
   }

@@ -600,6 +600,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/useCurrentSearch */ "./src/scripts/shared/useCurrentSearch.ts");
 /* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
 /* harmony import */ var _Loader_Loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Loader/Loader */ "./src/scripts/widgets/Loader/Loader.tsx");
+/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+
 
 
 
@@ -612,13 +614,19 @@ const ArticlesListComponent = () => {
     currentTaxonomy,
     currentTag
   } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__.useCurrentSearch)();
+  const [screenSize, setScreenSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/articles?_embed").then(response => response.json()).then(data => setArticlesData(data));
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    window.addEventListener("resize", () => {
+      setScreenSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
+    });
   }, []);
   const filteredArticles = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
     if (!articlesData) return [];
     if (currentTaxonomy === "methodology") {
-      if (parseInt(currentTag)) {
+      if (parseInt(currentTag) > 0) {
         return articlesData.filter(art => art["methodology-tags"]?.some(tag => tag === parseInt(currentTag)));
       } else {
         return articlesData;
@@ -638,12 +646,37 @@ const ArticlesListComponent = () => {
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       class: "empty-placeholder"
     }, window.wp.i18n.__("Нет статей по этой теме", "childlab")));
-  } else {
+  } else if (filteredArticles.length < 3 || screenSize == "sm" || screenSize == "xs") {
     content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, filteredArticles.map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "col-lg-3 col-md-6 col-sm-12 col-xs-12"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleCardComponent, {
       key: art.id,
-      ...art
+      ...art,
+      size: "default"
+    }))));
+  } else {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      class: "col-lg-6 col-md-12"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleCardComponent, {
+      key: filteredArticles[0].id,
+      ...filteredArticles[0],
+      size: "large"
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      class: "col-lg-6 col-md-12"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      class: "row"
+    }, filteredArticles.slice(1, 5).map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      class: "col-lg-6 col-md-6 col-sm-6 col-xs-12"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleCardComponent, {
+      key: art.id,
+      ...art,
+      size: "small"
+    }))))), filteredArticles.slice(5).map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      class: "col-lg-3 col-md-6 col-sm-12 col-xs-12"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleCardComponent, {
+      key: art.id,
+      ...art,
+      size: "small"
     }))));
   }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -657,7 +690,9 @@ const ArticlesListComponent = () => {
   }, content)));
 };
 const ArticleCardComponent = article => {
+  var _article$size;
   console.log("!!", article);
+  const size = (_article$size = article.size) !== null && _article$size !== void 0 ? _article$size : "small";
   const imgSrc = article?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
   const imageUrl = imgSrc ? imgSrc : _shared_consts__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_IMAGE_URL;
   const excerptText = article.excerpt.rendered.replace(/<[^>]+>/g, "");
@@ -665,7 +700,7 @@ const ArticleCardComponent = article => {
     className: "article-card",
     href: article.link
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "article-img",
+    className: `article-img article-img__${size}`,
     style: {
       backgroundImage: `url(${imageUrl})`
     }
@@ -755,7 +790,8 @@ const ArticleTagsComponent = article => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FrontListComponent: () => (/* binding */ FrontListComponent)
+/* harmony export */   FrontListComponent: () => (/* binding */ FrontListComponent),
+/* harmony export */   getScreenSize: () => (/* binding */ getScreenSize)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
