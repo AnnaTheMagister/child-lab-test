@@ -169,6 +169,34 @@ a.childlab-card-link:hover .childlab-image {
   align-items: center;
 }
 
+.not-found-page h1{
+  font-size: 200px;
+  color:#5230D0;
+}
+.not-found-page h2{
+  font-size: 48px;
+  color: #111111;
+}
+.not-found-page p{
+  font-size: 20px;
+  color: #111111;
+}
+
+.not-found-page-link {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 36px;
+  text-decoration: none;
+  background-color: #5230D0;
+  color: var(--white);
+  border-radius: 8px;
+  width: fit-content;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+
 .article-wrapper {
   background-image: linear-gradient(
       rgba(255, 255, 255, 0.5) 0,
