@@ -89,9 +89,8 @@ export const FrontListComponent = () => {
   );
 };
 
-const DEFAULT_SVG_PATTERN =
-  BASE_URL +
-  "/wp-content/themes/child-lab-test/assets/images/svg-patterns/all.svg";
+const DEFAULT_SVG_PATTERN = themeData.templateUrl +
+  "/assets/images/svg-patterns/all.svg";
 
 const MethodologyTagComponent: FC<MethodologyTag & { width: number }> = (
   tag,

@@ -4,5 +4,4 @@ export const BASE_URL =
     : window.location.origin;
 export const MEDIA_URL = BASE_URL + "/wp-json/wp/v2/media/";
 
-export const DEFAULT_IMAGE_URL =
-  BASE_URL + "/wp-content/themes/childlab-react/assets/images/post-bg.jpg";
+export const DEFAULT_IMAGE_URL = themeData.templateUrl + "/assets/images/post-bg.jpg";

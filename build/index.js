@@ -458,7 +458,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 const BASE_URL = window.location.host === "localhost" ? "http://localhost/childlab.local" : window.location.origin;
 const MEDIA_URL = BASE_URL + "/wp-json/wp/v2/media/";
-const DEFAULT_IMAGE_URL = BASE_URL + "/wp-content/themes/childlab-react/assets/images/post-bg.jpg";
+const DEFAULT_IMAGE_URL = themeData.templateUrl + "/assets/images/post-bg.jpg";
 
 /***/ },
 
@@ -796,9 +796,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Loader_Loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Loader/Loader */ "./src/scripts/widgets/Loader/Loader.tsx");
 /* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
 /* harmony import */ var _distributeTags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./distributeTags */ "./src/scripts/widgets/FrontListComponent/distributeTags.ts");
-/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/consts */ "./src/scripts/shared/consts.ts");
-/* harmony import */ var _shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/useCurrentSearch */ "./src/scripts/shared/useCurrentSearch.ts");
-
+/* harmony import */ var _shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/useCurrentSearch */ "./src/scripts/shared/useCurrentSearch.ts");
 
 
 
@@ -871,13 +869,13 @@ const FrontListComponent = () => {
     });
   })));
 };
-const DEFAULT_SVG_PATTERN = _shared_consts__WEBPACK_IMPORTED_MODULE_4__.BASE_URL + "/wp-content/themes/child-lab-test/assets/images/svg-patterns/all.svg";
+const DEFAULT_SVG_PATTERN = themeData.templateUrl + "/assets/images/svg-patterns/all.svg";
 const MethodologyTagComponent = tag => {
   var _tag$acf$color, _tag$width;
   const {
     currentTaxonomy,
     currentTag
-  } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_5__.useCurrentSearch)();
+  } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_4__.useCurrentSearch)();
   const backgroundColor = (_tag$acf$color = tag.acf.color) !== null && _tag$acf$color !== void 0 ? _tag$acf$color : "#f00";
   const svg_pattern = tag.acf.svg_pattern ? tag.acf.svg_pattern : DEFAULT_SVG_PATTERN;
   const handleClick = e => {
