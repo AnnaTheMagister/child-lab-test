@@ -93,7 +93,7 @@ class SVGPatternGenerator {
     item.style.width = `${this.itemSize * scale}px`;
     item.style.height = `${this.itemSize * scale}px`;
     item.style.left = `${position.x}px`;
-    item.style.top = `${position.y - 40}px`;
+    item.style.top = `${position.y - this.itemSize}px`;
     item.style.transform = `rotate(${rotation}deg)`;
     item.style.opacity = this.options.opacity;
 
@@ -129,7 +129,7 @@ class SVGPatternGenerator {
 
     while (attempts < maxAttempts) {
       const x = Math.random() * (containerWidth - itemSize);
-      const y = Math.random() * (containerHeight + 40 - itemSize);
+      const y = Math.random() * (containerHeight);
 
       // Проверяем пересечение с другими элементами
       let hasOverlap = false;
