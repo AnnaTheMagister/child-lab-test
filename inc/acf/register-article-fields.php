@@ -373,17 +373,29 @@ add_action('acf/include_fields', function () {
 				'show_in_rest' => 1,
 			),
 			array(
-				'key' => 'field_696572ed9c3b7',
-				'label' => 'SVG паттерн',
-				'name' => 'svg_pattern',
-				'type' => 'select',
-				'instructions' => 'Choose an image from the theme folder',
+				'key' => 'field_methodology_tag_image',
+				'label' => 'Изображение раздела',
+				'name' => 'tag_image',
+				'type' => 'image',
+				'instructions' => 'Загрузите изображение для раздела методологии',
 				'required' => 0,
-				'choices' => get_theme_images_list(),
-				'allow_null' => 1,
-				'ui' => 1,
-				'ajax' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
 				'return_format' => 'url',
+				'library' => 'all',
+				'min_width' => '',
+				'min_height' => '',
+				'min_size' => '',
+				'max_width' => '',
+				'max_height' => '',
+				'max_size' => '',
+				'mime_types' => 'jpg, jpeg, png, gif, webp, svg',
+				'allow_in_bindings' => 0,
+				'preview_size' => 'medium',
 				'show_in_graphql' => 1,
 				'show_in_rest' => 1,
 			),
@@ -613,7 +625,3 @@ add_action('init', function () {
 		'rest_base' => 'projects', // Для REST API
 	));
 });
-
-
-
-?>
