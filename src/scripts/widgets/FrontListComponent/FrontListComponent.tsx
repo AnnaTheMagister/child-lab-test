@@ -89,46 +89,10 @@ export const FrontListComponent = () => {
   );
 };
 
-const DEFAULT_SVG_PATTERN = themeData.templateUrl +
-  "/assets/images/svg-patterns/all.svg";
+const DEFAULT_TAG_PATTERN = themeData.templateUrl +
+  "/assets/images/all.png";
 
 
-const getSVGSize = async (svgUrl) => {
-  try {
-    const response = await fetch(svgUrl);
-    const text = await response.text();
-
-    // Быстрый парсинг с помощью регулярных выражений
-    const svgTag = text.match(/<svg[^>]*>/i)?.[0] || '';
-
-
-    // Ищем width и height
-    const getAttr = (attr) => {
-      const match = svgTag.match(new RegExp(`${attr}=["']([^"']+)["']`, 'i'));
-      return match ? parseFloat(match[1]) : null;
-    };
-
-    let width = getAttr('width');
-    let height = getAttr('height');
-    console.log('!!!!', width, height);
-    // Если нет width/height, ищем viewBox
-    if ((!width || !height) && svgTag.includes('viewBox')) {
-      const viewBoxMatch = svgTag.match(/viewBox=["']([^"']+)["']/i);
-      if (viewBoxMatch) {
-        const [, , w, h] = viewBoxMatch[1].split(/\s+/).map(Number);
-        width = width || w;
-        height = height || h;
-      }
-    }
-
-    return {
-      width: width || 0,
-      height: height || 0
-    };
-  } catch {
-    return { width: 0, height: 0 };
-  }
-};
 
 const MethodologyTagComponent: FC<MethodologyTag & { width: number }> = (
   tag,
@@ -136,9 +100,6 @@ const MethodologyTagComponent: FC<MethodologyTag & { width: number }> = (
   const { currentTaxonomy, currentTag } = useCurrentSearch();
 
   const backgroundColor = tag.acf.color ?? "#f00";
-  const svg_pattern = tag.acf.svg_pattern
-    ? tag.acf.svg_pattern
-    : DEFAULT_SVG_PATTERN;
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -146,39 +107,26 @@ const MethodologyTagComponent: FC<MethodologyTag & { width: number }> = (
     window.dispatchEvent(new Event("pushstate"));
   };
 
-  const handleCreateSvg = useCallback(async (ref) => {
-
-    const { width, height } = await getSVGSize(svg_pattern)
-
-    createSVGPattern(ref, svg_pattern, {
-      count: 20,
-      minScale: 1,
-      maxScale: 1,
-      minRotate: -180,
-      maxRotate: 180,
-      spacing: -0.5,
-      itemSize: Math.min(width, height),
-    });
-  }, [])
-
-
+  console.log('!!', DEFAULT_TAG_PATTERN)
 
   return (
     <a
       href={`?methodology=${tag.id}`}
       onClick={handleClick}
-      className={`childlab-widget childlab-card-link methodology-tags-menu__tag methodology-tag-width-${tag.width ?? 4
+      className={`childlab-card-link methodology-tags-menu__tag methodology-tag-width-${tag.width ?? 4
         } ${currentTag == tag.id || !currentTag && tag.id == -1 ? "methodology-tag__active" : ""
         }`}
       style={{ backgroundColor }}
     >
       <div
         className="methodology-tags-menu__svg-background"
-        ref={handleCreateSvg}
+        style={{ backgroundImage: `url(${tag.acf.tag_image || DEFAULT_TAG_PATTERN})`, backgroundColor }}
       />
-      <span title={tag.name} class="truncate">
-        {tag.name}
-      </span>
+      <div className="methodology-tags-menu__title">
+        <span title={tag.name}>
+          {tag.name}
+        </span>
+      </div>
     </a>
   );
 };

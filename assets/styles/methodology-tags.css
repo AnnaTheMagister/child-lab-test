@@ -37,15 +37,13 @@
 .methodology-tags-menu a.methodology-tags-menu__tag {
   color: var(--white);
   display: flex;
+  flex-direction: column;
   height: 112px;
-  padding: var(--size-md);
   border-radius: var(--size-sm);
-  align-items: end;
-  justify-content: center;
-  position: relative;
   box-sizing: border-box;
   font-size: var(--font-size-16);
   font-weight: var(--font-weight-500);
+  overflow: hidden;
 }
 
 .methodology-tags-menu .methodology-tag-width-2 {
@@ -79,11 +77,24 @@
 }
 
 .methodology-tags-menu__svg-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 40px;
+  flex: 1;                 /* Занимает всё доступное пространство */
+  min-height: 0;
+  background-blend-mode: screen;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom;
+}
+
+.methodology-tag__active .methodology-tags-menu__svg-background {
+  margin: 4px 4px 0;
+  border-radius: 6px;
+}
+
+.methodology-tags-menu__title {
+  flex-shrink: 0; 
+  align-self: center;
+  text-align: center;
+  padding: var(--size-sm) var(--size-md) var(--size-md);
 }
 
 @media (max-width: 768px) {
@@ -92,9 +103,11 @@
   }
   .methodology-tags-menu a.methodology-tags-menu__tag {
     height: 85px;
-    padding: var(--size-sm);
     border-radius: 6px;
     font-size: 11px;
+  }
+  .methodology-tags-menu__title { 
+    padding: 4px 12px 10px;
   }
 
   .methodology-tags-menu .methodology-tag-width-2 {
