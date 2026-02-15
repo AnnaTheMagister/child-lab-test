@@ -879,7 +879,10 @@ const getScreenSize = size => {
   if (size <= 768 && size > 576) {
     return "sm";
   }
-  return "xs";
+  if (size <= 576 && size > 480) {
+    return "xs";
+  }
+  return "xxs";
 };
 const getMaxTagsInRow = size => size === "lg" || size == "xlg" ? 6 : size === "md" || size === "sm" ? 3 : 2;
 const FrontListComponent = () => {
@@ -1149,7 +1152,7 @@ const MethodologyTreeComponent = () => {
     className: "col-12 order-md-2 order-lg-1 order-xlg-1 order-sm-2 order-xs-2"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "methodology__header"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, window.wp.i18n.__("Методология", "childlab")), !currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md') && NO_TAG_PLACEHOLDER)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MethodologyTree, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticlesList, null))));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, window.wp.i18n.__("Методология", "childlab")), !currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md' || screenSize === 'xxs') && NO_TAG_PLACEHOLDER)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MethodologyTree, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticlesList, null))));
 };
 const ArticlesList = () => {
   const {
@@ -1184,7 +1187,7 @@ const ArticlesList = () => {
   }, [articles, currentTaxonomy, currentTag, methodologyTags]);
   console.log('!!', filteredArticles);
   let content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
-  if (!currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md')) {
+  if (!currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md' || screenSize === 'xxs')) {
     return;
   }
   if (!currentTag && (screenSize === 'lg' || screenSize === 'xlg')) {
@@ -1292,6 +1295,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   TagsGraph: () => (/* binding */ TagsGraph)
 /* harmony export */ });
+/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+
+
 // tag-graph.js
 class TagsGraph {
   constructor(config) {
@@ -1393,13 +1399,21 @@ class TagsGraph {
     });
   }
   updateScale() {
-    if (window.devicePixelRatio > 1 && window.devicePixelRatio < 2) {
+    const screenSize = (0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__.getScreenSize)(window.innerWidth);
+    if (screenSize === 'xlg') {
+      this.config.scale = 1;
+    } else if (screenSize === 'lg') {
       this.config.scale = 0.9;
-    } else if (window.devicePixelRatio >= 2 && window.devicePixelRatio < 3) {
-      this.config.scale = 0.8;
-    } else if (window.devicePixelRatio >= 3) {
+    } else if (screenSize === 'md') {
+      this.config.scale = 0.85;
+    } else if (screenSize === 'sm') {
       this.config.scale = 0.7;
+    } else if (screenSize === 'xs') {
+      this.config.scale = 0.6;
+    } else {
+      this.config.scale = 0.55;
     }
+    // this.config.scale = 0.9
   }
   getTagButtonRect(tag) {
     const {
@@ -1413,10 +1427,9 @@ class TagsGraph {
     let width, height;
     if (tag.textOrientation === "vertical") {
       const paddingVertical = 16 * this.config.scale;
-      const paddingHorizontal = 6 * this.config.scale;
-      const maxLineLength = Math.max(...lines.map(line => line.length));
+      const paddingHorizontal = 4 * this.config.scale;
       width = lineHeight * lines.length + paddingHorizontal * 2;
-      height = charWidth * maxLineLength + paddingVertical * 2;
+      height = charWidth * tag.name.length + paddingVertical * 2;
     } else {
       const paddingVertical = 6 * this.config.scale;
       const paddingHorizontal = 16 * this.config.scale;
@@ -1602,11 +1615,7 @@ class TagsGraph {
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(-Math.PI / 2);
-      const totalTextHeight = lines.length * lineHeight;
-      lines.forEach((line, index) => {
-        const lineY = -totalTextHeight / 2 + index * lineHeight + lineHeight / 2;
-        ctx.fillText(line, 0, lineY);
-      });
+      ctx.fillText(lines[0], 0, 0);
       ctx.restore();
     } else {
       const totalTextHeight = lines.length * lineHeight;
@@ -2267,7 +2276,7 @@ const initialTags = [{
   color: "#6E41D8",
   textOrientation: "vertical",
   fontSize: 16,
-  xPercent: 54.5,
+  xPercent: 55,
   yPercent: 74
 }, {
   id: "shared_reading",
@@ -2283,7 +2292,7 @@ const initialTags = [{
   color: "#50D4CB",
   textOrientation: "vertical",
   fontSize: 16,
-  xPercent: 45.5,
+  xPercent: 45,
   yPercent: 74
 }, {
   id: "experimentation",
@@ -2291,7 +2300,7 @@ const initialTags = [{
   color: "#42A0CC",
   textOrientation: "vertical",
   fontSize: 16,
-  xPercent: 59,
+  xPercent: 60,
   yPercent: 73
 }, {
   id: "game",
@@ -2299,7 +2308,7 @@ const initialTags = [{
   color: "#C1593A",
   textOrientation: "vertical",
   fontSize: 16,
-  xPercent: 41,
+  xPercent: 40,
   yPercent: 74
 }, {
   id: "attachment",
@@ -2445,7 +2454,7 @@ const initialConnections = [{
   target: "moral_reasoning",
   curveIntensity: -0.05,
   connectFrom: "top",
-  shiftFrom: 15,
+  shiftFrom: 1,
   connectTo: "bottom",
   shiftTo: 0.6,
   lineWidth: 2
@@ -2454,9 +2463,9 @@ const initialConnections = [{
   target: "moral_reasoning",
   curveIntensity: -0.07,
   connectFrom: "top",
-  shiftFrom: 20,
+  shiftFrom: 1,
   connectTo: "bottom",
-  shiftTo: 1.1,
+  shiftTo: 1,
   lineWidth: 2
 }, {
   source: "moral_reasoning",
@@ -2465,16 +2474,16 @@ const initialConnections = [{
   connectFrom: "bottom",
   shiftFrom: -0.6,
   connectTo: "top",
-  shiftTo: -10,
+  shiftTo: -1,
   lineWidth: 2
 }, {
   source: "moral_reasoning",
   target: "game",
   curveIntensity: -0.06,
   connectFrom: "bottom",
-  shiftFrom: -1.1,
+  shiftFrom: -1,
   connectTo: "top",
-  shiftTo: -10,
+  shiftTo: -1,
   lineWidth: 2
 }, {
   source: "moral_reasoning",
@@ -2490,7 +2499,7 @@ const initialConnections = [{
   target: "attachment",
   curveIntensity: 0.05,
   connectFrom: "bottom",
-  shiftFrom: -2,
+  shiftFrom: -1,
   connectTo: "top",
   shiftTo: 0.6,
   lineWidth: 2
@@ -2499,16 +2508,16 @@ const initialConnections = [{
   target: "attachment",
   curveIntensity: 0.07,
   connectFrom: "bottom",
-  shiftFrom: 4,
+  shiftFrom: 1,
   connectTo: "top",
-  shiftTo: 1.1,
+  shiftTo: 1,
   lineWidth: 2
 }, {
   source: "storytelling",
   target: "attachment",
   curveIntensity: -0.05,
   connectFrom: "bottom",
-  shiftFrom: 10,
+  shiftFrom: 1,
   connectTo: "top",
   shiftTo: -0.6,
   lineWidth: 2
@@ -2517,9 +2526,9 @@ const initialConnections = [{
   target: "attachment",
   curveIntensity: -0.07,
   connectFrom: "bottom",
-  shiftFrom: 2,
+  shiftFrom: 1,
   connectTo: "top",
-  shiftTo: -1.1,
+  shiftTo: -1,
   lineWidth: 2
 }, {
   source: "shared_reading",

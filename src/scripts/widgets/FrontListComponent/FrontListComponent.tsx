@@ -29,7 +29,10 @@ export const getScreenSize = (size: number) => {
   if (size <= 768 && size > 576) {
     return "sm";
   }
-  return "xs";
+  if (size <= 576 && size > 480) {
+    return "xs";
+  }
+  return "xxs";
 };
 
 const getMaxTagsInRow = (size: string) =>
