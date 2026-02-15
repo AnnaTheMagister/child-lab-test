@@ -10,31 +10,82 @@
         "lang": "en",
         "plural-forms": "nplurals=2; plural=(n != 1);"
       },
-      "Субъектность": ["Agency"],
+      "Субъектность": [
+        "Agency"
+      ],
       "\u0420\u0435\u0433\u0443\u043b\u044f\u0442\u043e\u0440\u043d\u044b\u0435 \n \u0441\u043f\u043e\u0441\u043e\u0431\u043d\u043e\u0441\u0442\u0438": [
         "Self regulatory \n abilities"
       ],
-      "Познавательные \n способности": ["Cognitive \n abilities"],
-      "Коммуникативные \n способности": ["Communicative \n abilities"],
-      "Планирование": ["Planning"],
-      "Воображение": ["Imagination"],
-      "Диалектическое \n мышление": ["Dialectical \n thinking"],
-      "Предвосхищение": ["Anticipation"],
-      "Аргументация": ["Argumentation"],
-      "Децентрация": ["Decentration"],
-      "Произвольность": ["Volitional control"],
-      "Моральные суждения": ["Moral reasoning"],
-      "Рефлексия": ["Reflection"],
-      "Конструирование": ["Construction"],
-      "Совместное чтение": ["Shared reading"],
-      "Сочинительство": ["Storytelling"],
-      "Экспериментирование": ["Experimentation"],
-      "Игра": ["Play"],
-      "Привязанность": ["Attachment"],
-      "Все": ["All"],
-      "Все статьи": ["All articles"],
-      "Статьи по теме": ["Related articles"],
-      "Нет статей по этой теме": ["No articles on this topic"]
+      "Познавательные \n способности": [
+        "Cognitive \n abilities"
+      ],
+      "Коммуникативные \n способности": [
+        "Communicative \n abilities"
+      ],
+      "Планирование": [
+        "Planning"
+      ],
+      "Воображение": [
+        "Imagination"
+      ],
+      "Диалектическое \n мышление": [
+        "Dialectical \n thinking"
+      ],
+      "Предвосхищение": [
+        "Anticipation"
+      ],
+      "Аргументация": [
+        "Argumentation"
+      ],
+      "Децентрация": [
+        "Decentration"
+      ],
+      "Произвольность": [
+        "Volitional control"
+      ],
+      "Моральные суждения": [
+        "Moral reasoning"
+      ],
+      "Рефлексия": [
+        "Reflection"
+      ],
+      "Конструирование": [
+        "Construction"
+      ],
+      "Совместное чтение": [
+        "Shared reading"
+      ],
+      "Сочинительство": [
+        "Storytelling"
+      ],
+      "Экспериментирование": [
+        "Experimentation"
+      ],
+      "    Игра    ": [
+        "    Play    "
+      ],
+      "Привязанность": [
+        "Attachment"
+      ],
+      "Все": [
+        "All"
+      ],
+      "Все статьи": [
+        "All articles"
+      ],
+      "Статьи по теме": [
+        "Related articles"
+      ],
+      "Нет статей по этой теме": [
+        "No articles on this topic"
+      ],
+      "Методология": [
+        "Methodology"
+      ],
+      "Выберите элемент на дереве, чтобы прочитать о нём подробнее": [
+        "Select an element on the tree to read articles related to this topic"
+      ],
+      "Статья скоро появится": ["Coming soon"]
     }
   }
 }
