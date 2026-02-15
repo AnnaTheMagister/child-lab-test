@@ -111,40 +111,44 @@ export const MethodologyTree = () => {
     const [graphRef, setGraphRef] = useState();
 
     useEffect(() => {
-        if (graphRef) {
-            const graph = new TagsGraph({
-                container: graphRef,
-                activeTagSlug: currentTag ?? "Agency",
-                tags: JSON.parse(JSON.stringify(initialTags)),
-                connections: JSON.parse(JSON.stringify(initialConnections)),
-                curveIntensity: 0.7,
-                lineWidth: 2,
-                textOrientation: "horizontal",
-                backgroundColor: "rgba(255, 255, 255, 0.4)",
-                interactive: true,
-                onTagClick: (tag) => {
-                    history.pushState({}, "", `?methodology=${tag.id}`);
-                    window.dispatchEvent(new Event("pushstate"));
-                    selectedTagId = tag.id;
-                    console.log("Выбран тег:", tag.name);
-                },
-                onTagDrag: (tag, x, y) => {
-                    console.log(`Перемещение ${tag.name}`);
-                },
-                onTagDirectionChange: (tag) => {
-                    console.log(`Направление ${tag.name} изменено на: ${tag.direction}`);
-                },
-                onTagTextOrientationChange: (tag) => {
-                    console.log(
-                        `Ориентация текста ${tag.name} изменена на: ${tag.textOrientation}`,
-                    );
-                },
-            });
-            graph.resizeCanvas();
-            graph.calculateLayout();
-            graph.render();
+        if (graphRef?.clientWidth) {
+            // setTimeout(() => {
+                console.log('!!!gra', graphRef.clientWidth)
+                const graph = new TagsGraph({
+                    container: graphRef,
+                    activeTagSlug: currentTag ?? "Agency",
+                    tags: JSON.parse(JSON.stringify(initialTags)),
+                    connections: JSON.parse(JSON.stringify(initialConnections)),
+                    curveIntensity: 0.7,
+                    lineWidth: 2,
+                    textOrientation: "horizontal",
+                    backgroundColor: "rgba(255, 255, 255, 0.4)",
+                    interactive: true,
+                    onTagClick: (tag) => {
+                        history.pushState({}, "", `?methodology=${tag.id}`);
+                        window.dispatchEvent(new Event("pushstate"));
+                        selectedTagId = tag.id;
+                        console.log("Выбран тег:", tag.name);
+                    },
+                    onTagDrag: (tag, x, y) => {
+                        console.log(`Перемещение ${tag.name}`);
+                    },
+                    onTagDirectionChange: (tag) => {
+                        console.log(`Направление ${tag.name} изменено на: ${tag.direction}`);
+                    },
+                    onTagTextOrientationChange: (tag) => {
+                        console.log(
+                            `Ориентация текста ${tag.name} изменена на: ${tag.textOrientation}`,
+                        );
+                    },
+                });
+            // }, 50)
+
+            // graph.resizeCanvas();
+            // graph.calculateLayout();
+            // graph.render();
         }
-    }, [graphRef])
+    }, [graphRef?.clientWidth])
 
     return <div className="col-lg-7 col-md-12 col-sm-12 col-xs-12 order-xs-1 order-sm-1 order-md-1 order-lg-2">
         <div className="methodology__tree-wrapper">

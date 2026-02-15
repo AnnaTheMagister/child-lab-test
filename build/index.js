@@ -1222,7 +1222,9 @@ const MethodologyTree = () => {
   } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__.useCurrentSearch)();
   const [graphRef, setGraphRef] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (graphRef) {
+    if (graphRef?.clientWidth) {
+      // setTimeout(() => {
+      console.log('!!!gra', graphRef.clientWidth);
       const graph = new _TagsGraph__WEBPACK_IMPORTED_MODULE_3__.TagsGraph({
         container: graphRef,
         activeTagSlug: currentTag !== null && currentTag !== void 0 ? currentTag : "Agency",
@@ -1249,11 +1251,13 @@ const MethodologyTree = () => {
           console.log(`Ориентация текста ${tag.name} изменена на: ${tag.textOrientation}`);
         }
       });
-      graph.resizeCanvas();
-      graph.calculateLayout();
-      graph.render();
+      // }, 50)
+
+      // graph.resizeCanvas();
+      // graph.calculateLayout();
+      // graph.render();
     }
-  }, [graphRef]);
+  }, [graphRef?.clientWidth]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "col-lg-7 col-md-12 col-sm-12 col-xs-12 order-xs-1 order-sm-1 order-md-1 order-lg-2"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -2259,41 +2263,41 @@ const initialTags = [{
   name: wp.i18n.__("Конструирование", 'childlab'),
   color: "#6E41D8",
   textOrientation: "vertical",
-  fontSize: 13,
-  xPercent: 52,
-  yPercent: 67
+  fontSize: 16,
+  xPercent: 54.5,
+  yPercent: 74
 }, {
   id: "shared_reading",
   name: wp.i18n.__("Совместное чтение", 'childlab'),
   color: "#4164D9",
   textOrientation: "vertical",
-  fontSize: 13,
-  xPercent: 47,
+  fontSize: 16,
+  xPercent: 50,
   yPercent: 71
 }, {
   id: "storytelling",
   name: wp.i18n.__("Сочинительство", 'childlab'),
   color: "#50D4CB",
   textOrientation: "vertical",
-  fontSize: 13,
-  xPercent: 42,
-  yPercent: 66
+  fontSize: 16,
+  xPercent: 45.5,
+  yPercent: 74
 }, {
   id: "experimentation",
   name: wp.i18n.__("Экспериментирование", 'childlab'),
   color: "#42A0CC",
   textOrientation: "vertical",
-  fontSize: 13,
-  xPercent: 57,
-  yPercent: 66
+  fontSize: 16,
+  xPercent: 59,
+  yPercent: 73
 }, {
   id: "game",
-  name: wp.i18n.__("Игра", 'childlab'),
-  color: "#aA8740",
-  textOrientation: "horizontal",
-  fontSize: 32,
-  xPercent: 50.0,
-  yPercent: 87
+  name: wp.i18n.__("    Игра    ", 'childlab'),
+  color: "#C1593A",
+  textOrientation: "vertical",
+  fontSize: 16,
+  xPercent: 41,
+  yPercent: 74
 }, {
   id: "attachment",
   name: wp.i18n.__("Привязанность", 'childlab'),
@@ -2301,7 +2305,7 @@ const initialTags = [{
   textOrientation: "horizontal",
   fontSize: 20,
   xPercent: 50.0,
-  yPercent: 97
+  yPercent: 96
 }];
 const initialConnections = [{
   source: "Agency",
@@ -2436,90 +2440,92 @@ const initialConnections = [{
 }, {
   source: "construction",
   target: "moral_reasoning",
-  curveIntensity: -0.2,
+  curveIntensity: -0.05,
   connectFrom: "top",
-  shiftFrom: 2,
+  shiftFrom: 15,
   connectTo: "bottom",
-  shiftTo: 0.45,
+  shiftTo: 0.6,
   lineWidth: 2
 }, {
   source: "experimentation",
   target: "moral_reasoning",
-  curveIntensity: -0.1,
+  curveIntensity: -0.07,
   connectFrom: "top",
+  shiftFrom: 20,
   connectTo: "bottom",
-  shiftTo: 1,
+  shiftTo: 1.1,
   lineWidth: 2
 }, {
   source: "moral_reasoning",
   target: "storytelling",
-  curveIntensity: 0.3,
+  curveIntensity: -0.05,
   connectFrom: "bottom",
-  shiftFrom: -1,
+  shiftFrom: -0.6,
   connectTo: "top",
+  shiftTo: -10,
+  lineWidth: 2
+}, {
+  source: "moral_reasoning",
+  target: "game",
+  curveIntensity: -0.06,
+  connectFrom: "bottom",
+  shiftFrom: -1.1,
+  connectTo: "top",
+  shiftTo: -10,
   lineWidth: 2
 }, {
   source: "moral_reasoning",
   target: "shared_reading",
-  curveIntensity: 0.1,
+  curveIntensity: 0,
   connectFrom: "bottom",
-  shiftFrom: -0.4,
+  shiftFrom: 0,
   connectTo: "top",
-  shiftTo: -2,
+  shiftTo: 0,
   lineWidth: 2
 }, {
   source: "construction",
   target: "attachment",
   curveIntensity: 0.05,
   connectFrom: "bottom",
-  shiftFrom: 2,
+  shiftFrom: -2,
   connectTo: "top",
-  shiftTo: 0.2,
+  shiftTo: 0.6,
   lineWidth: 2
 }, {
   source: "experimentation",
   target: "attachment",
-  curveIntensity: 0.05,
+  curveIntensity: 0.07,
   connectFrom: "bottom",
-  shiftFrom: 3,
+  shiftFrom: 4,
   connectTo: "top",
-  shiftTo: 0.7,
+  shiftTo: 1.1,
   lineWidth: 2
 }, {
   source: "storytelling",
   target: "attachment",
-  curveIntensity: -0.1,
+  curveIntensity: -0.05,
   connectFrom: "bottom",
-  shiftFrom: -6,
+  shiftFrom: 10,
   connectTo: "top",
-  shiftTo: -0.7,
+  shiftTo: -0.6,
+  lineWidth: 2
+}, {
+  source: "game",
+  target: "attachment",
+  curveIntensity: -0.07,
+  connectFrom: "bottom",
+  shiftFrom: 2,
+  connectTo: "top",
+  shiftTo: -1.1,
   lineWidth: 2
 }, {
   source: "shared_reading",
   target: "attachment",
-  curveIntensity: -0.05,
+  curveIntensity: 0,
   connectFrom: "bottom",
-  shiftFrom: -3,
+  shiftFrom: 0,
   connectTo: "top",
-  shiftTo: -0.2,
-  lineWidth: 2
-}, {
-  source: "shared_reading",
-  target: "storytelling",
-  curveIntensity: 0.3,
-  connectFrom: "top",
-  shiftFrom: 2,
-  connectTo: "left",
-  shiftTo: -1.2,
-  lineWidth: 2
-}, {
-  source: "experimentation",
-  target: "construction",
-  curveIntensity: 0.4,
-  connectFrom: "right",
-  shiftFrom: -1.4,
-  connectTo: "right",
-  shiftTo: 1,
+  shiftTo: 0,
   lineWidth: 2
 }];
 const initialConfig = {
