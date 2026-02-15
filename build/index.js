@@ -1184,6 +1184,9 @@ const ArticlesList = () => {
   }, [articles, currentTaxonomy, currentTag, methodologyTags]);
   console.log('!!', filteredArticles);
   let content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+  if (!currentTag && (screenSize === 'sm' || screenSize === 'xsm' || screenSize === 'md')) {
+    return;
+  }
   if (!currentTag && (screenSize === 'lg' || screenSize === 'xlg')) {
     content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       class: "childlab-widget methodology__description"
@@ -1193,7 +1196,7 @@ const ArticlesList = () => {
       class: "childlab-widget methodology__description"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "empty-placeholder"
-    }, "\u0421\u0442\u0430\u0442\u044C\u044F \u0441\u043A\u043E\u0440\u043E \u043F\u043E\u044F\u0432\u0438\u0442\u0441\u044F"));
+    }, window.wp.i18n.__('Статья скоро появится', 'childlab')));
   } else {
     content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "container"
@@ -1201,7 +1204,7 @@ const ArticlesList = () => {
       className: "childlab-widget articles-list"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", {
       className: "articles-list__header"
-    }, "\u0421\u0442\u0430\u0442\u044C\u0438 \u043F\u043E \u0442\u0435\u043C\u0435"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    }, window.wp.i18n.__("Статьи по теме", "childlab")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "row"
     }, filteredArticles.map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "col-12"

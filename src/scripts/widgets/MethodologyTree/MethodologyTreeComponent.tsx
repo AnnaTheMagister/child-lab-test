@@ -80,14 +80,18 @@ export const ArticlesList = () => {
     console.log('!!', filteredArticles);
     let content = <></>
 
+    if (!currentTag && (screenSize === 'sm' || screenSize === 'xsm' || screenSize === 'md')) {
+        return;
+    }
+
     if (!currentTag && (screenSize === 'lg' || screenSize === 'xlg')) {
         content = <div class="childlab-widget methodology__description">{NO_TAG_PLACEHOLDER}</div>
     } else if (!filteredArticles.length && !(!currentTag && (screenSize === 'lg' || screenSize === 'xlg'))) {
-        content = <div class="childlab-widget methodology__description"><div className="empty-placeholder">Статья скоро появится</div></div>
+        content = <div class="childlab-widget methodology__description"><div className="empty-placeholder">{window.wp.i18n.__('Статья скоро появится', 'childlab')}</div></div>
     } else {
         content = <div className="container">
             <div className="childlab-widget articles-list">
-                <header className="articles-list__header">Статьи по теме</header>
+                <header className="articles-list__header">{window.wp.i18n.__("Статьи по теме", "childlab")}</header>
                 <div className="row">
                     {
                         filteredArticles.map((art) => (
