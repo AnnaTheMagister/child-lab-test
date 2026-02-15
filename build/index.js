@@ -1222,7 +1222,9 @@ const MethodologyTree = () => {
   } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__.useCurrentSearch)();
   const [graphRef, setGraphRef] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (graphRef) {
+    if (graphRef?.clientWidth) {
+      // setTimeout(() => {
+      console.log('!!!gra', graphRef.clientWidth);
       const graph = new _TagsGraph__WEBPACK_IMPORTED_MODULE_3__.TagsGraph({
         container: graphRef,
         activeTagSlug: currentTag !== null && currentTag !== void 0 ? currentTag : "Agency",
@@ -1249,11 +1251,13 @@ const MethodologyTree = () => {
           console.log(`Ориентация текста ${tag.name} изменена на: ${tag.textOrientation}`);
         }
       });
-      graph.resizeCanvas();
-      graph.calculateLayout();
-      graph.render();
+      // }, 50)
+
+      // graph.resizeCanvas();
+      // graph.calculateLayout();
+      // graph.render();
     }
-  }, [graphRef]);
+  }, [graphRef?.clientWidth]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "col-lg-7 col-md-12 col-sm-12 col-xs-12 order-xs-1 order-sm-1 order-md-1 order-lg-2"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
