@@ -80,7 +80,7 @@ export const ArticlesList = () => {
     console.log('!!', filteredArticles);
     let content = <></>
 
-    if (!currentTag && (screenSize === 'sm' || screenSize === 'xsm' || screenSize === 'md')) {
+    if (!currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md')) {
         return;
     }
 

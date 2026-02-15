@@ -1184,7 +1184,7 @@ const ArticlesList = () => {
   }, [articles, currentTaxonomy, currentTag, methodologyTags]);
   console.log('!!', filteredArticles);
   let content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
-  if (!currentTag && (screenSize === 'sm' || screenSize === 'xsm' || screenSize === 'md')) {
+  if (!currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md')) {
     return;
   }
   if (!currentTag && (screenSize === 'lg' || screenSize === 'xlg')) {

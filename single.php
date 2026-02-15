@@ -57,7 +57,7 @@ function get_back_link()
             <?php endif; ?>
 
             <!-- Основной контент -->
-            <article class="<?php !empty($toc) ? 'col-lg-9 col-md-12 col-xs-12' : "" ?> article-content-wrapper"
+            <article class="col-lg-9 col-md-12 col-xs-12 article-content-wrapper"
                 data-post-id="<?php echo $post_id; ?>">
 
                 <?php get_back_link();
