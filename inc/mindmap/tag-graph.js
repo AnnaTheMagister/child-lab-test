@@ -117,11 +117,11 @@ class TagGraph {
 
   updateScale() {
     if (window.devicePixelRatio > 1 && window.devicePixelRatio < 2) {
-      this.config.scale = 0.9;
-    } else if (window.devicePixelRatio >= 2 && window.devicePixelRatio < 3) {
       this.config.scale = 0.8;
-    } else if (window.devicePixelRatio >= 3) {
+    } else if (window.devicePixelRatio >= 2 && window.devicePixelRatio < 3) {
       this.config.scale = 0.7;
+    } else if (window.devicePixelRatio >= 3) {
+      this.config.scale = 0.6;
     }
   }
 

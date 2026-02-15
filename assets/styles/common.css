@@ -244,6 +244,7 @@ a.childlab-card-link:hover .childlab-image {
 .empty-placeholder {
   display: flex;
   text-align: center;
+  justify-content: center;
   font-size: var(--font-size-32);
   font-weight: var(--font-weight-400);
   color: var(--light-grey-2);
