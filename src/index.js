@@ -4,26 +4,36 @@ import "./styles/header.scss";
 
 import "./scripts/ArticleReader";
 import "./scripts/shared/switcher";
-import { ArticlesListComponent, FrontListComponent } from "./scripts/widgets";
+import { ArticlesListComponent, FrontListComponent, MethodologyTreeComponent } from "./scripts/widgets";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { MethodologyTagsContextProvider } from "./scripts/entities/MethodologyTags";
+import { ArticlesContextProvider } from "./scripts/entities/Articles";
 
-const methodologyTagsMenu = ReactDOM.createRoot(
-  document.querySelector("#methodology-tags-menu"),
-);
-methodologyTagsMenu.render(
-  <MethodologyTagsContextProvider>
-    <FrontListComponent />
-  </MethodologyTagsContextProvider>,
-);
+const renderComponent = (selector, render) => {
+  try {
+    const container = ReactDOM.createRoot(
+      document.querySelector(selector),
+    );
 
-const articlesList = ReactDOM.createRoot(
-  document.querySelector("#articles-list-component"),
-);
+    container.render(
+      <MethodologyTagsContextProvider>
+        <ArticlesContextProvider>
+          {render}
+        </ArticlesContextProvider>
+      </MethodologyTagsContextProvider>
+    );
+  } catch (e) {
+    console.error('ErrorRenderingReactComponent :: methodologyTagsMenu ', e)
+  }
+}
 
-articlesList.render(
-  <MethodologyTagsContextProvider>
-    <ArticlesListComponent />
-  </MethodologyTagsContextProvider>,
-);
+
+renderComponent("#methodology-tags-menu", <FrontListComponent />)
+
+
+renderComponent("#articles-list-component", <ArticlesListComponent />)
+
+
+renderComponent("#methodology-tree-component", <MethodologyTreeComponent />)
+

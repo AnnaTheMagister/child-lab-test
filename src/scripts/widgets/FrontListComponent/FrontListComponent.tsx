@@ -107,8 +107,6 @@ const MethodologyTagComponent: FC<MethodologyTag & { width: number }> = (
     window.dispatchEvent(new Event("pushstate"));
   };
 
-  console.log('!!', DEFAULT_TAG_PATTERN)
-
   return (
     <a
       href={`?methodology=${tag.id}`}

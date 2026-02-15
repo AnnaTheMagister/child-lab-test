@@ -1,1 +1,0 @@
-<div id="graph" class="graph-container"></div>
