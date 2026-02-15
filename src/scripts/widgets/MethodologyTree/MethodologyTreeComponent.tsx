@@ -30,7 +30,7 @@ export const MethodologyTreeComponent = () => {
                     className="col-12 order-md-2 order-lg-1 order-xlg-1 order-sm-2 order-xs-2">
                     <div className="methodology__header">
                         <h1>{window.wp.i18n.__("Методология", "childlab")}</h1>
-                        {!currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md') && NO_TAG_PLACEHOLDER}
+                        {!currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md' || screenSize === 'xxs') && NO_TAG_PLACEHOLDER}
                     </div>
                 </div>}
 
@@ -80,7 +80,7 @@ export const ArticlesList = () => {
     console.log('!!', filteredArticles);
     let content = <></>
 
-    if (!currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md')) {
+    if (!currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md' || screenSize === 'xxs')) {
         return;
     }
 

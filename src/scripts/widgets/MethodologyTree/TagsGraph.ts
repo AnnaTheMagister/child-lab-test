@@ -1,3 +1,5 @@
+import { getScreenSize } from "../FrontListComponent/FrontListComponent";
+
 // tag-graph.js
 export class TagsGraph {
     constructor(config) {
@@ -116,13 +118,21 @@ export class TagsGraph {
     }
 
     updateScale() {
-        if (window.devicePixelRatio > 1 && window.devicePixelRatio < 2) {
+        const screenSize = getScreenSize(window.innerWidth)
+        if (screenSize === 'xlg') {
+            this.config.scale = 1;
+        } else if (screenSize === 'lg') {
             this.config.scale = 0.9;
-        } else if (window.devicePixelRatio >= 2 && window.devicePixelRatio < 3) {
-            this.config.scale = 0.8;
-        } else if (window.devicePixelRatio >= 3) {
+        } else if (screenSize === 'md') {
+            this.config.scale = 0.85;
+        } else if (screenSize === 'sm') {
             this.config.scale = 0.7;
+        } else if (screenSize === 'xs') {
+            this.config.scale = 0.6;
+        } else {
+            this.config.scale = 0.55;
         }
+        // this.config.scale = 0.9
     }
 
     getTagButtonRect(tag) {
@@ -142,10 +152,9 @@ export class TagsGraph {
 
         if (tag.textOrientation === "vertical") {
             const paddingVertical = 16 * this.config.scale;
-            const paddingHorizontal = 6 * this.config.scale;
-            const maxLineLength = Math.max(...lines.map((line) => line.length));
+            const paddingHorizontal = 4 * this.config.scale;
             width = lineHeight * lines.length + paddingHorizontal * 2;
-            height = charWidth * maxLineLength + paddingVertical * 2;
+            height = charWidth * tag.name.length + paddingVertical * 2;
         } else {
             const paddingVertical = 6 * this.config.scale;
             const paddingHorizontal = 16 * this.config.scale;
@@ -363,14 +372,7 @@ export class TagsGraph {
             ctx.translate(x, y);
             ctx.rotate(-Math.PI / 2);
 
-            const totalTextHeight = lines.length * lineHeight;
-
-            lines.forEach((line, index) => {
-                const lineY =
-                    -totalTextHeight / 2 + index * lineHeight + lineHeight / 2;
-                ctx.fillText(line, 0, lineY);
-            });
-
+            ctx.fillText(lines[0], 0, 0);
             ctx.restore();
         } else {
             const totalTextHeight = lines.length * lineHeight;
