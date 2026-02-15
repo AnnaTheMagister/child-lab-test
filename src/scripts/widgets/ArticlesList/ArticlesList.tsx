@@ -1,22 +1,16 @@
 import React, { useState, useEffect, FC, useMemo } from "react";
 import { BASE_URL, DEFAULT_IMAGE_URL } from "../../shared/consts";
-import { useCurrentSearch } from "../../shared/useCurrentSearch";
 import { useMethodologyTags } from "../../entities/MethodologyTags";
 import Loader from "../Loader/Loader";
 import { getScreenSize } from "../FrontListComponent/FrontListComponent";
+import { useArticles } from "../../entities/Articles";
 
 export const ArticlesListComponent = () => {
-  const [articlesData, setArticlesData] = useState([]);
-  const { currentTaxonomy, currentTag } = useCurrentSearch();
+  const { articles, filteredArticles, currentTaxonomy, currentTag } = useArticles()
+
   const [screenSize, setScreenSize] = useState(
     getScreenSize(window.innerWidth),
   );
-
-  useEffect(() => {
-    fetch(BASE_URL + "/wp-json/wp/v2/articles?_embed")
-      .then((response) => response.json())
-      .then((data) => setArticlesData(data));
-  }, []);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -24,22 +18,6 @@ export const ArticlesListComponent = () => {
     });
   }, []);
 
-  const filteredArticles = useMemo(() => {
-    if (!articlesData) return [];
-    if (currentTaxonomy === "methodology") {
-      if (parseInt(currentTag) > 0) {
-        return articlesData.filter(
-          (art) =>
-            art["methodology-tags"]?.some(
-              (tag) => tag === parseInt(currentTag),
-            ),
-        );
-      } else {
-        return articlesData;
-      }
-    }
-    return articlesData;
-  }, [articlesData, currentTaxonomy, currentTag]);
 
   const title =
     currentTaxonomy === "methodology" && parseInt(currentTag) !== -1
@@ -48,12 +26,12 @@ export const ArticlesListComponent = () => {
 
   let content = <></>;
 
-  if (!articlesData.length) {
+  if (!articles.length) {
     content = <Loader fullScreen={false} />;
   } else if (!filteredArticles.length) {
     content = (
-      <div class="empty-wrapper">
-        <div class="empty-placeholder">
+      <div className="empty-wrapper">
+        <div className="empty-placeholder">
           {window.wp.i18n.__("Нет статей по этой теме", "childlab")}
         </div>
       </div>
@@ -75,7 +53,7 @@ export const ArticlesListComponent = () => {
   } else {
     content = (
       <>
-        <div class="col-lg-6 col-md-12">
+        <div className="col-lg-6 col-md-12">
           <ArticleCardComponent
             key={filteredArticles[0].id}
             {...filteredArticles[0]}

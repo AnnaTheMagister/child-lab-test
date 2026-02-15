@@ -334,6 +334,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /***/ },
 
+/***/ "./src/scripts/entities/Articles.tsx"
+/*!*******************************************!*\
+  !*** ./src/scripts/entities/Articles.tsx ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ArticlesContext: () => (/* binding */ ArticlesContext),
+/* harmony export */   ArticlesContextProvider: () => (/* binding */ ArticlesContextProvider),
+/* harmony export */   useArticles: () => (/* binding */ useArticles)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/consts */ "./src/scripts/shared/consts.ts");
+/* harmony import */ var _shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/useCurrentSearch */ "./src/scripts/shared/useCurrentSearch.ts");
+
+
+
+
+const ArticlesContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  articles: [],
+  articlesLoading: true,
+  currentTaxonomy: 'methodology',
+  filteredArticles: [],
+  currentTag: -1
+});
+const ArticlesContextProvider = ({
+  children
+}) => {
+  const [articles, setArticles] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [articlesLoading, setArticlesLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const {
+    currentTaxonomy,
+    currentTag
+  } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__.useCurrentSearch)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/articles?per_page=100&_embed").then(response => response.json()).then(data => {
+      setArticles(data);
+      setArticlesLoading(false);
+    });
+  }, []);
+  const filteredArticles = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!articles) return [];
+    if (currentTaxonomy === "methodology") {
+      if (parseInt(currentTag) > 0) {
+        return articles.filter(art => art["methodology-tags"]?.some(tag => tag === parseInt(currentTag)));
+      } else {
+        return articles;
+      }
+    }
+    return articles;
+  }, [articles, currentTaxonomy, currentTag]);
+  const context = {
+    articles,
+    articlesLoading,
+    currentTaxonomy,
+    filteredArticles,
+    currentTag
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticlesContext.Provider, {
+    value: context
+  }, children);
+};
+const useArticles = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(ArticlesContext);
+
+/***/ },
+
 /***/ "./src/scripts/entities/MethodologyTags.tsx"
 /*!**************************************************!*\
   !*** ./src/scripts/entities/MethodologyTags.tsx ***!
@@ -597,10 +666,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/consts */ "./src/scripts/shared/consts.ts");
-/* harmony import */ var _shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/useCurrentSearch */ "./src/scripts/shared/useCurrentSearch.ts");
-/* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
-/* harmony import */ var _Loader_Loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Loader/Loader */ "./src/scripts/widgets/Loader/Loader.tsx");
-/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+/* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
+/* harmony import */ var _Loader_Loader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Loader/Loader */ "./src/scripts/widgets/Loader/Loader.tsx");
+/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+/* harmony import */ var _entities_Articles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../entities/Articles */ "./src/scripts/entities/Articles.tsx");
 
 
 
@@ -609,42 +678,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const ArticlesListComponent = () => {
-  const [articlesData, setArticlesData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const {
+    articles,
+    filteredArticles,
     currentTaxonomy,
     currentTag
-  } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__.useCurrentSearch)();
-  const [screenSize, setScreenSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/articles?_embed").then(response => response.json()).then(data => setArticlesData(data));
-  }, []);
+  } = (0,_entities_Articles__WEBPACK_IMPORTED_MODULE_5__.useArticles)();
+  const [screenSize, setScreenSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_4__.getScreenSize)(window.innerWidth));
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     window.addEventListener("resize", () => {
-      setScreenSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
+      setScreenSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_4__.getScreenSize)(window.innerWidth));
     });
   }, []);
-  const filteredArticles = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    if (!articlesData) return [];
-    if (currentTaxonomy === "methodology") {
-      if (parseInt(currentTag) > 0) {
-        return articlesData.filter(art => art["methodology-tags"]?.some(tag => tag === parseInt(currentTag)));
-      } else {
-        return articlesData;
-      }
-    }
-    return articlesData;
-  }, [articlesData, currentTaxonomy, currentTag]);
   const title = currentTaxonomy === "methodology" && parseInt(currentTag) !== -1 ? window.wp.i18n.__("Статьи по теме", "childlab") : window.wp.i18n.__("Все статьи", "childlab");
   let content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
-  if (!articlesData.length) {
-    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Loader_Loader__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  if (!articles.length) {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Loader_Loader__WEBPACK_IMPORTED_MODULE_3__["default"], {
       fullScreen: false
     });
   } else if (!filteredArticles.length) {
     content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      class: "empty-wrapper"
+      className: "empty-wrapper"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      class: "empty-placeholder"
+      className: "empty-placeholder"
     }, window.wp.i18n.__("Нет статей по этой теме", "childlab")));
   } else if (filteredArticles.length < 3 || screenSize == "sm" || screenSize == "xs") {
     content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, filteredArticles.map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -656,7 +712,7 @@ const ArticlesListComponent = () => {
     }))));
   } else {
     content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      class: "col-lg-6 col-md-12"
+      className: "col-lg-6 col-md-12"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleCardComponent, {
       key: filteredArticles[0].id,
       ...filteredArticles[0],
@@ -761,7 +817,7 @@ const ArticleMetaInfoComponent = article => {
 const ArticleTagsComponent = article => {
   const {
     methodologyTags
-  } = (0,_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_3__.useMethodologyTags)();
+  } = (0,_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_2__.useMethodologyTags)();
   const articleTags = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => methodologyTags.filter(m => article["methodology-tags"].includes(m.id)), [methodologyTags, article]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "article-tags"
@@ -882,7 +938,6 @@ const MethodologyTagComponent = tag => {
     history.pushState({}, "", `?methodology=${tag.id}`);
     window.dispatchEvent(new Event("pushstate"));
   };
-  console.log('!!', DEFAULT_TAG_PATTERN);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: `?methodology=${tag.id}`,
     onClick: handleClick,
@@ -1035,6 +1090,1446 @@ const Loader = ({
 
 /***/ },
 
+/***/ "./src/scripts/widgets/MethodologyTree/MethodologyTreeComponent.tsx"
+/*!**************************************************************************!*\
+  !*** ./src/scripts/widgets/MethodologyTree/MethodologyTreeComponent.tsx ***!
+  \**************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ArticlesList: () => (/* binding */ ArticlesList),
+/* harmony export */   MethodologyTree: () => (/* binding */ MethodologyTree),
+/* harmony export */   MethodologyTreeComponent: () => (/* binding */ MethodologyTreeComponent)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _graphConfig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./graphConfig */ "./src/scripts/widgets/MethodologyTree/graphConfig.ts");
+/* harmony import */ var _shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/useCurrentSearch */ "./src/scripts/shared/useCurrentSearch.ts");
+/* harmony import */ var _TagsGraph__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TagsGraph */ "./src/scripts/widgets/MethodologyTree/TagsGraph.ts");
+/* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
+/* harmony import */ var _entities_Articles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../entities/Articles */ "./src/scripts/entities/Articles.tsx");
+/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+/* harmony import */ var _ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../ArticlesList/ArticlesList */ "./src/scripts/widgets/ArticlesList/ArticlesList.tsx");
+
+
+
+
+
+
+
+
+
+const TREE_IMAGE = themeData.templateUrl + "/assets/images/tree.png";
+const NO_TAG_PLACEHOLDER = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  className: "empty-placeholder"
+}, window.wp.i18n.__('Выберите элемент на дереве, чтобы прочитать о нём подробнее', 'childlab'));
+const MethodologyTreeComponent = () => {
+  const {
+    articles,
+    articlesLoading,
+    filteredArticles,
+    currentTag,
+    currentTaxonomy
+  } = (0,_entities_Articles__WEBPACK_IMPORTED_MODULE_5__.useArticles)();
+  const [screenSize, setScreenSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_6__.getScreenSize)(window.innerWidth));
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    window.addEventListener("resize", () => {
+      setScreenSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_6__.getScreenSize)(window.innerWidth));
+    });
+  }, []);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "childlab-widget methodology"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "row"
+  }, (!currentTag || screenSize === 'lg' || screenSize === 'xlg') && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "col-12 order-md-2 order-lg-1 order-xlg-1 order-sm-2 order-xs-2"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "methodology__header"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, window.wp.i18n.__("Методология", "childlab")), !currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md') && NO_TAG_PLACEHOLDER)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MethodologyTree, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticlesList, null))));
+};
+const ArticlesList = () => {
+  const {
+    articles,
+    articlesLoading,
+    currentTag,
+    currentTaxonomy
+  } = (0,_entities_Articles__WEBPACK_IMPORTED_MODULE_5__.useArticles)();
+  const {
+    methodologyTags
+  } = (0,_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_4__.useMethodologyTags)();
+  const [screenSize, setScreenSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_6__.getScreenSize)(window.innerWidth));
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    window.addEventListener("resize", () => {
+      setScreenSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_6__.getScreenSize)(window.innerWidth));
+    });
+  }, []);
+  const filteredArticles = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!articles || !methodologyTags) return [];
+    console.log('!!', currentTag, methodologyTags.map(it => it.slug));
+    const currentId = methodologyTags.find(it => it.slug?.toLowerCase() === currentTag?.toLowerCase())?.id;
+    console.log(currentId, articles);
+    if (currentId) {
+      const y = articles.filter(art => art["methodology-tags"]?.some(tag => {
+        console.log('!t', tag, currentTag, tag === currentTag);
+        return tag === currentId;
+      }));
+      console.log('!y', y);
+      return y;
+    }
+    return [];
+  }, [articles, currentTaxonomy, currentTag, methodologyTags]);
+  console.log('!!', filteredArticles);
+  let content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+  if (!currentTag && (screenSize === 'lg' || screenSize === 'xlg')) {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      class: "childlab-widget methodology__description"
+    }, NO_TAG_PLACEHOLDER);
+  } else if (!filteredArticles.length && !(!currentTag && (screenSize === 'lg' || screenSize === 'xlg'))) {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      class: "childlab-widget methodology__description"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "empty-placeholder"
+    }, "\u0421\u0442\u0430\u0442\u044C\u044F \u0441\u043A\u043E\u0440\u043E \u043F\u043E\u044F\u0432\u0438\u0442\u0441\u044F"));
+  } else {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "container"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "childlab-widget articles-list"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", {
+      className: "articles-list__header"
+    }, "\u0421\u0442\u0430\u0442\u044C\u0438 \u043F\u043E \u0442\u0435\u043C\u0435"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "row"
+    }, filteredArticles.map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "col-12"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_7__.ArticleCardComponent, {
+      key: art.id,
+      ...art,
+      size: "default"
+    }))))));
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "col-lg-5 col-md-12 col-sm-12 col-xs-12 order-xs-3 order-sm-3 order-md-3 order-lg-3"
+  }, content);
+};
+const MethodologyTree = () => {
+  const {
+    currentTaxonomy,
+    currentTag
+  } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__.useCurrentSearch)();
+  const [graphRef, setGraphRef] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (graphRef) {
+      const graph = new _TagsGraph__WEBPACK_IMPORTED_MODULE_3__.TagsGraph({
+        container: graphRef,
+        activeTagSlug: currentTag !== null && currentTag !== void 0 ? currentTag : "Agency",
+        tags: JSON.parse(JSON.stringify(_graphConfig__WEBPACK_IMPORTED_MODULE_1__.initialTags)),
+        connections: JSON.parse(JSON.stringify(_graphConfig__WEBPACK_IMPORTED_MODULE_1__.initialConnections)),
+        curveIntensity: 0.7,
+        lineWidth: 2,
+        textOrientation: "horizontal",
+        backgroundColor: "rgba(255, 255, 255, 0.4)",
+        interactive: true,
+        onTagClick: tag => {
+          history.pushState({}, "", `?methodology=${tag.id}`);
+          window.dispatchEvent(new Event("pushstate"));
+          selectedTagId = tag.id;
+          console.log("Выбран тег:", tag.name);
+        },
+        onTagDrag: (tag, x, y) => {
+          console.log(`Перемещение ${tag.name}`);
+        },
+        onTagDirectionChange: tag => {
+          console.log(`Направление ${tag.name} изменено на: ${tag.direction}`);
+        },
+        onTagTextOrientationChange: tag => {
+          console.log(`Ориентация текста ${tag.name} изменена на: ${tag.textOrientation}`);
+        }
+      });
+      graph.resizeCanvas();
+      graph.calculateLayout();
+      graph.render();
+    }
+  }, [graphRef]);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "col-lg-7 col-md-12 col-sm-12 col-xs-12 order-xs-1 order-sm-1 order-md-1 order-lg-2"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "methodology__tree-wrapper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "methodology__tree"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    className: "methodology__tree-image",
+    src: TREE_IMAGE,
+    alt: "tree"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: r => {
+      setGraphRef(r);
+    },
+    className: "methodology__graph-container"
+  }))));
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/MethodologyTree/TagsGraph.ts"
+/*!**********************************************************!*\
+  !*** ./src/scripts/widgets/MethodologyTree/TagsGraph.ts ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   TagsGraph: () => (/* binding */ TagsGraph)
+/* harmony export */ });
+// tag-graph.js
+class TagsGraph {
+  constructor(config) {
+    this.config = {
+      padding: 20,
+      scale: 1,
+      interactive: true,
+      enableDragging: false,
+      enableContextMenu: false,
+      ...config
+    };
+    this.tagConfig = {
+      fontSize: 14,
+      borderRadius: 16,
+      ...config.tagConfig
+    };
+    this.connectionConfig = {
+      lineWidth: 3,
+      ...config.connectionConfig
+    };
+    this.tags = [...config.tags];
+    this.connections = this.processConnections(config.connections || []);
+    this.isDragging = false;
+    this.dragTarget = null;
+    this.animationFrameId = null;
+    this.mousePos = {
+      x: 0,
+      y: 0
+    };
+    this.hoveredTag = null;
+    this.activeTag = this.tags.find(({
+      id
+    }) => id === this.config.activeTagSlug) || null;
+    this.canvas = document.createElement("canvas");
+    this.ctx = this.canvas.getContext("2d");
+    this.initCanvas();
+    this.calculateLayout();
+    if (this.config.interactive) {
+      this.setupInteractivity();
+    }
+    this.render();
+  }
+  processConnections(connections) {
+    const seen = new Set();
+    const uniqueConnections = [];
+    for (const conn of connections) {
+      const key1 = `${conn.source}-${conn.target}`;
+      const key2 = `${conn.target}-${conn.source}`;
+      if (!seen.has(key1) && !seen.has(key2)) {
+        seen.add(key1);
+        seen.add(key2);
+        uniqueConnections.push({
+          source: conn.source,
+          target: conn.target,
+          curveIntensity: conn.curveIntensity || 0,
+          lineWidth: (conn.lineWidth || this.connectionConfig.lineWidth) * this.config.scale,
+          connectFrom: conn.connectFrom || "auto",
+          connectTo: conn.connectTo || "auto",
+          shiftFrom: conn.shiftFrom || 0,
+          // новое поле
+          shiftTo: conn.shiftTo || 0 // новое поле
+        });
+      }
+    }
+    return uniqueConnections;
+  }
+  initCanvas() {
+    const container = this.config.container;
+    this.canvas.style.width = "100%";
+    this.canvas.style.height = "100%";
+    this.canvas.style.display = "block";
+    container.appendChild(this.canvas);
+    this.resizeCanvas();
+    window.addEventListener("resize", () => {
+      this.resizeCanvas();
+      this.calculateLayout();
+      this.render();
+    });
+  }
+  resizeCanvas() {
+    const container = this.config.container;
+    const dpr = window.devicePixelRatio || 1;
+    const rect = container.getBoundingClientRect();
+    this.canvas.width = rect.width * dpr;
+    this.canvas.height = rect.height * dpr;
+    this.ctx.scale(dpr, dpr);
+    this.updateScale();
+  }
+  calculateLayout() {
+    const width = this.canvas.width / window.devicePixelRatio;
+    const height = this.canvas.height / window.devicePixelRatio;
+
+    // Конвертируем координаты из процентов в пиксели
+    this.tags.forEach(tag => {
+      if (tag.xPercent !== undefined && tag.yPercent !== undefined) {
+        tag.x = width * tag.xPercent / 100;
+        tag.y = height * tag.yPercent / 100;
+      }
+    });
+  }
+  updateScale() {
+    if (window.devicePixelRatio > 1 && window.devicePixelRatio < 2) {
+      this.config.scale = 0.9;
+    } else if (window.devicePixelRatio >= 2 && window.devicePixelRatio < 3) {
+      this.config.scale = 0.8;
+    } else if (window.devicePixelRatio >= 3) {
+      this.config.scale = 0.7;
+    }
+  }
+  getTagButtonRect(tag) {
+    const {
+      x = 0,
+      y = 0
+    } = tag;
+    const fontSize = (tag.fontSize || this.tagConfig.fontSize) * this.config.scale;
+    const lineHeight = fontSize * 1.2;
+    const charWidth = fontSize * 0.6;
+    const lines = this.getTextLines(tag.name, tag.textOrientation, tag.fontSize);
+    let width, height;
+    if (tag.textOrientation === "vertical") {
+      const paddingVertical = 16 * this.config.scale;
+      const paddingHorizontal = 6 * this.config.scale;
+      const maxLineLength = Math.max(...lines.map(line => line.length));
+      width = lineHeight * lines.length + paddingHorizontal * 2;
+      height = charWidth * maxLineLength + paddingVertical * 2;
+    } else {
+      const paddingVertical = 6 * this.config.scale;
+      const paddingHorizontal = 16 * this.config.scale;
+      width = Math.max(...lines.map(line => this.measureTextWidth(line, fontSize))) + paddingHorizontal * 2;
+      height = lineHeight * lines.length + paddingVertical * 2;
+    }
+    return {
+      x: x - width / 2,
+      y: y - height / 2,
+      width,
+      height,
+      centerX: x,
+      centerY: y
+    };
+  }
+  getConnectionPoint(tag, side, shift = 0) {
+    const rect = this.getTagButtonRect(tag);
+    const borderRadius = (tag.borderRadius !== undefined ? tag.borderRadius : this.tagConfig.borderRadius) * this.config.scale;
+    switch (side) {
+      case "top":
+        // Центр верхней стороны с учетом смещения
+        // shift: -1 = крайний левый, 0 = центр, 1 = крайний правый
+        const topStartX = rect.x + borderRadius;
+        const topEndX = rect.x + rect.width - borderRadius;
+        const topCenterX = (topStartX + topEndX) / 2;
+        const topShiftRange = (topEndX - topStartX) / 2;
+        return {
+          x: topCenterX + shift * topShiftRange,
+          y: rect.y
+        };
+      case "bottom":
+        // Центр нижней стороны с учетом смещения
+        const bottomStartX = rect.x + borderRadius;
+        const bottomEndX = rect.x + rect.width - borderRadius;
+        const bottomCenterX = (bottomStartX + bottomEndX) / 2;
+        const bottomShiftRange = (bottomEndX - bottomStartX) / 2;
+        return {
+          x: bottomCenterX + shift * bottomShiftRange,
+          y: rect.y + rect.height
+        };
+      case "left":
+        // Центр левой стороны с учетом смещения
+        const leftStartY = rect.y + borderRadius;
+        const leftEndY = rect.y + rect.height - borderRadius;
+        const leftCenterY = (leftStartY + leftEndY) / 2;
+        const leftShiftRange = (leftEndY - leftStartY) / 2;
+        return {
+          x: rect.x,
+          y: leftCenterY + shift * leftShiftRange
+        };
+      case "right":
+        // Центр правой стороны с учетом смещения
+        const rightStartY = rect.y + borderRadius;
+        const rightEndY = rect.y + rect.height - borderRadius;
+        const rightCenterY = (rightStartY + rightEndY) / 2;
+        const rightShiftRange = (rightEndY - rightStartY) / 2;
+        return {
+          x: rect.x + rect.width,
+          y: rightCenterY + shift * rightShiftRange
+        };
+      case "auto":
+      default:
+        // Для центра возвращаем центр
+        return {
+          x: rect.centerX,
+          y: rect.centerY
+        };
+    }
+  }
+  getAutoConnectionPoint(sourceRect, targetRect) {
+    // Автоматически определяем лучшие точки соединения
+    const sourceCenter = {
+      x: sourceRect.centerX,
+      y: sourceRect.centerY
+    };
+    const targetCenter = {
+      x: targetRect.centerX,
+      y: targetRect.centerY
+    };
+
+    // Определяем относительное положение тегов
+    const dx = targetCenter.x - sourceCenter.x;
+    const dy = targetCenter.y - sourceCenter.y;
+
+    // Выбираем сторону в зависимости от угла
+    const angle = Math.atan2(dy, dx);
+    const angleDeg = angle * 180 / Math.PI;
+
+    // Для источника
+    let sourceSide;
+    if (Math.abs(angleDeg) <= 45) {
+      sourceSide = "right";
+    } else if (Math.abs(angleDeg) >= 135) {
+      sourceSide = "left";
+    } else if (angleDeg > 45 && angleDeg < 135) {
+      sourceSide = "bottom";
+    } else {
+      sourceSide = "top";
+    }
+
+    // Для цели (противоположная сторона)
+    let targetSide;
+    if (Math.abs(angleDeg) <= 45) {
+      targetSide = "left";
+    } else if (Math.abs(angleDeg) >= 135) {
+      targetSide = "right";
+    } else if (angleDeg > 45 && angleDeg < 135) {
+      targetSide = "top";
+    } else {
+      targetSide = "bottom";
+    }
+    return {
+      sourceSide,
+      targetSide
+    };
+  }
+  lightenColor(color, amount = 0.3) {
+    color = color.replace("#", "");
+    const r = parseInt(color.slice(0, 2), 16);
+    const g = parseInt(color.slice(2, 4), 16);
+    const b = parseInt(color.slice(4, 6), 16);
+    const lightR = Math.round(r + (255 - r) * amount);
+    const lightG = Math.round(g + (255 - g) * amount);
+    const lightB = Math.round(b + (255 - b) * amount);
+    return `#${lightR.toString(16).padStart(2, "0")}${lightG.toString(16).padStart(2, "0")}${lightB.toString(16).padStart(2, "0")}`;
+  }
+  getTextLines(text, textOrientation = "vertical", fontSize = 13) {
+    if (textOrientation === "vertical") {
+      return [text];
+    }
+    return text.split("\n").reduce((acc, word) => {
+      if (!acc.length) return [word];
+      const lastLine = acc[acc.length - 1];
+      if (this.measureTextWidth(lastLine + " " + word, fontSize) <= 100 * this.config.scale) {
+        acc[acc.length - 1] = lastLine + " " + word;
+      } else {
+        acc.push(word);
+      }
+      return acc;
+    }, []);
+  }
+  drawTag(tag) {
+    const ctx = this.ctx;
+    const {
+      x = 0,
+      y = 0,
+      name,
+      color,
+      textOrientation = "horizontal"
+    } = tag;
+    const fontSize = (tag.fontSize || this.tagConfig.fontSize) * this.config.scale;
+    const borderRadius = (tag.borderRadius !== undefined ? tag.borderRadius : this.tagConfig.borderRadius) * this.config.scale;
+    ctx.save();
+    let bgColor = color;
+    if (this.hoveredTag === tag && this.activeTag !== tag) {
+      bgColor = this.lightenColor(color, 0.2);
+    }
+    ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    const rect = this.getTagButtonRect(tag);
+    ctx.fillStyle = bgColor;
+    this.roundRect(ctx, rect.x, rect.y, rect.width, rect.height, borderRadius);
+    ctx.fill();
+    ctx.font = `${fontSize}px Lora`;
+    if (this.activeTag === tag) {
+      ctx.shadowColor = tag.color;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.shadowBlur = 8;
+      ctx.strokeStyle = "#FFFFFF";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    ctx.shadowColor = "transparent";
+    ctx.fillStyle = "#FFFFFF";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const lineHeight = fontSize * 1.2;
+    const lines = this.getTextLines(name, textOrientation, fontSize);
+    if (textOrientation === "vertical") {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(-Math.PI / 2);
+      const totalTextHeight = lines.length * lineHeight;
+      lines.forEach((line, index) => {
+        const lineY = -totalTextHeight / 2 + index * lineHeight + lineHeight / 2;
+        ctx.fillText(line, 0, lineY);
+      });
+      ctx.restore();
+    } else {
+      const totalTextHeight = lines.length * lineHeight;
+      const startY = rect.y + (rect.height - totalTextHeight) / 2 + lineHeight / 2;
+      lines.forEach((line, index) => {
+        const lineY = startY + index * lineHeight;
+        ctx.fillText(line, x, lineY);
+      });
+    }
+    ctx.restore();
+  }
+  drawConnection(conn) {
+    const source = this.tags.find(t => t.id === conn.source);
+    const target = this.tags.find(t => t.id === conn.target);
+    if (!source || !target) {
+      return;
+    }
+    const ctx = this.ctx;
+    const curveIntensity = conn.curveIntensity || 0;
+    const lineWidth = (conn.lineWidth || this.connectionConfig.lineWidth) * this.config.scale;
+    const shiftFrom = conn.shiftFrom || 0; // смещение начала (от -1 до 1)
+    const shiftTo = conn.shiftTo || 0; // смещение конца (от -1 до 1)
+
+    const sourceRect = this.getTagButtonRect(source);
+    const targetRect = this.getTagButtonRect(target);
+    let sourceSide, targetSide;
+    if (conn.connectFrom === "auto" || conn.connectTo === "auto") {
+      const autoSides = this.getAutoConnectionPoint(sourceRect, targetRect);
+      sourceSide = conn.connectFrom === "auto" ? autoSides.sourceSide : conn.connectFrom;
+      targetSide = conn.connectTo === "auto" ? autoSides.targetSide : conn.connectTo;
+    } else {
+      sourceSide = conn.connectFrom;
+      targetSide = conn.connectTo;
+    }
+
+    // Получаем точки соединения с учетом смещения
+    const sourcePoint = this.getConnectionPoint(source, sourceSide, shiftFrom);
+    const targetPoint = this.getConnectionPoint(target, targetSide, shiftTo);
+    ctx.save();
+    const gradient = ctx.createLinearGradient(sourcePoint.x, sourcePoint.y, targetPoint.x, targetPoint.y);
+    gradient.addColorStop(0, source.color);
+    gradient.addColorStop(0.5, this.blendColors(source.color, target.color, 0.5));
+    gradient.addColorStop(1, target.color);
+    ctx.strokeStyle = gradient;
+    ctx.lineWidth = lineWidth;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(sourcePoint.x, sourcePoint.y);
+    if (curveIntensity === 0) {
+      ctx.lineTo(targetPoint.x, targetPoint.y);
+    } else {
+      const dx = targetPoint.x - sourcePoint.x;
+      const dy = targetPoint.y - sourcePoint.y;
+      const perpX = -dy * curveIntensity * 0.5;
+      const perpY = dx * curveIntensity * 0.5;
+      const cp1x = sourcePoint.x + dx * 0.25 + perpX;
+      const cp1y = sourcePoint.y + dy * 0.25 + perpY;
+      const cp2x = sourcePoint.x + dx * 0.75 + perpX;
+      const cp2y = sourcePoint.y + dy * 0.75 + perpY;
+      ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, targetPoint.x, targetPoint.y);
+    }
+    ctx.stroke();
+    if (this.config.connectionMarkers) {
+      ctx.fillStyle = source.color;
+      ctx.beginPath();
+      ctx.arc(sourcePoint.x, sourcePoint.y, lineWidth * 1.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = target.color;
+      ctx.beginPath();
+      ctx.arc(targetPoint.x, targetPoint.y, lineWidth * 1.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+  setupInteractivity() {
+    this.canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
+    this.canvas.addEventListener("mousemove", this.handleMouseMove.bind(this));
+    this.canvas.addEventListener("mouseup", this.handleMouseUp.bind(this));
+    this.canvas.addEventListener("click", this.handleClick.bind(this));
+    this.canvas.addEventListener("mouseleave", this.handleMouseLeave.bind(this));
+    if (this.config.enableContextMenu) {
+      this.canvas.addEventListener("contextmenu", this.handleContextMenu.bind(this));
+    }
+    this.canvas.addEventListener("touchstart", this.handleTouchStart.bind(this), {
+      passive: false
+    });
+    this.canvas.addEventListener("touchmove", this.handleTouchMove.bind(this), {
+      passive: false
+    });
+    this.canvas.addEventListener("touchend", this.handleTouchEnd.bind(this));
+    this.canvas.style.cursor = "default";
+  }
+  handleMouseDown(e) {
+    e.preventDefault();
+    const rect = this.canvas.getBoundingClientRect();
+    const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+    const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+    this.mousePos.x = (e.clientX - rect.left) * scaleX;
+    this.mousePos.y = (e.clientY - rect.top) * scaleY;
+    if (this.config.enableDragging) {
+      this.dragTarget = this.getTagAt(this.mousePos.x, this.mousePos.y);
+      this.isDragging = !!this.dragTarget;
+      if (this.dragTarget) {
+        this.canvas.style.cursor = "grabbing";
+        this.startAnimation();
+      }
+    }
+  }
+  handleMouseMove(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+    const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+    this.mousePos.x = (e.clientX - rect.left) * scaleX;
+    this.mousePos.y = (e.clientY - rect.top) * scaleY;
+    const prevHovered = this.hoveredTag;
+    this.hoveredTag = this.getTagAt(this.mousePos.x, this.mousePos.y);
+    if (prevHovered !== this.hoveredTag) {
+      this.render();
+    }
+    if (this.isDragging && this.dragTarget) {
+      const width = this.canvas.width / window.devicePixelRatio;
+      const height = this.canvas.height / window.devicePixelRatio;
+      this.dragTarget.x = this.mousePos.x;
+      this.dragTarget.y = this.mousePos.y;
+      this.dragTarget.xPercent = this.dragTarget.x / width * 100;
+      this.dragTarget.yPercent = this.dragTarget.y / height * 100;
+      if (this.config.onTagDrag) {
+        this.config.onTagDrag(this.dragTarget, this.dragTarget.xPercent, this.dragTarget.yPercent);
+      }
+    } else {
+      this.canvas.style.cursor = this.hoveredTag ? "pointer" : "default";
+    }
+  }
+  handleMouseUp() {
+    this.isDragging = false;
+    this.dragTarget = null;
+    this.canvas.style.cursor = this.hoveredTag ? "pointer" : "default";
+    this.stopAnimation();
+  }
+  handleMouseLeave() {
+    this.hoveredTag = null;
+    this.render();
+  }
+  handleClick(e) {
+    if (this.isDragging) {
+      this.isDragging = false;
+      return;
+    }
+    const rect = this.canvas.getBoundingClientRect();
+    const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+    const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
+    const tag = this.getTagAt(x, y);
+    if (tag) {
+      this.activeTag = tag;
+      if (this.config.onTagClick) {
+        this.config.onTagClick(tag);
+      }
+      this.render();
+    } else {
+      this.activeTag = null;
+      this.render();
+    }
+  }
+  handleContextMenu(e) {
+    e.preventDefault();
+    const rect = this.canvas.getBoundingClientRect();
+    const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+    const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
+    const tag = this.getTagAt(x, y);
+    if (tag) {
+      tag.textOrientation = tag.textOrientation === "horizontal" ? "vertical" : "horizontal";
+      this.render();
+      if (this.config.onTagTextOrientationChange) {
+        this.config.onTagTextOrientationChange(tag);
+      }
+    }
+  }
+  handleTouchStart(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = this.canvas.getBoundingClientRect();
+    const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+    const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+    this.mousePos.x = (touch.clientX - rect.left) * scaleX;
+    this.mousePos.y = (touch.clientY - rect.top) * scaleY;
+    if (this.config.enableDragging) {
+      this.dragTarget = this.getTagAt(this.mousePos.x, this.mousePos.y);
+      this.isDragging = !!this.dragTarget;
+      if (this.dragTarget) {
+        this.startAnimation();
+      }
+    }
+  }
+  handleTouchMove(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = this.canvas.getBoundingClientRect();
+    const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+    const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+    this.mousePos.x = (touch.clientX - rect.left) * scaleX;
+    this.mousePos.y = (touch.clientY - rect.top) * scaleY;
+    if (this.isDragging && this.dragTarget) {
+      const width = this.canvas.width / window.devicePixelRatio;
+      const height = this.canvas.height / window.devicePixelRatio;
+      this.dragTarget.x = this.mousePos.x;
+      this.dragTarget.y = this.mousePos.y;
+      this.dragTarget.xPercent = this.dragTarget.x / width * 100;
+      this.dragTarget.yPercent = this.dragTarget.y / height * 100;
+      if (this.config.onTagDrag) {
+        this.config.onTagDrag(this.dragTarget, this.dragTarget.xPercent, this.dragTarget.yPercent);
+      }
+    }
+  }
+  handleTouchEnd(e) {
+    if (!this.isDragging && e.changedTouches.length === 1) {
+      const touch = e.changedTouches[0];
+      const rect = this.canvas.getBoundingClientRect();
+      const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+      const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+      const x = (touch.clientX - rect.left) * scaleX;
+      const y = (touch.clientY - rect.top) * scaleY;
+      const tag = this.getTagAt(x, y);
+      if (tag) {
+        this.activeTag = tag;
+        if (this.config.onTagClick) {
+          this.config.onTagClick(tag);
+        }
+        this.render();
+      } else {
+        this.activeTag = null;
+        this.render();
+      }
+    } else if (e.changedTouches.length === 3) {
+      const touch = e.changedTouches[0];
+      const rect = this.canvas.getBoundingClientRect();
+      const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+      const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+      const x = (touch.clientX - rect.left) * scaleX;
+      const y = (touch.clientY - rect.top) * scaleY;
+      const tag = this.getTagAt(x, y);
+      if (tag) {
+        tag.textOrientation = tag.textOrientation === "horizontal" ? "vertical" : "horizontal";
+        this.render();
+        if (this.config.onTagTextOrientationChange) {
+          this.config.onTagTextOrientationChange(tag);
+        }
+      }
+    }
+    this.isDragging = false;
+    this.dragTarget = null;
+    this.stopAnimation();
+  }
+  getTagAt(x, y) {
+    for (const tag of this.tags) {
+      if (!tag.x || !tag.y) continue;
+      const rect = this.getTagButtonRect(tag);
+      const padding = 10;
+      if (x > rect.x - padding && x < rect.x + rect.width + padding && y > rect.y - padding && y < rect.y + rect.height + padding) {
+        return tag;
+      }
+    }
+    return null;
+  }
+  startAnimation() {
+    if (this.animationFrameId) return;
+    const animate = () => {
+      this.render();
+      this.animationFrameId = requestAnimationFrame(animate);
+    };
+    animate();
+  }
+  stopAnimation() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    }
+    this.render();
+  }
+  measureTextWidth(text, fontSize) {
+    this.ctx.font = `${fontSize}px Lora`;
+    return this.ctx.measureText(text).width;
+  }
+  blendColors(color1, color2, ratio) {
+    color1 = color1.replace("#", "");
+    color2 = color2.replace("#", "");
+    const r1 = parseInt(color1.slice(0, 2), 16);
+    const g1 = parseInt(color1.slice(2, 4), 16);
+    const b1 = parseInt(color1.slice(4, 6), 16);
+    const r2 = parseInt(color2.slice(0, 2), 16);
+    const g2 = parseInt(color2.slice(2, 4), 16);
+    const b2 = parseInt(color2.slice(4, 6), 16);
+    const r = Math.round(r1 * (1 - ratio) + r2 * ratio);
+    const g = Math.round(g1 * (1 - ratio) + g2 * ratio);
+    const b = Math.round(b1 * (1 - ratio) + b2 * ratio);
+    return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+  }
+  roundRect(ctx, x, y, width, height, radius) {
+    if (typeof radius === "number") {
+      radius = {
+        tl: radius,
+        tr: radius,
+        br: radius,
+        bl: radius
+      };
+    } else {
+      radius = {
+        ...{
+          tl: 0,
+          tr: 0,
+          br: 0,
+          bl: 0
+        },
+        ...radius
+      };
+    }
+    ctx.beginPath();
+    ctx.moveTo(x + radius.tl, y);
+    ctx.lineTo(x + width - radius.tr, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+    ctx.lineTo(x + width, y + height - radius.br);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height);
+    ctx.lineTo(x + radius.bl, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+    ctx.lineTo(x, y + radius.tl);
+    ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+    ctx.closePath();
+  }
+  render() {
+    const ctx = this.ctx;
+    const width = this.canvas.width / window.devicePixelRatio;
+    const height = this.canvas.height / window.devicePixelRatio;
+    ctx.clearRect(0, 0, width, height);
+    if (this.config.backgroundColor) {
+      ctx.fillStyle = "rgba(255,255,255,0)";
+      ctx.fillRect(0, 0, width, height);
+    }
+    this.connections.forEach(conn => {
+      this.drawConnection(conn);
+    });
+    this.tags.forEach(tag => {
+      this.drawTag(tag);
+    });
+  }
+  updateTag(id, updates) {
+    const tag = this.tags.find(t => t.id === id);
+    if (tag) {
+      Object.assign(tag, updates);
+      const width = this.canvas.width / window.devicePixelRatio;
+      const height = this.canvas.height / window.devicePixelRatio;
+      if (updates.x !== undefined) {
+        tag.xPercent = updates.x / width * 100;
+      }
+      if (updates.y !== undefined) {
+        tag.yPercent = updates.y / height * 100;
+      }
+      if (updates.xPercent !== undefined) {
+        tag.x = width * updates.xPercent / 100;
+      }
+      if (updates.yPercent !== undefined) {
+        tag.y = height * updates.yPercent / 100;
+      }
+      this.calculateLayout();
+      this.render();
+    }
+  }
+  setTagTextOrientation(id, orientation) {
+    const tag = this.tags.find(t => t.id === id);
+    if (tag && (orientation === "horizontal" || orientation === "vertical")) {
+      tag.textOrientation = orientation;
+      this.render();
+    }
+  }
+  setActiveTag(id) {
+    const tag = this.tags.find(t => t.id === id);
+    this.activeTag = tag || null;
+    this.render();
+  }
+  addTag(tag) {
+    if (!tag.textOrientation) {
+      tag.textOrientation = "horizontal";
+    }
+    if (!tag.fontSize) {
+      tag.fontSize = this.tagConfig.fontSize;
+    }
+    if (tag.borderRadius === undefined) {
+      tag.borderRadius = this.tagConfig.borderRadius;
+    }
+    const width = this.canvas.width / window.devicePixelRatio;
+    const height = this.canvas.height / window.devicePixelRatio;
+    if (tag.xPercent !== undefined && tag.yPercent !== undefined) {
+      tag.x = width * tag.xPercent / 100;
+      tag.y = height * tag.yPercent / 100;
+    }
+    this.tags.push(tag);
+    this.calculateLayout();
+    this.render();
+  }
+  removeTag(id) {
+    this.tags = this.tags.filter(t => t.id !== id);
+    this.connections = this.connections.filter(c => c.source !== id && c.target !== id);
+    if (this.activeTag && this.activeTag.id === id) {
+      this.activeTag = null;
+    }
+    this.calculateLayout();
+    this.render();
+  }
+  addConnection(conn) {
+    const existingConnections = this.connections.filter(c => c.source === conn.source && c.target === conn.target || c.source === conn.target && c.target === conn.source);
+    if (existingConnections.length === 0) {
+      this.connections.push({
+        source: conn.source,
+        target: conn.target,
+        curveIntensity: conn.curveIntensity || 0,
+        lineWidth: conn.lineWidth || this.connectionConfig.lineWidth,
+        connectFrom: conn.connectFrom || "auto",
+        connectTo: conn.connectTo || "auto",
+        shiftFrom: conn.shiftFrom || 0,
+        shiftTo: conn.shiftTo || 0
+      });
+      this.render();
+    }
+  }
+  removeConnection(sourceId, targetId) {
+    this.connections = this.connections.filter(c => !(c.source === sourceId && c.target === targetId || c.source === targetId && c.target === sourceId));
+    this.render();
+  }
+  setLayout(layout) {
+    this.config.layout = layout;
+    this.calculateLayout();
+    this.render();
+  }
+  setConfig(newConfig) {
+    this.config = {
+      ...this.config,
+      ...newConfig
+    };
+    this.calculateLayout();
+    this.render();
+  }
+  setTagConfig(newTagConfig) {
+    this.tagConfig = {
+      ...this.tagConfig,
+      ...newTagConfig
+    };
+    this.render();
+  }
+  setConnectionConfig(newConnectionConfig) {
+    this.connectionConfig = {
+      ...this.connectionConfig,
+      ...newConnectionConfig
+    };
+    this.render();
+  }
+  getTags() {
+    return this.tags.map(tag => ({
+      ...tag
+    }));
+  }
+  getConnections() {
+    return [...this.connections];
+  }
+  exportAsJSON() {
+    return {
+      tags: this.tags.map(tag => ({
+        id: tag.id,
+        name: tag.name,
+        color: tag.color,
+        textOrientation: tag.textOrientation,
+        fontSize: tag.fontSize,
+        borderRadius: tag.borderRadius,
+        xPercent: tag.xPercent,
+        yPercent: tag.yPercent
+      })),
+      connections: this.connections.map(conn => ({
+        source: conn.source,
+        target: conn.target,
+        curveIntensity: conn.curveIntensity,
+        lineWidth: conn.lineWidth,
+        connectFrom: conn.connectFrom,
+        connectTo: conn.connectTo,
+        shiftFrom: conn.shiftFrom,
+        shiftTo: conn.shiftTo
+      })),
+      config: {
+        layout: this.config.layout,
+        padding: this.config.padding
+      },
+      tagConfig: {
+        fontSize: this.tagConfig.fontSize,
+        borderRadius: this.tagConfig.borderRadius
+      },
+      connectionConfig: {
+        lineWidth: this.connectionConfig.lineWidth
+      }
+    };
+  }
+  importFromJSON(json) {
+    this.tags = json.tags || [];
+    this.connections = this.processConnections(json.connections || []);
+    this.config = {
+      ...this.config,
+      ...json.config
+    };
+    this.tagConfig = {
+      ...this.tagConfig,
+      ...json.tagConfig
+    };
+    this.connectionConfig = {
+      ...this.connectionConfig,
+      ...json.connectionConfig
+    };
+    const width = this.canvas.width / window.devicePixelRatio;
+    const height = this.canvas.height / window.devicePixelRatio;
+    this.tags.forEach(tag => {
+      if (tag.xPercent !== undefined && tag.yPercent !== undefined) {
+        tag.x = width * tag.xPercent / 100;
+        tag.y = height * tag.yPercent / 100;
+      }
+    });
+    this.activeTag = null;
+    this.calculateLayout();
+    this.render();
+  }
+  destroy() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+    this.canvas.remove();
+  }
+}
+
+/***/ },
+
+/***/ "./src/scripts/widgets/MethodologyTree/graphConfig.ts"
+/*!************************************************************!*\
+  !*** ./src/scripts/widgets/MethodologyTree/graphConfig.ts ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   initialConfig: () => (/* binding */ initialConfig),
+/* harmony export */   initialConnections: () => (/* binding */ initialConnections),
+/* harmony export */   initialTags: () => (/* binding */ initialTags)
+/* harmony export */ });
+const initialTags = [{
+  id: "Agency",
+  name: wp.i18n.__("Субъектность", 'childlab'),
+  color: "#90b636",
+  textOrientation: "horizontal",
+  fontSize: 20,
+  xPercent: 50.0,
+  yPercent: 4
+}, {
+  id: "Self_regulatory_abilities",
+  name: wp.i18n.__("Регуляторные \n способности", 'childlab'),
+  color: "#38d37c",
+  textOrientation: "horizontal",
+  fontSize: 16,
+  xPercent: 25,
+  yPercent: 18.0
+}, {
+  id: "Cognitive_abilities",
+  name: wp.i18n.__("Познавательные \n способности", 'childlab'),
+  color: "#dcc22d",
+  textOrientation: "horizontal",
+  fontSize: 16,
+  xPercent: 76,
+  yPercent: 18.0
+}, {
+  id: "Communicative_abilities",
+  name: wp.i18n.__("Коммуникативные \n способности", 'childlab'),
+  color: "#db508f",
+  textOrientation: "horizontal",
+  fontSize: 16,
+  xPercent: 50.0,
+  yPercent: 27.0
+}, {
+  id: "Planning",
+  name: wp.i18n.__("Планирование", 'childlab'),
+  color: "#64af38",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 12,
+  yPercent: 10
+}, {
+  id: "Imagination",
+  name: wp.i18n.__("Воображение", 'childlab'),
+  color: "#becc1c",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 88,
+  yPercent: 10
+}, {
+  id: "Dialectical_thinking",
+  name: wp.i18n.__("Диалектическое \n мышление", 'childlab'),
+  color: "#f3c932",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 87,
+  yPercent: 27
+}, {
+  id: "Anticipation",
+  name: wp.i18n.__("Предвосхищение", 'childlab'),
+  color: "#e99030",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 85,
+  yPercent: 35
+}, {
+  id: "argumentation",
+  name: wp.i18n.__("Аргументация", 'childlab'),
+  color: "#ea6695",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 76,
+  yPercent: 42
+}, {
+  id: "Decentration",
+  name: wp.i18n.__("Децентрация", 'childlab'),
+  color: "#D34FB5",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 50.0,
+  yPercent: 35
+}, {
+  id: "Volitional_control",
+  name: wp.i18n.__("Произвольность", 'childlab'),
+  color: "#49C64F",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 14,
+  yPercent: 25
+}, {
+  id: "moral_reasoning",
+  name: wp.i18n.__("Моральные суждения", 'childlab'),
+  color: "#B949D4",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 50.0,
+  yPercent: 48
+}, {
+  id: "reflection",
+  name: wp.i18n.__("Рефлексия", 'childlab'),
+  color: "#9AD04A",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 25,
+  yPercent: 42
+}, {
+  id: "construction",
+  name: wp.i18n.__("Конструирование", 'childlab'),
+  color: "#6E41D8",
+  textOrientation: "vertical",
+  fontSize: 13,
+  xPercent: 52,
+  yPercent: 67
+}, {
+  id: "shared_reading",
+  name: wp.i18n.__("Совместное чтение", 'childlab'),
+  color: "#4164D9",
+  textOrientation: "vertical",
+  fontSize: 13,
+  xPercent: 47,
+  yPercent: 71
+}, {
+  id: "storytelling",
+  name: wp.i18n.__("Сочинительство", 'childlab'),
+  color: "#50D4CB",
+  textOrientation: "vertical",
+  fontSize: 13,
+  xPercent: 42,
+  yPercent: 66
+}, {
+  id: "experimentation",
+  name: wp.i18n.__("Экспериментирование", 'childlab'),
+  color: "#42A0CC",
+  textOrientation: "vertical",
+  fontSize: 13,
+  xPercent: 57,
+  yPercent: 66
+}, {
+  id: "game",
+  name: wp.i18n.__("Игра", 'childlab'),
+  color: "#aA8740",
+  textOrientation: "horizontal",
+  fontSize: 32,
+  xPercent: 50.0,
+  yPercent: 87
+}, {
+  id: "attachment",
+  name: wp.i18n.__("Привязанность", 'childlab'),
+  color: "#8A6720",
+  textOrientation: "horizontal",
+  fontSize: 20,
+  xPercent: 50.0,
+  yPercent: 97
+}];
+const initialConnections = [{
+  source: "Agency",
+  target: "Self_regulatory_abilities",
+  curveIntensity: 0,
+  connectFrom: "bottom",
+  connectTo: "right",
+  lineWidth: 4
+}, {
+  source: "Agency",
+  target: "Cognitive_abilities",
+  curveIntensity: 0,
+  connectFrom: "bottom",
+  connectTo: "left",
+  lineWidth: 4
+}, {
+  source: "Self_regulatory_abilities",
+  target: "Cognitive_abilities",
+  curveIntensity: 0,
+  connectFrom: "right",
+  connectTo: "left",
+  lineWidth: 4
+}, {
+  source: "Self_regulatory_abilities",
+  target: "Communicative_abilities",
+  curveIntensity: 0,
+  connectFrom: "right",
+  connectTo: "top",
+  lineWidth: 4
+}, {
+  source: "Cognitive_abilities",
+  target: "Communicative_abilities",
+  curveIntensity: 0,
+  connectFrom: "left",
+  connectTo: "top",
+  lineWidth: 4
+}, {
+  source: "Agency",
+  target: "Communicative_abilities",
+  curveIntensity: 0,
+  connectFrom: "bottom",
+  connectTo: "top",
+  lineWidth: 4
+}, {
+  source: "Cognitive_abilities",
+  target: "Imagination",
+  curveIntensity: -0.4,
+  connectFrom: "top",
+  connectTo: "left",
+  lineWidth: 2
+}, {
+  source: "Planning",
+  target: "Self_regulatory_abilities",
+  curveIntensity: -0.4,
+  connectFrom: "right",
+  connectTo: "top",
+  lineWidth: 2
+}, {
+  source: "Dialectical_thinking",
+  target: "Cognitive_abilities",
+  curveIntensity: -0.3,
+  connectFrom: "left",
+  connectTo: "bottom",
+  shiftTo: -0.05,
+  lineWidth: 2
+}, {
+  source: "Anticipation",
+  target: "Cognitive_abilities",
+  curveIntensity: -0.2,
+  connectFrom: "top",
+  shiftFrom: -0.8,
+  connectTo: "bottom",
+  shiftTo: -0.2,
+  lineWidth: 2
+}, {
+  source: "argumentation",
+  target: "Cognitive_abilities",
+  curveIntensity: 0.05,
+  connectFrom: "top",
+  shiftFrom: -0.8,
+  connectTo: "bottom",
+  shiftTo: -0.3,
+  lineWidth: 2
+}, {
+  source: "Communicative_abilities",
+  target: "argumentation",
+  curveIntensity: 0.3,
+  connectFrom: "bottom",
+  shiftFrom: 0.9,
+  connectTo: "left",
+  lineWidth: 2
+}, {
+  source: "Communicative_abilities",
+  target: "Decentration",
+  curveIntensity: 0.2,
+  connectFrom: "bottom",
+  connectTo: "top",
+  lineWidth: 2
+}, {
+  source: "Self_regulatory_abilities",
+  target: "Volitional_control",
+  curveIntensity: -0.2,
+  connectFrom: "bottom",
+  shiftFrom: 0.2,
+  connectTo: "right",
+  lineWidth: 2
+}, {
+  source: "moral_reasoning",
+  target: "Cognitive_abilities",
+  curveIntensity: 0.2,
+  connectFrom: "top",
+  shiftFrom: 0.6,
+  connectTo: "bottom",
+  shiftTo: -0.5,
+  lineWidth: 2
+}, {
+  source: "reflection",
+  target: "Cognitive_abilities",
+  curveIntensity: 0.6,
+  connectFrom: "right",
+  connectTo: "bottom",
+  shiftTo: -0.7,
+  lineWidth: 2
+}, {
+  source: "reflection",
+  target: "Self_regulatory_abilities",
+  curveIntensity: 0.2,
+  connectFrom: "top",
+  connectTo: "bottom",
+  shiftTo: 0.5,
+  lineWidth: 2
+}, {
+  source: "construction",
+  target: "moral_reasoning",
+  curveIntensity: -0.2,
+  connectFrom: "top",
+  shiftFrom: 2,
+  connectTo: "bottom",
+  shiftTo: 0.45,
+  lineWidth: 2
+}, {
+  source: "experimentation",
+  target: "moral_reasoning",
+  curveIntensity: -0.1,
+  connectFrom: "top",
+  connectTo: "bottom",
+  shiftTo: 1,
+  lineWidth: 2
+}, {
+  source: "moral_reasoning",
+  target: "storytelling",
+  curveIntensity: 0.3,
+  connectFrom: "bottom",
+  shiftFrom: -1,
+  connectTo: "top",
+  lineWidth: 2
+}, {
+  source: "moral_reasoning",
+  target: "shared_reading",
+  curveIntensity: 0.1,
+  connectFrom: "bottom",
+  shiftFrom: -0.4,
+  connectTo: "top",
+  shiftTo: -2,
+  lineWidth: 2
+}, {
+  source: "construction",
+  target: "attachment",
+  curveIntensity: 0.05,
+  connectFrom: "bottom",
+  shiftFrom: 2,
+  connectTo: "top",
+  shiftTo: 0.2,
+  lineWidth: 2
+}, {
+  source: "experimentation",
+  target: "attachment",
+  curveIntensity: 0.05,
+  connectFrom: "bottom",
+  shiftFrom: 3,
+  connectTo: "top",
+  shiftTo: 0.7,
+  lineWidth: 2
+}, {
+  source: "storytelling",
+  target: "attachment",
+  curveIntensity: -0.1,
+  connectFrom: "bottom",
+  shiftFrom: -6,
+  connectTo: "top",
+  shiftTo: -0.7,
+  lineWidth: 2
+}, {
+  source: "shared_reading",
+  target: "attachment",
+  curveIntensity: -0.05,
+  connectFrom: "bottom",
+  shiftFrom: -3,
+  connectTo: "top",
+  shiftTo: -0.2,
+  lineWidth: 2
+}, {
+  source: "shared_reading",
+  target: "storytelling",
+  curveIntensity: 0.3,
+  connectFrom: "top",
+  shiftFrom: 2,
+  connectTo: "left",
+  shiftTo: -1.2,
+  lineWidth: 2
+}, {
+  source: "experimentation",
+  target: "construction",
+  curveIntensity: 0.4,
+  connectFrom: "right",
+  shiftFrom: -1.4,
+  connectTo: "right",
+  shiftTo: 1,
+  lineWidth: 2
+}];
+const initialConfig = {
+  curveIntensity: 0.5,
+  lineWidth: 3,
+  textOrientation: "horizontal"
+};
+
+/***/ },
+
 /***/ "./src/scripts/widgets/index.ts"
 /*!**************************************!*\
   !*** ./src/scripts/widgets/index.ts ***!
@@ -1045,10 +2540,13 @@ const Loader = ({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ArticlesListComponent: () => (/* reexport safe */ _ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_1__.ArticlesListComponent),
-/* harmony export */   FrontListComponent: () => (/* reexport safe */ _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__.FrontListComponent)
+/* harmony export */   FrontListComponent: () => (/* reexport safe */ _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__.FrontListComponent),
+/* harmony export */   MethodologyTreeComponent: () => (/* reexport safe */ _MethodologyTree_MethodologyTreeComponent__WEBPACK_IMPORTED_MODULE_2__.MethodologyTreeComponent)
 /* harmony export */ });
 /* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
 /* harmony import */ var _ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArticlesList/ArticlesList */ "./src/scripts/widgets/ArticlesList/ArticlesList.tsx");
+/* harmony import */ var _MethodologyTree_MethodologyTreeComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MethodologyTree/MethodologyTreeComponent */ "./src/scripts/widgets/MethodologyTree/MethodologyTreeComponent.tsx");
+
 
 
 
@@ -1209,6 +2707,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scripts_widgets__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./scripts/widgets */ "./src/scripts/widgets/index.ts");
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
 /* harmony import */ var _scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./scripts/entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
+/* harmony import */ var _scripts_entities_Articles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./scripts/entities/Articles */ "./src/scripts/entities/Articles.tsx");
 
 
 
@@ -1219,10 +2718,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const methodologyTagsMenu = react_dom_client__WEBPACK_IMPORTED_MODULE_7__.createRoot(document.querySelector("#methodology-tags-menu"));
-methodologyTagsMenu.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_8__.MethodologyTagsContextProvider, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_6__.FrontListComponent, null)));
-const articlesList = react_dom_client__WEBPACK_IMPORTED_MODULE_7__.createRoot(document.querySelector("#articles-list-component"));
-articlesList.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_8__.MethodologyTagsContextProvider, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_6__.ArticlesListComponent, null)));
+
+const renderComponent = (selector, render) => {
+  try {
+    const container = react_dom_client__WEBPACK_IMPORTED_MODULE_7__.createRoot(document.querySelector(selector));
+    container.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_8__.MethodologyTagsContextProvider, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_Articles__WEBPACK_IMPORTED_MODULE_9__.ArticlesContextProvider, null, render)));
+  } catch (e) {
+    console.error('ErrorRenderingReactComponent :: methodologyTagsMenu ', e);
+  }
+};
+renderComponent("#methodology-tags-menu", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_6__.FrontListComponent, null));
+renderComponent("#articles-list-component", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_6__.ArticlesListComponent, null));
+renderComponent("#methodology-tree-component", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_6__.MethodologyTreeComponent, null));
 })();
 
 /******/ })()
