@@ -19,6 +19,9 @@ $posts = get_posts(array(
         <?php $img_courses = empty(get_the_post_thumbnail_url()) ? $GLOBALS['default_projects_image'] : get_the_post_thumbnail_url(); ?>
         <div class="childlab-widget courses" style="background-image: url('<?php echo $img_courses ?>');">
             <h2 class="course-title" title="<?php the_title(); ?>"><?php the_title(); ?></h2>
+            <?php if (get_field('course_subtitle')): ?>
+                <div class="course-subtitle"><?php the_field('course_subtitle'); ?></div>
+            <?php endif; ?>
             <div class="course-description truncate-multiline"><?php the_field('course_description'); ?></div>
             <a class="course-link" href="<?php the_permalink(); ?>">
                 <div><?php esc_html_e("Подробнее", "childlab") ?></div> <img class="svg-icon"
