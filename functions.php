@@ -6,6 +6,7 @@ require_once get_template_directory() . '/inc/reading-mode-support.php';
 require_once get_template_directory() . '/inc/svg-pattern-generator/svg-pattern-support.php';
 require_once get_template_directory() . '/inc/mindmap/mindmap-support.php';
 require_once get_template_directory() . '/inc/acf/register-article-fields.php';
+require_once get_template_directory() . '/inc/acf/register-course-fields.php';
 
 
 function boilerplate_load_assets()
@@ -28,6 +29,7 @@ function boilerplate_load_assets()
   wp_enqueue_style('teamcss', get_theme_file_uri('/assets/styles/team.css'), array(), filemtime(filename: get_template_directory() . ('/assets/styles/team.css')));
   wp_enqueue_style('methodologytagscss', get_theme_file_uri('/assets/styles/methodology-tags.css'), array(), filemtime(get_template_directory() . ('/assets/styles/methodology-tags.css')));
   wp_enqueue_style('projectscss', get_theme_file_uri('/assets/styles/projects.css'), array(), filemtime(get_template_directory() . ('/assets/styles/projects.css')));
+  wp_enqueue_style('coursesinglecss', get_theme_file_uri('/assets/styles/course-single.css'), array(), filemtime(get_template_directory() . ('/assets/styles/course-single.css')));
 }
 
 add_action('wp_enqueue_scripts', 'boilerplate_load_assets');

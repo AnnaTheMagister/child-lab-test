@@ -1,4 +1,7 @@
 <?php
+
+// Helper functions for ACF fields and general functionality
+
 function get_theme_images_list()
 {
     $images = array();
@@ -29,41 +32,7 @@ function get_theme_images_list()
     return $images;
 }
 
-
-
-// Добавляем поддержку AJAX запросов для всех кастомных полей
-add_action('rest_api_init', function () {
-    // Включаем метаданные в REST API для всех кастомных типов постов и таксономий
-    register_rest_field('article', 'acf', array(
-        'get_callback' => function ($post) {
-            return get_fields($post['id']);
-        },
-        'schema' => null,
-    ));
-
-    register_rest_field('projects', 'acf', array(
-        'get_callback' => function ($post) {
-            return get_fields($post['id']);
-        },
-        'schema' => null,
-    ));
-
-    register_rest_field('article_author', 'acf', array(
-        'get_callback' => function ($term) {
-            return get_fields('article_author_' . $term['id']);
-        },
-        'schema' => null,
-    ));
-
-    register_rest_field('methodology_tag', 'acf', array(
-        'get_callback' => function ($term) {
-            return get_fields('methodology_tag_' . $term['id']);
-        },
-        'schema' => null,
-    ));
-});
-
-// AJAX обработчик для получения данных по таксономиям
+// AJAX handlers
 add_action('wp_ajax_get_methodology_tags', 'ajax_get_methodology_tags');
 add_action('wp_ajax_nopriv_get_methodology_tags', 'ajax_get_methodology_tags');
 
@@ -132,4 +101,34 @@ function ajax_get_article_authors()
     wp_die();
 }
 
-?>
+// REST API support for custom fields (moved here to keep it clean)
+add_action('rest_api_init', function () {
+    // Включаем метаданные в REST API для всех кастомных типов постов и таксономий
+    register_rest_field('article', 'acf', array(
+        'get_callback' => function ($post) {
+            return get_fields($post['id']);
+        },
+        'schema' => null,
+    ));
+
+    register_rest_field('projects', 'acf', array(
+        'get_callback' => function ($post) {
+            return get_fields($post['id']);
+        },
+        'schema' => null,
+    ));
+
+    register_rest_field('article_author', 'acf', array(
+        'get_callback' => function ($term) {
+            return get_fields('article_author_' . $term['id']);
+        },
+        'schema' => null,
+    ));
+
+    register_rest_field('methodology_tag', 'acf', array(
+        'get_callback' => function ($term) {
+            return get_fields('methodology_tag_' . $term['id']);
+        },
+        'schema' => null,
+    ));
+});
