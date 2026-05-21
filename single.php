@@ -23,6 +23,8 @@ function get_back_link()
     $link = '<a class="nav-link-prev" href=' . get_site_url() . '>' . esc_html__('На главную', 'childlab') . '</a>';
     if ($post_type === 'projects') {
         $link = '<a class="nav-link-prev" href=' . get_site_url() . '/projects' . '>' . esc_html__('К проектам', 'childlab') . '</a>';
+    } elseif ($post_type === 'courses') {
+        $link = '<a class="nav-link-prev" href=' . get_site_url() . '/courses' . '>' . esc_html__('К курсам', 'childlab') . '</a>';
     }
     return '<div class="col-lg-3 order-lg-1 order-md-1 col-md-6 col-xs-6 pr-4">' . $link . '</div>';
 }
