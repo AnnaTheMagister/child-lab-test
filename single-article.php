@@ -1,7 +1,8 @@
 <?php
 /**
- * Template Name: Статья
- * Template Post Type: article
+ * Single article template.
+ *
+ * @package childlab
  */
 
 get_header();

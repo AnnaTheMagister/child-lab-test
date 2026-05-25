@@ -1,7 +1,6 @@
 <?php
 /**
  * Template Name: Страница команды
- * Template Post Type: team
  */
 
 get_header();

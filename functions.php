@@ -32,6 +32,7 @@ require_once get_template_directory() . '/inc/acf/register-taxonomies.php';
 require_once get_template_directory() . '/inc/acf/register-term-sorting.php';
 require_once get_template_directory() . '/inc/acf/register-acf-fields.php';
 require_once get_template_directory() . '/inc/acf/helpers.php';
+require_once get_template_directory() . '/inc/lib/addColors.php';
 
 // ==============================================
 // 5. Data Helpers (pure functions, depend on CPTs being registered)
@@ -59,6 +60,40 @@ function childlab_add_support() {
 	add_theme_support( 'custom-logo' );
 }
 add_action( 'after_setup_theme', 'childlab_add_support' );
+
+/**
+ * Auto-create required pages if they don't exist.
+ * Runs on theme activation and admin init for fresh installs.
+ */
+function childlab_ensure_required_pages() {
+	$pages = array(
+		'courses'  => __( 'Курсы', 'childlab' ),
+		'articles' => __( 'Статьи', 'childlab' ),
+		'projects' => __( 'Проекты', 'childlab' ),
+		'authors'  => __( 'Авторы', 'childlab' ),
+	);
+
+	foreach ( $pages as $slug => $title ) {
+		$existing = get_posts( array(
+			'name'           => $slug,
+			'post_type'      => 'page',
+			'post_status'    => 'publish',
+			'posts_per_page' => 1,
+		) );
+
+		if ( empty( $existing ) ) {
+			wp_insert_post( array(
+				'post_title'   => $title,
+				'post_name'    => $slug,
+				'post_status'  => 'publish',
+				'post_type'    => 'page',
+				'post_content' => '',
+			) );
+		}
+	}
+}
+add_action( 'after_switch_theme', 'childlab_ensure_required_pages' );
+add_action( 'admin_init', 'childlab_ensure_required_pages' );
 
 /**
  * Load text domain for translations.

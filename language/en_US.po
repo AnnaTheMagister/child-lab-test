@@ -46,12 +46,36 @@ msgid "Страница команды"
 msgstr ""
 
 #. Template Name of the theme
+msgid "Страница статей"
+msgstr "Articles Page"
+
+#. Template Name of the theme
+msgid "Страница авторов"
+msgstr "Authors Page"
+
+#. Template Name of the theme
 msgid "Статья"
 msgstr "Article"
 
 #. Template Name of the theme
 msgid "запись"
 msgstr "post"
+
+#: functions.php:72
+msgid "Курсы"
+msgstr "Courses"
+
+#: functions.php:73
+msgid "Статьи"
+msgstr "Articles"
+
+#: functions.php:74
+msgid "Проекты"
+msgstr "Projects"
+
+#: functions.php:75
+msgid "Авторы"
+msgstr "Authors"
 
 #: single.php:23
 msgid "На главную"
@@ -130,5 +154,15 @@ msgid "Наша методология «дерева» отражает то, �
 msgstr "Our “tree” methodology reflects the idea that abilities do not emerge on their own — they grow out of relationships and a child’s active engagement in meaningful activities."
 
 #: template-parts/projects/projects-list.php:24
+#: src/scripts/widgets/CoursesList/CoursesList.tsx
 msgid "Подробнее"
 msgstr "Learn more"
+
+#: build/index.js:438
+#: src/scripts/widgets/CoursesList/CoursesList.tsx
+msgid "Все"
+msgstr "All"
+
+#: src/scripts/widgets/CoursesList/CoursesList.tsx
+msgid "Нет курсов по этой теме"
+msgstr "No courses on this topic"

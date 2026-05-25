@@ -4,7 +4,7 @@
 
 > Testing guide for the PHP/WordPress + React/TypeScript codebase.
 
-**Current status**: No test infrastructure is set up yet. These standards define what to add when testing is introduced.
+**Current status**: Jest + React Testing Library is set up for JavaScript/TypeScript tests. PHP tests (PHPUnit) are not yet configured — HTML/PHP templates are tested manually.
 
 ## Quick Reference
 
@@ -111,11 +111,42 @@ class ArticleDataTest extends TestCase {
 
 ---
 
-## Part 2: JavaScript / React Testing (Future — Jest + @testing-library/react)
+## Part 2: JavaScript / React Testing (Jest + @testing-library/react)
+
+### Setup
+
+**Jest** comes with `@wordpress/scripts`. Configuration:
+
+| File | Purpose |
+|------|---------|
+| `jest-unit.config.js` | Extends `@wordpress/scripts` default, adds `tests/setup.js` |
+| `tests/setup.js` | Global mocks: `window.wp.i18n.__`, `themeData`, `global.fetch` |
+
+**Commands**:
+
+| Command | Description |
+|---------|-------------|
+| `npm test` | Run all tests with `--passWithNoTests` |
+| `npm run test:watch` | Watch mode |
+| `npm run test:coverage` | With coverage report |
+
+### CI/CD (GitHub Actions)
+
+Tests run automatically in CI on every push and PR. Three workflows:
+
+| Workflow | Triggers | What it does |
+|----------|----------|-------------|
+| `.github/workflows/ci.yml` | Push (any branch), PR to `main` | Calls reusable `test.yml` |
+| `.github/workflows/deploy.yml` | Push to `main` or `dev` | Calls `test.yml` first; FTP deploy only if tests pass |
+| `.github/workflows/test.yml` | `workflow_call` (reusable) | `npm ci` → `npm run build` → `npm test` |
+
+The `test` job is defined once in `test.yml` and reused by both `ci.yml` and `deploy.yml` via `uses: ./.github/workflows/test.yml`.
+
+**Blocking merges**: Configure branch protection on `main` in GitHub Settings → Branches → require `🔄 CI / test` to pass.
 
 ### Framework Recommendation
 
-- **Jest** (comes with `@wordpress/scripts` — just add `jest` config)
+- **Jest** (via `@wordpress/scripts`)
 - **@testing-library/react** for component testing
 - **@testing-library/jest-dom** for DOM assertions
 
@@ -206,6 +237,14 @@ test('provides articles after fetch', async () => {
 });
 ```
 
+### Existing Tests
+
+| Test File | Tests | What It Covers |
+|-----------|-------|-----------------|
+| `tests/entities/Courses.test.tsx` | 3 | `CoursesContextProvider` — loading state, fetch success (3 separate calls), URL correctness |
+| `tests/widgets/CoursesList.test.tsx` | 11 | `CoursesListComponent` — filter buttons, URL sync, card rendering, loading/empty states, active class |
+| `tests/widgets/ErrorBoundary.test.tsx` | 3 | `ErrorBoundary` — normal render, error catch, console.error call |
+
 ### What to Test (JS/React)
 
 | Type | Example | Test For |
@@ -213,7 +252,7 @@ test('provides articles after fetch', async () => {
 | **Pure helpers** | `getSortedTags`, `filterTagsBySearch`, `distributeTags` | Correct output for various inputs |
 | **Hooks** | `useCurrentSearch` | Returns correct params from URL |
 | **Context Providers** | `ArticlesContextProvider`, `MethodologyTagsContextProvider` | Provides correct default + fetched state |
-| **Components** | `FrontListComponent`, `ArticlesListComponent` | Loading, empty, error, data states |
+| **Components** | `CoursesListComponent`, `FrontListComponent`, `ArticlesListComponent` | Loading, empty, error, data states |
 | **Edge cases** | Empty arrays, null values, missing ACF fields | Graceful handling |
 
 ### What NOT to Test (JS/React)
@@ -276,15 +315,17 @@ test('test articles', () => {});
 ✅ Run tests frequently (`npm test`)
 ✅ Fix failing tests immediately — never ignore them
 
-## Adding Tests to This Project
+## Adding Tests
 
-When you're ready to add tests:
+### JavaScript/React (active)
 
-1. **Install PHPUnit**: `composer require --dev phpunit/phpunit yoast/phpunit-polyfills`
-2. **Install JS testing**: Already available via `@wordpress/scripts`, add config in `package.json`
-3. **Create directories**: `tests/php/`, `tests/js/` mirroring source structure
-4. **Start with pure functions** (highest value, easiest setup)
-5. **Add context provider tests** (mock fetch, verify state)
-6. **Add component tests** (render with mocked context)
+1. Add test file in `tests/` mirroring the source path: `src/scripts/widgets/Foo.tsx` → `tests/widgets/Foo.test.tsx`
+2. Import the component/function, mock its dependencies (context, fetch), render with `@testing-library/react`
+3. Run `npm test` to verify
+
+### PHP (not yet configured)
+
+1. Install PHPUnit: `composer require --dev phpunit/phpunit yoast/phpunit-polyfills`
+2. Add `phpunit.xml` and create `tests/php/` mirroring `src/` or `inc/`
 
 **Golden Rule**: If you can't test it easily, refactor it.

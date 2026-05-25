@@ -24,8 +24,9 @@
 |------|--------|----------|------------|
 | Dual ACF registration pattern | Code duplication; risk of drift between `field-groups/*.php` and combined files | Medium | Decide on single pattern once refactoring stabilizes |
 | Large combined ACF/CPT file | `register-article-fields.php` is 627 lines mixing CPT, taxonomy, and field registrations | Medium | Continue migration to `field-groups/` directory |
-| No automated tests | No test infrastructure for PHP or JS | Low | Add PHPUnit and Jest when feature set stabilizes |
+| No PHP tests | PHPUnit not configured | Low | Add PHPUnit when PHP feature set stabilizes |
 | Hardcoded REST URLs | `BASE_URL` in `consts.ts` points to `localhost/childlab.local` | Low | Environment-aware configuration |
+| Legacy folder structure | 5 компонентов не соответствуют новому стандарту (папка + test + index.ts) | Medium | Привести к единому шаблону |
 
 ### Technical Debt Details
 
@@ -45,6 +46,24 @@
 *Effort*: Medium
 *Status*: In Progress
 
+**Legacy Folder Structure**
+*Priority*: Medium
+*Impact*: Inconsistent structure; harder to find tests; risk of importing from the wrong path
+*Root Cause*: Gradual adoption of the folder-per-component pattern; not all files migrated yet
+*Proposed Solution*: Refactor the remaining components to the standard pattern (папка + test + index.ts):
+
+| Файл | Что нужно сделать |
+|------|-------------------|
+| `src/scripts/entities/Articles.tsx` | Создать `Articles/` папку, перенести файл, добавить `index.ts` |
+| `src/scripts/entities/MethodologyTags.tsx` | Создать `MethodologyTags/` папку, перенести файл, добавить `index.ts` |
+| `src/scripts/widgets/ArticlesList/ArticlesList.tsx` | Добавить `index.ts`, добавить тест |
+| `src/scripts/widgets/FrontListComponent/` | Добавить `index.ts`, добавить тесты |
+| `src/scripts/widgets/MethodologyTree/` | Добавить `index.ts`, добавить тесты |
+| `src/scripts/widgets/Loader/` | Добавить `index.ts`, добавить тест |
+
+*Effort*: Low per file, Medium overall
+*Status*: Todo
+
 ## Open Questions
 
 | Question | Stakeholders | Status | Next Action |
@@ -63,14 +82,15 @@
 
 ### What Works Well
 - **Context Provider + REST fetch pattern** (`Articles.tsx`, `MethodologyTags.tsx`): Fetch all data on mount, filter client-side. Simple, fast UX, minimal backend load.
-- **Component folder organization** (`widgets/FrontListComponent/`, `widgets/MethodologyTree/`): Each widget self-contained with sub-components and logic files.
+- **Folder-per-component pattern**: Each component/hook/context in its own folder with co-located test and `index.ts` barrel. See `entities/Courses/`, `shared/hooks/useCurrentSearch/`, `widgets/CoursesList/` for reference.
 - **Reading mode system**: Session-based persistence with clean URL switching. Simple, effective, no login required.
 - **ACF `show_in_rest` on individual fields**: Granular control over REST API exposure without custom endpoints.
 
 ### What Could Be Better
 - **ACF field organization**: Currently split between `register-*.php` and `field-groups/`. Standardize to single pattern.
 - **No PHP autoloading**: All `inc/` files manually required in `functions.php`. PSR-4 autoloading would simplify.
-- **Testing gap**: No test infrastructure makes refactoring risky.
+- **Testing gap (PHP)**: No PHPUnit setup — PHP/WordPress changes require manual verification.
+- **Testing done (JS)**: Jest + RTL set up — see `tests/entities/Courses.test.tsx`, `tests/widgets/CoursesList.test.tsx`, `tests/widgets/ErrorBoundary.test.tsx` as patterns.
 
 ### Lessons Learned
 - ACF field registration timing matters: `acf/include_fields` vs direct `acf_add_local_field_group()` at plugin load. Both needed for reliability in different contexts.

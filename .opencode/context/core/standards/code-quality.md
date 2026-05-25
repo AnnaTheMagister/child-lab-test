@@ -163,15 +163,41 @@ require_once get_template_directory() . '/inc/reading-mode-support.php';
 
 ## Part 2: React / TypeScript Standards
 
-### Component Architecture — Widget Pattern
+### Component Architecture — Folder Pattern
+
+Every React-компонент, хук, или контекст лежит в отдельной папке. Рядом с ним — тест. Папка экспортируется через `index.ts`.
 
 ```
-src/scripts/widgets/WidgetName/
-├── WidgetName.tsx          # Main component (PascalCase file + component)
-├── SubComponent.tsx        # Supporting components
-├── helperFunction.ts       # Pure logic functions (camelCase)
-└── (tests/)                # Tests when added
+src/
+├── entities/EntityName/
+│   ├── EntityComponent.tsx       # Основной модуль (PascalCase)
+│   ├── EntityComponent.test.tsx  # Тест — рядом, не в tests/
+│   └── index.ts                  # Баррель: export * from './EntityComponent'
+│
+├── shared/hooks/useFoo/
+│   ├── useFoo.ts
+│   ├── useFoo.test.tsx
+│   └── index.ts
+│
+└── widgets/WidgetName/
+    ├── WidgetName.tsx
+    ├── WidgetName.test.tsx
+    ├── SubComponent.tsx          # Вложенные компоненты (если есть)
+    ├── helpers.ts                # Утилиты (camelCase)
+    └── index.ts
 ```
+
+**Правила**:
+1. Один компонент/хук/контекст = одна папка
+2. Тест лежит внутри папки рядом с модулем (`Component.test.tsx`)
+3. `index.ts` — баррель: `export * from './Component'` или `export { default } from './Component'`
+4. Импорт через папку: `import { Foo } from '../entities/Foo'`, НЕ через файл: `import { Foo } from '../entities/Foo/Foo'`
+5. Публичное API папки определяется в `index.ts` — можно скрывать внутренние модули (SubComponent, helpers), не экспортируя их
+
+**Исключения**:
+- `widgets/index.ts` — агрегирует экспорты всех виджетов (остаётся)
+- `shared/hooks/index.ts` — агрегирует все хуки
+- `styles/`, `entities/` без подпапки — файлы конфигурации, глобальные стили, legacy
 
 ### Context Provider Pattern
 
@@ -291,6 +317,24 @@ export const MyComponent: React.FC<ComponentProps> = ({ items, onSelect, loading
 | Hooks | `useCamelCase` | `useCurrentSearch`, `useArticles` |
 | Types/Interfaces | `PascalCase` | `MethodologyTag`, `Article` |
 | Constants | `UPPER_SNAKE` | `BASE_URL`, `MEDIA_URL` |
+| Module folders | `PascalCase` | `CoursesList/`, `ArticlesList/` |
+| Barrel files | `index.ts` | `export * from './Component'` |
+
+### Import Path Rules
+
+```tsx
+// ✅ Barrel import — чистый, скрывает внутреннюю структуру
+import { CoursesListComponent } from "../widgets/CoursesList";
+import { useCurrentSearch } from "../shared/hooks";
+
+// ❌ Путь до файла — хрупкий, требует знать структуру внутри папки
+import { CoursesListComponent } from "../widgets/CoursesList/CoursesList";
+
+// ❌ Путь до теста — тесты никогда не импортируются извне папки
+import { something } from "../widgets/Foo/Foo.test";
+```
+
+**Исключение**: `index.js` (точка входа webpack) и `widgets/index.ts` (агрегатор) могут импортировать напрямую из файлов — это корневые сборщики.
 
 ---
 

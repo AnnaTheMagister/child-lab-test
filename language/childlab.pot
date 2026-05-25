@@ -47,11 +47,35 @@ msgid "Страница команды"
 msgstr ""
 
 #. Template Name of the theme
+msgid "Страница статей"
+msgstr ""
+
+#. Template Name of the theme
+msgid "Страница авторов"
+msgstr ""
+
+#. Template Name of the theme
 msgid "Статья"
 msgstr ""
 
 #. Template Name of the theme
 msgid "запись"
+msgstr ""
+
+#: functions.php:72
+msgid "Курсы"
+msgstr ""
+
+#: functions.php:73
+msgid "Статьи"
+msgstr ""
+
+#: functions.php:74
+msgid "Проекты"
+msgstr ""
+
+#: functions.php:75
+msgid "Авторы"
 msgstr ""
 
 #: single.php:23
@@ -131,11 +155,17 @@ msgid "Наша методология «дерева» отражает то, �
 msgstr ""
 
 #: template-parts/projects/projects-list.php:24
+#: src/scripts/widgets/CoursesList/CoursesList.tsx
 msgid "Подробнее"
 msgstr ""
 
 #: build/index.js:438
+#: src/scripts/widgets/CoursesList/CoursesList.tsx
 msgid "Все"
+msgstr ""
+
+#: src/scripts/widgets/CoursesList/CoursesList.tsx
+msgid "Нет курсов по этой теме"
 msgstr ""
 
 #: inc/mindmap/scripts.js:6

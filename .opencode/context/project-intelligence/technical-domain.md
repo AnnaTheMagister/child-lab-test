@@ -209,6 +209,7 @@ See `decisions-log.md` for full decision history with alternatives.
 | WordPress version compatibility | Platform | Must maintain compatibility with WP REST API standards |
 | Session-based state | Technical choice (reading mode) | Requires session_start(); potential scaling consideration |
 | Russian content primary | Business (target audience) | i18n via text domain `childlab`; English as secondary language |
+| WordPress Multisite | Deployment (separate domains per language) | Theme is per-site active; each site has independent pages/CPTs; shared ACF config |
 
 ## Development Environment
 
@@ -226,11 +227,28 @@ Testing: Not yet configured
 ## Deployment
 
 ```
-Environment: Production (WordPress)
+Environment: Production — WordPress Multisite
+Architecture: Separate sites per language within a single WP network
+  ├── Russian site:    childlab.ru       (locale: ru_RU)
+  ├── English site:    childlab.co.uk    (locale: en_US)
+  └── ...
 Platform: Standard WordPress host with PHP 8+
 CI/CD: Not configured (git-based manual/auto-deploy)
 Monitoring: Not configured
 ```
+
+### Multisite Implications
+
+| Area | How It Works |
+|------|-------------|
+| Theme activation | The theme is activated per-site, not network-wide. Each language site has its own active theme. |
+| Pages & content | Each site has its own pages, posts, CPTs. Page slugs can differ per site. |
+| Domain mapping | Each site in the network maps to its own domain (e.g., `childlab.ru` → site ID 1, `childlab.co.uk` → site ID 2). |
+| Media library | Per-site media libraries (default WP behavior). |
+| Users | Can be shared across the network or per-site. |
+| ACF field groups | Shared across sites (defined in theme files, so same fields everywhere). |
+| `.po`/`.mo` files | Same files loaded on both sites — locale determines which translation is used. |
+| `switch_to_blog()` | Not used currently — each site is fully independent with its own content. |
 
 ## Onboarding Checklist
 
@@ -244,6 +262,7 @@ Monitoring: Not configured
 - [ ] Understand the Context Provider pattern for state management
 - [ ] Know the ACF field registration approach (acf_add_local_field_group)
 - [ ] Understand the i18n setup (text domain `childlab`, language/ directory)
+- [ ] Know production is WordPress Multisite (separate sites per language on separate domains)
 
 ## Related Files
 

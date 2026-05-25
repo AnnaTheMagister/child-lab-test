@@ -118,6 +118,13 @@ add_action('rest_api_init', function () {
         'schema' => null,
     ));
 
+    register_rest_field('courses', 'acf', array(
+        'get_callback' => function ($post) {
+            return get_fields($post['id']);
+        },
+        'schema' => null,
+    ));
+
     register_rest_field('article_author', 'acf', array(
         'get_callback' => function ($term) {
             return get_fields('article_author_' . $term['id']);

@@ -350,7 +350,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/consts */ "./src/scripts/shared/consts.ts");
-/* harmony import */ var _shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/useCurrentSearch */ "./src/scripts/shared/useCurrentSearch.ts");
+/* harmony import */ var _shared_hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/hooks */ "./src/scripts/shared/hooks/index.ts");
 
 
 
@@ -370,7 +370,7 @@ const ArticlesContextProvider = ({
   const {
     currentTaxonomy,
     currentTag
-  } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__.useCurrentSearch)();
+  } = (0,_shared_hooks__WEBPACK_IMPORTED_MODULE_2__.useCurrentSearch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/articles?per_page=100&_embed").then(response => response.json()).then(data => {
       setArticles(data);
@@ -400,6 +400,94 @@ const ArticlesContextProvider = ({
   }, children);
 };
 const useArticles = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(ArticlesContext);
+
+/***/ },
+
+/***/ "./src/scripts/entities/Courses/CoursesContext.tsx"
+/*!*********************************************************!*\
+  !*** ./src/scripts/entities/Courses/CoursesContext.tsx ***!
+  \*********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CoursesContext: () => (/* binding */ CoursesContext),
+/* harmony export */   CoursesContextProvider: () => (/* binding */ CoursesContextProvider),
+/* harmony export */   useCourses: () => (/* binding */ useCourses)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/consts */ "./src/scripts/shared/consts.ts");
+
+
+
+const CoursesContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  courses: [],
+  coursesLoading: true,
+  audienceTerms: [],
+  audienceTermsLoading: true,
+  courseTypeTerms: [],
+  courseTypeTermsLoading: true
+});
+const CoursesContextProvider = ({
+  children
+}) => {
+  const [courses, setCourses] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [coursesLoading, setCoursesLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [audienceTerms, setAudienceTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [audienceTermsLoading, setAudienceTermsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [courseTypeTerms, setCourseTypeTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [courseTypeTermsLoading, setCourseTypeTermsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/courses?per_page=100&_embed").then(response => response.json()).then(data => {
+      setCourses(data);
+      setCoursesLoading(false);
+    });
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/course-audience").then(response => response.json()).then(data => {
+      setAudienceTerms(data);
+      setAudienceTermsLoading(false);
+    });
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/course-type").then(response => response.json()).then(data => {
+      setCourseTypeTerms(data);
+      setCourseTypeTermsLoading(false);
+    });
+  }, []);
+  const context = {
+    courses,
+    coursesLoading,
+    audienceTerms,
+    audienceTermsLoading,
+    courseTypeTerms,
+    courseTypeTermsLoading
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CoursesContext.Provider, {
+    value: context
+  }, children);
+};
+const useCourses = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(CoursesContext);
+
+/***/ },
+
+/***/ "./src/scripts/entities/Courses/index.ts"
+/*!***********************************************!*\
+  !*** ./src/scripts/entities/Courses/index.ts ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CoursesContext: () => (/* reexport safe */ _CoursesContext__WEBPACK_IMPORTED_MODULE_0__.CoursesContext),
+/* harmony export */   CoursesContextProvider: () => (/* reexport safe */ _CoursesContext__WEBPACK_IMPORTED_MODULE_0__.CoursesContextProvider),
+/* harmony export */   useCourses: () => (/* reexport safe */ _CoursesContext__WEBPACK_IMPORTED_MODULE_0__.useCourses)
+/* harmony export */ });
+/* harmony import */ var _CoursesContext__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CoursesContext */ "./src/scripts/entities/Courses/CoursesContext.tsx");
+
 
 /***/ },
 
@@ -531,6 +619,85 @@ const DEFAULT_IMAGE_URL = themeData.templateUrl + "/assets/images/post-bg.jpg";
 
 /***/ },
 
+/***/ "./src/scripts/shared/hooks/index.ts"
+/*!*******************************************!*\
+  !*** ./src/scripts/shared/hooks/index.ts ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useCurrentSearch: () => (/* reexport safe */ _useCurrentSearch_useCurrentSearch__WEBPACK_IMPORTED_MODULE_0__.useCurrentSearch)
+/* harmony export */ });
+/* harmony import */ var _useCurrentSearch_useCurrentSearch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useCurrentSearch/useCurrentSearch */ "./src/scripts/shared/hooks/useCurrentSearch/useCurrentSearch.ts");
+
+
+/***/ },
+
+/***/ "./src/scripts/shared/hooks/useCurrentSearch/useCurrentSearch.ts"
+/*!***********************************************************************!*\
+  !*** ./src/scripts/shared/hooks/useCurrentSearch/useCurrentSearch.ts ***!
+  \***********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useCurrentSearch: () => (/* binding */ useCurrentSearch)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * Хук для чтения параметров URL (search string).
+ *
+ * Используется вместо прямого `URLSearchParams`, чтобы компонент
+ * перерендеривался при изменении URL (popstate / pushstate).
+ *
+ * @example
+ * const { currentTaxonomy, currentTag, getParam } = useCurrentSearch();
+ * const audience = getParam('audience'); // 'parents' | null
+ *
+ * // Backward-compatible для ?methodology=<id>
+ * // currentTaxonomy → 'methodology' | null
+ * // currentTag      → '<id>' | null
+ */
+const useCurrentSearch = () => {
+  const [searchParams, setSearchParams] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => new URLSearchParams(window.location.search));
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    // Обновляем состояние при навигации (браузерные кнопки Назад/Вперёд)
+    // или при программном pushState (с последующим dispatch pushstate).
+    const handleChange = () => {
+      setSearchParams(new URLSearchParams(window.location.search));
+    };
+    window.addEventListener("popstate", handleChange);
+    window.addEventListener("pushstate", handleChange);
+    return () => {
+      window.removeEventListener("popstate", handleChange);
+      window.removeEventListener("pushstate", handleChange);
+    };
+  }, []);
+
+  // Для обратной совместимости: ?methodology=<id>
+  const currentTaxonomy = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => searchParams.get("methodology") ? "methodology" : null, [searchParams]);
+  const currentTag = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    var _searchParams$get;
+    return (_searchParams$get = searchParams.get("methodology")) !== null && _searchParams$get !== void 0 ? _searchParams$get : null;
+  }, [searchParams]);
+
+  // Утилита для чтения любого именованного параметра
+  const getParam = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(name => searchParams.get(name), [searchParams]);
+  return {
+    currentTaxonomy,
+    currentTag,
+    getParam
+  };
+};
+
+/***/ },
+
 /***/ "./src/scripts/shared/switcher.js"
 /*!****************************************!*\
   !*** ./src/scripts/shared/switcher.js ***!
@@ -607,45 +774,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
-
-/***/ },
-
-/***/ "./src/scripts/shared/useCurrentSearch.ts"
-/*!************************************************!*\
-  !*** ./src/scripts/shared/useCurrentSearch.ts ***!
-  \************************************************/
-(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getSearchParams: () => (/* binding */ getSearchParams),
-/* harmony export */   useCurrentSearch: () => (/* binding */ useCurrentSearch)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
-const getSearchParams = () => {
-  let searchParams = new URLSearchParams(window.location.search);
-  return [...searchParams.entries()];
-};
-const useCurrentSearch = () => {
-  const [currentSearch, setCurrentSearch] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getSearchParams());
-  const currentTaxonomy = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => currentSearch?.[0]?.[0] === "methodology" ? "methodology" : null, [currentSearch]);
-  const currentTag = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    var _currentSearch$0$;
-    return (_currentSearch$0$ = currentSearch?.[0]?.[1]) !== null && _currentSearch$0$ !== void 0 ? _currentSearch$0$ : null;
-  }, [currentSearch]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    window.addEventListener("pushstate", () => {
-      setCurrentSearch(getSearchParams);
-    });
-  }, []);
-  return {
-    currentTaxonomy,
-    currentTag
-  };
-};
 
 /***/ },
 
@@ -833,6 +961,204 @@ const ArticleTagsComponent = article => {
 
 /***/ },
 
+/***/ "./src/scripts/widgets/CoursesList/CoursesList.tsx"
+/*!*********************************************************!*\
+  !*** ./src/scripts/widgets/CoursesList/CoursesList.tsx ***!
+  \*********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CoursesListComponent: () => (/* binding */ CoursesListComponent)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/consts */ "./src/scripts/shared/consts.ts");
+/* harmony import */ var _entities_Courses__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../entities/Courses */ "./src/scripts/entities/Courses/index.ts");
+/* harmony import */ var _Loader_Loader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Loader/Loader */ "./src/scripts/widgets/Loader/Loader.tsx");
+/* harmony import */ var _shared_hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/hooks */ "./src/scripts/shared/hooks/index.ts");
+
+
+
+
+
+
+const AUDIENCE_PARAM = "audience";
+const CoursesListComponent = () => {
+  const {
+    courses,
+    coursesLoading,
+    audienceTerms,
+    courseTypeTerms,
+    audienceTermsLoading,
+    courseTypeTermsLoading
+  } = (0,_entities_Courses__WEBPACK_IMPORTED_MODULE_2__.useCourses)();
+
+  // Читаем параметр ?audience= из URL через общий хук
+  const {
+    getParam
+  } = (0,_shared_hooks__WEBPACK_IMPORTED_MODULE_4__.useCurrentSearch)();
+  const [selectedAudience, setSelectedAudience] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => getParam(AUDIENCE_PARAM));
+
+  // Синхронизируем локальное состояние с URL (popstate / внешние изменения)
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    setSelectedAudience(getParam(AUDIENCE_PARAM));
+  }, [getParam]);
+  const filteredCourses = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!selectedAudience) return courses;
+    const selectedTerm = audienceTerms.find(t => t.slug === selectedAudience);
+    if (!selectedTerm) return courses;
+    return courses.filter(c => c.course_audience?.includes(selectedTerm.id));
+  }, [courses, selectedAudience, audienceTerms]);
+  const setAudienceFilter = slug => {
+    const url = new URL(window.location.href);
+    if (slug) {
+      url.searchParams.set(AUDIENCE_PARAM, slug);
+    } else {
+      url.searchParams.delete(AUDIENCE_PARAM);
+    }
+    window.history.pushState({}, "", url.toString());
+    window.dispatchEvent(new Event("pushstate"));
+    setSelectedAudience(slug);
+  };
+  const getCourseTypeName = typeIds => {
+    var _term$name;
+    if (!typeIds?.length) return null;
+    const term = courseTypeTerms.find(t => t.id === typeIds[0]);
+    return (_term$name = term?.name) !== null && _term$name !== void 0 ? _term$name : null;
+  };
+  const loading = coursesLoading || audienceTermsLoading || courseTypeTermsLoading;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "childlab-widget courses-list-page"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "courses-filter"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: `courses-filter__btn${!selectedAudience ? " courses-filter__btn--active" : ""}`,
+    onClick: () => setAudienceFilter(null)
+  }, window.wp.i18n.__("Все", "childlab")), audienceTerms.map(term => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    key: term.id,
+    className: `courses-filter__btn${selectedAudience === term.slug ? " courses-filter__btn--active" : ""}`,
+    onClick: () => setAudienceFilter(term.slug)
+  }, term.name))), loading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Loader_Loader__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    fullScreen: false
+  }) : filteredCourses.length === 0 ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "empty-wrapper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "empty-placeholder"
+  }, window.wp.i18n.__("Нет курсов по этой теме", "childlab"))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "courses-list"
+  }, filteredCourses.map(course => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CourseCardComponent, {
+    key: course.id,
+    course: course,
+    courseTypeName: getCourseTypeName(course.course_type)
+  }))));
+};
+const CourseCardComponent = ({
+  course,
+  courseTypeName
+}) => {
+  const imgSrc = course._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+  const imageUrl = imgSrc !== null && imgSrc !== void 0 ? imgSrc : _shared_consts__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_IMAGE_URL;
+  const courseColor = course.acf?.course_color || "#EB3F9B";
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-card",
+    style: {
+      "--course-color": courseColor
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-card__banner",
+    style: {
+      backgroundImage: `url(${imageUrl})`
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-card__overlay"
+  }), courseTypeName && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "course-card__tag"
+  }, courseTypeName)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-card__body"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "course-card__title"
+  }, course.title.rendered), course.acf?.course_subtitle && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-card__subtitle"
+  }, course.acf.course_subtitle), course.acf?.course_description && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-card__description truncate-multiline"
+  }, course.acf.course_description), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    className: "course-card__link",
+    href: course.link
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, window.wp.i18n.__("Подробнее", "childlab")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    className: "svg-icon",
+    viewBox: "0 0 16 16",
+    fill: "none"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M6 4l4 4-4 4",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  })))));
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/ErrorBoundary/ErrorBoundary.tsx"
+/*!*************************************************************!*\
+  !*** ./src/scripts/widgets/ErrorBoundary/ErrorBoundary.tsx ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+class ErrorBoundary extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasError: false,
+      error: null
+    };
+  }
+  static getDerivedStateFromError(error) {
+    return {
+      hasError: true,
+      error
+    };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error(`[ErrorBoundary${this.props.name ? `: ${this.props.name}` : ""}]`, error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+        style: {
+          padding: "24px",
+          margin: "16px 0",
+          border: "2px solid #e74c3c",
+          borderRadius: "8px",
+          background: "#fdf0ef",
+          color: "#c0392b",
+          fontFamily: "system-ui, sans-serif"
+        }
+      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, window.wp.i18n.__("Ошибка", "childlab"), this.props.name ? ` (${this.props.name})` : ""), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+        style: {
+          margin: "8px 0 0",
+          fontSize: "14px"
+        }
+      }, this.state.error?.message));
+    }
+    return this.props.children;
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ErrorBoundary);
+
+/***/ },
+
 /***/ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx"
 /*!***********************************************************************!*\
   !*** ./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx ***!
@@ -850,7 +1176,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Loader_Loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Loader/Loader */ "./src/scripts/widgets/Loader/Loader.tsx");
 /* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
 /* harmony import */ var _distributeTags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./distributeTags */ "./src/scripts/widgets/FrontListComponent/distributeTags.ts");
-/* harmony import */ var _shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/useCurrentSearch */ "./src/scripts/shared/useCurrentSearch.ts");
+/* harmony import */ var _shared_hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/hooks */ "./src/scripts/shared/hooks/index.ts");
 
 
 
@@ -930,7 +1256,7 @@ const MethodologyTagComponent = tag => {
   const {
     currentTaxonomy,
     currentTag
-  } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_4__.useCurrentSearch)();
+  } = (0,_shared_hooks__WEBPACK_IMPORTED_MODULE_4__.useCurrentSearch)();
   const backgroundColor = (_tag$acf$color = tag.acf.color) !== null && _tag$acf$color !== void 0 ? _tag$acf$color : "#f00";
   const handleClick = e => {
     e.preventDefault();
@@ -1105,12 +1431,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _graphConfig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./graphConfig */ "./src/scripts/widgets/MethodologyTree/graphConfig.ts");
-/* harmony import */ var _shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/useCurrentSearch */ "./src/scripts/shared/useCurrentSearch.ts");
-/* harmony import */ var _TagsGraph__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TagsGraph */ "./src/scripts/widgets/MethodologyTree/TagsGraph.ts");
-/* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
-/* harmony import */ var _entities_Articles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../entities/Articles */ "./src/scripts/entities/Articles.tsx");
-/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
-/* harmony import */ var _ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../ArticlesList/ArticlesList */ "./src/scripts/widgets/ArticlesList/ArticlesList.tsx");
+/* harmony import */ var _TagsGraph__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TagsGraph */ "./src/scripts/widgets/MethodologyTree/TagsGraph.ts");
+/* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
+/* harmony import */ var _entities_Articles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../entities/Articles */ "./src/scripts/entities/Articles.tsx");
+/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+/* harmony import */ var _ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../ArticlesList/ArticlesList */ "./src/scripts/widgets/ArticlesList/ArticlesList.tsx");
+/* harmony import */ var _shared_hooks__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../shared/hooks */ "./src/scripts/shared/hooks/index.ts");
 
 
 
@@ -1131,11 +1457,11 @@ const MethodologyTreeComponent = () => {
     filteredArticles,
     currentTag,
     currentTaxonomy
-  } = (0,_entities_Articles__WEBPACK_IMPORTED_MODULE_5__.useArticles)();
-  const [screenSize, setScreenSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_6__.getScreenSize)(window.innerWidth));
+  } = (0,_entities_Articles__WEBPACK_IMPORTED_MODULE_4__.useArticles)();
+  const [screenSize, setScreenSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     window.addEventListener("resize", () => {
-      setScreenSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_6__.getScreenSize)(window.innerWidth));
+      setScreenSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
     });
   }, []);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -1156,14 +1482,14 @@ const ArticlesList = () => {
     articlesLoading,
     currentTag,
     currentTaxonomy
-  } = (0,_entities_Articles__WEBPACK_IMPORTED_MODULE_5__.useArticles)();
+  } = (0,_entities_Articles__WEBPACK_IMPORTED_MODULE_4__.useArticles)();
   const {
     methodologyTags
-  } = (0,_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_4__.useMethodologyTags)();
-  const [screenSize, setScreenSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_6__.getScreenSize)(window.innerWidth));
+  } = (0,_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_3__.useMethodologyTags)();
+  const [screenSize, setScreenSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     window.addEventListener("resize", () => {
-      setScreenSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_6__.getScreenSize)(window.innerWidth));
+      setScreenSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
     });
   }, []);
   const filteredArticles = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
@@ -1207,7 +1533,7 @@ const ArticlesList = () => {
       className: "row"
     }, filteredArticles.map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "col-12"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_7__.ArticleCardComponent, {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_6__.ArticleCardComponent, {
       key: art.id,
       ...art,
       size: "default"
@@ -1221,13 +1547,13 @@ const MethodologyTree = () => {
   const {
     currentTaxonomy,
     currentTag
-  } = (0,_shared_useCurrentSearch__WEBPACK_IMPORTED_MODULE_2__.useCurrentSearch)();
+  } = (0,_shared_hooks__WEBPACK_IMPORTED_MODULE_7__.useCurrentSearch)();
   const [graphRef, setGraphRef] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (graphRef?.clientWidth) {
       // setTimeout(() => {
       console.log('!!!gra', graphRef.clientWidth);
-      const graph = new _TagsGraph__WEBPACK_IMPORTED_MODULE_3__.TagsGraph({
+      const graph = new _TagsGraph__WEBPACK_IMPORTED_MODULE_2__.TagsGraph({
         container: graphRef,
         activeTagSlug: currentTag !== null && currentTag !== void 0 ? currentTag : "Agency",
         tags: JSON.parse(JSON.stringify(_graphConfig__WEBPACK_IMPORTED_MODULE_1__.initialTags)),
@@ -2554,14 +2880,30 @@ const initialConfig = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   ArticlesListComponent: () => (/* reexport safe */ _ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_1__.ArticlesListComponent),
+/* harmony export */   CoursesListComponent: () => (/* reexport safe */ _CoursesList_CoursesList__WEBPACK_IMPORTED_MODULE_2__.CoursesListComponent),
 /* harmony export */   FrontListComponent: () => (/* reexport safe */ _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__.FrontListComponent),
-/* harmony export */   MethodologyTreeComponent: () => (/* reexport safe */ _MethodologyTree_MethodologyTreeComponent__WEBPACK_IMPORTED_MODULE_2__.MethodologyTreeComponent)
+/* harmony export */   MethodologyTreeComponent: () => (/* reexport safe */ _MethodologyTree_MethodologyTreeComponent__WEBPACK_IMPORTED_MODULE_3__.MethodologyTreeComponent)
 /* harmony export */ });
 /* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
 /* harmony import */ var _ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArticlesList/ArticlesList */ "./src/scripts/widgets/ArticlesList/ArticlesList.tsx");
-/* harmony import */ var _MethodologyTree_MethodologyTreeComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MethodologyTree/MethodologyTreeComponent */ "./src/scripts/widgets/MethodologyTree/MethodologyTreeComponent.tsx");
+/* harmony import */ var _CoursesList_CoursesList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CoursesList/CoursesList */ "./src/scripts/widgets/CoursesList/CoursesList.tsx");
+/* harmony import */ var _MethodologyTree_MethodologyTreeComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MethodologyTree/MethodologyTreeComponent */ "./src/scripts/widgets/MethodologyTree/MethodologyTreeComponent.tsx");
 
 
+
+
+
+/***/ },
+
+/***/ "./src/styles/courses-list.scss"
+/*!**************************************!*\
+  !*** ./src/styles/courses-list.scss ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
 
 
 /***/ },
@@ -2714,14 +3056,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/main.scss */ "./src/styles/main.scss");
 /* harmony import */ var _styles_grid_system_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles/grid-system.scss */ "./src/styles/grid-system.scss");
 /* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles/header.scss */ "./src/styles/header.scss");
-/* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./scripts/ArticleReader */ "./src/scripts/ArticleReader.js");
-/* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./scripts/shared/switcher */ "./src/scripts/shared/switcher.js");
-/* harmony import */ var _scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _scripts_widgets__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./scripts/widgets */ "./src/scripts/widgets/index.ts");
-/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
-/* harmony import */ var _scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./scripts/entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
-/* harmony import */ var _scripts_entities_Articles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./scripts/entities/Articles */ "./src/scripts/entities/Articles.tsx");
+/* harmony import */ var _styles_courses_list_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles/courses-list.scss */ "./src/styles/courses-list.scss");
+/* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./scripts/ArticleReader */ "./src/scripts/ArticleReader.js");
+/* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./scripts/shared/switcher */ "./src/scripts/shared/switcher.js");
+/* harmony import */ var _scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _scripts_widgets__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./scripts/widgets */ "./src/scripts/widgets/index.ts");
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
+/* harmony import */ var _scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./scripts/entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
+/* harmony import */ var _scripts_entities_Articles__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./scripts/entities/Articles */ "./src/scripts/entities/Articles.tsx");
+/* harmony import */ var _scripts_entities_Courses__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./scripts/entities/Courses */ "./src/scripts/entities/Courses/index.ts");
+/* harmony import */ var _scripts_widgets_ErrorBoundary_ErrorBoundary__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./scripts/widgets/ErrorBoundary/ErrorBoundary */ "./src/scripts/widgets/ErrorBoundary/ErrorBoundary.tsx");
+
+
+
 
 
 
@@ -2735,15 +3083,23 @@ __webpack_require__.r(__webpack_exports__);
 
 const renderComponent = (selector, render) => {
   try {
-    const container = react_dom_client__WEBPACK_IMPORTED_MODULE_7__.createRoot(document.querySelector(selector));
-    container.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_8__.MethodologyTagsContextProvider, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_Articles__WEBPACK_IMPORTED_MODULE_9__.ArticlesContextProvider, null, render)));
+    const container = react_dom_client__WEBPACK_IMPORTED_MODULE_8__.createRoot(document.querySelector(selector));
+    container.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_9__.MethodologyTagsContextProvider, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_Articles__WEBPACK_IMPORTED_MODULE_10__.ArticlesContextProvider, null, render)));
   } catch (e) {
     console.error('ErrorRenderingReactComponent :: methodologyTagsMenu ', e);
   }
 };
-renderComponent("#methodology-tags-menu", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_6__.FrontListComponent, null));
-renderComponent("#articles-list-component", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_6__.ArticlesListComponent, null));
-renderComponent("#methodology-tree-component", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_6__.MethodologyTreeComponent, null));
+renderComponent("#methodology-tags-menu", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_7__.FrontListComponent, null));
+renderComponent("#articles-list-component", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_7__.ArticlesListComponent, null));
+try {
+  const coursesContainer = react_dom_client__WEBPACK_IMPORTED_MODULE_8__.createRoot(document.querySelector("#courses-list-component"));
+  coursesContainer.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets_ErrorBoundary_ErrorBoundary__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    name: "Courses"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_Courses__WEBPACK_IMPORTED_MODULE_11__.CoursesContextProvider, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_7__.CoursesListComponent, null))));
+} catch (e) {
+  console.error("ErrorRenderingReactComponent :: CoursesList ", e);
+}
+renderComponent("#methodology-tree-component", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_7__.MethodologyTreeComponent, null));
 })();
 
 /******/ })()
