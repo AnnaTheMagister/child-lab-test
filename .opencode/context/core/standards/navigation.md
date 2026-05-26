@@ -1,8 +1,8 @@
-<!-- Context: core/navigation | Priority: critical | Version: 1.0 | Updated: 2026-02-15 -->
+<!-- Context: core/navigation | Priority: critical | Version: 2.0 | Updated: 2026-05-26 -->
 
-# Core Standards Navigation
+# Core Standards Navigation — ChildLab WordPress Theme
 
-**Purpose**: Universal standards for all development work
+**Purpose**: Project-specific code quality, testing, and documentation standards.
 
 ---
 
@@ -10,57 +10,46 @@
 
 | File | Topic | Priority | Load When |
 |------|-------|----------|-----------|
-| `code-quality.md` | Code quality rules | ⭐⭐⭐⭐⭐ | Writing/reviewing code |
-| `test-coverage.md` | Testing standards | ⭐⭐⭐⭐⭐ | Writing tests |
-| `documentation.md` | Documentation rules | ⭐⭐⭐⭐ | Writing docs |
-| `security-patterns.md` | Security best practices | ⭐⭐⭐⭐ | Security review, patterns |
-| `project-intelligence.md` | What and why | ⭐⭐⭐⭐ | Onboarding, understanding projects |
-| `project-intelligence-management.md` | How to manage | ⭐⭐⭐ | Managing intelligence files |
-| `code-analysis.md` | Analysis approaches | ⭐⭐⭐ | Analyzing code, debugging |
-| `typescript.md` | Universal TypeScript patterns | ⭐⭐⭐⭐ | Writing/reviewing TypeScript code |
-| `csharp.md` | Universal C# / .NET patterns | ⭐⭐⭐⭐ | Writing/reviewing C# code |
-| `csharp-project-structure.md` | ASP.NET Core project structure (Minimal APIs, CQRS, EF Core + PostgreSQL) | ⭐⭐⭐⭐ | Starting or structuring a C# API project |
+| `code-quality.md` | PHP/WordPress + React/TypeScript code standards | ⭐⭐⭐⭐⭐ | Writing/reviewing any code |
+| `test-coverage.md` | Testing standards (PHP + JS) | ⭐⭐⭐⭐⭐ | Writing tests, reviewing code |
+| `documentation.md` | Documentation rules (PHP, React, context) | ⭐⭐⭐⭐ | Writing docs, adding comments |
 
 ---
 
 ## Loading Strategy
 
-**For code implementation**:
-1. Load `code-quality.md` (critical)
-2. Load `security-patterns.md` (high)
+**For PHP / WordPress code**:
+1. Load `code-quality.md` (critical) — has PHP section with WP-specific patterns
+2. Then load: `../../project-intelligence/technical-domain.md` — for architecture context
 
-**For TypeScript code**:
-1. Load `typescript.md` (critical)
-2. Load `code-quality.md` (high)
+**For React / TypeScript code**:
+1. Load `code-quality.md` (critical) — has React/TS section with project patterns
+2. Then load: `../../project-intelligence/technical-domain.md` — for component/data context
 
-**For C# / .NET code**:
-1. Load `csharp.md` (critical)
-2. Load `code-quality.md` (high)
-
-**For C# API project structure**:
-1. Load `csharp-project-structure.md` (critical)
-2. Load `csharp.md` (high)
+**For SCSS / styling**:
+1. Load `code-quality.md` (high) — has SCSS section with naming conventions
 
 **For testing**:
-1. Load `test-coverage.md` (critical)
-2. Depends on: `code-quality.md`
+1. Load `test-coverage.md` (critical) — PHPUnit/Jest patterns, project-specific guidance
+2. Then load: `code-quality.md` (high) — understand what you're testing
 
-**For documentation**:
-1. Load `documentation.md` (critical)
+**For documentation / comments**:
+1. Load `documentation.md` (critical) — PHPdoc/TSDoc patterns, context file guidance
 
 **For code review**:
-1. Load `code-quality.md` (critical)
-2. Load `security-patterns.md` (high)
-3. Load `test-coverage.md` (high)
+1. Load `code-quality.md` (critical) — check standards compliance
+2. Load `test-coverage.md` (high) — check test coverage expectations
+3. Then load: `../../project-intelligence/business-tech-bridge.md` (medium) — understand feature context
 
 **For project onboarding/understanding**:
-1. Load `project-intelligence.md` (high)
-2. Then load: `../../project-intelligence/` folder for full project context
+1. Load: `../../project-intelligence/navigation.md` — start with full project context
+2. Then `technical-domain.md` — understand architecture
+3. Then `business-domain.md` — understand purpose
 
 ---
 
 ## Related
 
-- **Workflows** → `../workflows/navigation.md`
-- **Development Principles** → `../../development/principles/`
-- **Project Intelligence** → `../../project-intelligence/navigation.md` (full project context)
+- **Project Intelligence** → `../../project-intelligence/navigation.md` (start here for full project context)
+- **Core Workflows** → `../workflows/navigation.md`
+- **Development Context** → `../../development/navigation.md`
