@@ -26,17 +26,10 @@ development/
 │       ├── navigation.md
 │       └── react-patterns.md
 │
-├── principles/                # Universal (language-agnostic)
-│   ├── navigation.md
-│   ├── clean-code.md
-│   └── api-design.md
-│
-├── frameworks/                # (future)
-├── ai/                        # (future)
-├── backend/                   # (future)
-├── data/                      # (future)
-├── integration/               # (future)
-└── infrastructure/            # (future)
+└── principles/                # Universal (language-agnostic)
+    ├── navigation.md
+    ├── clean-code.md
+    └── api-design.md
 ```
 
 ---
