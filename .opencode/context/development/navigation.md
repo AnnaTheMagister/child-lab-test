@@ -1,8 +1,8 @@
-<!-- Context: development/navigation | Priority: critical | Version: 1.0 | Updated: 2026-02-15 -->
+<!-- Context: development/navigation | Priority: critical | Version: 2.0 | Updated: 2026-05-26 -->
 
-# Development Navigation
+# Development Navigation — ChildLab WordPress Theme
 
-**Purpose**: Software development across all stacks
+**Purpose**: Development patterns for the WordPress + React codebase.
 
 ---
 
@@ -11,53 +11,32 @@
 ```
 development/
 ├── navigation.md
-├── ui-navigation.md           # Specialized
-├── backend-navigation.md      # Specialized
-├── fullstack-navigation.md    # Specialized
+│
+├── wordpress/                 # WordPress theme development (ACTIVE)
+│   ├── navigation.md
+│   ├── theme-patterns.md      # Asset loading, template hierarchy, bootstrap flow
+│   ├── cpt-taxonomy.md        # CPT & taxonomy registration
+│   ├── acf-registration.md    # ACF field group registration
+│   └── rest-api-patterns.md   # REST API consumption from React
+│
+├── frontend/                  # Client-side React
+│   ├── navigation.md
+│   ├── when-to-delegate.md
+│   └── react/
+│       ├── navigation.md
+│       └── react-patterns.md
 │
 ├── principles/                # Universal (language-agnostic)
 │   ├── navigation.md
 │   ├── clean-code.md
 │   └── api-design.md
 │
-├── frameworks/                # Full-stack frameworks
-│   ├── navigation.md
-│   └── tanstack-start/
-│
-├── ai/                        # AI & Agents
-│   ├── navigation.md
-│   └── mastra-ai/
-│
-├── frontend/                  # Client-side
-│   ├── navigation.md
-│   ├── when-to-delegate.md    # When to use frontend-specialist
-│   └── react/
-│       ├── navigation.md
-│       └── react-patterns.md
-│
-├── backend/                   # Server-side (future)
-│   ├── navigation.md
-│   ├── api-patterns/
-│   ├── nodejs/
-│   ├── python/
-│   └── authentication/
-│
-├── data/                      # Data layer (future)
-│   ├── navigation.md
-│   ├── sql-patterns/
-│   ├── nosql-patterns/
-│   └── orm-patterns/
-│
-├── integration/               # Connecting systems (future)
-│   ├── navigation.md
-│   ├── package-management/
-│   ├── api-integration/
-│   └── third-party-services/
-│
-└── infrastructure/            # DevOps (future)
-    ├── navigation.md
-    ├── docker/
-    └── ci-cd/
+├── frameworks/                # (future)
+├── ai/                        # (future)
+├── backend/                   # (future)
+├── data/                      # (future)
+├── integration/               # (future)
+└── infrastructure/            # (future)
 ```
 
 ---
@@ -66,29 +45,25 @@ development/
 
 | Task | Path |
 |------|------|
-| **UI/Frontend** | `ui-navigation.md` |
-| **When to delegate frontend** | `frontend/when-to-delegate.md` |
-| **Backend/API** | `backend-navigation.md` |
-| **Full-stack** | `fullstack-navigation.md` |
-| **Clean code** | `principles/clean-code.md` |
-| **API design** | `principles/api-design.md` |
+| **WordPress theme setup** | `wordpress/navigation.md` |
+| **Add ACF fields** | `wordpress/acf-registration.md` |
+| **Register a CPT/taxonomy** | `wordpress/cpt-taxonomy.md` |
+| **Connect React to WP data** | `wordpress/rest-api-patterns.md` |
+| **React widget patterns** | `frontend/react/react-patterns.md` |
 
 ---
 
 ## By Concern
 
-**Principles** → Universal development practices
-**Frameworks** → Full-stack frameworks (Tanstack Start, Next.js)
-**AI** → AI frameworks and agent runtimes (MAStra AI)
-**Frontend** → React patterns and component design
-**Backend** → APIs, Node.js, Python, auth (future)
-**Data** → SQL, NoSQL, ORMs (future)
-**Integration** → Packages, APIs, services (future)
-**Infrastructure** → Docker, CI/CD (future)
+**WordPress** → Theme bootstrap, CPTs, ACF, REST API — **active for this project**
+**Frontend/React** → Component patterns, Context Providers, hooks
+**Principles** → Clean code, API design patterns (universal)
 
 ---
 
 ## Related Context
 
-- **Core Standards** → `../core/standards/navigation.md`
+- **Core Standards** → `../core/standards/navigation.md` (PHP + React coding conventions)
+- **Project Intelligence (Tech)** → `../project-intelligence/technical-domain.md`
+- **Project Intelligence (Features)** → `../project-intelligence/business-tech-bridge.md`
 - **UI Patterns** → `../ui/navigation.md`
