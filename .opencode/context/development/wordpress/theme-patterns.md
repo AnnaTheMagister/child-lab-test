@@ -29,29 +29,34 @@ The entry point is `functions.php`. The require chain follows a clear dependency
 // 1. Core utilities (no WP dependencies)
 require_once get_template_directory() . '/inc/common.php';
 
-// 2. Data helpers (pure functions)
+// 2. Session-sensitive (must be before any output)
+require_once get_template_directory() . '/inc/reading-mode-support.php';
+
+// 3. Feature support modules (hooks + assets)
+require_once get_template_directory() . '/inc/toc/toc-support.php';
+require_once get_template_directory() . '/inc/svg-pattern-generator/svg-pattern-support.php';
+require_once get_template_directory() . '/inc/mindmap/mindmap-support.php';
+
+// 4. ACF registrations (CPTs + taxonomies must load before fields)
+require_once get_template_directory() . '/inc/acf/register-article-fields.php';
+require_once get_template_directory() . '/inc/acf/register-course-fields.php';
+require_once get_template_directory() . '/inc/acf/register-project-fields.php';
+require_once get_template_directory() . '/inc/acf/register-taxonomies.php';
+require_once get_template_directory() . '/inc/acf/register-term-sorting.php';
+require_once get_template_directory() . '/inc/acf/register-acf-fields.php';
+require_once get_template_directory() . '/inc/acf/helpers.php';
+
+// 5. Data helpers (pure functions, depend on CPTs being registered)
 require_once get_template_directory() . '/inc/article-data.php';
 require_once get_template_directory() . '/inc/article-navigation.php';
 require_once get_template_directory() . '/inc/articles-list.php';
 require_once get_template_directory() . '/inc/author-data.php';
 
-// 3. Feature support modules (hooks + assets)
-require_once get_template_directory() . '/inc/reading-mode-support.php';
-require_once get_template_directory() . '/inc/toc/toc-support.php';
-require_once get_template_directory() . '/inc/svg-pattern-generator/svg-pattern-support.php';
-require_once get_template_directory() . '/inc/mindmap/mindmap-support.php';
-
-// 4. ACF registrations (fields + CPTs + taxonomies)
-require_once get_template_directory() . '/inc/acf/register-article-fields.php';
-require_once get_template_directory() . '/inc/acf/register-course-fields.php';
-require_once get_template_directory() . '/inc/acf/helpers.php';
-require_once get_template_directory() . '/inc/acf/register-acf-fields.php';
-
-// 5. Utility libraries
+// 6. Utility libraries
 require_once get_template_directory() . '/inc/lib/addColors.php';
 ```
 
-**Rule**: Order dependencies carefully — ACF CPT registrations must load before field groups that reference them.
+**Rule**: Order dependencies carefully — ACF CPT registrations must load before field groups that reference them. `register-acf-fields.php` loads the field group definitions from `field-groups/`.
 
 ## Asset Loading Pattern
 

@@ -6,17 +6,26 @@
 
 ## File Organization
 
-ACF fields are organized in two complementary patterns (legacy + refactored):
+ACF files follow a clear separation of concerns: CPT/taxonomy registration, field group definitions, and helpers.
 
 ```
 inc/acf/
-├── helpers.php                       # AJAX handlers, REST field exposure
-├── register-acf-fields.php           # Loader: direct + hook-based registration
-├── register-article-fields.php       # Article + Projects CPTs, taxonomies, AND fields (legacy combined)
-├── register-course-fields.php        # Courses CPT, taxonomies, AND fields (combined)
-└── field-groups/                     # Pure field group definitions (refactored)
-    ├── article-fields.php            # Article field group only
-    └── course-fields.php             # Course field group only
+├── helpers.php                        # AJAX handlers, REST field exposure
+│
+├── register-article-fields.php        # Article CPT only (was 627-line monolith, now 54 lines)
+├── register-course-fields.php         # Courses CPT + course_audience + course_type taxonomies
+├── register-project-fields.php        # Projects CPT (extracted from article monolith)
+├── register-taxonomies.php            # article_author + methodology_tag (extracted)
+├── register-term-sorting.php          # pre_get_terms hook for methodology_tag (extracted)
+│
+├── register-acf-fields.php            # Loader: includes all field group files
+│
+└── field-groups/                      # Pure field group definitions
+    ├── article-fields.php             # 5 fields: subtitle + 4 reading modes
+    ├── author-fields.php              # 5 fields: last_name, first_name, photo, bio, info
+    ├── projects-fields.php            # 1 field: project_description
+    ├── methodology-tag-fields.php     # 3 fields: color, image, order
+    └── course-fields.php              # Course ACF fields
 ```
 
 ## Registration Pattern
