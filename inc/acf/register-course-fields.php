@@ -34,19 +34,21 @@ function register_course_post_type()
 
 	$args = array(
 		'labels' => $labels,
-		'public' => true,
 		'show_in_rest' => true,
+		'public' => true,
+		'publicly_queryable' => true,
+		'show_ui' => true,
+		'show_in_menu' => true,
+		'show_in_admin_bar' => true,
+		'show_in_nav_menus' => true,
+		'query_var' => true,
+		'rewrite' => array('slug' => 'courses'), // URL: /courses/название-курса/
+		'capability_type' => 'post',
+		'has_archive' => true, // Страница архива: /courses/
+		'hierarchical' => false,
+		'menu_position' => 5,
 		'menu_icon' => 'dashicons-welcome-learn-more',
-		'supports' => array(
-			0 => 'title',
-			1 => 'editor',
-			2 => 'excerpt',
-			3 => 'thumbnail',
-			4 => 'custom-fields',
-			5 => 'post-formats',
-		),
-		'delete_with_user' => false,
-		'rest_base' => 'courses', // Для REST API
+		'supports' => array('title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'post-formats'),
 	);
 
 	register_post_type('courses', $args);
@@ -114,6 +116,71 @@ function register_course_type_taxonomy()
 	register_taxonomy('course_type', 'courses', $args);
 }
 add_action('init', 'register_course_type_taxonomy');
+
+function add_default_course_audience_terms()
+{
+	if (!term_exists('parents', 'course_audience')) {
+		wp_insert_term('Родителям', 'course_audience', array('slug' => 'parents'));
+	}
+	if (!term_exists('teachers', 'course_audience')) {
+		wp_insert_term('Педагогам', 'course_audience', array('slug' => 'teachers'));
+	}
+}
+add_action('init', 'add_default_course_audience_terms');
+
+function add_default_course_type_terms()
+{
+	if (!term_exists('online', 'course_type')) {
+		wp_insert_term('Онлайн-курс', 'course_type', array('slug' => 'online', 'description' => '#0073aa'));
+	}
+	if (!term_exists('offline', 'course_type')) {
+		wp_insert_term('Очный курс', 'course_type', array('slug' => 'offline', 'description' => '#00a0d2'));
+	}
+}
+add_action('init', 'add_default_course_type_terms');
+
+// Функция для расчета светлого цвета (lighten by 76%)
+function calculate_lightened_color($hex_color, $percentage = 76)
+{
+	// Convert hex to RGB
+	$hex = str_replace('#', '', $hex_color);
+	$rgb = array();
+
+	for ($i = 0; $i < 3; $i++) {
+		$rgb[$i] = hexdec(substr($hex, $i * 2, 2));
+	}
+
+	// Calculate new color values
+	$new_rgb = array();
+	for ($i = 0; $i < 3; $i++) {
+		$lightened = min(255, $rgb[$i] + round((255 - $rgb[$i]) * $percentage / 100));
+		$new_rgb[$i] = $lightened;
+	}
+
+	// Convert back to hex
+	return sprintf('#%02x%02x%02x', $new_rgb[0], $new_rgb[1], $new_rgb[2]);
+}
+
+// Функция для получения значения поля с расчетом по умолчанию
+function get_course_background_color($post_id = null)
+{
+	if (!$post_id) {
+		$post_id = get_the_ID();
+	}
+
+	// Получаем значение цвета фона из ACF, если оно задано
+	$background_color = get_field('course_background_color', $post_id);
+
+	// Если цвет фона не задан, но задан основной цвет курса, рассчитываем его
+	if (empty($background_color)) {
+		$course_color = get_field('course_color', $post_id);
+		if (!empty($course_color)) {
+			$background_color = calculate_lightened_color($course_color, 76);
+		}
+	}
+
+	return $background_color ? $background_color : '#F3C5D9'; // По умолчанию светлый цвет, если не задано ничего
+}
 
 // 4. Добавляем ACF поля для курсов
 if (function_exists('acf_add_local_field_group')):
@@ -199,9 +266,9 @@ if (function_exists('acf_add_local_field_group')):
 				'key' => 'field_course_audience',
 				'label' => 'Целевая аудитория',
 				'name' => 'course_audience',
-				'type' => 'select',
+				'type' => 'checkbox',
 				'instructions' => 'Выберите целевую аудиторию курса',
-				'required' => 1,
+				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
 					'width' => '',
@@ -212,18 +279,20 @@ if (function_exists('acf_add_local_field_group')):
 					'parents' => 'Родителям',
 					'teachers' => 'Педагогам',
 				),
-				'allow_null' => 0,
 				'allow_custom' => 0,
-				'placeholder' => '',
+				'default_value' => array(
+				),
+				'layout' => 'vertical',
+				'toggle' => 0,
 				'return_format' => 'value',
 			),
 			array(
 				'key' => 'field_course_type',
 				'label' => 'Тип курса',
 				'name' => 'course_type',
-				'type' => 'select',
+				'type' => 'checkbox',
 				'instructions' => 'Выберите тип курса',
-				'required' => 1,
+				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
 					'width' => '',
@@ -234,9 +303,11 @@ if (function_exists('acf_add_local_field_group')):
 					'online' => 'Онлайн-курс',
 					'offline' => 'Очный курс',
 				),
-				'allow_null' => 0,
 				'allow_custom' => 0,
-				'placeholder' => '',
+				'default_value' => array(
+				),
+				'layout' => 'vertical',
+				'toggle' => 0,
 				'return_format' => 'value',
 			),
 		),
@@ -269,11 +340,11 @@ if (function_exists('acf_add_local_field_group')):
 				'label' => 'Цвет курса',
 				'name' => 'course_color',
 				'type' => 'color_picker',
-				'instructions' => 'Основной цвет курса',
+				'instructions' => 'Основной цвет курса (по умолчанию #EB3F9B)',
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
-					'width' => '25',
+					'width' => '',
 					'class' => '',
 					'id' => '',
 				),
@@ -284,41 +355,11 @@ if (function_exists('acf_add_local_field_group')):
 				'label' => 'Цвет фона',
 				'name' => 'course_background_color',
 				'type' => 'color_picker',
-				'instructions' => 'Цвет фона',
+				'instructions' => 'Цвет фона (по умолчанию рассчитывается как lighten by 76% от основного цвета)',
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
-					'width' => '25',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-			),
-			array(
-				'key' => 'field_course_title_color',
-				'label' => 'Цвет заголовка',
-				'name' => 'course_title_color',
-				'type' => 'color_picker',
-				'instructions' => 'Цвет заголовка курса',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '25',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-			),
-			array(
-				'key' => 'field_course_button_gradient',
-				'label' => 'Переход градиента кнопки',
-				'name' => 'course_button_gradient',
-				'type' => 'color_picker',
-				'instructions' => 'Цвет градиента кнопки (для перехода)',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '25',
+					'width' => '',
 					'class' => '',
 					'id' => '',
 				),

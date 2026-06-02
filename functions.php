@@ -7,7 +7,6 @@ require_once get_template_directory() . '/inc/svg-pattern-generator/svg-pattern-
 require_once get_template_directory() . '/inc/mindmap/mindmap-support.php';
 require_once get_template_directory() . '/inc/acf/register-article-fields.php';
 require_once get_template_directory() . '/inc/acf/register-course-fields.php';
-require_once get_template_directory() . '/inc/lib/addColors.php';
 
 
 function boilerplate_load_assets()

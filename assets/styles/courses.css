@@ -61,6 +61,8 @@
 .childlab-widget.courses {
     padding: 30px;
     border-radius: 10px;
+    background-size: cover;
+    background-position: center;
     position: relative;
     min-height: 250px;
     display: flex;
@@ -70,48 +72,27 @@
     transition: transform 0.3s ease;
 }
 
-.childlab-widget.courses .courses-banner-wrapper {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 80%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 10px 0 0 10px;
+.childlab-widget.courses:hover {
+    transform: translateY(-5px);
 }
 
-.childlab-widget.courses .courses-banner-gradient-overlay {
+.childlab-widget.courses::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, var(--course-color, rgba(0,0,0,0.8)), transparent), linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
-    border-radius: 10px 0 0 10px;
-}
-
-.childlab-widget.courses:hover {
-    transform: translateY(-5px);
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    border-radius: 10px;
 }
 
 @media (max-width: 768px) {
     .courses-list {
         grid-template-columns: 1fr;
     }
-
+    
     .course-meta-container {
         font-size: 0.8rem;
-    }
-    
-    .childlab-widget.courses .courses-banner-wrapper {
-        width: 100%;
-        height: 200px;
-        border-radius: 10px 10px 0 0;
-    }
-    
-    .childlab-widget.courses .courses-banner-gradient-overlay {
-        border-radius: 10px 10px 0 0;
     }
 }

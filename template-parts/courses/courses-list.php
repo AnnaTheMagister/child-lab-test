@@ -14,20 +14,10 @@ $posts = get_posts(array(
     foreach ($posts as $key => $post) {
         setup_postdata($post);
 
-        // Get course color for gradient
-        $course_color = get_field('course_color', $post->ID);
-        if (!$course_color) {
-            $course_color = '#EB3F9B'; // Default color if not set
-        }
-        
-        // Get background image
-        $img_courses = empty(get_the_post_thumbnail_url()) ? $GLOBALS['default_projects_image'] : get_the_post_thumbnail_url();
         ?>
-        
-        <div class="childlab-widget courses" style="--course-color: <?php echo esc_attr($course_color); ?>">
-            <div class="courses-banner-wrapper" style="background-image: url('<?php echo esc_url($img_courses); ?>');">
-                <div class="courses-banner-gradient-overlay"></div>
-            </div>
+
+        <?php $img_courses = empty(get_the_post_thumbnail_url()) ? $GLOBALS['default_projects_image'] : get_the_post_thumbnail_url(); ?>
+        <div class="childlab-widget courses" style="background-image: url('<?php echo $img_courses ?>');">
             <h2 class="course-title" title="<?php the_title(); ?>"><?php the_title(); ?></h2>
             <?php if (get_field('course_subtitle')): ?>
                 <div class="course-subtitle"><?php the_field('course_subtitle'); ?></div>

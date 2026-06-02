@@ -1,6 +1,7 @@
 <?php
 /**
  * Template Name: Страница проекты
+ * Template Post Type: project
  */
 
 get_header();
