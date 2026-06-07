@@ -44,7 +44,7 @@ require_once get_template_directory() . '/inc/author-data.php';
 // ==============================================
 // 6. Utility Libraries
 // ==============================================
-require_once get_template_directory() . '/inc/lib/addColors.php';
+
 
 // ==============================================
 // 7. Theme Setup
