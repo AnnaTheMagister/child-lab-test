@@ -2,7 +2,7 @@ name: 🚀 Deploy WordPress Theme via FTP
 
 on:
   push:
-    branches: ["main"] # Запускается только при пуше в ветку main
+    branches: ["main", "dev"]
 
 jobs:
   deploy:
@@ -23,18 +23,48 @@ jobs:
       - name: 📦 Install LFTP
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      # 4. Синхронизируем файлы с хостингом
+      # 4. Обновляем имя темы в style.css в зависимости от ветки
+      - name: 🛠️ Update theme name in style.css
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "Updating theme name for main branch deployment"
+            sed -i 's/Theme Name: childlab-react-test/Theme Name: childlab-react/' /home/runner/work/child-lab-test/child-lab-test/style.css
+            echo "Theme name updated to childlab-react"
+          elif [ "${{ github.ref }}" = "refs/heads/dev" ]; then
+            echo "Updating theme name for dev branch deployment"
+            sed -i 's/Theme Name: childlab-react-test/Theme Name: childlab-react-dev/' /home/runner/work/child-lab-test/child-lab-test/style.css
+            echo "Theme name updated to childlab-react-dev"
+          fi
+
+      # 5. Синхронизируем файлы с хостингом
       - name: 📤 Sync files to FTP server
         run: |
-          lftp -e "
-            set ftp:ssl-allow no;
-            set ssl:verify-certificate no;
-            open ${{ secrets.FTP_HOST }};
-            user ${{ secrets.FTP_USERNAME }} '${{ secrets.FTP_PASSWORD }}';
-            mirror --reverse --verbose --delete \
-                   --ignore-time \
-                   --exclude-glob .git/ \
-                   --exclude-glob .github/ \
-                   ./ ${{ secrets.REMOTE_PATH }};
-            bye;
-          "
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "Deploying to main branch directory"
+            lftp -e "
+              set ftp:ssl-allow no;
+              set ssl:verify-certificate no;
+              open ${{ secrets.FTP_HOST }};
+              user ${{ secrets.FTP_USERNAME }} '${{ secrets.FTP_PASSWORD }}';
+              mirror --reverse --verbose --delete \
+                     --ignore-time \
+                     --exclude-glob .git/ \
+                     --exclude-glob .github/ \
+                     ./ ${{ secrets.REMOTE_PATH_MAIN }};
+              bye;
+            "
+          elif [ "${{ github.ref }}" = "refs/heads/dev" ]; then
+            echo "Deploying to dev branch directory"
+            lftp -e "
+              set ftp:ssl-allow no;
+              set ssl:verify-certificate no;
+              open ${{ secrets.FTP_HOST }};
+              user ${{ secrets.FTP_USERNAME }} '${{ secrets.FTP_PASSWORD }}';
+              mirror --reverse --verbose --delete \
+                     --ignore-time \
+                     --exclude-glob .git/ \
+                     --exclude-glob .github/ \
+                     ./ ${{ secrets.REMOTE_PATH_DEV }};
+              bye;
+            "
+          fi

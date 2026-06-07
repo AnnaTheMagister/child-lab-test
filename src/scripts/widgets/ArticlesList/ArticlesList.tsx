@@ -60,17 +60,17 @@ export const ArticlesListComponent = () => {
             size="large"
           />
         </div>
-        <div class="col-lg-6 col-md-12">
-          <div class="row">
+        <div className="col-lg-6 col-md-12">
+          <div className="row">
             {filteredArticles.slice(1, 5).map((art) => (
-              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <ArticleCardComponent key={art.id} {...art} size="small" />
               </div>
             ))}
           </div>
         </div>
         {filteredArticles.slice(5).map((art) => (
-          <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12">
+          <div className="col-lg-3 col-md-6 col-sm-12 col-xs-12">
             <ArticleCardComponent key={art.id} {...art} size="small" />
           </div>
         ))}
@@ -79,11 +79,9 @@ export const ArticlesListComponent = () => {
   }
 
   return (
-    <div className="container">
-      <div className="childlab-widget articles-list">
-        <header className="articles-list__header">{title}</header>
-        <div className="row">{content}</div>
-      </div>
+    <div className="childlab-widget articles-list">
+      <header className="articles-list__header">{title}</header>
+      <div className="row">{content}</div>
     </div>
   );
 };

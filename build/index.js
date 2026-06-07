@@ -718,17 +718,17 @@ const ArticlesListComponent = () => {
       ...filteredArticles[0],
       size: "large"
     })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      class: "col-lg-6 col-md-12"
+      className: "col-lg-6 col-md-12"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      class: "row"
+      className: "row"
     }, filteredArticles.slice(1, 5).map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      class: "col-lg-6 col-md-6 col-sm-6 col-xs-12"
+      className: "col-lg-6 col-md-6 col-sm-6 col-xs-12"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleCardComponent, {
       key: art.id,
       ...art,
       size: "small"
     }))))), filteredArticles.slice(5).map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      class: "col-lg-3 col-md-6 col-sm-12 col-xs-12"
+      className: "col-lg-3 col-md-6 col-sm-12 col-xs-12"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleCardComponent, {
       key: art.id,
       ...art,
@@ -736,14 +736,12 @@ const ArticlesListComponent = () => {
     }))));
   }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "container"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "childlab-widget articles-list"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", {
     className: "articles-list__header"
   }, title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "row"
-  }, content)));
+  }, content));
 };
 const ArticleCardComponent = article => {
   var _article$size;
@@ -916,8 +914,6 @@ const FrontListComponent = () => {
     });
   }, [tagsData, maxTagsInRow]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "container"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "methodology-tags-menu"
   }, tagsLoading && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Loader_Loader__WEBPACK_IMPORTED_MODULE_1__["default"], {
     fullScreen: false
@@ -926,7 +922,7 @@ const FrontListComponent = () => {
       key: tag.id,
       ...tag
     });
-  })));
+  }));
 };
 const DEFAULT_TAG_PATTERN = themeData.templateUrl + "/assets/images/all.png";
 const MethodologyTagComponent = tag => {
