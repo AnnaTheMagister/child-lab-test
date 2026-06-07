@@ -177,6 +177,50 @@ function childlab_load_assets() {
 }
 add_action( 'wp_enqueue_scripts', 'childlab_load_assets' );
 
+// ==============================================
+// 10. Shortcodes
+// ==============================================
+/**
+ * Register shortcodes for various components.
+ */
+function childlab_add_shortcodes() {
+	add_shortcode('methodology_tags_menu', 'childlab_methodology_tags_menu_shortcode');
+	add_shortcode('articles_list', 'childlab_articles_list_shortcode');
+}
+add_action('init', 'childlab_add_shortcodes');
+
+/**
+ * Shortcode for methodology tags menu.
+ */
+function childlab_methodology_tags_menu_shortcode() {
+	// Включаем буферизацию вывода, чтобы захватить содержимое компонента
+	ob_start();
+	
+	// Подключаем шаблон
+	require get_template_directory() . '/template-parts/articles-list/methodology-tags-menu.php';
+	
+	// Получаем содержимое и очищаем буфер
+	$content = ob_get_clean();
+	
+	return $content;
+}
+
+/**
+ * Shortcode for articles list.
+ */
+function childlab_articles_list_shortcode() {
+	// Включаем буферизацию вывода, чтобы захватить содержимое компонента
+	ob_start();
+	
+	// Подключаем шаблон
+	require get_template_directory() . '/template-parts/articles-list/articles.php';
+	
+	// Получаем содержимое и очищаем буфер
+	$content = ob_get_clean();
+	
+	return $content;
+}
+
 /**
  * Enqueue Google Fonts (Lora).
  */

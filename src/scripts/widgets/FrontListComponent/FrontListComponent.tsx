@@ -81,13 +81,11 @@ export const FrontListComponent = () => {
   }, [tagsData, maxTagsInRow]);
 
   return (
-    <div className="container">
-      <div className="methodology-tags-menu">
-        {tagsLoading && <Loader fullScreen={false} />}
-        {distributedTags.map((tag) => {
-          return <MethodologyTagComponent key={tag.id} {...tag} />;
-        })}
-      </div>
+    <div className="methodology-tags-menu">
+      {tagsLoading && <Loader fullScreen={false} />}
+      {distributedTags.map((tag) => {
+        return <MethodologyTagComponent key={tag.id} {...tag} />;
+      })}
     </div>
   );
 };
