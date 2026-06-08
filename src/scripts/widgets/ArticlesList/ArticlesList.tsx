@@ -173,6 +173,7 @@ export const ArticleTagsComponent = (article) => {
   return (
     <div className="article-tags">
       {articleTags.map((m) => (
+        /* TODO: Refactor to ui-kit/Tag */
         <div
           key={m.id}
           className="article-tags__tag truncate"

@@ -33,6 +33,7 @@ $course_background_color = get_field('course_background_color') ?: addColors($co
             $course_types = get_the_terms(get_the_ID(), 'course_type');
             if ($course_types && !is_wp_error($course_types)) {
                 foreach ($course_types as $term) {
+                    // TODO: Refactor to ui-kit/Tag
                     echo '<span class="course-type-tag" style="background-color: ' . esc_attr($course_color) . '; color: white;">' . esc_html($term->name) . '</span>';
                 }
             }
@@ -49,6 +50,7 @@ $course_background_color = get_field('course_background_color') ?: addColors($co
                 </div>
             <?php endif; ?>
             <?php if (get_field('course_access_link')): ?>
+                <!-- TODO: Refactor to ui-kit/Button -->
                 <a href="<?php echo esc_url(get_field('course_access_link')); ?>" class="course-access-button"
                     style="background: linear-gradient(135deg, <?php echo esc_attr($course_color); ?> 0%, <?php echo esc_attr($course_button_gradient); ?> 100%); border-color: <?php echo esc_attr($course_color); ?>;"
                     target="_blank">

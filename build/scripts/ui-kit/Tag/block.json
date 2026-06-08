@@ -1,0 +1,45 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "childlab/tag",
+  "title": "Tag",
+  "category": "childlab",
+  "icon": "tag",
+  "description": "A colored tag/label for highlighting categories or types.",
+  "keywords": [
+    "tag",
+    "label",
+    "badge",
+    "pill"
+  ],
+  "textdomain": "childlab",
+  "attributes": {
+    "content": {
+      "type": "string",
+      "default": ""
+    },
+    "color": {
+      "type": "string",
+      "default": ""
+    },
+    "textColor": {
+      "type": "string",
+      "default": ""
+    },
+    "size": {
+      "type": "string",
+      "default": "sm",
+      "enum": [
+        "sm",
+        "md"
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": false,
+    "color": false
+  },
+  "editorScript": "file:./block.js",
+  "style": "file:./style-block.css"
+}

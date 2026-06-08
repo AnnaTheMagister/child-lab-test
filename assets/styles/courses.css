@@ -1,7 +1,5 @@
 /* Course styles */
 .courses-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
     margin-top: 20px;
 }
@@ -97,10 +95,6 @@
 }
 
 @media (max-width: 768px) {
-    .courses-list {
-        grid-template-columns: 1fr;
-    }
-
     .course-meta-container {
         font-size: 0.8rem;
     }

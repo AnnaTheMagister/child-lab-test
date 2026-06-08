@@ -46,8 +46,10 @@ When you spot a violation, suggest the fix and explain *why* the WordPress way i
 After implementing a feature or fixing a bug, write or suggest writing tests:
 
 - JavaScript tests for React components and context providers (Jest + @testing-library)
-- Existing patterns in `tests/entities/Courses.test.tsx`, `tests/widgets/CoursesList.test.tsx`
-- Test file location: `tests/` mirroring source path (`src/scripts/widgets/Foo.tsx` → `tests/widgets/Foo.test.tsx`)
+- Test file location: co-located with component (`Component/Component.test.tsx`)
+- ui-kit tests: `src/scripts/ui-kit/Button/Button.test.tsx`, `src/scripts/ui-kit/ButtonGroup/ButtonGroup.test.tsx`
+- Widget tests: `src/scripts/widgets/CoursesList/CoursesList.test.tsx`
+- Entity tests: `src/scripts/entities/Courses/CoursesContext.test.tsx`
 - Run `npm test` before finishing any JS/React change
 - PHP tests are not yet set up — verify PHP changes manually
 

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "childlab/button",
+  "title": "Button",
+  "category": "childlab",
+  "icon": "button",
+  "description": "A link styled as a ChildLab button with configurable colors, size, and border radius.",
+  "keywords": ["button", "link", "cta"],
+  "textdomain": "childlab",
+  "attributes": {
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "href": {
+      "type": "string",
+      "default": ""
+    },
+    "size": {
+      "type": "string",
+      "default": "md",
+      "enum": ["sm", "md", "lg"]
+    },
+    "colors": {
+      "type": "string",
+      "default": "grape",
+      "enum": ["grape", "raspberry", "strawberry", "custom"]
+    },
+    "customBackground": {
+      "type": "string",
+      "default": ""
+    },
+    "customTextColor": {
+      "type": "string",
+      "default": ""
+    },
+    "borderRadiusDesktop": {
+      "type": "string",
+      "default": "8px",
+      "enum": ["none", "4px", "6px", "8px", "10px", "12px", "16px", "20px", "32px"]
+    },
+    "borderRadiusTablet": {
+      "type": "string",
+      "default": "8px",
+      "enum": ["none", "4px", "6px", "8px", "10px", "12px", "16px", "20px", "32px"]
+    },
+    "borderRadiusPhone": {
+      "type": "string",
+      "default": "6px",
+      "enum": ["none", "4px", "6px", "8px", "10px", "12px", "16px", "20px", "32px"]
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": false,
+    "color": false
+  },
+  "editorScript": "file:./block.tsx",
+  "style": "file:./style-block.css"
+}

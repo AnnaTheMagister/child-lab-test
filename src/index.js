@@ -2,6 +2,10 @@ import "./styles/main.scss";
 import "./styles/grid-system.scss";
 import "./styles/header.scss";
 import "./styles/courses-list.scss";
+import "./scripts/ui-kit/Button/Button.scss";
+import "./scripts/ui-kit/ButtonGroup/ButtonGroup.scss";
+import "./scripts/ui-kit/Tag/Tag.scss";
+import "./scripts/widgets/CoursesList/CourseCard/CourseCard.scss";
 
 import "./scripts/ArticleReader";
 import "./scripts/shared/switcher";

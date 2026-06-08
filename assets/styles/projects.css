@@ -48,6 +48,7 @@
   line-height: 1.25;
 }
 
+/* TODO: Refactor to ui-kit/Button */
 .project-link {
   display: flex;
   justify-content: center;

@@ -215,7 +215,9 @@ if (function_exists('acf_add_local_field_group')):
 					'teachers' => 'Педагогам',
 				),
 				'allow_custom' => 0,
-				'default_value' => array(),
+				'default_value' => array(
+					'parents',
+				),
 				'layout' => 'vertical',
 				'toggle' => 0,
 				'return_format' => 'value',
@@ -239,6 +241,7 @@ if (function_exists('acf_add_local_field_group')):
 				),
 				'allow_null' => 0,
 				'allow_custom' => 0,
+				'default_value' => 'online',
 				'placeholder' => '',
 				'return_format' => 'value',
 			),

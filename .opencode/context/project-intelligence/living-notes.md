@@ -27,6 +27,10 @@
 | No PHP tests | PHPUnit not configured | Low | Add PHPUnit when PHP feature set stabilizes |
 | Hardcoded REST URLs | `BASE_URL` in `consts.ts` points to `localhost/childlab.local` | Low | Environment-aware configuration |
 | Legacy folder structure | 5 компонентов не соответствуют новому стандарту (папка + test + index.ts) | Medium | Привести к единому шаблону |
+| Legacy button styles | CSS-классы `.article-button`, `.project-link`, `.not-found-page-link`, `.course-access-button` не используют ui-kit | Low | Переписать на `ui-kit/Button`
+| Custom webpack config | `webpack.config.js` переопределяет entry, чтобы сохранить `index.js` при наличии блоков | Low | Встроить в стандартный конфиг @wordpress/scripts при обновлении
+| ButtonGroup с inactive-состоянием | У ButtonGroup нет пропсов для inactive-состояния кнопок внутри группы; пригодится для групп, где одна кнопка должна выделяться | Low | Добавить компонент ButtonGroup с поддержкой `inactive` конфигурации или пропсами для подсветки активной кнопки |
+| Дизайн-токены (Design Tokens) | Проект использует CSS-переменные в `variables.css`, но нет единой системы токенов. Цвета, шрифты, отступы встречаются в inline-стилях и CSS разрозненно | Medium | Постепенно выносить повторяющиеся значения в CSS-переменные и документировать в design-system.md |
 
 ### Technical Debt Details
 
@@ -64,6 +68,17 @@
 *Effort*: Low per file, Medium overall
 *Status*: Todo
 
+## Design System & Tokens
+
+> **Принципиально важно**: у проекта есть макеты в Figma. Требования к цветам, размерам шрифтов и разметке очень жёсткие. Строим дизайн-систему с дизайн-токенами.
+
+**Правила работы**:
+1. При встрече повторяющихся значений (цвета, размеры, отступы, border-radius) — выносить в CSS-переменные в `variables.css`
+2. Не использовать inline-значения, если для них уже есть CSS-переменная
+3. Новые цвета/размеры сначала добавлять в `variables.css`, потом использовать через `var(--token-name)`
+4. Все градиенты и цвета с прозрачностью должны быть явно задокументированы
+5. См. `design-system.md` в `.opencode/context/ui/` для полного справочника
+
 ## Open Questions
 
 | Question | Stakeholders | Status | Next Action |
@@ -82,7 +97,9 @@
 
 ### What Works Well
 - **Context Provider + REST fetch pattern** (`Articles.tsx`, `MethodologyTags.tsx`): Fetch all data on mount, filter client-side. Simple, fast UX, minimal backend load.
-- **Folder-per-component pattern**: Each component/hook/context in its own folder with co-located test and `index.ts` barrel. See `entities/Courses/`, `shared/hooks/useCurrentSearch/`, `widgets/CoursesList/` for reference.
+- **Folder-per-component pattern**: Each component/hook/context in its own folder with co-located test and `index.ts` barrel. See `entities/Courses/`, `shared/hooks/useCurrentSearch/`, `widgets/CoursesList/CourseCard/`, `ui-kit/Button/` for reference.
+- **UI-kit**: `Button`, `ButtonGroup`, `Icon`, `Tag` в `src/scripts/ui-kit/` — единый источник правды для кнопок, иконок и меток.
+- **Gutenberg block registration**: `src/blocks/` — блоки автоматически собираются, регистрируются через `inc/blocks/register-blocks.php`. `webpack.config.js` добавляет `src/index.js` обратно.
 - **Reading mode system**: Session-based persistence with clean URL switching. Simple, effective, no login required.
 - **ACF `show_in_rest` on individual fields**: Granular control over REST API exposure without custom endpoints.
 
@@ -90,12 +107,14 @@
 - **ACF field organization**: Currently split between `register-*.php` and `field-groups/`. Standardize to single pattern.
 - **No PHP autoloading**: All `inc/` files manually required in `functions.php`. PSR-4 autoloading would simplify.
 - **Testing gap (PHP)**: No PHPUnit setup — PHP/WordPress changes require manual verification.
-- **Testing done (JS)**: Jest + RTL set up — see `tests/entities/Courses.test.tsx`, `tests/widgets/CoursesList.test.tsx`, `tests/widgets/ErrorBoundary.test.tsx` as patterns.
+- **Testing done (JS)**: Jest + RTL set up. Тесты co-located: `entities/Courses/CoursesContext.test.tsx`, `widgets/CoursesList/CoursesList.test.tsx`, `widgets/CoursesList/CourseCard/CourseCard.test.tsx`, `widgets/ErrorBoundary/ErrorBoundary.test.tsx`, `ui-kit/Button/Button.test.tsx`, `ui-kit/ButtonGroup/ButtonGroup.test.tsx`, `ui-kit/Tag/Tag.test.tsx`.
 
 ### Lessons Learned
 - ACF field registration timing matters: `acf/include_fields` vs direct `acf_add_local_field_group()` at plugin load. Both needed for reliability in different contexts.
 - Taxonomy CPT relationships must be specified as arrays (`register_taxonomy('tag', ['article'], ...)`) not strings for clarity and extensibility.
 - `show_in_rest` on ACF fields does NOT automatically expose them for taxonomy terms — need `register_rest_field()` for term meta.
+- **ACF checkbox/select хранят строковые значения, не term_id**: Когда ACF поле типа `checkbox` или `select` (не `taxonomy`) привязано к таксономии через `taxonomy` параметр, `return_format: 'value'` сохраняет выбранные значения (choice keys) в `acf.*` REST-ответа. React должен читать `course.acf.course_audience` (array of strings), а не `course.course_audience` (top-level, пустой массив от WP REST). Фильтрация по slug, а не по term ID. Это критично для мультиязычности: ACF хранит language-agnostic slugs, а display name приходит из taxonomy term REST-запроса.
+- **Gutenberg-блоки и @wordpress/scripts**: Когда в `src/` появляются `block.json`, `@wordpress/scripts` переключается на сборку только блоков (entry points из `block.json`). Главный `src/index.js` перестаёт собираться. Решение: `webpack.config.js` вручную добавляет `index: './src/index.js'` в entry.
 
 ## Patterns & Conventions
 

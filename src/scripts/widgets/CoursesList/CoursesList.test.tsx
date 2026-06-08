@@ -17,9 +17,9 @@ const mockContext = {
         course_background_color: '#fff',
         course_title_color: '#000',
         course_button_gradient: '',
+        course_audience: ['parents'],
+        course_type: 'online',
       },
-      course_audience: [10],
-      course_type: [20],
       _embedded: { 'wp:featuredmedia': [ { source_url: '/img1.jpg' } ] },
     },
     {
@@ -34,9 +34,9 @@ const mockContext = {
         course_background_color: '#fff',
         course_title_color: '#000',
         course_button_gradient: '',
+        course_audience: ['teachers'],
+        course_type: 'offline',
       },
-      course_audience: [11],
-      course_type: [21],
       _embedded: { 'wp:featuredmedia': [ { source_url: '/img2.jpg' } ] },
     },
   ],
@@ -47,8 +47,8 @@ const mockContext = {
   ],
   audienceTermsLoading: false,
   courseTypeTerms: [
-    { id: 20, name: 'Вебинар', slug: 'webinar' },
-    { id: 21, name: 'Курс', slug: 'course' },
+    { id: 20, name: 'Вебинар', slug: 'online' },
+    { id: 21, name: 'Курс', slug: 'offline' },
   ],
   courseTypeTermsLoading: false,
 };
@@ -66,47 +66,63 @@ describe('CoursesListComponent', () => {
     window.history.replaceState({}, '', window.location.pathname);
   });
 
-  it('renders filter buttons for each audience term plus "Все"', () => {
+  it('renders filter buttons for each audience term', () => {
     renderWithContext();
 
-    expect(screen.getByText('Все')).toBeInTheDocument();
     expect(screen.getByText('Родителям')).toBeInTheDocument();
     expect(screen.getByText('Педагогам')).toBeInTheDocument();
   });
 
-  it('renders all courses when "Все" filter is active', () => {
+  it('does not render "Все" button', () => {
+    renderWithContext();
+
+    expect(screen.queryByText('Все')).not.toBeInTheDocument();
+  });
+
+  it('defaults to "Родителям" filter when no URL param', () => {
     renderWithContext();
 
     expect(screen.getByText('Курс для родителей')).toBeInTheDocument();
-    expect(screen.getByText('Курс для педагогов')).toBeInTheDocument();
+    expect(screen.queryByText('Курс для педагогов')).not.toBeInTheDocument();
+  });
+
+  it('default active button is "Родителям"', () => {
+    renderWithContext();
+
+    const parentsBtn = screen.getByRole('button', { name: /Родителям/ });
+    expect(parentsBtn.className).toContain('ui-button--active');
   });
 
   it('filters courses by audience when a filter button is clicked', () => {
     renderWithContext();
 
-    fireEvent.click(screen.getByText('Родителям'));
+    fireEvent.click(screen.getByText('Педагогам'));
 
-    expect(screen.getByText('Курс для родителей')).toBeInTheDocument();
-    expect(screen.queryByText('Курс для педагогов')).not.toBeInTheDocument();
+    expect(screen.getByText('Курс для педагогов')).toBeInTheDocument();
+    expect(screen.queryByText('Курс для родителей')).not.toBeInTheDocument();
   });
 
-  it('shows all courses after switching filter then clicking "Все"', () => {
+  it('switches active class when filter changes', () => {
     renderWithContext();
 
-    fireEvent.click(screen.getByText('Родителям'));
-    expect(screen.queryByText('Курс для педагогов')).not.toBeInTheDocument();
+    const parentsBtn = screen.getByRole('button', { name: /Родителям/ });
+    const teachersBtn = screen.getByRole('button', { name: /Педагогам/ });
 
-    fireEvent.click(screen.getByText('Все'));
-    expect(screen.getByText('Курс для родителей')).toBeInTheDocument();
-    expect(screen.getByText('Курс для педагогов')).toBeInTheDocument();
+    expect(parentsBtn.className).toContain('ui-button--active');
+    expect(teachersBtn.className).not.toContain('ui-button--active');
+
+    fireEvent.click(teachersBtn);
+
+    expect(parentsBtn.className).not.toContain('ui-button--active');
+    expect(teachersBtn.className).toContain('ui-button--active');
   });
 
   it('updates URL param when filter is clicked', () => {
     renderWithContext();
 
-    fireEvent.click(screen.getByText('Родителям'));
+    fireEvent.click(screen.getByText('Педагогам'));
 
-    expect(window.location.search).toContain('audience=parents');
+    expect(window.location.search).toContain('audience=teachers');
   });
 
   it('reads initial audience filter from URL', () => {
@@ -156,35 +172,28 @@ describe('CoursesListComponent', () => {
     renderWithContext();
 
     expect(screen.getByText('Вебинар')).toBeInTheDocument();
-    expect(screen.getByText('Курс')).toBeInTheDocument();
+    expect(screen.queryByText('Курс')).not.toBeInTheDocument();
   });
 
   it('each course card has a "Подробнее" link', () => {
     renderWithContext();
 
     const links = screen.getAllByText('Подробнее');
-    expect(links).toHaveLength(2);
+    expect(links).toHaveLength(1);
     expect(links[0].closest('a')).toHaveAttribute('href', '/course-1');
-    expect(links[1].closest('a')).toHaveAttribute('href', '/course-2');
   });
 
-  it('marks the active filter button with mod-active class', () => {
+  it('defaults to parents slug when no URL param and parents term exists', () => {
     renderWithContext();
 
-    const allBtn = screen.getByText('Все');
-    expect(allBtn.className).toContain('courses-filter__btn--active');
-
-    fireEvent.click(screen.getByText('Педагогам'));
-    expect(allBtn.className).not.toContain('courses-filter__btn--active');
-    expect(screen.getByText('Педагогам').className).toContain('courses-filter__btn--active');
+    expect(screen.getByRole('button', { name: /Родителям/ }).className).toContain('ui-button--active');
   });
 
-  it('clears URL param when "Все" is clicked after a filter', () => {
-    window.history.replaceState({}, '', '?audience=parents');
+  it('updates URL to parents param when parents button is clicked', () => {
     renderWithContext();
 
-    fireEvent.click(screen.getByText('Все'));
+    fireEvent.click(screen.getByRole('button', { name: /Родителям/ }));
 
-    expect(window.location.search).not.toContain('audience');
+    expect(window.location.search).toContain('audience=parents');
   });
 });

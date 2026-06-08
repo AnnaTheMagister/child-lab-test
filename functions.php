@@ -43,7 +43,12 @@ require_once get_template_directory() . '/inc/articles-list.php';
 require_once get_template_directory() . '/inc/author-data.php';
 
 // ==============================================
-// 6. Utility Libraries
+// 6. Block Registration
+// ==============================================
+require_once get_template_directory() . '/inc/blocks/register-blocks.php';
+
+// ==============================================
+// 7. Utility Libraries
 // ==============================================
 
 

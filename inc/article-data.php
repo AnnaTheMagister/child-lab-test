@@ -52,6 +52,7 @@ function get_article_tags_render($post_id)
     if ($tags && !is_wp_error($tags)) {
         foreach ($tags as $tag) {
             $color = get_field('color', $tag) ?? 'rgba(100, 100, 100, 0.5)';
+            // TODO: Refactor to ui-kit/Tag
             $tags_render .= '<div class="article-tags__tag truncate" title="' . $tag->name . '" style="background-color: ' . $color . '">' . $tag->name . '</div>';
         }
     }

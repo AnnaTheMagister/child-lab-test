@@ -59,6 +59,7 @@
     color: white;
 }
 
+/* TODO: Refactor to ui-kit/Button */
 .course-access-button {
     display: inline-block;
     background-color: #4a90e2;
