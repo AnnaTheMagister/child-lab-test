@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Tag } from './Tag';
+import { Tag, TagSize } from './Tag';
 
 describe('Tag', () => {
   it('renders children text', () => {
@@ -8,11 +8,11 @@ describe('Tag', () => {
     expect(screen.getByText('Webinar')).toBeInTheDocument();
   });
 
-  it('applies default background and text color', () => {
+  it('applies default background (#EB3F9B) and text color (#ffffff)', () => {
     render(<Tag>Tag</Tag>);
     const el = screen.getByText('Tag');
-    expect(el.style.backgroundColor).toBeTruthy();
-    expect(el.style.color).toBe('rgb(51, 51, 51)');
+    expect(el.style.backgroundColor).toBe('rgb(235, 63, 155)');
+    expect(el.style.color).toBe('rgb(255, 255, 255)');
   });
 
   it('applies custom color and textColor', () => {
@@ -22,12 +22,26 @@ describe('Tag', () => {
     expect(el.style.color).toBe('rgb(255, 255, 255)');
   });
 
-  it('applies padding based on size prop', () => {
-    const { rerender } = render(<Tag size="sm">Small</Tag>);
-    expect(screen.getByText('Small').style.padding).toBe('4px 12px');
+  it('sets CSS custom properties for all breakpoints based on size', () => {
+    const { rerender } = render(<Tag size="sm">S</Tag>);
+    const s = screen.getByText('S').style;
+    expect(s.getPropertyValue('--tag-padding-phone')).toBe('4px 12px');
+    expect(s.getPropertyValue('--tag-padding-tablet')).toBe('4px 12px');
+    expect(s.getPropertyValue('--tag-padding-desktop')).toBe('4px 12px');
+    expect(s.getPropertyValue('--tag-font-size-phone')).toBe('12px');
+    expect(s.getPropertyValue('--tag-radius-desktop')).toBe('12px');
 
-    rerender(<Tag size="md">Medium</Tag>);
-    expect(screen.getByText('Medium').style.padding).toBe('6px 16px');
+    rerender(<Tag size="md">M</Tag>);
+    const m = screen.getByText('M').style;
+    expect(m.getPropertyValue('--tag-padding-phone')).toBe('6px 16px');
+    expect(m.getPropertyValue('--tag-font-size-phone')).toBe('14px');
+    expect(m.getPropertyValue('--tag-radius-phone')).toBe('16px');
+
+    rerender(<Tag size="lg">L</Tag>);
+    const l = screen.getByText('L').style;
+    expect(l.getPropertyValue('--tag-padding-phone')).toBe('2px 12px');
+    expect(l.getPropertyValue('--tag-font-size-phone')).toBe('12px');
+    expect(l.getPropertyValue('--tag-radius-phone')).toBe('12px');
   });
 
   it('applies custom className', () => {

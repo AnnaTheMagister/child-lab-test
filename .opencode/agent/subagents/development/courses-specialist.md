@@ -47,19 +47,33 @@ permission:
    <rule id="template_part_naming">
      Keep template parts under `template-parts/courses/` (plural) for consistency. The existing `template-parts/course/` (singular) for `banner.php` should be migrated to `template-parts/courses/banner.php` for uniformity.
    </rule>
-   <rule id="rest_api_ready">
-     All courses ACF fields should have `show_in_rest: true` for future React integration. The CPT already has `show_in_rest: true`.
-   </rule>
+    <rule id="rest_api_exposure">
+      ==================== ACF → REST: GENERAL SOLUTION ====================
+      Problem: ACF fields without `show_in_rest => 1` may not appear in REST
+      response's `acf` object, especially when the field has no saved value.
+      This affects ALL field types: url, text, color_picker, checkbox, select.
+
+      Solution:
+        1. ALWAYS add `'show_in_rest' => 1` to every ACF field definition
+           that React will consume via REST API.
+        2. Don't rely solely on `register_rest_field()` fallback in
+           `helpers.php` — it calls `get_fields()` which may omit empty fields.
+        3. Validate: check `/wp-json/wp/v2/{post_type}/{id}` — if field is
+           missing from `acf.*`, add `show_in_rest => 1`.
+      =====================================================================
+    </rule>
 
     <tier level="1" desc="Critical Rules">
       - @load_courses_context: Load courses context before any work
       - @fix_known_bugs_before_new_features: Fix bugs before adding features
+      - @rest_api_exposure: Every ACF field consumed by React MUST have `show_in_rest => 1`
     </tier>
    <tier level="2" desc="Implementation Patterns">
-     - PHP template rendering via `get_template_part()`
-     - ACF fields via `acf_add_local_field_group()` on `init`
-     - Asset enqueue via `wp_enqueue_*` in `functions.php`
-     - Color fallbacks via `addColors()` utility
+      - PHP template rendering via `get_template_part()`
+      - ACF fields via `acf_add_local_field_group()` on `init` with `show_in_rest => 1` on every field
+      - Asset enqueue via `wp_enqueue_*` in `functions.php`
+      - Color fallbacks via `shiftLightness()` or `addColors()` from `shared/libs/colors/`
+      - ACF select slug → display name resolution via `getTermNameBySlug()` from `shared/libs/terms/`
    </tier>
    <tier level="3" desc="Future Considerations">
      - React widgets for course filtering (Context Provider + REST API)
@@ -112,6 +126,8 @@ permission:
   <wordpress_first>All courses rendering starts as PHP templates. React widgets are additive.</wordpress_first>
   <acf_single_source>One ACF field group per feature, no duplication — confirmed in `register-course-fields.php`.</wordpress_first>
   <pagination_not_infinite>Use `WP_Query` with pagination, not `get_posts()` with `numberposts => -1`.</pagination_not_infinite>
-  <color_fallbacks>All palette colors must have automatic fallbacks via `addColors()`.</color_fallbacks>
+  <color_fallbacks>All palette colors must have automatic fallbacks via `shiftLightness()` from `shared/libs/colors/`.</color_fallbacks>
   <locale_aware_titles>Page creation titles use `__()` so RU/EN domains get correct titles from `.mo` files.</locale_aware_titles>
+  <acf_rest_show_in_rest>Every ACF field consumed by React MUST have `show_in_rest => 1`. Without it, the field may not appear in REST response's `acf` object.</acf_rest_show_in_rest>
+  <acf_select_slug_resolution>ACF `select` fields with `return_format: 'value'` store choice keys (slugs), not taxonomy term IDs. Resolve slug → display name client-side via `getTermNameBySlug()` from `shared/libs/terms/`.</acf_select_slug_resolution>
 </principles>

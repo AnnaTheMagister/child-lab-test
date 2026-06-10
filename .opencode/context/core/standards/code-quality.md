@@ -203,10 +203,12 @@ src/
 │   ├── EntityComponent.test.tsx  # Тест — рядом, не в tests/
 │   └── index.ts                  # Баррель: export * from './EntityComponent'
 │
+├── shared/libs/LibName/
+│   ├── lib.ts                    # Чистые функции (camelCase)
+│   ├── lib.test.ts               # Тесты
+│   └── index.ts                  # Баррель
+│
 ├── shared/hooks/useFoo/
-│   ├── useFoo.ts
-│   ├── useFoo.test.tsx
-│   └── index.ts
 │
 └── widgets/WidgetName/
     ├── WidgetName.tsx
@@ -379,6 +381,13 @@ import { something } from "../widgets/Foo/Foo.test";
 - `Tag` — тег/метка с опциональным цветом фона и текста, размером sm/md. Импорт: `import { Tag } from '../../ui-kit'`. **Доступен как Gutenberg-блок** `childlab/tag` в категории Childlab.
 - `Button` — кастомная кнопка. **Доступен как Gutenberg-блок** `childlab/button` в категории Childlab. Атрибуты: текст, ссылка, цвет фона, цвет текста, размер.
 
+**Shared libs**:
+- `colors` (`src/scripts/shared/libs/colors/`) — работа с цветами: `hexToRgb`, `rgbToHex`, `addColors`, `hexToHsl`, `hslToHex`, `shiftLightness`. Импорт: `import { shiftLightness } from '../../shared/libs/colors'`
+
+**Entities**:
+- `Course` (`src/scripts/entities/Course/`) — контекст для единичного курса (single course page). `CourseContextProvider` + `useCourse`. Импорт: `import { useCourse } from '../../entities/Course'`
+- `Courses` (`src/scripts/entities/Courses/`) — контекст для списка курсов. `CoursesContextProvider` + `useCourses`.
+
 **API кнопки**:
 - `isActive` — состояние (`true` по умолчанию, кнопка всегда в active)
 - `active` — группа `{ background?, color?, borderColor? }` для активного состояния
@@ -513,7 +522,7 @@ return <List items={items} />;
 ## Anti-Patterns — Project-Specific
 
 ❌ **ACF field key collisions** — Every field key must be globally unique
-❌ **Missing `show_in_rest`** — React components can't access fields not exposed via REST
+❌ **Missing `show_in_rest` on ACF fields consumed by React** — If a field lacks `show_in_rest => 1`, it may not appear in the REST response's `acf` object (especially when empty). Always add `show_in_rest => 1` to every field in an ACF field group that React reads via REST API. The `register_rest_field()` fallback in `helpers.php` is a secondary safety net, not a substitute.
 ❌ **Duplicate taxonomy REST registration** — Terms need `register_rest_field()` in addition to `show_in_rest`
 ❌ **Hardcoded localhost URLs** — Use `BASE_URL` from `consts.ts` for API calls
 ❌ **Direct `get_template_directory_uri()` in JS** — Use localized `themeData.templateUrl` instead
@@ -528,7 +537,8 @@ return <List items={items} />;
 - [ ] WordPress hooks for integration points
 - [ ] wp_enqueue_* for asset loading
 - [ ] filemtime() for cache busting
-- [ ] show_in_rest: true for API-accessible fields
+- [ ] show_in_rest: true for EVERY ACF field consumed by React
+- [ ] Field type `url`: add `show_in_rest => 1` — otherwise REST returns empty string for unfilled fields
 - [ ] i18n with 'childlab' text domain
 - [ ] Validate at boundaries, return safe defaults
 - [ ] Unique ACF field keys
@@ -541,6 +551,8 @@ return <List items={items} />;
 - [ ] Widget folder pattern for components
 - [ ] Loading / empty / error state handling
 - [ ] PascalCase components, camelCase utilities
+- [ ] Адаптив на 3 брейкпоинта (phone/tablet/desktop) для каждого компонента
+- [ ] Размеры (padding, font-size, border-radius) согласованы с ui-kit аналогами
 
 ### SCSS
 - [ ] variables.scss for design tokens

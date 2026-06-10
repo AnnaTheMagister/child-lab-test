@@ -27,10 +27,11 @@
 | No PHP tests | PHPUnit not configured | Low | Add PHPUnit when PHP feature set stabilizes |
 | Hardcoded REST URLs | `BASE_URL` in `consts.ts` points to `localhost/childlab.local` | Low | Environment-aware configuration |
 | Legacy folder structure | 5 компонентов не соответствуют новому стандарту (папка + test + index.ts) | Medium | Привести к единому шаблону |
-| Legacy button styles | CSS-классы `.article-button`, `.project-link`, `.not-found-page-link`, `.course-access-button` не используют ui-kit | Low | Переписать на `ui-kit/Button`
+| Legacy button/tag styles | CSS-классы `.article-button`, `.project-link`, `.not-found-page-link`, `.course-access-button`, `.article-tags__tag` не используют ui-kit; `ArticlesList.tsx` рендерит raw `<div>` вместо Tag | Low | Переписать на `ui-kit/Button` / `ui-kit/Tag`
 | Custom webpack config | `webpack.config.js` переопределяет entry, чтобы сохранить `index.js` при наличии блоков | Low | Встроить в стандартный конфиг @wordpress/scripts при обновлении
 | ButtonGroup с inactive-состоянием | У ButtonGroup нет пропсов для inactive-состояния кнопок внутри группы; пригодится для групп, где одна кнопка должна выделяться | Low | Добавить компонент ButtonGroup с поддержкой `inactive` конфигурации или пропсами для подсветки активной кнопки |
 | Дизайн-токены (Design Tokens) | Проект использует CSS-переменные в `variables.css`, но нет единой системы токенов. Цвета, шрифты, отступы встречаются в inline-стилях и CSS разрозненно | Medium | Постепенно выносить повторяющиеся значения в CSS-переменные и документировать в design-system.md |
+| ~~Course banner ACF → REST~~ | ~~Single course page использует `CourseContext`…~~ | ~~Low~~ | ✅ RESOLVED: `show_in_rest => 1` добавлен ко всем ACF-полям курса в `register-course-fields.php`. React читает данные через `data.acf.*` (REST), включая `course_access_link`, `course_type`, `course_audience` и поля палитры. |
 
 ### Technical Debt Details
 
@@ -114,6 +115,8 @@
 - Taxonomy CPT relationships must be specified as arrays (`register_taxonomy('tag', ['article'], ...)`) not strings for clarity and extensibility.
 - `show_in_rest` on ACF fields does NOT automatically expose them for taxonomy terms — need `register_rest_field()` for term meta.
 - **ACF checkbox/select хранят строковые значения, не term_id**: Когда ACF поле типа `checkbox` или `select` (не `taxonomy`) привязано к таксономии через `taxonomy` параметр, `return_format: 'value'` сохраняет выбранные значения (choice keys) в `acf.*` REST-ответа. React должен читать `course.acf.course_audience` (array of strings), а не `course.course_audience` (top-level, пустой массив от WP REST). Фильтрация по slug, а не по term ID. Это критично для мультиязычности: ACF хранит language-agnostic slugs, а display name приходит из taxonomy term REST-запроса.
+- **General rule: every ACF field consumed by React MUST have `show_in_rest => 1`**: ACF fields without `show_in_rest => 1` may not appear in the REST API response's `acf` object, especially when the field has no saved value (empty). The `register_rest_field('courses', 'acf', ...)` fallback in `helpers.php` helps but is not a substitute — `get_fields()` may omit empty/null fields. Always set `'show_in_rest' => 1` on the field definition itself. This applies to all post types (`courses`, `article`, `projects`, taxonomy terms) and all field types (text, URL, color_picker, checkbox, select, etc.). To validate: check `curl /wp-json/wp/v2/{post_type}/{id}` — if the field is missing from `acf`, add `show_in_rest => 1`.
+- **Resolving `course_type` slug → display name**: Since ACF `select` fields store choice keys (slugs like `"online"`), not taxonomy term IDs, the display name must be resolved client-side. Fetch the taxonomy terms from `/wp-json/wp/v2/{taxonomy}` (e.g., `course-type`) and map slug → name via `getTermNameBySlug()` from `shared/libs/terms/`. The same pattern applies to any ACF field that references a taxonomy but stores the slug value, not the term ID.
 - **Gutenberg-блоки и @wordpress/scripts**: Когда в `src/` появляются `block.json`, `@wordpress/scripts` переключается на сборку только блоков (entry points из `block.json`). Главный `src/index.js` перестаёт собираться. Решение: `webpack.config.js` вручную добавляет `index: './src/index.js'` в entry.
 
 ## Patterns & Conventions

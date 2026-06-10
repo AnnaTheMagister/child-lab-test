@@ -99,11 +99,35 @@ const DEFAULT_RADIUS: Record<string, BorderRadiusValue> = {
   phone: '6px',
 };
 
-const sizeMap: Record<ButtonSize, React.CSSProperties> = {
-  sm: { padding: '6px 12px', fontSize: '13px' },
-  md: { padding: '8px 16px', fontSize: '15px' },
-  lg: { padding: '10px 24px', fontSize: '16px' },
+interface SizeBreakpoints {
+  phone: React.CSSProperties;
+  tablet: React.CSSProperties;
+  desktop: React.CSSProperties;
+}
+
+const sizeMap: Record<ButtonSize, SizeBreakpoints> = {
+  sm: {
+    phone: { padding: '8px 12px', fontSize: '16px' },
+    tablet: { padding: '8px 12px', fontSize: '16px' },
+    desktop: { padding: '8px 12px', fontSize: '16px' },
+  },
+  md: {
+    phone: { padding: '8px 24px', fontSize: '24px' },
+    tablet: { padding: '8px 24px', fontSize: '24px' },
+    desktop: { padding: '8px 24px', fontSize: '24px' },
+  },
+  lg: {
+    phone: { padding: '6px 18px', fontSize: '18px' },
+    tablet: { padding: '8px 24px', fontSize: '24px' },
+    desktop: { padding: '12px 36px', fontSize: '36px' },
+  },
 };
+
+type Breakpoint = 'desktop' | 'tablet' | 'phone';
+
+function getSizeProp(size: ButtonSize, bp: Breakpoint, prop: keyof React.CSSProperties): string | undefined {
+  return (sizeMap[size]?.[bp] as any)?.[prop];
+}
 
 function resolveSchemeColors(
   colors: ButtonColors,
@@ -186,10 +210,15 @@ export const Button = ({
     : resolveSchemeColors(colors, 'inactive', inactiveColors);
 
   const style: React.CSSProperties = {
-    ...sizeMap[size],
     background: currentColors.background,
     color: currentColors.color,
     border: `1px solid ${currentColors.borderColor || 'transparent'}`,
+    '--button-padding-desktop': getSizeProp(size, 'desktop', 'padding'),
+    '--button-padding-tablet': getSizeProp(size, 'tablet', 'padding'),
+    '--button-padding-phone': getSizeProp(size, 'phone', 'padding'),
+    '--button-font-size-desktop': getSizeProp(size, 'desktop', 'fontSize'),
+    '--button-font-size-tablet': getSizeProp(size, 'tablet', 'fontSize'),
+    '--button-font-size-phone': getSizeProp(size, 'phone', 'fontSize'),
     '--button-radius-desktop': getRadius(borderRadius, 'desktop'),
     '--button-radius-tablet': getRadius(borderRadius, 'tablet'),
     '--button-radius-phone': getRadius(borderRadius, 'phone'),

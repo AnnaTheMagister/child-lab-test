@@ -1,1 +1,4206 @@
-(()=>{var e={338(e,t,n){"use strict";var i=n(795);t.createRoot=i.createRoot,t.hydrateRoot=i.hydrateRoot},610(){document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("readingModeSwitcher"),t=document.getElementById("mobileSwitcherToggle"),n=document.getElementById("switcherClose");function i(){return window.innerWidth<=768}function o(){e.classList.remove("active");const t=document.querySelector(".switchers-overlay");t&&(t.classList.remove("active"),t.removeEventListener("click",o)),document.body.style.overflow=""}t&&t.addEventListener("click",function(){e.classList.add("active");let t=document.querySelector(".switchers-overlay");t||(t=document.createElement("div"),t.className="switchers-overlay",document.body.appendChild(t)),t.classList.add("active"),t.addEventListener("click",o),document.body.style.overflow="hidden"}),n&&n.addEventListener("click",o),document.addEventListener("keydown",function(t){"Escape"===t.key&&e.classList.contains("active")&&o()}),window.addEventListener("resize",function(){!i()&&e.classList.contains("active")&&o()}),e.querySelectorAll("a").forEach(e=>{e.addEventListener("click",function(){i()&&setTimeout(o,300)})})})},795(e){"use strict";e.exports=window.ReactDOM},830(){document.addEventListener("DOMContentLoaded",()=>{})}},t={};function n(i){var o=t[i];if(void 0!==o)return o.exports;var a=t[i]={exports:{}};return e[i](a,a.exports,n),a.exports}n.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return n.d(t,{a:t}),t},n.d=(e,t)=>{for(var i in t)n.o(t,i)&&!n.o(e,i)&&Object.defineProperty(e,i,{enumerable:!0,get:t[i]})},n.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),(()=>{"use strict";const e=window.React;var t=n.n(e);n(830),n(610);const i=({size:t="medium",fullScreen:n=!1,className:i=""})=>{const o=`loader-container ${n?"full-screen":""} ${i}`;return(0,e.createElement)("div",{className:o,"data-testid":"loader"},(0,e.createElement)("div",{className:`loader-spinner loader-${t}`},(0,e.createElement)("div",{className:"loader-dot"}),(0,e.createElement)("div",{className:"loader-dot"}),(0,e.createElement)("div",{className:"loader-dot"}),(0,e.createElement)("div",{className:"loader-dot"}),(0,e.createElement)("div",{className:"loader-dot"}),(0,e.createElement)("div",{className:"loader-dot"}),(0,e.createElement)("div",{className:"loader-dot"}),(0,e.createElement)("div",{className:"loader-dot"})))},o="localhost"===window.location.host?"http://localhost/childlab.local":window.location.origin,a=themeData.templateUrl+"/assets/images/post-bg.jpg",r=(0,e.createContext)({methodologyTags:[],tagsLoading:!0}),s=({children:t})=>{const[n,i]=(0,e.useState)([]),[a,s]=(0,e.useState)(!0);(0,e.useEffect)(()=>{fetch(o+"/wp-json/wp/v2/methodology-tags?per_page=100").then(e=>e.json()).then(e=>{i(e),s(!1)})},[]);const c={methodologyTags:n,tagsLoading:a};return(0,e.createElement)(r.Provider,{value:c},t)},c=()=>(0,e.useContext)(r),l=()=>{const[t,n]=(0,e.useState)(()=>new URLSearchParams(window.location.search));return(0,e.useEffect)(()=>{const e=()=>{n(new URLSearchParams(window.location.search))};return window.addEventListener("popstate",e),window.addEventListener("pushstate",e),()=>{window.removeEventListener("popstate",e),window.removeEventListener("pushstate",e)}},[]),{currentTaxonomy:(0,e.useMemo)(()=>t.get("methodology")?"methodology":null,[t]),currentTag:(0,e.useMemo)(()=>{var e;return null!==(e=t.get("methodology"))&&void 0!==e?e:null},[t]),getParam:(0,e.useCallback)(e=>t.get(e),[t])}},d={id:-1,name:window.wp.i18n.__("Все","childlab"),acf:{color:"rgba(138, 214, 80, 1)"}},h=e=>e>1200?"xlg":e<=1200&&e>992?"lg":e<=992&&e>768?"md":e<=768&&e>576?"sm":e<=576&&e>480?"xs":"xxs",g=e=>"lg"===e||"xlg"==e?6:"md"===e||"sm"===e?3:2,u=themeData.templateUrl+"/assets/images/all.png",m=t=>{var n,i;const{currentTaxonomy:o,currentTag:a}=l(),r=null!==(n=t.acf.color)&&void 0!==n?n:"#f00";return(0,e.createElement)("a",{href:`?methodology=${t.id}`,onClick:e=>{e.preventDefault(),history.pushState({},"",`?methodology=${t.id}`),window.dispatchEvent(new Event("pushstate"))},className:`childlab-card-link methodology-tags-menu__tag methodology-tag-width-${null!==(i=t.width)&&void 0!==i?i:4} ${a==t.id||!a&&-1==t.id?"methodology-tag__active":""}`,style:{backgroundColor:r}},(0,e.createElement)("div",{className:"methodology-tags-menu__svg-background",style:{backgroundImage:`url(${t.acf.tag_image||u})`,backgroundColor:r}}),(0,e.createElement)("div",{className:"methodology-tags-menu__title"},(0,e.createElement)("span",{title:t.name},t.name)))},v=(0,e.createContext)({articles:[],articlesLoading:!0,currentTaxonomy:"methodology",filteredArticles:[],currentTag:-1}),f=({children:t})=>{const[n,i]=(0,e.useState)([]),[a,r]=(0,e.useState)(!0),{currentTaxonomy:s,currentTag:c}=l();(0,e.useEffect)(()=>{fetch(o+"/wp-json/wp/v2/articles?per_page=100&_embed").then(e=>e.json()).then(e=>{i(e),r(!1)})},[]);const d=(0,e.useMemo)(()=>n?"methodology"===s&&parseInt(c)>0?n.filter(e=>e["methodology-tags"]?.some(e=>e===parseInt(c))):n:[],[n,s,c]),h={articles:n,articlesLoading:a,currentTaxonomy:s,filteredArticles:d,currentTag:c};return(0,e.createElement)(v.Provider,{value:h},t)},p=()=>(0,e.useContext)(v),y=t=>{var n;const i=null!==(n=t.size)&&void 0!==n?n:"small",o=t?._embedded?.["wp:featuredmedia"]?.[0]?.source_url,r=o||a,s=t.excerpt.rendered.replace(/<[^>]+>/g,"");return(0,e.createElement)("a",{className:"article-card",href:t.link},(0,e.createElement)("div",{className:`article-img article-img__${i}`,style:{backgroundImage:`url(${r})`}},(0,e.createElement)(x,{...t})),(0,e.createElement)("div",{className:"article-details"},(0,e.createElement)("div",{className:"article-meta childlab-text__meta"},(0,e.createElement)(w,{...t})),(0,e.createElement)("div",{className:"article-details__title truncate-multiline"},t.title.rendered),(0,e.createElement)("div",{className:"article-details__subtitle truncate"},t.acf.subtitle),(0,e.createElement)("div",{className:"article-details__excerpt truncate-multiline"},s)))},w=t=>{t["article-authors"];const n=function(e){return"number"==typeof e?e=new Date(1e3*e):"string"==typeof e?e=new Date(e):Array.isArray(e)&&(e=new Date(e[0],e[1],e[2])),e.toLocaleString("ru",{day:"2-digit",month:"2-digit",year:"2-digit"})}(t.date);return(0,e.createElement)("div",{className:"article-meta"},n)},x=t=>{const{methodologyTags:n}=c(),i=(0,e.useMemo)(()=>n.filter(e=>t["methodology-tags"].includes(e.id)),[n,t]);return(0,e.createElement)("div",{className:"article-tags"},i.map(t=>{var n;return(0,e.createElement)("div",{key:t.id,className:"article-tags__tag truncate",style:{backgroundColor:null!==(n=t.acf.color)&&void 0!==n?n:"rgba(100, 100, 100, 0.5)"}},t.name)}))},b=(0,e.createContext)({courses:[],coursesLoading:!0,audienceTerms:[],audienceTermsLoading:!0,courseTypeTerms:[],courseTypeTermsLoading:!0}),T=({children:t})=>{const[n,i]=(0,e.useState)([]),[a,r]=(0,e.useState)(!0),[s,c]=(0,e.useState)([]),[l,d]=(0,e.useState)(!0),[h,g]=(0,e.useState)([]),[u,m]=(0,e.useState)(!0);(0,e.useEffect)(()=>{fetch(o+"/wp-json/wp/v2/courses?per_page=100&_embed").then(e=>e.json()).then(e=>{i(e),r(!1)})},[]),(0,e.useEffect)(()=>{fetch(o+"/wp-json/wp/v2/course-audience").then(e=>e.json()).then(e=>{c(e),d(!1)})},[]),(0,e.useEffect)(()=>{fetch(o+"/wp-json/wp/v2/course-type").then(e=>e.json()).then(e=>{g(e),m(!1)})},[]);const v={courses:n,coursesLoading:a,audienceTerms:s,audienceTermsLoading:l,courseTypeTerms:h,courseTypeTermsLoading:u};return(0,e.createElement)(b.Provider,{value:v},t)},C={grape:{active:{default:{background:"linear-gradient(90deg, #5823EB 0%, #6D00D2 100%)",color:"rgb(255, 255, 255)"},hovered:{background:"#7955F9"},pressed:{background:"#3D1FAA"}},inactive:{default:{background:"linear-gradient(90deg, #ECEFFF 0%, #F2E8FF 100%)",color:"#5230D0"},hovered:{background:"#ffffff"},pressed:{background:"#DDDDDD"}}},raspberry:{active:{default:{background:"linear-gradient(90deg, rgb(215, 69, 255) 0%, rgb(245, 47, 162) 100%)",color:"rgb(255, 255, 255)"}},inactive:{default:{background:"linear-gradient(90deg, rgb(247, 217, 255) 0%, rgb(255, 200, 232) 100%)",color:"rgb(188, 0, 173)"}}},strawberry:{active:{default:{background:"linear-gradient(90deg, #F74098 0%, #F64B30 100%)",color:"rgb(255, 255, 255)"}},inactive:{default:{background:"linear-gradient(90deg, #FFD4E9, #FFCFC8 100%)",color:"rgb(188, 0, 173)"}}}},E={desktop:"8px",tablet:"8px",phone:"6px"},_={sm:{padding:"6px 12px",fontSize:"13px"},md:{padding:"8px 16px",fontSize:"15px"},lg:{padding:"10px 24px",fontSize:"16px"}};function P(e,t,n){if("custom"!==e&&n){const i=C[e],o="active"===t?i.active:i.inactive;return o?{background:n.background||o.default.background,color:n.color||o.default.color,borderColor:n.borderColor}:n}if("custom"!==e){const n=C[e],i="active"===t?n.active:n.inactive;return i?{background:i.default.background,color:i.default.color}:{}}return n||{}}function S(e,t){return e?"string"==typeof e?e:e[t]||E[t]:E[t]}function F(e,t){if("custom"===e)return!1;const n=C[e],i="active"===t?n.active:n.inactive;return!!i?.hovered}function L(e,t){if("custom"===e)return;const n=C[e],i="active"===t?n.active:n.inactive;return i?.hovered?.background}function N(e,t){if("custom"===e)return;const n=C[e],i="active"===t?n.active:n.inactive;return i?.pressed?.background}const k=({isActive:t=!0,active:n,inactive:i,colors:o="grape",icon:a,onClick:r,children:s,className:c="",disabled:l=!1,size:d="md",href:h,target:g,rel:u,borderRadius:m})=>{const v=t?P(o,"active",n):P(o,"inactive",i),f={..._[d],background:v.background,color:v.color,border:`1px solid ${v.borderColor||"transparent"}`,"--button-radius-desktop":S(m,"desktop"),"--button-radius-tablet":S(m,"tablet"),"--button-radius-phone":S(m,"phone"),"--button-hover-bg":L(o,t?"active":"inactive"),"--button-pressed-bg":N(o,t?"active":"inactive")},p={"data-colors":o,"data-hover-defined":F(o,t?"active":"inactive")?"true":void 0},y=["ui-button",t?"ui-button--active":"",c].filter(Boolean).join(" "),w=(0,e.createElement)(e.Fragment,null,a&&(0,e.createElement)("span",{className:"ui-button__icon"},a),s&&(0,e.createElement)("span",{className:"ui-button__text"},s));return h?(0,e.createElement)("a",{href:h,target:g,rel:u,onClick:r,className:y,style:f,...p},w):(0,e.createElement)("button",{className:y,style:f,onClick:r,disabled:l,"aria-pressed":t,...p},w)},z=({children:t,className:n=""})=>(0,e.createElement)("div",{className:"ui-button-group"+(n?" "+n:"")},t),R={"arrow-right":({size:t=13,className:n})=>(0,e.createElement)("svg",{width:t,height:10*t/13,viewBox:"0 0 13 10",fill:"none",className:n},(0,e.createElement)("path",{d:"M0.749348 4.75L11.416 4.75M11.416 4.75L7.41602 8.75M11.416 4.75L7.41602 0.75",stroke:"currentColor",strokeWidth:"1.5",strokeLinecap:"round",strokeLinejoin:"round"})),"arrow-left":({size:t=13,className:n})=>(0,e.createElement)("svg",{width:t,height:10*t/13,viewBox:"0 0 13 10",fill:"none",className:n},(0,e.createElement)("path",{d:"M11.4167 4.75L0.75 4.75M0.75 4.75L4.75 8.75M0.75 4.75L4.75 0.75",stroke:"currentColor",strokeWidth:"1.5",strokeLinecap:"round",strokeLinejoin:"round"})),adapt:({size:t=18,className:n})=>(0,e.createElement)("svg",{width:t,height:16*t/18,viewBox:"0 0 18 16",fill:"none",className:n},(0,e.createElement)("path",{d:"M1 0C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1C0 1.26522 0.105357 1.51957 0.292893 1.70711C0.48043 1.89464 0.734784 2 1 2H17C17.2652 2 17.5196 1.89464 17.7071 1.70711C17.8946 1.51957 18 1.26522 18 1C18 0.734784 17.8946 0.48043 17.7071 0.292893C17.5196 0.105357 17.2652 0 17 0H1ZM14 4C14.2086 4.00008 14.4119 4.06539 14.5816 4.18679C14.7512 4.30818 14.8786 4.47959 14.946 4.677L15.076 5.055C15.224 5.48875 15.4694 5.88283 15.7934 6.20699C16.1174 6.53115 16.5113 6.77677 16.945 6.925L17.323 7.054C17.5202 7.12157 17.6913 7.24908 17.8125 7.41869C17.9337 7.58831 17.9988 7.79155 17.9988 8C17.9988 8.20845 17.9337 8.41169 17.8125 8.58131C17.6913 8.75092 17.5202 8.87843 17.323 8.946L16.945 9.076C16.5112 9.224 16.1172 9.46941 15.793 9.79339C15.4688 10.1174 15.2232 10.5113 15.075 10.945L14.946 11.323C14.8784 11.5202 14.7509 11.6913 14.5813 11.8125C14.4117 11.9337 14.2085 11.9988 14 11.9988C13.7915 11.9988 13.5883 11.9337 13.4187 11.8125C13.2491 11.6913 13.1216 11.5202 13.054 11.323L12.924 10.945C12.776 10.5112 12.5306 10.1172 12.2066 9.79301C11.8826 9.46885 11.4887 9.22323 11.055 9.075L10.677 8.946C10.4798 8.87843 10.3087 8.75092 10.1875 8.58131C10.0663 8.41169 10.0012 8.20845 10.0012 8C10.0012 7.79155 10.0663 7.58831 10.1875 7.41869C10.3087 7.24908 10.4798 7.12157 10.677 7.054L11.055 6.924C11.4888 6.776 11.8828 6.53059 12.207 6.20661C12.5312 5.88262 12.7768 5.48868 12.925 5.055L13.054 4.677C13.1214 4.47959 13.2488 4.30818 13.4184 4.18679C13.5881 4.06539 13.7914 4.00008 14 4ZM14 7.196C13.7634 7.4937 13.4937 7.76344 13.196 8C13.4947 8.23667 13.7627 8.50467 14 8.804C14.2367 8.50467 14.5047 8.23667 14.804 8C14.5063 7.76344 14.2366 7.4937 14 7.196ZM0 15C0 14.7348 0.105357 14.4804 0.292893 14.2929C0.48043 14.1054 0.734784 14 1 14H2C2.26522 14 2.51957 14.1054 2.70711 14.2929C2.89464 14.4804 3 14.7348 3 15C3 15.2652 2.89464 15.5196 2.70711 15.7071C2.51957 15.8946 2.26522 16 2 16H1C0.734784 16 0.48043 15.8946 0.292893 15.7071C0.105357 15.5196 0 15.2652 0 15ZM10 15C10 14.7348 10.1054 14.4804 10.2929 14.2929C10.4804 14.1054 10.7348 14 11 14H17C17.2652 14 17.5196 14.1054 17.7071 14.2929C17.8946 14.4804 18 14.7348 18 15C18 15.2652 17.8946 15.5196 17.7071 15.7071C17.5196 15.8946 17.2652 16 17 16H11C10.7348 16 10.4804 15.8946 10.2929 15.7071C10.1054 15.5196 10 15.2652 10 15Z",fill:"currentColor"})),chevron:({size:t=16,className:n})=>(0,e.createElement)("svg",{width:t,height:t,viewBox:"0 0 16 16",fill:"none",className:n},(0,e.createElement)("path",{d:"M6 4l4 4-4 4",stroke:"currentColor",strokeWidth:"2",strokeLinecap:"round",strokeLinejoin:"round"}))},I=({name:t,size:n,className:i})=>{const o=R[t];return o?(0,e.createElement)(o,{size:n,className:i}):null},M={sm:{padding:"4px 12px",fontSize:"12px"},md:{padding:"6px 16px",fontSize:"14px"}},W=({children:t,color:n,textColor:i,size:o="sm",className:a=""})=>{const r={...M[o],backgroundColor:null!=n?n:"rgba(255, 255, 255, 0.9)",color:null!=i?i:"#333"};return(0,e.createElement)("span",{className:"ui-tag"+(a?" "+a:""),style:r},t)},D=({course:t,courseTypeName:n})=>{const i=t._embedded?.["wp:featuredmedia"]?.[0]?.source_url,o=null!=i?i:a,r=t.acf?.course_color||"#EB3F9B";return(0,e.createElement)("div",{className:"course-card",style:{backgroundImage:`url(${o})`,"--course-color":r}},(0,e.createElement)("div",{className:"course-card__overlay"}),(0,e.createElement)("div",{className:"course-card__content"},n&&(0,e.createElement)(W,{color:r,textColor:"#fff",size:"sm",className:"course-card__tag"},n),(0,e.createElement)("h3",{className:"course-card__title"},t.title.rendered),t.acf?.course_subtitle&&(0,e.createElement)("div",{className:"course-card__subtitle"},t.acf.course_subtitle),t.acf?.course_description&&(0,e.createElement)("div",{className:"course-card__description truncate-multiline"},t.acf.course_description),(0,e.createElement)(k,{href:t.link,colors:"custom",active:{background:"#fff",color:r},icon:(0,e.createElement)(I,{name:"chevron"}),size:"lg"},window.wp.i18n.__("Подробнее","childlab"))))},O="audience",A="parents",B=()=>{const{courses:t,coursesLoading:n,audienceTerms:o,courseTypeTerms:a,audienceTermsLoading:r,courseTypeTermsLoading:s}=(0,e.useContext)(b),{getParam:c}=l(),[d,h]=(0,e.useState)(()=>c(O)||A);(0,e.useEffect)(()=>{const e=c(O)||A;h(e)},[c]);const g=(0,e.useMemo)(()=>[...o].sort((e,t)=>e.slug===A?-1:t.slug===A?1:0),[o]),u=(0,e.useMemo)(()=>d?t.filter(e=>(e.acf?.course_audience||[]).includes(d)):t,[t,d]),m=e=>{var t;if(!e)return null;const n=a.find(t=>t.slug===e);return null!==(t=n?.name)&&void 0!==t?t:null},v=n||r||s;return(0,e.createElement)(e.Fragment,null,(0,e.createElement)(z,{className:"courses-filter"},g.map(t=>(0,e.createElement)(k,{key:t.id,isActive:d===t.slug,colors:"raspberry",onClick:()=>(e=>{const t=new URL(window.location.href);t.searchParams.set(O,e),window.history.pushState({},"",t.toString()),window.dispatchEvent(new Event("pushstate")),h(e)})(t.slug)},t.name))),v?(0,e.createElement)(i,{fullScreen:!1}):0===u.length?(0,e.createElement)("div",{className:"empty-wrapper"},(0,e.createElement)("div",{className:"empty-placeholder"},window.wp.i18n.__("Нет курсов по этой теме","childlab"))):(0,e.createElement)("div",{className:"courses-list"},u.map(t=>(0,e.createElement)(D,{key:t.id,course:t,courseTypeName:m(t.acf?.course_type)}))))},$=[{id:"Agency",name:wp.i18n.__("Субъектность","childlab"),color:"#90b636",textOrientation:"horizontal",fontSize:20,xPercent:50,yPercent:4},{id:"Self_regulatory_abilities",name:wp.i18n.__("Регуляторные \n способности","childlab"),color:"#38d37c",textOrientation:"horizontal",fontSize:16,xPercent:25,yPercent:18},{id:"Cognitive_abilities",name:wp.i18n.__("Познавательные \n способности","childlab"),color:"#dcc22d",textOrientation:"horizontal",fontSize:16,xPercent:76,yPercent:18},{id:"Communicative_abilities",name:wp.i18n.__("Коммуникативные \n способности","childlab"),color:"#db508f",textOrientation:"horizontal",fontSize:16,xPercent:50,yPercent:27},{id:"Planning",name:wp.i18n.__("Планирование","childlab"),color:"#64af38",textOrientation:"horizontal",fontSize:13,xPercent:12,yPercent:10},{id:"Imagination",name:wp.i18n.__("Воображение","childlab"),color:"#becc1c",textOrientation:"horizontal",fontSize:13,xPercent:88,yPercent:10},{id:"Dialectical_thinking",name:wp.i18n.__("Диалектическое \n мышление","childlab"),color:"#f3c932",textOrientation:"horizontal",fontSize:13,xPercent:87,yPercent:27},{id:"Anticipation",name:wp.i18n.__("Предвосхищение","childlab"),color:"#e99030",textOrientation:"horizontal",fontSize:13,xPercent:85,yPercent:35},{id:"argumentation",name:wp.i18n.__("Аргументация","childlab"),color:"#ea6695",textOrientation:"horizontal",fontSize:13,xPercent:76,yPercent:42},{id:"Decentration",name:wp.i18n.__("Децентрация","childlab"),color:"#D34FB5",textOrientation:"horizontal",fontSize:13,xPercent:50,yPercent:35},{id:"Volitional_control",name:wp.i18n.__("Произвольность","childlab"),color:"#49C64F",textOrientation:"horizontal",fontSize:13,xPercent:14,yPercent:25},{id:"moral_reasoning",name:wp.i18n.__("Моральные суждения","childlab"),color:"#B949D4",textOrientation:"horizontal",fontSize:13,xPercent:50,yPercent:48},{id:"reflection",name:wp.i18n.__("Рефлексия","childlab"),color:"#9AD04A",textOrientation:"horizontal",fontSize:13,xPercent:25,yPercent:42},{id:"construction",name:wp.i18n.__("Конструирование","childlab"),color:"#6E41D8",textOrientation:"vertical",fontSize:16,xPercent:55,yPercent:74},{id:"shared_reading",name:wp.i18n.__("Совместное чтение","childlab"),color:"#4164D9",textOrientation:"vertical",fontSize:16,xPercent:50,yPercent:71},{id:"storytelling",name:wp.i18n.__("Сочинительство","childlab"),color:"#50D4CB",textOrientation:"vertical",fontSize:16,xPercent:45,yPercent:74},{id:"experimentation",name:wp.i18n.__("Экспериментирование","childlab"),color:"#42A0CC",textOrientation:"vertical",fontSize:16,xPercent:60,yPercent:73},{id:"game",name:wp.i18n.__("    Игра    ","childlab"),color:"#C1593A",textOrientation:"vertical",fontSize:16,xPercent:40,yPercent:74},{id:"attachment",name:wp.i18n.__("Привязанность","childlab"),color:"#8A6720",textOrientation:"horizontal",fontSize:20,xPercent:50,yPercent:96}],j=[{source:"Agency",target:"Self_regulatory_abilities",curveIntensity:0,connectFrom:"bottom",connectTo:"right",lineWidth:4},{source:"Agency",target:"Cognitive_abilities",curveIntensity:0,connectFrom:"bottom",connectTo:"left",lineWidth:4},{source:"Self_regulatory_abilities",target:"Cognitive_abilities",curveIntensity:0,connectFrom:"right",connectTo:"left",lineWidth:4},{source:"Self_regulatory_abilities",target:"Communicative_abilities",curveIntensity:0,connectFrom:"right",connectTo:"top",lineWidth:4},{source:"Cognitive_abilities",target:"Communicative_abilities",curveIntensity:0,connectFrom:"left",connectTo:"top",lineWidth:4},{source:"Agency",target:"Communicative_abilities",curveIntensity:0,connectFrom:"bottom",connectTo:"top",lineWidth:4},{source:"Cognitive_abilities",target:"Imagination",curveIntensity:-.4,connectFrom:"top",connectTo:"left",lineWidth:2},{source:"Planning",target:"Self_regulatory_abilities",curveIntensity:-.4,connectFrom:"right",connectTo:"top",lineWidth:2},{source:"Dialectical_thinking",target:"Cognitive_abilities",curveIntensity:-.3,connectFrom:"left",connectTo:"bottom",shiftTo:-.05,lineWidth:2},{source:"Anticipation",target:"Cognitive_abilities",curveIntensity:-.2,connectFrom:"top",shiftFrom:-.8,connectTo:"bottom",shiftTo:-.2,lineWidth:2},{source:"argumentation",target:"Cognitive_abilities",curveIntensity:.05,connectFrom:"top",shiftFrom:-.8,connectTo:"bottom",shiftTo:-.3,lineWidth:2},{source:"Communicative_abilities",target:"argumentation",curveIntensity:.3,connectFrom:"bottom",shiftFrom:.9,connectTo:"left",lineWidth:2},{source:"Communicative_abilities",target:"Decentration",curveIntensity:.2,connectFrom:"bottom",connectTo:"top",lineWidth:2},{source:"Self_regulatory_abilities",target:"Volitional_control",curveIntensity:-.2,connectFrom:"bottom",shiftFrom:.2,connectTo:"right",lineWidth:2},{source:"moral_reasoning",target:"Cognitive_abilities",curveIntensity:.2,connectFrom:"top",shiftFrom:.6,connectTo:"bottom",shiftTo:-.5,lineWidth:2},{source:"reflection",target:"Cognitive_abilities",curveIntensity:.6,connectFrom:"right",connectTo:"bottom",shiftTo:-.7,lineWidth:2},{source:"reflection",target:"Self_regulatory_abilities",curveIntensity:.2,connectFrom:"top",connectTo:"bottom",shiftTo:.5,lineWidth:2},{source:"construction",target:"moral_reasoning",curveIntensity:-.05,connectFrom:"top",shiftFrom:1,connectTo:"bottom",shiftTo:.6,lineWidth:2},{source:"experimentation",target:"moral_reasoning",curveIntensity:-.07,connectFrom:"top",shiftFrom:1,connectTo:"bottom",shiftTo:1,lineWidth:2},{source:"moral_reasoning",target:"storytelling",curveIntensity:-.05,connectFrom:"bottom",shiftFrom:-.6,connectTo:"top",shiftTo:-1,lineWidth:2},{source:"moral_reasoning",target:"game",curveIntensity:-.06,connectFrom:"bottom",shiftFrom:-1,connectTo:"top",shiftTo:-1,lineWidth:2},{source:"moral_reasoning",target:"shared_reading",curveIntensity:0,connectFrom:"bottom",shiftFrom:0,connectTo:"top",shiftTo:0,lineWidth:2},{source:"construction",target:"attachment",curveIntensity:.05,connectFrom:"bottom",shiftFrom:-1,connectTo:"top",shiftTo:.6,lineWidth:2},{source:"experimentation",target:"attachment",curveIntensity:.07,connectFrom:"bottom",shiftFrom:1,connectTo:"top",shiftTo:1,lineWidth:2},{source:"storytelling",target:"attachment",curveIntensity:-.05,connectFrom:"bottom",shiftFrom:1,connectTo:"top",shiftTo:-.6,lineWidth:2},{source:"game",target:"attachment",curveIntensity:-.07,connectFrom:"bottom",shiftFrom:1,connectTo:"top",shiftTo:-1,lineWidth:2},{source:"shared_reading",target:"attachment",curveIntensity:0,connectFrom:"bottom",shiftFrom:0,connectTo:"top",shiftTo:0,lineWidth:2}];class X{constructor(e){this.config={padding:20,scale:1,interactive:!0,enableDragging:!1,enableContextMenu:!1,...e},this.tagConfig={fontSize:14,borderRadius:16,...e.tagConfig},this.connectionConfig={lineWidth:3,...e.connectionConfig},this.tags=[...e.tags],this.connections=this.processConnections(e.connections||[]),this.isDragging=!1,this.dragTarget=null,this.animationFrameId=null,this.mousePos={x:0,y:0},this.hoveredTag=null,this.activeTag=this.tags.find(({id:e})=>e===this.config.activeTagSlug)||null,this.canvas=document.createElement("canvas"),this.ctx=this.canvas.getContext("2d"),this.initCanvas(),this.calculateLayout(),this.config.interactive&&this.setupInteractivity(),this.render()}processConnections(e){const t=new Set,n=[];for(const i of e){const e=`${i.source}-${i.target}`,o=`${i.target}-${i.source}`;t.has(e)||t.has(o)||(t.add(e),t.add(o),n.push({source:i.source,target:i.target,curveIntensity:i.curveIntensity||0,lineWidth:(i.lineWidth||this.connectionConfig.lineWidth)*this.config.scale,connectFrom:i.connectFrom||"auto",connectTo:i.connectTo||"auto",shiftFrom:i.shiftFrom||0,shiftTo:i.shiftTo||0}))}return n}initCanvas(){const e=this.config.container;this.canvas.style.width="100%",this.canvas.style.height="100%",this.canvas.style.display="block",e.appendChild(this.canvas),this.resizeCanvas(),window.addEventListener("resize",()=>{this.resizeCanvas(),this.calculateLayout(),this.render()})}resizeCanvas(){const e=this.config.container,t=window.devicePixelRatio||1,n=e.getBoundingClientRect();this.canvas.width=n.width*t,this.canvas.height=n.height*t,this.ctx.scale(t,t),this.updateScale()}calculateLayout(){const e=this.canvas.width/window.devicePixelRatio,t=this.canvas.height/window.devicePixelRatio;this.tags.forEach(n=>{void 0!==n.xPercent&&void 0!==n.yPercent&&(n.x=e*n.xPercent/100,n.y=t*n.yPercent/100)})}updateScale(){const e=h(window.innerWidth);this.config.scale="xlg"===e?1:"lg"===e?.9:"md"===e?.85:"sm"===e?.7:"xs"===e?.6:.55}getTagButtonRect(e){const{x:t=0,y:n=0}=e,i=(e.fontSize||this.tagConfig.fontSize)*this.config.scale,o=1.2*i,a=.6*i,r=this.getTextLines(e.name,e.textOrientation,e.fontSize);let s,c;if("vertical"===e.textOrientation){const t=16*this.config.scale,n=4*this.config.scale;s=o*r.length+2*n,c=a*e.name.length+2*t}else{const e=6*this.config.scale,t=16*this.config.scale;s=Math.max(...r.map(e=>this.measureTextWidth(e,i)))+2*t,c=o*r.length+2*e}return{x:t-s/2,y:n-c/2,width:s,height:c,centerX:t,centerY:n}}getConnectionPoint(e,t,n=0){const i=this.getTagButtonRect(e),o=(void 0!==e.borderRadius?e.borderRadius:this.tagConfig.borderRadius)*this.config.scale;switch(t){case"top":const e=i.x+o,t=i.x+i.width-o;return{x:(e+t)/2+n*((t-e)/2),y:i.y};case"bottom":const a=i.x+o,r=i.x+i.width-o;return{x:(a+r)/2+n*((r-a)/2),y:i.y+i.height};case"left":const s=i.y+o,c=i.y+i.height-o,l=(s+c)/2,d=(c-s)/2;return{x:i.x,y:l+n*d};case"right":const h=i.y+o,g=i.y+i.height-o,u=(h+g)/2,m=(g-h)/2;return{x:i.x+i.width,y:u+n*m};default:return{x:i.centerX,y:i.centerY}}}getAutoConnectionPoint(e,t){const n=e.centerX,i=e.centerY,o=t.centerX-n,a=t.centerY-i,r=180*Math.atan2(a,o)/Math.PI;let s,c;return s=Math.abs(r)<=45?"right":Math.abs(r)>=135?"left":r>45&&r<135?"bottom":"top",c=Math.abs(r)<=45?"left":Math.abs(r)>=135?"right":r>45&&r<135?"top":"bottom",{sourceSide:s,targetSide:c}}lightenColor(e,t=.3){e=e.replace("#","");const n=parseInt(e.slice(0,2),16),i=parseInt(e.slice(2,4),16),o=parseInt(e.slice(4,6),16),a=Math.round(n+(255-n)*t),r=Math.round(i+(255-i)*t),s=Math.round(o+(255-o)*t);return`#${a.toString(16).padStart(2,"0")}${r.toString(16).padStart(2,"0")}${s.toString(16).padStart(2,"0")}`}getTextLines(e,t="vertical",n=13){return"vertical"===t?[e]:e.split("\n").reduce((e,t)=>{if(!e.length)return[t];const i=e[e.length-1];return this.measureTextWidth(i+" "+t,n)<=100*this.config.scale?e[e.length-1]=i+" "+t:e.push(t),e},[])}drawTag(e){const t=this.ctx,{x:n=0,y:i=0,name:o,color:a,textOrientation:r="horizontal"}=e,s=(e.fontSize||this.tagConfig.fontSize)*this.config.scale,c=(void 0!==e.borderRadius?e.borderRadius:this.tagConfig.borderRadius)*this.config.scale;t.save();let l=a;this.hoveredTag===e&&this.activeTag!==e&&(l=this.lightenColor(a,.2)),t.shadowColor="rgba(0, 0, 0, 0.2)",t.shadowBlur=10,t.shadowOffsetX=0,t.shadowOffsetY=0;const d=this.getTagButtonRect(e);t.fillStyle=l,this.roundRect(t,d.x,d.y,d.width,d.height,c),t.fill(),t.font=`${s}px Lora`,this.activeTag===e&&(t.shadowColor=e.color,t.shadowOffsetX=0,t.shadowOffsetY=0,t.shadowBlur=8,t.strokeStyle="#FFFFFF",t.lineWidth=2,t.stroke()),t.shadowColor="transparent",t.fillStyle="#FFFFFF",t.textAlign="center",t.textBaseline="middle";const h=1.2*s,g=this.getTextLines(o,r,s);if("vertical"===r)t.save(),t.translate(n,i),t.rotate(-Math.PI/2),t.fillText(g[0],0,0),t.restore();else{const e=g.length*h,i=d.y+(d.height-e)/2+h/2;g.forEach((e,o)=>{const a=i+o*h;t.fillText(e,n,a)})}t.restore()}drawConnection(e){const t=this.tags.find(t=>t.id===e.source),n=this.tags.find(t=>t.id===e.target);if(!t||!n)return;const i=this.ctx,o=e.curveIntensity||0,a=(e.lineWidth||this.connectionConfig.lineWidth)*this.config.scale,r=e.shiftFrom||0,s=e.shiftTo||0,c=this.getTagButtonRect(t),l=this.getTagButtonRect(n);let d,h;if("auto"===e.connectFrom||"auto"===e.connectTo){const t=this.getAutoConnectionPoint(c,l);d="auto"===e.connectFrom?t.sourceSide:e.connectFrom,h="auto"===e.connectTo?t.targetSide:e.connectTo}else d=e.connectFrom,h=e.connectTo;const g=this.getConnectionPoint(t,d,r),u=this.getConnectionPoint(n,h,s);i.save();const m=i.createLinearGradient(g.x,g.y,u.x,u.y);if(m.addColorStop(0,t.color),m.addColorStop(.5,this.blendColors(t.color,n.color,.5)),m.addColorStop(1,n.color),i.strokeStyle=m,i.lineWidth=a,i.lineCap="round",i.beginPath(),i.moveTo(g.x,g.y),0===o)i.lineTo(u.x,u.y);else{const e=u.x-g.x,t=u.y-g.y,n=-t*o*.5,a=e*o*.5,r=g.x+.25*e+n,s=g.y+.25*t+a,c=g.x+.75*e+n,l=g.y+.75*t+a;i.bezierCurveTo(r,s,c,l,u.x,u.y)}i.stroke(),this.config.connectionMarkers&&(i.fillStyle=t.color,i.beginPath(),i.arc(g.x,g.y,1.5*a,0,2*Math.PI),i.fill(),i.fillStyle=n.color,i.beginPath(),i.arc(u.x,u.y,1.5*a,0,2*Math.PI),i.fill()),i.restore()}setupInteractivity(){this.canvas.addEventListener("mousedown",this.handleMouseDown.bind(this)),this.canvas.addEventListener("mousemove",this.handleMouseMove.bind(this)),this.canvas.addEventListener("mouseup",this.handleMouseUp.bind(this)),this.canvas.addEventListener("click",this.handleClick.bind(this)),this.canvas.addEventListener("mouseleave",this.handleMouseLeave.bind(this)),this.config.enableContextMenu&&this.canvas.addEventListener("contextmenu",this.handleContextMenu.bind(this)),this.canvas.addEventListener("touchstart",this.handleTouchStart.bind(this),{passive:!1}),this.canvas.addEventListener("touchmove",this.handleTouchMove.bind(this),{passive:!1}),this.canvas.addEventListener("touchend",this.handleTouchEnd.bind(this)),this.canvas.style.cursor="default"}handleMouseDown(e){e.preventDefault();const t=this.canvas.getBoundingClientRect(),n=this.canvas.width/window.devicePixelRatio/t.width,i=this.canvas.height/window.devicePixelRatio/t.height;this.mousePos.x=(e.clientX-t.left)*n,this.mousePos.y=(e.clientY-t.top)*i,this.config.enableDragging&&(this.dragTarget=this.getTagAt(this.mousePos.x,this.mousePos.y),this.isDragging=!!this.dragTarget,this.dragTarget&&(this.canvas.style.cursor="grabbing",this.startAnimation()))}handleMouseMove(e){const t=this.canvas.getBoundingClientRect(),n=this.canvas.width/window.devicePixelRatio/t.width,i=this.canvas.height/window.devicePixelRatio/t.height;this.mousePos.x=(e.clientX-t.left)*n,this.mousePos.y=(e.clientY-t.top)*i;const o=this.hoveredTag;if(this.hoveredTag=this.getTagAt(this.mousePos.x,this.mousePos.y),o!==this.hoveredTag&&this.render(),this.isDragging&&this.dragTarget){const e=this.canvas.width/window.devicePixelRatio,t=this.canvas.height/window.devicePixelRatio;this.dragTarget.x=this.mousePos.x,this.dragTarget.y=this.mousePos.y,this.dragTarget.xPercent=this.dragTarget.x/e*100,this.dragTarget.yPercent=this.dragTarget.y/t*100,this.config.onTagDrag&&this.config.onTagDrag(this.dragTarget,this.dragTarget.xPercent,this.dragTarget.yPercent)}else this.canvas.style.cursor=this.hoveredTag?"pointer":"default"}handleMouseUp(){this.isDragging=!1,this.dragTarget=null,this.canvas.style.cursor=this.hoveredTag?"pointer":"default",this.stopAnimation()}handleMouseLeave(){this.hoveredTag=null,this.render()}handleClick(e){if(this.isDragging)return void(this.isDragging=!1);const t=this.canvas.getBoundingClientRect(),n=this.canvas.width/window.devicePixelRatio/t.width,i=this.canvas.height/window.devicePixelRatio/t.height,o=(e.clientX-t.left)*n,a=(e.clientY-t.top)*i,r=this.getTagAt(o,a);r?(this.activeTag=r,this.config.onTagClick&&this.config.onTagClick(r),this.render()):(this.activeTag=null,this.render())}handleContextMenu(e){e.preventDefault();const t=this.canvas.getBoundingClientRect(),n=this.canvas.width/window.devicePixelRatio/t.width,i=this.canvas.height/window.devicePixelRatio/t.height,o=(e.clientX-t.left)*n,a=(e.clientY-t.top)*i,r=this.getTagAt(o,a);r&&(r.textOrientation="horizontal"===r.textOrientation?"vertical":"horizontal",this.render(),this.config.onTagTextOrientationChange&&this.config.onTagTextOrientationChange(r))}handleTouchStart(e){e.preventDefault();const t=e.touches[0],n=this.canvas.getBoundingClientRect(),i=this.canvas.width/window.devicePixelRatio/n.width,o=this.canvas.height/window.devicePixelRatio/n.height;this.mousePos.x=(t.clientX-n.left)*i,this.mousePos.y=(t.clientY-n.top)*o,this.config.enableDragging&&(this.dragTarget=this.getTagAt(this.mousePos.x,this.mousePos.y),this.isDragging=!!this.dragTarget,this.dragTarget&&this.startAnimation())}handleTouchMove(e){e.preventDefault();const t=e.touches[0],n=this.canvas.getBoundingClientRect(),i=this.canvas.width/window.devicePixelRatio/n.width,o=this.canvas.height/window.devicePixelRatio/n.height;if(this.mousePos.x=(t.clientX-n.left)*i,this.mousePos.y=(t.clientY-n.top)*o,this.isDragging&&this.dragTarget){const e=this.canvas.width/window.devicePixelRatio,t=this.canvas.height/window.devicePixelRatio;this.dragTarget.x=this.mousePos.x,this.dragTarget.y=this.mousePos.y,this.dragTarget.xPercent=this.dragTarget.x/e*100,this.dragTarget.yPercent=this.dragTarget.y/t*100,this.config.onTagDrag&&this.config.onTagDrag(this.dragTarget,this.dragTarget.xPercent,this.dragTarget.yPercent)}}handleTouchEnd(e){if(this.isDragging||1!==e.changedTouches.length){if(3===e.changedTouches.length){const t=e.changedTouches[0],n=this.canvas.getBoundingClientRect(),i=this.canvas.width/window.devicePixelRatio/n.width,o=this.canvas.height/window.devicePixelRatio/n.height,a=(t.clientX-n.left)*i,r=(t.clientY-n.top)*o,s=this.getTagAt(a,r);s&&(s.textOrientation="horizontal"===s.textOrientation?"vertical":"horizontal",this.render(),this.config.onTagTextOrientationChange&&this.config.onTagTextOrientationChange(s))}}else{const t=e.changedTouches[0],n=this.canvas.getBoundingClientRect(),i=this.canvas.width/window.devicePixelRatio/n.width,o=this.canvas.height/window.devicePixelRatio/n.height,a=(t.clientX-n.left)*i,r=(t.clientY-n.top)*o,s=this.getTagAt(a,r);s?(this.activeTag=s,this.config.onTagClick&&this.config.onTagClick(s),this.render()):(this.activeTag=null,this.render())}this.isDragging=!1,this.dragTarget=null,this.stopAnimation()}getTagAt(e,t){for(const n of this.tags){if(!n.x||!n.y)continue;const i=this.getTagButtonRect(n),o=10;if(e>i.x-o&&e<i.x+i.width+o&&t>i.y-o&&t<i.y+i.height+o)return n}return null}startAnimation(){if(this.animationFrameId)return;const e=()=>{this.render(),this.animationFrameId=requestAnimationFrame(e)};e()}stopAnimation(){this.animationFrameId&&(cancelAnimationFrame(this.animationFrameId),this.animationFrameId=null),this.render()}measureTextWidth(e,t){return this.ctx.font=`${t}px Lora`,this.ctx.measureText(e).width}blendColors(e,t,n){e=e.replace("#",""),t=t.replace("#","");const i=parseInt(e.slice(0,2),16),o=parseInt(e.slice(2,4),16),a=parseInt(e.slice(4,6),16),r=parseInt(t.slice(0,2),16),s=parseInt(t.slice(2,4),16),c=parseInt(t.slice(4,6),16),l=Math.round(i*(1-n)+r*n),d=Math.round(o*(1-n)+s*n),h=Math.round(a*(1-n)+c*n);return`#${l.toString(16).padStart(2,"0")}${d.toString(16).padStart(2,"0")}${h.toString(16).padStart(2,"0")}`}roundRect(e,t,n,i,o,a){a="number"==typeof a?{tl:a,tr:a,br:a,bl:a}:{tl:0,tr:0,br:0,bl:0,...a},e.beginPath(),e.moveTo(t+a.tl,n),e.lineTo(t+i-a.tr,n),e.quadraticCurveTo(t+i,n,t+i,n+a.tr),e.lineTo(t+i,n+o-a.br),e.quadraticCurveTo(t+i,n+o,t+i-a.br,n+o),e.lineTo(t+a.bl,n+o),e.quadraticCurveTo(t,n+o,t,n+o-a.bl),e.lineTo(t,n+a.tl),e.quadraticCurveTo(t,n,t+a.tl,n),e.closePath()}render(){const e=this.ctx,t=this.canvas.width/window.devicePixelRatio,n=this.canvas.height/window.devicePixelRatio;e.clearRect(0,0,t,n),this.config.backgroundColor&&(e.fillStyle="rgba(255,255,255,0)",e.fillRect(0,0,t,n)),this.connections.forEach(e=>{this.drawConnection(e)}),this.tags.forEach(e=>{this.drawTag(e)})}updateTag(e,t){const n=this.tags.find(t=>t.id===e);if(n){Object.assign(n,t);const e=this.canvas.width/window.devicePixelRatio,i=this.canvas.height/window.devicePixelRatio;void 0!==t.x&&(n.xPercent=t.x/e*100),void 0!==t.y&&(n.yPercent=t.y/i*100),void 0!==t.xPercent&&(n.x=e*t.xPercent/100),void 0!==t.yPercent&&(n.y=i*t.yPercent/100),this.calculateLayout(),this.render()}}setTagTextOrientation(e,t){const n=this.tags.find(t=>t.id===e);!n||"horizontal"!==t&&"vertical"!==t||(n.textOrientation=t,this.render())}setActiveTag(e){const t=this.tags.find(t=>t.id===e);this.activeTag=t||null,this.render()}addTag(e){e.textOrientation||(e.textOrientation="horizontal"),e.fontSize||(e.fontSize=this.tagConfig.fontSize),void 0===e.borderRadius&&(e.borderRadius=this.tagConfig.borderRadius);const t=this.canvas.width/window.devicePixelRatio,n=this.canvas.height/window.devicePixelRatio;void 0!==e.xPercent&&void 0!==e.yPercent&&(e.x=t*e.xPercent/100,e.y=n*e.yPercent/100),this.tags.push(e),this.calculateLayout(),this.render()}removeTag(e){this.tags=this.tags.filter(t=>t.id!==e),this.connections=this.connections.filter(t=>t.source!==e&&t.target!==e),this.activeTag&&this.activeTag.id===e&&(this.activeTag=null),this.calculateLayout(),this.render()}addConnection(e){0===this.connections.filter(t=>t.source===e.source&&t.target===e.target||t.source===e.target&&t.target===e.source).length&&(this.connections.push({source:e.source,target:e.target,curveIntensity:e.curveIntensity||0,lineWidth:e.lineWidth||this.connectionConfig.lineWidth,connectFrom:e.connectFrom||"auto",connectTo:e.connectTo||"auto",shiftFrom:e.shiftFrom||0,shiftTo:e.shiftTo||0}),this.render())}removeConnection(e,t){this.connections=this.connections.filter(n=>!(n.source===e&&n.target===t||n.source===t&&n.target===e)),this.render()}setLayout(e){this.config.layout=e,this.calculateLayout(),this.render()}setConfig(e){this.config={...this.config,...e},this.calculateLayout(),this.render()}setTagConfig(e){this.tagConfig={...this.tagConfig,...e},this.render()}setConnectionConfig(e){this.connectionConfig={...this.connectionConfig,...e},this.render()}getTags(){return this.tags.map(e=>({...e}))}getConnections(){return[...this.connections]}exportAsJSON(){return{tags:this.tags.map(e=>({id:e.id,name:e.name,color:e.color,textOrientation:e.textOrientation,fontSize:e.fontSize,borderRadius:e.borderRadius,xPercent:e.xPercent,yPercent:e.yPercent})),connections:this.connections.map(e=>({source:e.source,target:e.target,curveIntensity:e.curveIntensity,lineWidth:e.lineWidth,connectFrom:e.connectFrom,connectTo:e.connectTo,shiftFrom:e.shiftFrom,shiftTo:e.shiftTo})),config:{layout:this.config.layout,padding:this.config.padding},tagConfig:{fontSize:this.tagConfig.fontSize,borderRadius:this.tagConfig.borderRadius},connectionConfig:{lineWidth:this.connectionConfig.lineWidth}}}importFromJSON(e){this.tags=e.tags||[],this.connections=this.processConnections(e.connections||[]),this.config={...this.config,...e.config},this.tagConfig={...this.tagConfig,...e.tagConfig},this.connectionConfig={...this.connectionConfig,...e.connectionConfig};const t=this.canvas.width/window.devicePixelRatio,n=this.canvas.height/window.devicePixelRatio;this.tags.forEach(e=>{void 0!==e.xPercent&&void 0!==e.yPercent&&(e.x=t*e.xPercent/100,e.y=n*e.yPercent/100)}),this.activeTag=null,this.calculateLayout(),this.render()}destroy(){this.animationFrameId&&cancelAnimationFrame(this.animationFrameId),this.canvas.remove()}}const Y=themeData.templateUrl+"/assets/images/tree.png",q=(0,e.createElement)("div",{className:"empty-placeholder"},window.wp.i18n.__("Выберите элемент на дереве, чтобы прочитать о нём подробнее","childlab")),U=()=>{const{articles:t,articlesLoading:n,currentTag:i,currentTaxonomy:o}=p(),{methodologyTags:a}=c(),[r,s]=(0,e.useState)(h(window.innerWidth));(0,e.useEffect)(()=>{window.addEventListener("resize",()=>{s(h(window.innerWidth))})},[]);const l=(0,e.useMemo)(()=>{if(!t||!a)return[];console.log("!!",i,a.map(e=>e.slug));const e=a.find(e=>e.slug?.toLowerCase()===i?.toLowerCase())?.id;if(console.log(e,t),e){const n=t.filter(t=>t["methodology-tags"]?.some(t=>(console.log("!t",t,i,t===i),t===e)));return console.log("!y",n),n}return[]},[t,o,i,a]);console.log("!!",l);let d=(0,e.createElement)(e.Fragment,null);if(i||"sm"!==r&&"xs"!==r&&"md"!==r&&"xxs"!==r)return d=i||"lg"!==r&&"xlg"!==r?!l.length&&(i||"lg"!==r&&"xlg"!==r)?(0,e.createElement)("div",{class:"childlab-widget methodology__description"},(0,e.createElement)("div",{className:"empty-placeholder"},window.wp.i18n.__("Статья скоро появится","childlab"))):(0,e.createElement)("div",{className:"container"},(0,e.createElement)("div",{className:"childlab-widget articles-list"},(0,e.createElement)("header",{className:"articles-list__header"},window.wp.i18n.__("Статьи по теме","childlab")),(0,e.createElement)("div",{className:"row"},l.map(t=>(0,e.createElement)("div",{className:"col-12"},(0,e.createElement)(y,{key:t.id,...t,size:"default"})))))):(0,e.createElement)("div",{class:"childlab-widget methodology__description"},q),(0,e.createElement)("div",{className:"col-lg-5 col-md-12 col-sm-12 col-xs-12 order-xs-3 order-sm-3 order-md-3 order-lg-3"},d)},H=()=>{const{currentTaxonomy:t,currentTag:n}=l(),[i,o]=(0,e.useState)();return(0,e.useEffect)(()=>{i?.clientWidth&&(console.log("!!!gra",i.clientWidth),new X({container:i,activeTagSlug:null!=n?n:"Agency",tags:JSON.parse(JSON.stringify($)),connections:JSON.parse(JSON.stringify(j)),curveIntensity:.7,lineWidth:2,textOrientation:"horizontal",backgroundColor:"rgba(255, 255, 255, 0.4)",interactive:!0,onTagClick:e=>{history.pushState({},"",`?methodology=${e.id}`),window.dispatchEvent(new Event("pushstate")),selectedTagId=e.id,console.log("Выбран тег:",e.name)},onTagDrag:(e,t,n)=>{console.log(`Перемещение ${e.name}`)},onTagDirectionChange:e=>{console.log(`Направление ${e.name} изменено на: ${e.direction}`)},onTagTextOrientationChange:e=>{console.log(`Ориентация текста ${e.name} изменена на: ${e.textOrientation}`)}}))},[i?.clientWidth]),(0,e.createElement)("div",{className:"col-lg-7 col-md-12 col-sm-12 col-xs-12 order-xs-1 order-sm-1 order-md-1 order-lg-2"},(0,e.createElement)("div",{className:"methodology__tree-wrapper"},(0,e.createElement)("div",{className:"methodology__tree"},(0,e.createElement)("img",{className:"methodology__tree-image",src:Y,alt:"tree"}),(0,e.createElement)("div",{ref:e=>{o(e)},className:"methodology__graph-container"}))))};var J=n(338);class Z extends t().Component{constructor(e){super(e),this.state={hasError:!1,error:null}}static getDerivedStateFromError(e){return{hasError:!0,error:e}}componentDidCatch(e,t){console.error(`[ErrorBoundary${this.props.name?`: ${this.props.name}`:""}]`,e,t)}render(){return this.state.hasError?(0,e.createElement)("div",{style:{padding:"24px",margin:"16px 0",border:"2px solid #e74c3c",borderRadius:"8px",background:"#fdf0ef",color:"#c0392b",fontFamily:"system-ui, sans-serif"}},(0,e.createElement)("strong",null,window.wp.i18n.__("Ошибка","childlab"),this.props.name?` (${this.props.name})`:""),(0,e.createElement)("p",{style:{margin:"8px 0 0",fontSize:"14px"}},this.state.error?.message)):this.props.children}}const V=Z,G=(t,n)=>{try{J.createRoot(document.querySelector(t)).render((0,e.createElement)(s,null,(0,e.createElement)(f,null,n)))}catch(e){console.error("ErrorRenderingReactComponent :: methodologyTagsMenu ",e)}};G("#methodology-tags-menu",(0,e.createElement)(()=>{const{methodologyTags:t,tagsLoading:n}=c(),[o,a]=(0,e.useState)(g(h(window.innerWidth)));(0,e.useEffect)(()=>{window.addEventListener("resize",()=>{a(g(h(window.innerWidth)))})},[]);const r=(0,e.useMemo)(()=>t.length?[d,...t.filter(e=>e.acf.order>0).sort((e,t)=>e.acf.order-t.acf.order)]:[],[t]),s=(0,e.useMemo)(()=>{if(!r.length)return[];const e=((e,t)=>{const n=Math.ceil(t/2);if(e<=t)return[e];for(let i=Math.ceil(e/t);i<=Math.ceil(e/n);i++){const o=Math.floor(e/i),a=e%i,r=[];for(let e=0;e<i;e++)r.push(e<a?o+1:o);if(r.every(e=>e>=n&&e<=t))return r}const i=[];let o=e;for(;o>0;){let e=Math.min(t,o);o-e<n&&o-e>0&&(e=o-n),e=Math.max(e,Math.min(n,o)),i.push(e),o-=e}return i})(r.length,o);let t=0,n=0;return r.map((i,o)=>(o>=n+e[t]&&(n+=e[t],t++),{...i,width:e[t]}))},[r,o]);return(0,e.createElement)("div",{className:"methodology-tags-menu"},n&&(0,e.createElement)(i,{fullScreen:!1}),s.map(t=>(0,e.createElement)(m,{key:t.id,...t})))},null)),G("#articles-list-component",(0,e.createElement)(()=>{const{articles:t,filteredArticles:n,currentTaxonomy:o,currentTag:a}=p(),[r,s]=(0,e.useState)(h(window.innerWidth));(0,e.useEffect)(()=>{window.addEventListener("resize",()=>{s(h(window.innerWidth))})},[]);const c="methodology"===o&&-1!==parseInt(a)?window.wp.i18n.__("Статьи по теме","childlab"):window.wp.i18n.__("Все статьи","childlab");let l=(0,e.createElement)(e.Fragment,null);return l=t.length?n.length?n.length<3||"sm"==r||"xs"==r?(0,e.createElement)(e.Fragment,null,n.map(t=>(0,e.createElement)("div",{className:"col-lg-3 col-md-6 col-sm-12 col-xs-12"},(0,e.createElement)(y,{key:t.id,...t,size:"default"})))):(0,e.createElement)(e.Fragment,null,(0,e.createElement)("div",{className:"col-lg-6 col-md-12"},(0,e.createElement)(y,{key:n[0].id,...n[0],size:"large"})),(0,e.createElement)("div",{className:"col-lg-6 col-md-12"},(0,e.createElement)("div",{className:"row"},n.slice(1,5).map(t=>(0,e.createElement)("div",{className:"col-lg-6 col-md-6 col-sm-6 col-xs-12"},(0,e.createElement)(y,{key:t.id,...t,size:"small"}))))),n.slice(5).map(t=>(0,e.createElement)("div",{className:"col-lg-3 col-md-6 col-sm-12 col-xs-12"},(0,e.createElement)(y,{key:t.id,...t,size:"small"})))):(0,e.createElement)("div",{className:"empty-wrapper"},(0,e.createElement)("div",{className:"empty-placeholder"},window.wp.i18n.__("Нет статей по этой теме","childlab"))):(0,e.createElement)(i,{fullScreen:!1}),(0,e.createElement)("div",{className:"childlab-widget articles-list"},(0,e.createElement)("header",{className:"articles-list__header"},c),(0,e.createElement)("div",{className:"row"},l))},null));try{J.createRoot(document.querySelector("#courses-list-component")).render((0,e.createElement)(V,{name:"Courses"},(0,e.createElement)(T,null,(0,e.createElement)(B,null))))}catch(e){console.error("ErrorRenderingReactComponent :: CoursesList ",e)}G("#methodology-tree-component",(0,e.createElement)(()=>{const{articles:t,articlesLoading:n,filteredArticles:i,currentTag:o,currentTaxonomy:a}=p(),[r,s]=(0,e.useState)(h(window.innerWidth));return(0,e.useEffect)(()=>{window.addEventListener("resize",()=>{s(h(window.innerWidth))})},[]),(0,e.createElement)("div",{className:"container"},(0,e.createElement)("div",{className:"childlab-widget methodology"},(0,e.createElement)("div",{className:"row"},(!o||"lg"===r||"xlg"===r)&&(0,e.createElement)("div",{className:"col-12 order-md-2 order-lg-1 order-xlg-1 order-sm-2 order-xs-2"},(0,e.createElement)("div",{className:"methodology__header"},(0,e.createElement)("h1",null,window.wp.i18n.__("Методология","childlab")),!o&&("sm"===r||"xs"===r||"md"===r||"xxs"===r)&&q)),(0,e.createElement)(H,null),(0,e.createElement)(U,null))))},null))})()})();
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./node_modules/react-dom/client.js"
+/*!******************************************!*\
+  !*** ./node_modules/react-dom/client.js ***!
+  \******************************************/
+(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var m = __webpack_require__(/*! react-dom */ "react-dom");
+if (false) // removed by dead control flow
+{} else {
+  var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+  exports.createRoot = function(c, o) {
+    i.usingClientEntryPoint = true;
+    try {
+      return m.createRoot(c, o);
+    } finally {
+      i.usingClientEntryPoint = false;
+    }
+  };
+  exports.hydrateRoot = function(c, h, o) {
+    i.usingClientEntryPoint = true;
+    try {
+      return m.hydrateRoot(c, h, o);
+    } finally {
+      i.usingClientEntryPoint = false;
+    }
+  };
+}
+
+
+/***/ },
+
+/***/ "./src/scripts/ArticleReader.js"
+/*!**************************************!*\
+  !*** ./src/scripts/ArticleReader.js ***!
+  \**************************************/
+() {
+
+class ArticleReader {
+  constructor() {
+    this.sections = [];
+    this.currentSectionIndex = 0;
+    this.readingMode = this.getStoredMode();
+    this.init();
+  }
+  init() {
+    // Собираем все разделы статьи
+    this.collectSections();
+
+    // Инициализируем компоненты
+    this.initTableOfContents();
+    this.initReadingProgress();
+    this.initSectionNavigation();
+    this.initModeSwitcher();
+
+    // Начинаем отслеживать скролл
+    this.startScrollTracking();
+  }
+  collectSections() {
+    // Находим все заголовки h2 и h3 с ID
+    const headings = document.querySelectorAll('h2[id], h3[id]');
+    headings.forEach((heading, index) => {
+      this.sections.push({
+        id: heading.id,
+        element: heading,
+        title: heading.textContent.trim(),
+        level: heading.tagName,
+        top: heading.offsetTop,
+        index: index
+      });
+    });
+  }
+  initTableOfContents() {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const self = this;
+    tocLinks.forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        self.scrollToSection(targetId);
+      });
+    });
+
+    // Отслеживаем активный раздел
+    window.addEventListener('scroll', () => {
+      this.updateActiveTocItem();
+    });
+  }
+  initReadingProgress() {
+    const article = document.querySelector('.article-content-wrapper');
+    if (!article) return;
+    const progressFill = document.querySelector('.progress-fill');
+    const progressPercentage = document.querySelector('.progress-percentage');
+    const currentPage = document.querySelector('.current-page');
+    const updateProgress = () => {
+      const articleTop = article.offsetTop;
+      const articleHeight = article.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const scrollTop = window.scrollY;
+
+      // Сколько прокручено статьи
+      let scrolled = scrollTop - articleTop;
+      scrolled = Math.max(0, scrolled);
+      scrolled = Math.min(scrolled, articleHeight - windowHeight);
+
+      // Процент прочитанного
+      const percentage = scrolled / (articleHeight - windowHeight) * 100;
+      const rounded = Math.round(percentage);
+      if (progressFill) {
+        progressFill.style.width = percentage + '%';
+      }
+      if (progressPercentage) {
+        progressPercentage.textContent = rounded + '%';
+      }
+
+      // Текущая страница (раздел)
+      if (currentPage && this.sections.length > 0) {
+        const currentSection = this.getCurrentSection();
+        if (currentSection) {
+          currentPage.textContent = `Раздел: ${currentSection.title}`;
+        }
+      }
+    };
+    window.addEventListener('scroll', updateProgress);
+    updateProgress(); // Инициализация
+  }
+  initSectionNavigation() {
+    const prevBtn = document.querySelector('.prev-section');
+    const nextBtn = document.querySelector('.next-section');
+    const topBtn = document.querySelector('.nav-to-top');
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => this.navigateToPreviousSection());
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => this.navigateToNextSection());
+    }
+    if (topBtn) {
+      topBtn.addEventListener('click', () => window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      }));
+    }
+
+    // Обновляем состояние кнопок
+    this.updateNavigationButtons();
+  }
+  initModeSwitcher() {
+    const modeOptions = document.querySelectorAll('.mode-option[data-mode]');
+    const applyBtn = document.querySelector('.apply-mode-btn');
+    const closeBtn = document.querySelector('.close-switcher');
+    const switcher = document.querySelector('.reading-mode-switcher');
+    modeOptions.forEach(option => {
+      option.addEventListener('click', e => {
+        e.preventDefault();
+        const mode = option.dataset.mode;
+
+        // Обновляем активный класс
+        modeOptions.forEach(opt => opt.classList.remove('active'));
+        option.classList.add('active');
+
+        // Сохраняем выбранный режим
+        if (document.getElementById('remember-mode').checked) {
+          localStorage.setItem('reading_mode', mode);
+        }
+
+        // Применяем режим
+        if (applyBtn) {
+          applyBtn.dataset.mode = mode;
+        }
+      });
+    });
+    if (applyBtn) {
+      applyBtn.addEventListener('click', () => {
+        const mode = applyBtn.dataset.mode || this.getStoredMode();
+        this.changeReadingMode(mode);
+      });
+    }
+    if (closeBtn && switcher) {
+      closeBtn.addEventListener('click', () => {
+        switcher.style.display = 'none';
+      });
+    }
+  }
+  changeReadingMode(mode) {
+    const postId = document.querySelector('.article-content-wrapper').dataset.postId;
+
+    // Показываем индикатор загрузки
+    this.showLoadingIndicator();
+
+    // AJAX запрос для получения контента в новом режиме
+    fetch(ajax_object.ajax_url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: new URLSearchParams({
+        action: 'get_article_content',
+        nonce: ajax_object.nonce,
+        post_id: postId,
+        mode: mode
+      })
+    }).then(response => response.json()).then(data => {
+      if (data.success) {
+        // Обновляем контент
+        const contentWrapper = document.querySelector('.article-content .content-wrapper');
+        if (contentWrapper) {
+          contentWrapper.innerHTML = data.data.content;
+        }
+
+        // Обновляем индикатор режима
+        const indicator = document.querySelector('.current-mode-indicator .mode-label');
+        if (indicator) {
+          const modeLabels = {
+            'scientist_long': '🔬 Режим для ученых (полная версия)',
+            'scientist_short': '🔬 Режим для ученых (кратко)',
+            'parent_long': '👨‍👩‍👧 Режим для родителей (полная версия)',
+            'parent_short': '👨‍👩‍👧 Режим для родителей (кратко)'
+          };
+          indicator.textContent = modeLabels[mode] || modeLabels['scientist_long'];
+        }
+
+        // Обновляем классы
+        const articleContent = document.querySelector('.article-content');
+        if (articleContent) {
+          articleContent.className = articleContent.className.replace(/mode-\S+/g, '');
+          articleContent.classList.add(`mode-${mode}`);
+        }
+
+        // Перестраиваем навигацию
+        this.collectSections();
+        this.initTableOfContents();
+
+        // Прокручиваем наверх
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    }).catch(error => {
+      console.error('Error changing reading mode:', error);
+    }).finally(() => {
+      this.hideLoadingIndicator();
+    });
+  }
+
+  // Вспомогательные методы
+  getStoredMode() {
+    return localStorage.getItem('reading_mode') || 'scientist_long';
+  }
+  getCurrentSection() {
+    const scrollPosition = window.scrollY + 100;
+    for (let i = this.sections.length - 1; i >= 0; i--) {
+      if (this.sections[i].top <= scrollPosition) {
+        this.currentSectionIndex = i;
+        return this.sections[i];
+      }
+    }
+    return null;
+  }
+  updateActiveTocItem() {
+    const currentSection = this.getCurrentSection();
+    const tocLinks = document.querySelectorAll('.toc-link');
+    tocLinks.forEach(link => {
+      link.parentElement.classList.remove('active');
+    });
+    if (currentSection) {
+      const activeLink = document.querySelector(`.toc-link[href="#${currentSection.id}"]`);
+      if (activeLink) {
+        activeLink.parentElement.classList.add('active');
+      }
+    }
+  }
+  updateNavigationButtons() {
+    const prevBtn = document.querySelector('.prev-section');
+    const nextBtn = document.querySelector('.next-section');
+    if (prevBtn) {
+      prevBtn.disabled = this.currentSectionIndex <= 0;
+    }
+    if (nextBtn) {
+      nextBtn.disabled = this.currentSectionIndex >= this.sections.length - 1;
+    }
+  }
+  navigateToPreviousSection() {
+    if (this.currentSectionIndex > 0) {
+      const prevSection = this.sections[this.currentSectionIndex - 1];
+      this.scrollToSection(prevSection.id);
+    }
+  }
+  navigateToNextSection() {
+    if (this.currentSectionIndex < this.sections.length - 1) {
+      const nextSection = this.sections[this.currentSectionIndex + 1];
+      this.scrollToSection(nextSection.id);
+    }
+  }
+  scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop - 80,
+        behavior: 'smooth'
+      });
+    }
+  }
+  startScrollTracking() {
+    window.addEventListener('scroll', () => {
+      this.updateActiveTocItem();
+      this.updateNavigationButtons();
+    });
+  }
+  showLoadingIndicator() {
+    // Показать индикатор загрузки
+    const loader = document.createElement('div');
+    loader.className = 'article-loading';
+    loader.innerHTML = '<div class="spinner"></div><p>Загружаем контент...</p>';
+    document.querySelector('.article-content-wrapper').appendChild(loader);
+  }
+  hideLoadingIndicator() {
+    const loader = document.querySelector('.article-loading');
+    if (loader) {
+      loader.remove();
+    }
+  }
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+  // window.articleReader = new ArticleReader();
+});
+
+/***/ },
+
+/***/ "./src/scripts/entities/Articles.tsx"
+/*!*******************************************!*\
+  !*** ./src/scripts/entities/Articles.tsx ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ArticlesContext: () => (/* binding */ ArticlesContext),
+/* harmony export */   ArticlesContextProvider: () => (/* binding */ ArticlesContextProvider),
+/* harmony export */   useArticles: () => (/* binding */ useArticles)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/consts */ "./src/scripts/shared/consts.ts");
+/* harmony import */ var _shared_hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/hooks */ "./src/scripts/shared/hooks/index.ts");
+
+
+
+
+const ArticlesContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  articles: [],
+  articlesLoading: true,
+  currentTaxonomy: 'methodology',
+  filteredArticles: [],
+  currentTag: -1
+});
+const ArticlesContextProvider = ({
+  children
+}) => {
+  const [articles, setArticles] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [articlesLoading, setArticlesLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const {
+    currentTaxonomy,
+    currentTag
+  } = (0,_shared_hooks__WEBPACK_IMPORTED_MODULE_2__.useCurrentSearch)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/articles?per_page=100&_embed").then(response => response.json()).then(data => {
+      setArticles(data);
+      setArticlesLoading(false);
+    });
+  }, []);
+  const filteredArticles = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!articles) return [];
+    if (currentTaxonomy === "methodology") {
+      if (parseInt(currentTag) > 0) {
+        return articles.filter(art => art["methodology-tags"]?.some(tag => tag === parseInt(currentTag)));
+      } else {
+        return articles;
+      }
+    }
+    return articles;
+  }, [articles, currentTaxonomy, currentTag]);
+  const context = {
+    articles,
+    articlesLoading,
+    currentTaxonomy,
+    filteredArticles,
+    currentTag
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticlesContext.Provider, {
+    value: context
+  }, children);
+};
+const useArticles = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(ArticlesContext);
+
+/***/ },
+
+/***/ "./src/scripts/entities/Course/CourseContext.tsx"
+/*!*******************************************************!*\
+  !*** ./src/scripts/entities/Course/CourseContext.tsx ***!
+  \*******************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CourseContextProvider: () => (/* binding */ CourseContextProvider),
+/* harmony export */   useCourse: () => (/* binding */ useCourse)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/consts */ "./src/scripts/shared/consts.ts");
+/* harmony import */ var _shared_libs_terms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/libs/terms */ "./src/scripts/shared/libs/terms/index.ts");
+
+
+
+
+const CourseContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  course: null,
+  loading: true,
+  error: null
+});
+const CourseContextProvider = ({
+  postId,
+  children
+}) => {
+  const [course, setCourse] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [error, setError] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!postId) {
+      setError('No post ID provided');
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    const courseUrl = `${_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL}/wp-json/wp/v2/courses/${postId}?_embed`;
+    const termUrl = `${_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL}/wp-json/wp/v2/course-type`;
+    Promise.all([fetch(courseUrl).then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    }), fetch(termUrl).then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })]).then(([courseData, termData]) => {
+      const img = courseData._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
+      const courseTypeSlug = courseData.acf?.course_type;
+      const courseTypes = courseTypeSlug ? [{
+        name: (0,_shared_libs_terms__WEBPACK_IMPORTED_MODULE_2__.getTermNameBySlug)(courseTypeSlug, termData) || courseTypeSlug,
+        slug: courseTypeSlug
+      }] : [];
+      setCourse({
+        postId: courseData.id,
+        title: courseData.title?.rendered || '',
+        subtitle: courseData.acf?.course_subtitle || '',
+        shortDescription: courseData.acf?.course_short_description || '',
+        courseColor: courseData.acf?.course_color || '#EB3F9B',
+        courseTitleColor: courseData.acf?.course_title_color || '',
+        courseButtonGradient: courseData.acf?.course_button_gradient || '',
+        courseBackgroundColor: courseData.acf?.course_background_color || '',
+        courseAccessLink: courseData.acf?.course_access_link || '',
+        courseTypes,
+        imageUrl: img
+      });
+      setLoading(false);
+    }).catch(err => {
+      setError(err.message);
+      setLoading(false);
+    });
+  }, [postId]);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CourseContext.Provider, {
+    value: {
+      course,
+      loading,
+      error
+    }
+  }, children);
+};
+const useCourse = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(CourseContext);
+
+/***/ },
+
+/***/ "./src/scripts/entities/Course/index.ts"
+/*!**********************************************!*\
+  !*** ./src/scripts/entities/Course/index.ts ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CourseContextProvider: () => (/* reexport safe */ _CourseContext__WEBPACK_IMPORTED_MODULE_0__.CourseContextProvider),
+/* harmony export */   useCourse: () => (/* reexport safe */ _CourseContext__WEBPACK_IMPORTED_MODULE_0__.useCourse)
+/* harmony export */ });
+/* harmony import */ var _CourseContext__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CourseContext */ "./src/scripts/entities/Course/CourseContext.tsx");
+
+
+/***/ },
+
+/***/ "./src/scripts/entities/Courses/CoursesContext.tsx"
+/*!*********************************************************!*\
+  !*** ./src/scripts/entities/Courses/CoursesContext.tsx ***!
+  \*********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CoursesContext: () => (/* binding */ CoursesContext),
+/* harmony export */   CoursesContextProvider: () => (/* binding */ CoursesContextProvider),
+/* harmony export */   useCourses: () => (/* binding */ useCourses)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/consts */ "./src/scripts/shared/consts.ts");
+
+
+
+const CoursesContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  courses: [],
+  coursesLoading: true,
+  audienceTerms: [],
+  audienceTermsLoading: true,
+  courseTypeTerms: [],
+  courseTypeTermsLoading: true
+});
+const CoursesContextProvider = ({
+  children
+}) => {
+  const [courses, setCourses] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [coursesLoading, setCoursesLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [audienceTerms, setAudienceTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [audienceTermsLoading, setAudienceTermsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [courseTypeTerms, setCourseTypeTerms] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [courseTypeTermsLoading, setCourseTypeTermsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/courses?per_page=100&_embed").then(response => response.json()).then(data => {
+      setCourses(data);
+      setCoursesLoading(false);
+    });
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/course-audience").then(response => response.json()).then(data => {
+      setAudienceTerms(data);
+      setAudienceTermsLoading(false);
+    });
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/course-type").then(response => response.json()).then(data => {
+      setCourseTypeTerms(data);
+      setCourseTypeTermsLoading(false);
+    });
+  }, []);
+  const context = {
+    courses,
+    coursesLoading,
+    audienceTerms,
+    audienceTermsLoading,
+    courseTypeTerms,
+    courseTypeTermsLoading
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CoursesContext.Provider, {
+    value: context
+  }, children);
+};
+const useCourses = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(CoursesContext);
+
+/***/ },
+
+/***/ "./src/scripts/entities/Courses/index.ts"
+/*!***********************************************!*\
+  !*** ./src/scripts/entities/Courses/index.ts ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CoursesContext: () => (/* reexport safe */ _CoursesContext__WEBPACK_IMPORTED_MODULE_0__.CoursesContext),
+/* harmony export */   CoursesContextProvider: () => (/* reexport safe */ _CoursesContext__WEBPACK_IMPORTED_MODULE_0__.CoursesContextProvider),
+/* harmony export */   useCourses: () => (/* reexport safe */ _CoursesContext__WEBPACK_IMPORTED_MODULE_0__.useCourses)
+/* harmony export */ });
+/* harmony import */ var _CoursesContext__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CoursesContext */ "./src/scripts/entities/Courses/CoursesContext.tsx");
+
+
+/***/ },
+
+/***/ "./src/scripts/entities/MethodologyTags.tsx"
+/*!**************************************************!*\
+  !*** ./src/scripts/entities/MethodologyTags.tsx ***!
+  \**************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MethodologyTagsContext: () => (/* binding */ MethodologyTagsContext),
+/* harmony export */   MethodologyTagsContextProvider: () => (/* binding */ MethodologyTagsContextProvider),
+/* harmony export */   filterTagsBySearch: () => (/* binding */ filterTagsBySearch),
+/* harmony export */   getSortedTags: () => (/* binding */ getSortedTags),
+/* harmony export */   getTagsByColor: () => (/* binding */ getTagsByColor),
+/* harmony export */   useMethodologyTags: () => (/* binding */ useMethodologyTags)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/consts */ "./src/scripts/shared/consts.ts");
+
+
+
+
+// Тип для массива тегов
+
+// Тип для ответа API (если используется WordPress REST API)
+
+// Тип для фильтрации тегов
+
+// Тип для создания/обновления тега
+
+// Тип для группировки тегов (например, по цветам или порядку)
+
+// Тип для сортировки тегов
+
+// Хелперы для работы с тегами
+const getSortedTags = (tags, sortBy = "order") => {
+  return [...tags].sort((a, b) => {
+    switch (sortBy) {
+      case "order":
+        return parseInt(a.acf.order) - parseInt(b.acf.order);
+      case "name":
+        return a.name.localeCompare(b.name);
+      case "count":
+        return b.count - a.count;
+      case "id":
+        return a.id - b.id;
+      default:
+        return 0;
+    }
+  });
+};
+const getTagsByColor = tags => {
+  return tags.reduce((acc, tag) => {
+    const color = tag.acf.color;
+    if (!acc[color]) {
+      acc[color] = [];
+    }
+    acc[color].push(tag);
+    return acc;
+  }, {});
+};
+const filterTagsBySearch = (tags, searchTerm) => {
+  if (!searchTerm.trim()) return tags;
+  const term = searchTerm.toLowerCase();
+  return tags.filter(tag => tag.name.toLowerCase().includes(term) || tag.description.toLowerCase().includes(term) || tag.slug.toLowerCase().includes(term));
+};
+
+// Тип для пропсов компонента тега
+
+// Тип для пропсов компонента списка тегов
+
+// Тип для состояния тегов в Redux/Context/Zustand
+
+// Тип для хука useMethodologyTags
+
+// Тип для API запросов
+
+// Тип для компонента предварительного просмотра тега
+
+// Тип для статистики тегов
+
+const MethodologyTagsContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  methodologyTags: [],
+  tagsLoading: true
+});
+const MethodologyTagsContextProvider = ({
+  children
+}) => {
+  const [methodologyTags, setMethodologyTags] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [tagsLoading, setTagsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    fetch(_shared_consts__WEBPACK_IMPORTED_MODULE_1__.BASE_URL + "/wp-json/wp/v2/methodology-tags?per_page=100").then(response => response.json()).then(data => {
+      setMethodologyTags(data);
+      setTagsLoading(false);
+    });
+  }, []);
+  const context = {
+    methodologyTags,
+    tagsLoading
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MethodologyTagsContext.Provider, {
+    value: context
+  }, children);
+};
+const useMethodologyTags = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MethodologyTagsContext);
+
+/***/ },
+
+/***/ "./src/scripts/shared/consts.ts"
+/*!**************************************!*\
+  !*** ./src/scripts/shared/consts.ts ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   BASE_URL: () => (/* binding */ BASE_URL),
+/* harmony export */   DEFAULT_IMAGE_URL: () => (/* binding */ DEFAULT_IMAGE_URL),
+/* harmony export */   MEDIA_URL: () => (/* binding */ MEDIA_URL)
+/* harmony export */ });
+const BASE_URL = window.location.host === "localhost" ? "http://localhost/childlab.local" : window.location.origin;
+const MEDIA_URL = BASE_URL + "/wp-json/wp/v2/media/";
+const DEFAULT_IMAGE_URL = themeData.templateUrl + "/assets/images/post-bg.jpg";
+
+/***/ },
+
+/***/ "./src/scripts/shared/hooks/index.ts"
+/*!*******************************************!*\
+  !*** ./src/scripts/shared/hooks/index.ts ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useCurrentSearch: () => (/* reexport safe */ _useCurrentSearch_useCurrentSearch__WEBPACK_IMPORTED_MODULE_0__.useCurrentSearch)
+/* harmony export */ });
+/* harmony import */ var _useCurrentSearch_useCurrentSearch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useCurrentSearch/useCurrentSearch */ "./src/scripts/shared/hooks/useCurrentSearch/useCurrentSearch.ts");
+
+
+/***/ },
+
+/***/ "./src/scripts/shared/hooks/useCurrentSearch/useCurrentSearch.ts"
+/*!***********************************************************************!*\
+  !*** ./src/scripts/shared/hooks/useCurrentSearch/useCurrentSearch.ts ***!
+  \***********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useCurrentSearch: () => (/* binding */ useCurrentSearch)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * Хук для чтения параметров URL (search string).
+ *
+ * Используется вместо прямого `URLSearchParams`, чтобы компонент
+ * перерендеривался при изменении URL (popstate / pushstate).
+ *
+ * @example
+ * const { currentTaxonomy, currentTag, getParam } = useCurrentSearch();
+ * const audience = getParam('audience'); // 'parents' | null
+ *
+ * // Backward-compatible для ?methodology=<id>
+ * // currentTaxonomy → 'methodology' | null
+ * // currentTag      → '<id>' | null
+ */
+const useCurrentSearch = () => {
+  const [searchParams, setSearchParams] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => new URLSearchParams(window.location.search));
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    // Обновляем состояние при навигации (браузерные кнопки Назад/Вперёд)
+    // или при программном pushState (с последующим dispatch pushstate).
+    const handleChange = () => {
+      setSearchParams(new URLSearchParams(window.location.search));
+    };
+    window.addEventListener("popstate", handleChange);
+    window.addEventListener("pushstate", handleChange);
+    return () => {
+      window.removeEventListener("popstate", handleChange);
+      window.removeEventListener("pushstate", handleChange);
+    };
+  }, []);
+
+  // Для обратной совместимости: ?methodology=<id>
+  const currentTaxonomy = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => searchParams.get("methodology") ? "methodology" : null, [searchParams]);
+  const currentTag = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    var _searchParams$get;
+    return (_searchParams$get = searchParams.get("methodology")) !== null && _searchParams$get !== void 0 ? _searchParams$get : null;
+  }, [searchParams]);
+
+  // Утилита для чтения любого именованного параметра
+  const getParam = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(name => searchParams.get(name), [searchParams]);
+  return {
+    currentTaxonomy,
+    currentTag,
+    getParam
+  };
+};
+
+/***/ },
+
+/***/ "./src/scripts/shared/libs/colors/colors.ts"
+/*!**************************************************!*\
+  !*** ./src/scripts/shared/libs/colors/colors.ts ***!
+  \**************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addColors: () => (/* binding */ addColors),
+/* harmony export */   hexToHsl: () => (/* binding */ hexToHsl),
+/* harmony export */   hexToRgb: () => (/* binding */ hexToRgb),
+/* harmony export */   hslToHex: () => (/* binding */ hslToHex),
+/* harmony export */   rgbToHex: () => (/* binding */ rgbToHex),
+/* harmony export */   shiftLightness: () => (/* binding */ shiftLightness)
+/* harmony export */ });
+function hexToRgb(hex) {
+  const h = hex.replace('#', '');
+  if (!/^[0-9a-fA-F]{6}$/.test(h) && !/^[0-9a-fA-F]{3}$/.test(h)) return null;
+  const full = h.length === 3 ? h[0] + h[0] + h[1] + h[1] + h[2] + h[2] : h;
+  return {
+    r: parseInt(full.substring(0, 2), 16),
+    g: parseInt(full.substring(2, 4), 16),
+    b: parseInt(full.substring(4, 6), 16)
+  };
+}
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0')).join('');
+}
+function addColors(color1, color2) {
+  const c1 = hexToRgb(color1);
+  const c2 = hexToRgb(color2);
+  if (!c1 || !c2) return color1;
+  return rgbToHex(c1.r + c2.r, c1.g + c2.g, c1.b + c2.b);
+}
+function hexToHsl(hex) {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return null;
+  const r = rgb.r / 255;
+  const g = rgb.g / 255;
+  const b = rgb.b / 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  if (max === min) return {
+    h: 0,
+    s: 0,
+    l: Math.round(l * 10000) / 100
+  };
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  let h = 0;
+  if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;else if (max === g) h = ((b - r) / d + 2) / 6;else h = ((r - g) / d + 4) / 6;
+  return {
+    h: Math.round(h * 360 * 100) / 100,
+    s: Math.round(s * 100 * 100) / 100,
+    l: Math.round(l * 10000) / 100
+  };
+}
+function hue2rgb(p, q, t) {
+  if (t < 0) t += 1;
+  if (t > 1) t -= 1;
+  if (t < 1 / 6) return p + (q - p) * 6 * t;
+  if (t < 1 / 2) return q;
+  if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+  return p;
+}
+function hslToHex(h, s, l) {
+  const hh = h / 360;
+  const ss = s / 100;
+  const ll = l / 100;
+  if (ss === 0) {
+    const gray = Math.round(ll * 255);
+    return rgbToHex(gray, gray, gray);
+  }
+  const q = ll < 0.5 ? ll * (1 + ss) : ll + ss - ll * ss;
+  const p = 2 * ll - q;
+  const r = Math.round(hue2rgb(p, q, hh + 1 / 3) * 255);
+  const g = Math.round(hue2rgb(p, q, hh) * 255);
+  const b = Math.round(hue2rgb(p, q, hh - 1 / 3) * 255);
+  return rgbToHex(r, g, b);
+}
+function shiftLightness(hex, amount) {
+  const hsl = hexToHsl(hex);
+  if (!hsl) return hex;
+  return hslToHex(hsl.h, hsl.s, Math.max(0, Math.min(100, hsl.l + amount)));
+}
+
+/***/ },
+
+/***/ "./src/scripts/shared/libs/colors/index.ts"
+/*!*************************************************!*\
+  !*** ./src/scripts/shared/libs/colors/index.ts ***!
+  \*************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addColors: () => (/* reexport safe */ _colors__WEBPACK_IMPORTED_MODULE_0__.addColors),
+/* harmony export */   hexToHsl: () => (/* reexport safe */ _colors__WEBPACK_IMPORTED_MODULE_0__.hexToHsl),
+/* harmony export */   hexToRgb: () => (/* reexport safe */ _colors__WEBPACK_IMPORTED_MODULE_0__.hexToRgb),
+/* harmony export */   hslToHex: () => (/* reexport safe */ _colors__WEBPACK_IMPORTED_MODULE_0__.hslToHex),
+/* harmony export */   resolveColors: () => (/* reexport safe */ _resolveColors__WEBPACK_IMPORTED_MODULE_1__.resolveColors),
+/* harmony export */   rgbToHex: () => (/* reexport safe */ _colors__WEBPACK_IMPORTED_MODULE_0__.rgbToHex),
+/* harmony export */   shiftLightness: () => (/* reexport safe */ _colors__WEBPACK_IMPORTED_MODULE_0__.shiftLightness)
+/* harmony export */ });
+/* harmony import */ var _colors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./colors */ "./src/scripts/shared/libs/colors/colors.ts");
+/* harmony import */ var _resolveColors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolveColors */ "./src/scripts/shared/libs/colors/resolveColors.ts");
+
+
+
+/***/ },
+
+/***/ "./src/scripts/shared/libs/colors/resolveColors.ts"
+/*!*********************************************************!*\
+  !*** ./src/scripts/shared/libs/colors/resolveColors.ts ***!
+  \*********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   resolveColors: () => (/* binding */ resolveColors)
+/* harmony export */ });
+/* harmony import */ var _colors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./colors */ "./src/scripts/shared/libs/colors/colors.ts");
+
+const DEFAULT_COURSE_COLOR = '#EB3F9B';
+function resolveColors(data) {
+  const courseColor = data.courseColor || DEFAULT_COURSE_COLOR;
+  const courseTitleColor = data.courseTitleColor || courseColor;
+  const courseButtonGradient = data.courseButtonGradient || (0,_colors__WEBPACK_IMPORTED_MODULE_0__.addColors)(courseColor, '#3300FF');
+  const courseBackgroundColor = data.courseBackgroundColor || (0,_colors__WEBPACK_IMPORTED_MODULE_0__.addColors)(courseColor, '#AAAAAA');
+  return {
+    courseColor,
+    courseTitleColor,
+    courseButtonGradient,
+    courseBackgroundColor
+  };
+}
+
+/***/ },
+
+/***/ "./src/scripts/shared/libs/terms/index.ts"
+/*!************************************************!*\
+  !*** ./src/scripts/shared/libs/terms/index.ts ***!
+  \************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getTermNameBySlug: () => (/* reexport safe */ _terms__WEBPACK_IMPORTED_MODULE_0__.getTermNameBySlug)
+/* harmony export */ });
+/* harmony import */ var _terms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./terms */ "./src/scripts/shared/libs/terms/terms.ts");
+
+
+/***/ },
+
+/***/ "./src/scripts/shared/libs/terms/terms.ts"
+/*!************************************************!*\
+  !*** ./src/scripts/shared/libs/terms/terms.ts ***!
+  \************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getTermNameBySlug: () => (/* binding */ getTermNameBySlug)
+/* harmony export */ });
+function getTermNameBySlug(slug, terms) {
+  var _terms$find$name;
+  if (!slug || !terms?.length) return null;
+  return (_terms$find$name = terms.find(t => t.slug === slug)?.name) !== null && _terms$find$name !== void 0 ? _terms$find$name : null;
+}
+
+/***/ },
+
+/***/ "./src/scripts/shared/switcher.js"
+/*!****************************************!*\
+  !*** ./src/scripts/shared/switcher.js ***!
+  \****************************************/
+() {
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Элементы
+  const switcher = document.getElementById("readingModeSwitcher");
+  const toggleBtn = document.getElementById("mobileSwitcherToggle");
+  const closeBtn = document.getElementById("switcherClose");
+
+  // Проверяем, мобильное ли устройство
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  // Открытие виджета
+  function openSwitcher() {
+    switcher.classList.add("active");
+    // Создаем оверлей если его нет
+    let overlay = document.querySelector(".switchers-overlay");
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.className = "switchers-overlay";
+      document.body.appendChild(overlay);
+    }
+    overlay.classList.add("active");
+    overlay.addEventListener("click", closeSwitcher);
+    document.body.style.overflow = "hidden";
+  }
+
+  // Закрытие виджета
+  function closeSwitcher() {
+    switcher.classList.remove("active");
+    const overlay = document.querySelector(".switchers-overlay");
+    if (overlay) {
+      overlay.classList.remove("active");
+      overlay.removeEventListener("click", closeSwitcher);
+    }
+    document.body.style.overflow = "";
+  }
+
+  // Обработчики событий
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", openSwitcher);
+  }
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeSwitcher);
+  }
+
+  // Закрытие при нажатии Escape
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && switcher.classList.contains("active")) {
+      closeSwitcher();
+    }
+  });
+
+  // Адаптация при изменении размера окна
+  window.addEventListener("resize", function () {
+    if (!isMobile() && switcher.classList.contains("active")) {
+      closeSwitcher();
+    }
+  });
+
+  // Закрытие при клике на ссылки внутри виджета (если нужно)
+  const switcherLinks = switcher.querySelectorAll("a");
+  switcherLinks.forEach(link => {
+    link.addEventListener("click", function () {
+      if (isMobile()) {
+        // Закрываем виджет только на мобильных
+        setTimeout(closeSwitcher, 300); // Небольшая задержка для плавности
+      }
+    });
+  });
+});
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/Button/Button.scss"
+/*!***********************************************!*\
+  !*** ./src/scripts/ui-kit/Button/Button.scss ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/Button/Button.tsx"
+/*!**********************************************!*\
+  !*** ./src/scripts/ui-kit/Button/Button.tsx ***!
+  \**********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Button: () => (/* binding */ Button)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const COLOR_SCHEMES = {
+  grape: {
+    active: {
+      default: {
+        background: 'linear-gradient(90deg, #5823EB 0%, #6D00D2 100%)',
+        color: 'rgb(255, 255, 255)'
+      },
+      hovered: {
+        background: '#7955F9'
+      },
+      pressed: {
+        background: '#3D1FAA'
+      }
+    },
+    inactive: {
+      default: {
+        background: 'linear-gradient(90deg, #ECEFFF 0%, #F2E8FF 100%)',
+        color: '#5230D0'
+      },
+      hovered: {
+        background: '#ffffff'
+      },
+      pressed: {
+        background: '#DDDDDD'
+      }
+    }
+  },
+  raspberry: {
+    active: {
+      default: {
+        background: 'linear-gradient(90deg, rgb(215, 69, 255) 0%, rgb(245, 47, 162) 100%)',
+        color: 'rgb(255, 255, 255)'
+      }
+    },
+    inactive: {
+      default: {
+        background: 'linear-gradient(90deg, rgb(247, 217, 255) 0%, rgb(255, 200, 232) 100%)',
+        color: 'rgb(188, 0, 173)'
+      }
+    }
+  },
+  strawberry: {
+    active: {
+      default: {
+        background: 'linear-gradient(90deg, #F74098 0%, #F64B30 100%)',
+        color: 'rgb(255, 255, 255)'
+      }
+    },
+    inactive: {
+      default: {
+        background: 'linear-gradient(90deg, #FFD4E9, #FFCFC8 100%)',
+        color: 'rgb(188, 0, 173)'
+      }
+    }
+  }
+};
+const DEFAULT_RADIUS = {
+  desktop: '8px',
+  tablet: '8px',
+  phone: '6px'
+};
+const sizeMap = {
+  sm: {
+    phone: {
+      padding: '8px 12px',
+      fontSize: '16px'
+    },
+    tablet: {
+      padding: '8px 12px',
+      fontSize: '16px'
+    },
+    desktop: {
+      padding: '8px 12px',
+      fontSize: '16px'
+    }
+  },
+  md: {
+    phone: {
+      padding: '8px 24px',
+      fontSize: '24px'
+    },
+    tablet: {
+      padding: '8px 24px',
+      fontSize: '24px'
+    },
+    desktop: {
+      padding: '8px 24px',
+      fontSize: '24px'
+    }
+  },
+  lg: {
+    phone: {
+      padding: '6px 18px',
+      fontSize: '18px'
+    },
+    tablet: {
+      padding: '8px 24px',
+      fontSize: '24px'
+    },
+    desktop: {
+      padding: '12px 36px',
+      fontSize: '36px'
+    }
+  }
+};
+function getSizeProp(size, bp, prop) {
+  return sizeMap[size]?.[bp]?.[prop];
+}
+function resolveSchemeColors(colors, state, customColors) {
+  if (colors !== 'custom' && customColors) {
+    const scheme = COLOR_SCHEMES[colors];
+    const schemeState = state === 'active' ? scheme.active : scheme.inactive;
+    if (!schemeState) return customColors;
+    return {
+      background: customColors.background || schemeState.default.background,
+      color: customColors.color || schemeState.default.color,
+      borderColor: customColors.borderColor
+    };
+  }
+  if (colors !== 'custom') {
+    const scheme = COLOR_SCHEMES[colors];
+    const schemeState = state === 'active' ? scheme.active : scheme.inactive;
+    if (!schemeState) return {};
+    return {
+      background: schemeState.default.background,
+      color: schemeState.default.color
+    };
+  }
+  return customColors || {};
+}
+function getRadius(borderRadius, bp) {
+  if (!borderRadius) return DEFAULT_RADIUS[bp];
+  if (typeof borderRadius === 'string') return borderRadius;
+  return borderRadius[bp] || DEFAULT_RADIUS[bp];
+}
+function getSchemeName(colors) {
+  return colors;
+}
+function hasDefinedHover(colors, state) {
+  if (colors === 'custom') return false;
+  const scheme = COLOR_SCHEMES[colors];
+  const schemeState = state === 'active' ? scheme.active : scheme.inactive;
+  return !!schemeState?.hovered;
+}
+function getHoverBackground(colors, state) {
+  if (colors === 'custom') return undefined;
+  const scheme = COLOR_SCHEMES[colors];
+  const schemeState = state === 'active' ? scheme.active : scheme.inactive;
+  return schemeState?.hovered?.background;
+}
+function getPressedBackground(colors, state) {
+  if (colors === 'custom') return undefined;
+  const scheme = COLOR_SCHEMES[colors];
+  const schemeState = state === 'active' ? scheme.active : scheme.inactive;
+  return schemeState?.pressed?.background;
+}
+const Button = ({
+  isActive = true,
+  active: activeColors,
+  inactive: inactiveColors,
+  colors = 'grape',
+  icon,
+  onClick,
+  children,
+  className = '',
+  disabled = false,
+  size = 'md',
+  href,
+  target,
+  rel,
+  borderRadius
+}) => {
+  const currentColors = isActive ? resolveSchemeColors(colors, 'active', activeColors) : resolveSchemeColors(colors, 'inactive', inactiveColors);
+  const style = {
+    background: currentColors.background,
+    color: currentColors.color,
+    border: `1px solid ${currentColors.borderColor || 'transparent'}`,
+    '--button-padding-desktop': getSizeProp(size, 'desktop', 'padding'),
+    '--button-padding-tablet': getSizeProp(size, 'tablet', 'padding'),
+    '--button-padding-phone': getSizeProp(size, 'phone', 'padding'),
+    '--button-font-size-desktop': getSizeProp(size, 'desktop', 'fontSize'),
+    '--button-font-size-tablet': getSizeProp(size, 'tablet', 'fontSize'),
+    '--button-font-size-phone': getSizeProp(size, 'phone', 'fontSize'),
+    '--button-radius-desktop': getRadius(borderRadius, 'desktop'),
+    '--button-radius-tablet': getRadius(borderRadius, 'tablet'),
+    '--button-radius-phone': getRadius(borderRadius, 'phone'),
+    '--button-hover-bg': getHoverBackground(colors, isActive ? 'active' : 'inactive'),
+    '--button-pressed-bg': getPressedBackground(colors, isActive ? 'active' : 'inactive')
+  };
+  const dataAttrs = {
+    'data-colors': getSchemeName(colors),
+    'data-hover-defined': hasDefinedHover(colors, isActive ? 'active' : 'inactive') ? 'true' : undefined
+  };
+  const classNames = ['ui-button', isActive ? 'ui-button--active' : '', className].filter(Boolean).join(' ');
+  const content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, icon && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "ui-button__icon"
+  }, icon), children && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "ui-button__text"
+  }, children));
+  if (href) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: href,
+      target: target,
+      rel: rel,
+      onClick: onClick,
+      className: classNames,
+      style: style,
+      ...dataAttrs
+    }, content);
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: classNames,
+    style: style,
+    onClick: onClick,
+    disabled: disabled,
+    "aria-pressed": isActive,
+    ...dataAttrs
+  }, content);
+};
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/Button/index.ts"
+/*!********************************************!*\
+  !*** ./src/scripts/ui-kit/Button/index.ts ***!
+  \********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Button: () => (/* reexport safe */ _Button__WEBPACK_IMPORTED_MODULE_0__.Button)
+/* harmony export */ });
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Button */ "./src/scripts/ui-kit/Button/Button.tsx");
+
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/ButtonGroup/ButtonGroup.scss"
+/*!*********************************************************!*\
+  !*** ./src/scripts/ui-kit/ButtonGroup/ButtonGroup.scss ***!
+  \*********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/ButtonGroup/ButtonGroup.tsx"
+/*!********************************************************!*\
+  !*** ./src/scripts/ui-kit/ButtonGroup/ButtonGroup.tsx ***!
+  \********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ButtonGroup: () => (/* binding */ ButtonGroup)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const ButtonGroup = ({
+  children,
+  className = ''
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `ui-button-group${className ? ' ' + className : ''}`
+  }, children);
+};
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/ButtonGroup/index.ts"
+/*!*************************************************!*\
+  !*** ./src/scripts/ui-kit/ButtonGroup/index.ts ***!
+  \*************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ButtonGroup: () => (/* reexport safe */ _ButtonGroup__WEBPACK_IMPORTED_MODULE_0__.ButtonGroup)
+/* harmony export */ });
+/* harmony import */ var _ButtonGroup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ButtonGroup */ "./src/scripts/ui-kit/ButtonGroup/ButtonGroup.tsx");
+
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/Icon/Icon.tsx"
+/*!******************************************!*\
+  !*** ./src/scripts/ui-kit/Icon/Icon.tsx ***!
+  \******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Icon: () => (/* binding */ Icon)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./icons */ "./src/scripts/ui-kit/Icon/icons.tsx");
+
+
+
+const Icon = ({
+  name,
+  size,
+  className
+}) => {
+  const SvgComponent = _icons__WEBPACK_IMPORTED_MODULE_1__.icons[name];
+  if (!SvgComponent) return null;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(SvgComponent, {
+    size: size,
+    className: className
+  });
+};
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/Icon/icons.tsx"
+/*!*******************************************!*\
+  !*** ./src/scripts/ui-kit/Icon/icons.tsx ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   icons: () => (/* binding */ icons)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const icons = {
+  'arrow-right': ({
+    size = 13,
+    className
+  }) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    width: size,
+    height: size * 10 / 13,
+    viewBox: "0 0 13 10",
+    fill: "none",
+    className: className
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M0.749348 4.75L11.416 4.75M11.416 4.75L7.41602 8.75M11.416 4.75L7.41602 0.75",
+    stroke: "currentColor",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  })),
+  'arrow-left': ({
+    size = 13,
+    className
+  }) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    width: size,
+    height: size * 10 / 13,
+    viewBox: "0 0 13 10",
+    fill: "none",
+    className: className
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M11.4167 4.75L0.75 4.75M0.75 4.75L4.75 8.75M0.75 4.75L4.75 0.75",
+    stroke: "currentColor",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  })),
+  'adapt': ({
+    size = 18,
+    className
+  }) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    width: size,
+    height: size * 16 / 18,
+    viewBox: "0 0 18 16",
+    fill: "none",
+    className: className
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M1 0C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1C0 1.26522 0.105357 1.51957 0.292893 1.70711C0.48043 1.89464 0.734784 2 1 2H17C17.2652 2 17.5196 1.89464 17.7071 1.70711C17.8946 1.51957 18 1.26522 18 1C18 0.734784 17.8946 0.48043 17.7071 0.292893C17.5196 0.105357 17.2652 0 17 0H1ZM14 4C14.2086 4.00008 14.4119 4.06539 14.5816 4.18679C14.7512 4.30818 14.8786 4.47959 14.946 4.677L15.076 5.055C15.224 5.48875 15.4694 5.88283 15.7934 6.20699C16.1174 6.53115 16.5113 6.77677 16.945 6.925L17.323 7.054C17.5202 7.12157 17.6913 7.24908 17.8125 7.41869C17.9337 7.58831 17.9988 7.79155 17.9988 8C17.9988 8.20845 17.9337 8.41169 17.8125 8.58131C17.6913 8.75092 17.5202 8.87843 17.323 8.946L16.945 9.076C16.5112 9.224 16.1172 9.46941 15.793 9.79339C15.4688 10.1174 15.2232 10.5113 15.075 10.945L14.946 11.323C14.8784 11.5202 14.7509 11.6913 14.5813 11.8125C14.4117 11.9337 14.2085 11.9988 14 11.9988C13.7915 11.9988 13.5883 11.9337 13.4187 11.8125C13.2491 11.6913 13.1216 11.5202 13.054 11.323L12.924 10.945C12.776 10.5112 12.5306 10.1172 12.2066 9.79301C11.8826 9.46885 11.4887 9.22323 11.055 9.075L10.677 8.946C10.4798 8.87843 10.3087 8.75092 10.1875 8.58131C10.0663 8.41169 10.0012 8.20845 10.0012 8C10.0012 7.79155 10.0663 7.58831 10.1875 7.41869C10.3087 7.24908 10.4798 7.12157 10.677 7.054L11.055 6.924C11.4888 6.776 11.8828 6.53059 12.207 6.20661C12.5312 5.88262 12.7768 5.48868 12.925 5.055L13.054 4.677C13.1214 4.47959 13.2488 4.30818 13.4184 4.18679C13.5881 4.06539 13.7914 4.00008 14 4ZM14 7.196C13.7634 7.4937 13.4937 7.76344 13.196 8C13.4947 8.23667 13.7627 8.50467 14 8.804C14.2367 8.50467 14.5047 8.23667 14.804 8C14.5063 7.76344 14.2366 7.4937 14 7.196ZM0 15C0 14.7348 0.105357 14.4804 0.292893 14.2929C0.48043 14.1054 0.734784 14 1 14H2C2.26522 14 2.51957 14.1054 2.70711 14.2929C2.89464 14.4804 3 14.7348 3 15C3 15.2652 2.89464 15.5196 2.70711 15.7071C2.51957 15.8946 2.26522 16 2 16H1C0.734784 16 0.48043 15.8946 0.292893 15.7071C0.105357 15.5196 0 15.2652 0 15ZM10 15C10 14.7348 10.1054 14.4804 10.2929 14.2929C10.4804 14.1054 10.7348 14 11 14H17C17.2652 14 17.5196 14.1054 17.7071 14.2929C17.8946 14.4804 18 14.7348 18 15C18 15.2652 17.8946 15.5196 17.7071 15.7071C17.5196 15.8946 17.2652 16 17 16H11C10.7348 16 10.4804 15.8946 10.2929 15.7071C10.1054 15.5196 10 15.2652 10 15Z",
+    fill: "currentColor"
+  })),
+  'chevron': ({
+    size = 16,
+    className
+  }) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    width: size,
+    height: size,
+    viewBox: "0 0 16 16",
+    fill: "none",
+    className: className
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M6 4l4 4-4 4",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }))
+};
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/Icon/index.ts"
+/*!******************************************!*\
+  !*** ./src/scripts/ui-kit/Icon/index.ts ***!
+  \******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Icon: () => (/* reexport safe */ _Icon__WEBPACK_IMPORTED_MODULE_0__.Icon),
+/* harmony export */   icons: () => (/* reexport safe */ _icons__WEBPACK_IMPORTED_MODULE_1__.icons)
+/* harmony export */ });
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Icon */ "./src/scripts/ui-kit/Icon/Icon.tsx");
+/* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./icons */ "./src/scripts/ui-kit/Icon/icons.tsx");
+
+
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/Tag/Tag.scss"
+/*!*****************************************!*\
+  !*** ./src/scripts/ui-kit/Tag/Tag.scss ***!
+  \*****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/Tag/Tag.tsx"
+/*!****************************************!*\
+  !*** ./src/scripts/ui-kit/Tag/Tag.tsx ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Tag: () => (/* binding */ Tag)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const sizeMap = {
+  sm: {
+    phone: {
+      padding: '4px 12px',
+      fontSize: '12px',
+      borderRadius: '12px'
+    },
+    tablet: {
+      padding: '4px 12px',
+      fontSize: '12px',
+      borderRadius: '12px'
+    },
+    desktop: {
+      padding: '4px 12px',
+      fontSize: '12px',
+      borderRadius: '12px'
+    }
+  },
+  md: {
+    phone: {
+      padding: '6px 16px',
+      fontSize: '14px',
+      borderRadius: '16px'
+    },
+    tablet: {
+      padding: '6px 16px',
+      fontSize: '14px',
+      borderRadius: '16px'
+    },
+    desktop: {
+      padding: '6px 16px',
+      fontSize: '14px',
+      borderRadius: '16px'
+    }
+  },
+  lg: {
+    phone: {
+      padding: '2px 12px',
+      fontSize: '12px',
+      borderRadius: '12px'
+    },
+    tablet: {
+      padding: '6px 16px',
+      fontSize: '16px',
+      borderRadius: '16px'
+    },
+    desktop: {
+      padding: '8px 24px',
+      fontSize: '20px',
+      borderRadius: '20px'
+    }
+  }
+};
+function getSizeProp(size, bp, prop) {
+  return sizeMap[size]?.[bp]?.[prop];
+}
+const Tag = ({
+  children,
+  color,
+  textColor,
+  size = 'sm',
+  className = ''
+}) => {
+  const style = {
+    backgroundColor: color !== null && color !== void 0 ? color : '#EB3F9B',
+    color: textColor !== null && textColor !== void 0 ? textColor : '#ffffff',
+    '--tag-padding-desktop': getSizeProp(size, 'desktop', 'padding'),
+    '--tag-padding-tablet': getSizeProp(size, 'tablet', 'padding'),
+    '--tag-padding-phone': getSizeProp(size, 'phone', 'padding'),
+    '--tag-font-size-desktop': getSizeProp(size, 'desktop', 'fontSize'),
+    '--tag-font-size-tablet': getSizeProp(size, 'tablet', 'fontSize'),
+    '--tag-font-size-phone': getSizeProp(size, 'phone', 'fontSize'),
+    '--tag-radius-desktop': getSizeProp(size, 'desktop', 'borderRadius'),
+    '--tag-radius-tablet': getSizeProp(size, 'tablet', 'borderRadius'),
+    '--tag-radius-phone': getSizeProp(size, 'phone', 'borderRadius')
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: `ui-tag${className ? ' ' + className : ''}`,
+    style: style
+  }, children);
+};
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/Tag/index.ts"
+/*!*****************************************!*\
+  !*** ./src/scripts/ui-kit/Tag/index.ts ***!
+  \*****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Tag: () => (/* reexport safe */ _Tag__WEBPACK_IMPORTED_MODULE_0__.Tag)
+/* harmony export */ });
+/* harmony import */ var _Tag__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Tag */ "./src/scripts/ui-kit/Tag/Tag.tsx");
+
+
+/***/ },
+
+/***/ "./src/scripts/ui-kit/index.ts"
+/*!*************************************!*\
+  !*** ./src/scripts/ui-kit/index.ts ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Button: () => (/* reexport safe */ _Button__WEBPACK_IMPORTED_MODULE_0__.Button),
+/* harmony export */   ButtonGroup: () => (/* reexport safe */ _ButtonGroup__WEBPACK_IMPORTED_MODULE_1__.ButtonGroup),
+/* harmony export */   Icon: () => (/* reexport safe */ _Icon__WEBPACK_IMPORTED_MODULE_2__.Icon),
+/* harmony export */   Tag: () => (/* reexport safe */ _Tag__WEBPACK_IMPORTED_MODULE_4__.Tag),
+/* harmony export */   icons: () => (/* reexport safe */ _Icon__WEBPACK_IMPORTED_MODULE_2__.icons)
+/* harmony export */ });
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Button */ "./src/scripts/ui-kit/Button/index.ts");
+/* harmony import */ var _ButtonGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ButtonGroup */ "./src/scripts/ui-kit/ButtonGroup/index.ts");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Icon */ "./src/scripts/ui-kit/Icon/index.ts");
+/* harmony import */ var _Icon_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Icon/icons */ "./src/scripts/ui-kit/Icon/icons.tsx");
+/* harmony import */ var _Tag__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Tag */ "./src/scripts/ui-kit/Tag/index.ts");
+
+
+
+
+
+
+/***/ },
+
+/***/ "./src/scripts/widgets/ArticlesList/ArticlesList.tsx"
+/*!***********************************************************!*\
+  !*** ./src/scripts/widgets/ArticlesList/ArticlesList.tsx ***!
+  \***********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ArticleCardComponent: () => (/* binding */ ArticleCardComponent),
+/* harmony export */   ArticleMetaInfoComponent: () => (/* binding */ ArticleMetaInfoComponent),
+/* harmony export */   ArticleTagsComponent: () => (/* binding */ ArticleTagsComponent),
+/* harmony export */   ArticlesListComponent: () => (/* binding */ ArticlesListComponent)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/consts */ "./src/scripts/shared/consts.ts");
+/* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
+/* harmony import */ var _Loader_Loader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Loader/Loader */ "./src/scripts/widgets/Loader/Loader.tsx");
+/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+/* harmony import */ var _entities_Articles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../entities/Articles */ "./src/scripts/entities/Articles.tsx");
+
+
+
+
+
+
+
+const ArticlesListComponent = () => {
+  const {
+    articles,
+    filteredArticles,
+    currentTaxonomy,
+    currentTag
+  } = (0,_entities_Articles__WEBPACK_IMPORTED_MODULE_5__.useArticles)();
+  const [screenSize, setScreenSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_4__.getScreenSize)(window.innerWidth));
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    window.addEventListener("resize", () => {
+      setScreenSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_4__.getScreenSize)(window.innerWidth));
+    });
+  }, []);
+  const title = currentTaxonomy === "methodology" && parseInt(currentTag) !== -1 ? window.wp.i18n.__("Статьи по теме", "childlab") : window.wp.i18n.__("Все статьи", "childlab");
+  let content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+  if (!articles.length) {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Loader_Loader__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      fullScreen: false
+    });
+  } else if (!filteredArticles.length) {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "empty-wrapper"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "empty-placeholder"
+    }, window.wp.i18n.__("Нет статей по этой теме", "childlab")));
+  } else if (filteredArticles.length < 3 || screenSize == "sm" || screenSize == "xs") {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, filteredArticles.map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "col-lg-3 col-md-6 col-sm-12 col-xs-12"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleCardComponent, {
+      key: art.id,
+      ...art,
+      size: "default"
+    }))));
+  } else {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "col-lg-6 col-md-12"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleCardComponent, {
+      key: filteredArticles[0].id,
+      ...filteredArticles[0],
+      size: "large"
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "col-lg-6 col-md-12"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "row"
+    }, filteredArticles.slice(1, 5).map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "col-lg-6 col-md-6 col-sm-6 col-xs-12"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleCardComponent, {
+      key: art.id,
+      ...art,
+      size: "small"
+    }))))), filteredArticles.slice(5).map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "col-lg-3 col-md-6 col-sm-12 col-xs-12"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleCardComponent, {
+      key: art.id,
+      ...art,
+      size: "small"
+    }))));
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "childlab-widget articles-list"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", {
+    className: "articles-list__header"
+  }, title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "row"
+  }, content));
+};
+const ArticleCardComponent = article => {
+  var _article$size;
+  const size = (_article$size = article.size) !== null && _article$size !== void 0 ? _article$size : "small";
+  const imgSrc = article?._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
+  const imageUrl = imgSrc ? imgSrc : _shared_consts__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_IMAGE_URL;
+  const excerptText = article.excerpt.rendered.replace(/<[^>]+>/g, "");
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    className: "article-card",
+    href: article.link
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `article-img article-img__${size}`,
+    style: {
+      backgroundImage: `url(${imageUrl})`
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleTagsComponent, {
+    ...article
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-details"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-meta childlab-text__meta"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticleMetaInfoComponent, {
+    ...article
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-details__title truncate-multiline"
+  }, article.title.rendered), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-details__subtitle truncate"
+  }, article.acf.subtitle), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-details__excerpt truncate-multiline"
+  }, excerptText)));
+};
+function formatDate(date) {
+  if (typeof date == "number") {
+    // перевести секунды в миллисекунды и преобразовать к Date
+    date = new Date(date * 1000);
+  } else if (typeof date == "string") {
+    // строка в стандартном формате автоматически будет разобрана в дату
+    date = new Date(date);
+  } else if (Array.isArray(date)) {
+    date = new Date(date[0], date[1], date[2]);
+  }
+  // преобразования для поддержки полиморфизма завершены,
+  // теперь мы работаем с датой (форматируем её)
+
+  return date.toLocaleString("ru", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "2-digit"
+  });
+
+  /*
+  // можно и вручную, если лень добавлять в старый IE поддержку локализации
+  var day = date.getDate();
+  if (day < 10) day = '0' + day;
+   var month = date.getMonth() + 1;
+  if (month < 10) month = '0' + month;
+   // взять 2 последние цифры года
+  var year = date.getFullYear() % 100;
+  if (year < 10) year = '0' + year;
+   var formattedDate = day + '.' + month + '.' + year;
+   return formattedDate;
+  */
+}
+const ArticleMetaInfoComponent = article => {
+  const authors = article["article-authors"];
+  const date = formatDate(article.date);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-meta"
+  }, date);
+};
+const ArticleTagsComponent = article => {
+  const {
+    methodologyTags
+  } = (0,_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_2__.useMethodologyTags)();
+  const articleTags = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => methodologyTags.filter(m => article["methodology-tags"].includes(m.id)), [methodologyTags, article]);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "article-tags"
+  }, articleTags.map(m => {
+    var _m$acf$color;
+    return /* TODO: Refactor to ui-kit/Tag */(0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      key: m.id,
+      className: "article-tags__tag truncate",
+      style: {
+        backgroundColor: (_m$acf$color = m.acf.color) !== null && _m$acf$color !== void 0 ? _m$acf$color : "rgba(100, 100, 100, 0.5)"
+      }
+    }, m.name);
+  }));
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/CourseBanner/CourseBanner.scss"
+/*!************************************************************!*\
+  !*** ./src/scripts/widgets/CourseBanner/CourseBanner.scss ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "./src/scripts/widgets/CourseBanner/CourseBanner.tsx"
+/*!***********************************************************!*\
+  !*** ./src/scripts/widgets/CourseBanner/CourseBanner.tsx ***!
+  \***********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CourseBanner: () => (/* binding */ CourseBanner),
+/* harmony export */   CourseBannerView: () => (/* binding */ CourseBannerView)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ui_kit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../ui-kit */ "./src/scripts/ui-kit/index.ts");
+/* harmony import */ var _shared_libs_colors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/libs/colors */ "./src/scripts/shared/libs/colors/index.ts");
+/* harmony import */ var _entities_Course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../entities/Course */ "./src/scripts/entities/Course/index.ts");
+/* harmony import */ var _CourseBanner_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CourseBanner.scss */ "./src/scripts/widgets/CourseBanner/CourseBanner.scss");
+
+
+
+
+
+
+const CourseBannerView = ({
+  data
+}) => {
+  const {
+    courseColor,
+    courseTitleColor,
+    courseButtonGradient,
+    courseBackgroundColor
+  } = (0,_shared_libs_colors__WEBPACK_IMPORTED_MODULE_2__.resolveColors)(data);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-banner",
+    style: {
+      backgroundImage: `url(${data.imageUrl})`
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-banner-overlay",
+    style: {
+      background: `linear-gradient(to top, ${courseBackgroundColor} 0, rgba(255, 255, 255, 1) 100%)`
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "container course-banner-content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "col-lg-6 col-md-6 col-sm-12"
+  }, data.courseTypes.map(term => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ui_kit__WEBPACK_IMPORTED_MODULE_1__.Tag, {
+    key: term.slug,
+    color: courseColor,
+    textColor: "#fff",
+    size: "lg"
+  }, term.name)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", {
+    className: "course-banner-title",
+    style: {
+      color: courseTitleColor
+    }
+  }, data.title), data.subtitle && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
+    className: "course-banner-subtitle",
+    style: {
+      color: courseTitleColor
+    }
+  }, data.subtitle), data.shortDescription && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-banner-description"
+  }, data.shortDescription), data.courseAccessLink && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ui_kit__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    href: data.courseAccessLink,
+    colors: "custom",
+    className: "course-banner-access-button",
+    active: {
+      background: `linear-gradient(90deg, ${courseColor} 0%, ${courseButtonGradient} 100%)`,
+      color: '#ffffff',
+      borderColor: courseColor
+    },
+    size: "lg",
+    target: "_blank"
+  }, "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0434\u043E\u0441\u0442\u0443\u043F"))));
+};
+const CourseBanner = () => {
+  const {
+    course,
+    loading,
+    error
+  } = (0,_entities_Course__WEBPACK_IMPORTED_MODULE_3__.useCourse)();
+  if (loading) return null;
+  if (error || !course) return null;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CourseBannerView, {
+    data: course
+  });
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/CourseBanner/index.ts"
+/*!***************************************************!*\
+  !*** ./src/scripts/widgets/CourseBanner/index.ts ***!
+  \***************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CourseBanner: () => (/* reexport safe */ _CourseBanner__WEBPACK_IMPORTED_MODULE_0__.CourseBanner),
+/* harmony export */   CourseBannerView: () => (/* reexport safe */ _CourseBanner__WEBPACK_IMPORTED_MODULE_0__.CourseBannerView)
+/* harmony export */ });
+/* harmony import */ var _CourseBanner__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CourseBanner */ "./src/scripts/widgets/CourseBanner/CourseBanner.tsx");
+
+
+/***/ },
+
+/***/ "./src/scripts/widgets/CoursesList/CourseCard/CourseCard.scss"
+/*!********************************************************************!*\
+  !*** ./src/scripts/widgets/CoursesList/CourseCard/CourseCard.scss ***!
+  \********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "./src/scripts/widgets/CoursesList/CourseCard/CourseCard.tsx"
+/*!*******************************************************************!*\
+  !*** ./src/scripts/widgets/CoursesList/CourseCard/CourseCard.tsx ***!
+  \*******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CourseCard: () => (/* binding */ CourseCard)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../shared/consts */ "./src/scripts/shared/consts.ts");
+/* harmony import */ var _shared_libs_colors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../shared/libs/colors */ "./src/scripts/shared/libs/colors/index.ts");
+/* harmony import */ var _ui_kit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../ui-kit */ "./src/scripts/ui-kit/index.ts");
+
+
+
+
+
+const CourseCard = ({
+  course,
+  courseTypeName
+}) => {
+  const imgSrc = course._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  const imageUrl = imgSrc !== null && imgSrc !== void 0 ? imgSrc : _shared_consts__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_IMAGE_URL;
+  const {
+    courseColor,
+    courseBackgroundColor
+  } = (0,_shared_libs_colors__WEBPACK_IMPORTED_MODULE_2__.resolveColors)({
+    courseColor: course.acf?.course_color,
+    courseTitleColor: course.acf?.course_title_color,
+    courseButtonGradient: course.acf?.course_button_gradient,
+    courseBackgroundColor: course.acf?.course_background_color
+  });
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-card",
+    style: {
+      backgroundImage: `url(${imageUrl})`,
+      '--course-color': courseColor
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-card__overlay",
+    style: {
+      background: `linear-gradient(to top, ${courseBackgroundColor} 0, rgba(255, 255, 255, 1) 100%)`
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-card__content"
+  }, courseTypeName && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ui_kit__WEBPACK_IMPORTED_MODULE_3__.Tag, {
+    color: courseColor,
+    textColor: "#fff",
+    size: "lg",
+    className: "course-card__tag"
+  }, courseTypeName), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "course-card__title",
+    style: {
+      color: courseColor
+    }
+  }, course.title.rendered, ' ', course.acf?.course_subtitle && course.acf.course_subtitle), course.acf?.course_description && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "course-card__description truncate-multiline"
+  }, course.acf.course_description), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ui_kit__WEBPACK_IMPORTED_MODULE_3__.Button, {
+    href: course.link,
+    className: "course-card-link",
+    colors: "custom",
+    active: {
+      background: '#fff',
+      color: courseColor
+    },
+    size: "md"
+  }, window.wp.i18n.__('Подробнее', 'childlab'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ui_kit__WEBPACK_IMPORTED_MODULE_3__.Icon, {
+    name: "arrow-right",
+    size: 32
+  }))));
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/CoursesList/CourseCard/index.ts"
+/*!*************************************************************!*\
+  !*** ./src/scripts/widgets/CoursesList/CourseCard/index.ts ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CourseCard: () => (/* reexport safe */ _CourseCard__WEBPACK_IMPORTED_MODULE_0__.CourseCard)
+/* harmony export */ });
+/* harmony import */ var _CourseCard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CourseCard */ "./src/scripts/widgets/CoursesList/CourseCard/CourseCard.tsx");
+
+
+/***/ },
+
+/***/ "./src/scripts/widgets/CoursesList/CoursesList.tsx"
+/*!*********************************************************!*\
+  !*** ./src/scripts/widgets/CoursesList/CoursesList.tsx ***!
+  \*********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   CoursesListComponent: () => (/* binding */ CoursesListComponent)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _entities_Courses__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../entities/Courses */ "./src/scripts/entities/Courses/index.ts");
+/* harmony import */ var _Loader_Loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Loader/Loader */ "./src/scripts/widgets/Loader/Loader.tsx");
+/* harmony import */ var _shared_hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../shared/hooks */ "./src/scripts/shared/hooks/index.ts");
+/* harmony import */ var _ui_kit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../ui-kit */ "./src/scripts/ui-kit/index.ts");
+/* harmony import */ var _CourseCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CourseCard */ "./src/scripts/widgets/CoursesList/CourseCard/index.ts");
+/* harmony import */ var _shared_libs_terms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../shared/libs/terms */ "./src/scripts/shared/libs/terms/index.ts");
+
+
+
+
+
+
+
+
+const AUDIENCE_PARAM = "audience";
+const DEFAULT_AUDIENCE_SLUG = "parents";
+const CoursesListComponent = () => {
+  const {
+    courses,
+    coursesLoading,
+    audienceTerms,
+    courseTypeTerms,
+    audienceTermsLoading,
+    courseTypeTermsLoading
+  } = (0,_entities_Courses__WEBPACK_IMPORTED_MODULE_1__.useCourses)();
+  const {
+    getParam
+  } = (0,_shared_hooks__WEBPACK_IMPORTED_MODULE_3__.useCurrentSearch)();
+  const [selectedAudience, setSelectedAudience] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => getParam(AUDIENCE_PARAM) || DEFAULT_AUDIENCE_SLUG);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const urlValue = getParam(AUDIENCE_PARAM) || DEFAULT_AUDIENCE_SLUG;
+    setSelectedAudience(urlValue);
+  }, [getParam]);
+  const sortedTerms = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const terms = audienceTerms;
+    return [...terms].sort((a, b) => {
+      if (a.slug === DEFAULT_AUDIENCE_SLUG) return -1;
+      if (b.slug === DEFAULT_AUDIENCE_SLUG) return 1;
+      return 0;
+    });
+  }, [audienceTerms]);
+  const filteredCourses = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!selectedAudience) return courses;
+    const coursesData = courses;
+    return coursesData.filter(c => {
+      const slugs = c.acf?.course_audience || [];
+      return slugs.includes(selectedAudience);
+    });
+  }, [courses, selectedAudience]);
+  const setAudienceFilter = slug => {
+    const url = new URL(window.location.href);
+    url.searchParams.set(AUDIENCE_PARAM, slug);
+    window.history.pushState({}, "", url.toString());
+    window.dispatchEvent(new Event("pushstate"));
+    setSelectedAudience(slug);
+  };
+  const loading = coursesLoading || audienceTermsLoading || courseTypeTermsLoading;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ui_kit__WEBPACK_IMPORTED_MODULE_4__.ButtonGroup, {
+    className: "courses-filter"
+  }, sortedTerms.map(term => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ui_kit__WEBPACK_IMPORTED_MODULE_4__.Button, {
+    key: term.id,
+    isActive: selectedAudience === term.slug,
+    colors: "raspberry",
+    onClick: () => setAudienceFilter(term.slug)
+  }, term.name))), loading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Loader_Loader__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    fullScreen: false
+  }) : filteredCourses.length === 0 ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "empty-wrapper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "empty-placeholder"
+  }, window.wp.i18n.__("Нет курсов по этой теме", "childlab"))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "courses-list"
+  }, filteredCourses.map(course => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_CourseCard__WEBPACK_IMPORTED_MODULE_5__.CourseCard, {
+    key: course.id,
+    course: course,
+    courseTypeName: (0,_shared_libs_terms__WEBPACK_IMPORTED_MODULE_6__.getTermNameBySlug)(course.acf?.course_type, courseTypeTerms)
+  }))));
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/ErrorBoundary/ErrorBoundary.tsx"
+/*!*************************************************************!*\
+  !*** ./src/scripts/widgets/ErrorBoundary/ErrorBoundary.tsx ***!
+  \*************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+class ErrorBoundary extends (react__WEBPACK_IMPORTED_MODULE_0___default().Component) {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasError: false,
+      error: null
+    };
+  }
+  static getDerivedStateFromError(error) {
+    return {
+      hasError: true,
+      error
+    };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error(`[ErrorBoundary${this.props.name ? `: ${this.props.name}` : ""}]`, error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+        style: {
+          padding: "24px",
+          margin: "16px 0",
+          border: "2px solid #e74c3c",
+          borderRadius: "8px",
+          background: "#fdf0ef",
+          color: "#c0392b",
+          fontFamily: "system-ui, sans-serif"
+        }
+      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("strong", null, window.wp.i18n.__("Ошибка", "childlab"), this.props.name ? ` (${this.props.name})` : ""), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+        style: {
+          margin: "8px 0 0",
+          fontSize: "14px"
+        }
+      }, this.state.error?.message));
+    }
+    return this.props.children;
+  }
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ErrorBoundary);
+
+/***/ },
+
+/***/ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx"
+/*!***********************************************************************!*\
+  !*** ./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx ***!
+  \***********************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FrontListComponent: () => (/* binding */ FrontListComponent),
+/* harmony export */   getScreenSize: () => (/* binding */ getScreenSize)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Loader_Loader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Loader/Loader */ "./src/scripts/widgets/Loader/Loader.tsx");
+/* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
+/* harmony import */ var _distributeTags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./distributeTags */ "./src/scripts/widgets/FrontListComponent/distributeTags.ts");
+/* harmony import */ var _shared_hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../shared/hooks */ "./src/scripts/shared/hooks/index.ts");
+
+
+
+
+
+
+const DEFAULT_TAG = {
+  id: -1,
+  name: window.wp.i18n.__("Все", "childlab"),
+  acf: {
+    color: "rgba(138, 214, 80, 1)"
+  }
+};
+const getScreenSize = size => {
+  if (size > 1200) {
+    return "xlg";
+  }
+  if (size <= 1200 && size > 992) {
+    return "lg";
+  }
+  if (size <= 992 && size > 768) {
+    return "md";
+  }
+  if (size <= 768 && size > 576) {
+    return "sm";
+  }
+  if (size <= 576 && size > 480) {
+    return "xs";
+  }
+  return "xxs";
+};
+const getMaxTagsInRow = size => size === "lg" || size == "xlg" ? 6 : size === "md" || size === "sm" ? 3 : 2;
+const FrontListComponent = () => {
+  const {
+    methodologyTags,
+    tagsLoading
+  } = (0,_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_2__.useMethodologyTags)();
+  const [maxTagsInRow, setMaxTagsInRow] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getMaxTagsInRow(getScreenSize(window.innerWidth)));
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    window.addEventListener("resize", () => {
+      setMaxTagsInRow(getMaxTagsInRow(getScreenSize(window.innerWidth)));
+    });
+  }, []);
+  const tagsData = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => methodologyTags.length ? [DEFAULT_TAG, ...methodologyTags.filter(t => t.acf.order > 0).sort((t1, t2) => t1.acf.order - t2.acf.order)] : [], [methodologyTags]);
+  const distributedTags = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!tagsData.length) {
+      return [];
+    }
+    const distribution = (0,_distributeTags__WEBPACK_IMPORTED_MODULE_3__.distributeTags)(tagsData.length, maxTagsInRow);
+    let currentRow = 0;
+    let acc = 0;
+    return tagsData.map((tag, id) => {
+      if (id >= acc + distribution[currentRow]) {
+        acc += distribution[currentRow];
+        currentRow++;
+      }
+      return {
+        ...tag,
+        width: distribution[currentRow]
+      };
+    });
+  }, [tagsData, maxTagsInRow]);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "methodology-tags-menu"
+  }, tagsLoading && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Loader_Loader__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    fullScreen: false
+  }), distributedTags.map(tag => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MethodologyTagComponent, {
+      key: tag.id,
+      ...tag
+    });
+  }));
+};
+const DEFAULT_TAG_PATTERN = themeData.templateUrl + "/assets/images/all.png";
+const MethodologyTagComponent = tag => {
+  var _tag$acf$color, _tag$width;
+  const {
+    currentTaxonomy,
+    currentTag
+  } = (0,_shared_hooks__WEBPACK_IMPORTED_MODULE_4__.useCurrentSearch)();
+  const backgroundColor = (_tag$acf$color = tag.acf.color) !== null && _tag$acf$color !== void 0 ? _tag$acf$color : "#f00";
+  const handleClick = e => {
+    e.preventDefault();
+    history.pushState({}, "", `?methodology=${tag.id}`);
+    window.dispatchEvent(new Event("pushstate"));
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+    href: `?methodology=${tag.id}`,
+    onClick: handleClick,
+    className: `childlab-card-link methodology-tags-menu__tag methodology-tag-width-${(_tag$width = tag.width) !== null && _tag$width !== void 0 ? _tag$width : 4} ${currentTag == tag.id || !currentTag && tag.id == -1 ? "methodology-tag__active" : ""}`,
+    style: {
+      backgroundColor
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "methodology-tags-menu__svg-background",
+    style: {
+      backgroundImage: `url(${tag.acf.tag_image || DEFAULT_TAG_PATTERN})`,
+      backgroundColor
+    }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "methodology-tags-menu__title"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    title: tag.name
+  }, tag.name)));
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/FrontListComponent/distributeTags.ts"
+/*!******************************************************************!*\
+  !*** ./src/scripts/widgets/FrontListComponent/distributeTags.ts ***!
+  \******************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   distributeTags: () => (/* binding */ distributeTags)
+/* harmony export */ });
+const distributeTags = (tagsLength, maxTagsInRow) => {
+  // Вычисляем минимальное количество элементов в ряду
+  const minTagsInRow = Math.ceil(maxTagsInRow / 2);
+
+  // Если всего элементов меньше или равно максимуму, возвращаем один ряд
+  if (tagsLength <= maxTagsInRow) {
+    return [tagsLength];
+  }
+
+  // Вычисляем минимальное количество рядов
+  const minRows = Math.ceil(tagsLength / maxTagsInRow);
+
+  // Пробуем распределить элементы по рядам
+  for (let rows = minRows; rows <= Math.ceil(tagsLength / minTagsInRow); rows++) {
+    // Пытаемся распределить элементы поровну
+    const baseCount = Math.floor(tagsLength / rows);
+    const remainder = tagsLength % rows;
+    const distribution = [];
+
+    // Создаем распределение
+    for (let i = 0; i < rows; i++) {
+      // Первые remainder рядов получают на 1 элемент больше
+      distribution.push(i < remainder ? baseCount + 1 : baseCount);
+    }
+
+    // Проверяем, удовлетворяет ли распределение ограничениям
+    const isValid = distribution.every(count => count >= minTagsInRow && count <= maxTagsInRow);
+    if (isValid) {
+      return distribution;
+    }
+  }
+
+  // Если не удалось найти распределение, используем жадный алгоритм
+  const result = [];
+  let remaining = tagsLength;
+  while (remaining > 0) {
+    // Пытаемся взять максимальное количество
+    let count = Math.min(maxTagsInRow, remaining);
+
+    // Если оставшихся меньше минимального, корректируем предыдущий ряд
+    if (remaining - count < minTagsInRow && remaining - count > 0) {
+      // Вычисляем, сколько нужно оставить для следующего ряда
+      const nextRowMin = minTagsInRow;
+      count = remaining - nextRowMin;
+    }
+
+    // Убедимся, что count не меньше минимального
+    count = Math.max(count, Math.min(minTagsInRow, remaining));
+    result.push(count);
+    remaining -= count;
+  }
+  return result;
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/Loader/Loader.css"
+/*!***********************************************!*\
+  !*** ./src/scripts/widgets/Loader/Loader.css ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "./src/scripts/widgets/Loader/Loader.tsx"
+/*!***********************************************!*\
+  !*** ./src/scripts/widgets/Loader/Loader.tsx ***!
+  \***********************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Loader_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Loader.css */ "./src/scripts/widgets/Loader/Loader.css");
+
+
+
+const Loader = ({
+  size = "medium",
+  fullScreen = false,
+  className = ""
+}) => {
+  const loaderClass = `loader-container ${fullScreen ? "full-screen" : ""} ${className}`;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: loaderClass,
+    "data-testid": "loader"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `loader-spinner loader-${size}`
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "loader-dot"
+  })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Loader);
+
+/***/ },
+
+/***/ "./src/scripts/widgets/MethodologyTree/MethodologyTreeComponent.tsx"
+/*!**************************************************************************!*\
+  !*** ./src/scripts/widgets/MethodologyTree/MethodologyTreeComponent.tsx ***!
+  \**************************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ArticlesList: () => (/* binding */ ArticlesList),
+/* harmony export */   MethodologyTree: () => (/* binding */ MethodologyTree),
+/* harmony export */   MethodologyTreeComponent: () => (/* binding */ MethodologyTreeComponent)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _graphConfig__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./graphConfig */ "./src/scripts/widgets/MethodologyTree/graphConfig.ts");
+/* harmony import */ var _TagsGraph__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TagsGraph */ "./src/scripts/widgets/MethodologyTree/TagsGraph.ts");
+/* harmony import */ var _entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
+/* harmony import */ var _entities_Articles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../entities/Articles */ "./src/scripts/entities/Articles.tsx");
+/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+/* harmony import */ var _ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../ArticlesList/ArticlesList */ "./src/scripts/widgets/ArticlesList/ArticlesList.tsx");
+/* harmony import */ var _shared_hooks__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../shared/hooks */ "./src/scripts/shared/hooks/index.ts");
+
+
+
+
+
+
+
+
+
+const TREE_IMAGE = themeData.templateUrl + "/assets/images/tree.png";
+const NO_TAG_PLACEHOLDER = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  className: "empty-placeholder"
+}, window.wp.i18n.__('Выберите элемент на дереве, чтобы прочитать о нём подробнее', 'childlab'));
+const MethodologyTreeComponent = () => {
+  const {
+    articles,
+    articlesLoading,
+    filteredArticles,
+    currentTag,
+    currentTaxonomy
+  } = (0,_entities_Articles__WEBPACK_IMPORTED_MODULE_4__.useArticles)();
+  const [screenSize, setScreenSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    window.addEventListener("resize", () => {
+      setScreenSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
+    });
+  }, []);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "childlab-widget methodology"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "row"
+  }, (!currentTag || screenSize === 'lg' || screenSize === 'xlg') && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "col-12 order-md-2 order-lg-1 order-xlg-1 order-sm-2 order-xs-2"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "methodology__header"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h1", null, window.wp.i18n.__("Методология", "childlab")), !currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md' || screenSize === 'xxs') && NO_TAG_PLACEHOLDER)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MethodologyTree, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(ArticlesList, null))));
+};
+const ArticlesList = () => {
+  const {
+    articles,
+    articlesLoading,
+    currentTag,
+    currentTaxonomy
+  } = (0,_entities_Articles__WEBPACK_IMPORTED_MODULE_4__.useArticles)();
+  const {
+    methodologyTags
+  } = (0,_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_3__.useMethodologyTags)();
+  const [screenSize, setScreenSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    window.addEventListener("resize", () => {
+      setScreenSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
+    });
+  }, []);
+  const filteredArticles = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (!articles || !methodologyTags) return [];
+    console.log('!!', currentTag, methodologyTags.map(it => it.slug));
+    const currentId = methodologyTags.find(it => it.slug?.toLowerCase() === currentTag?.toLowerCase())?.id;
+    console.log(currentId, articles);
+    if (currentId) {
+      const y = articles.filter(art => art["methodology-tags"]?.some(tag => {
+        console.log('!t', tag, currentTag, tag === currentTag);
+        return tag === currentId;
+      }));
+      console.log('!y', y);
+      return y;
+    }
+    return [];
+  }, [articles, currentTaxonomy, currentTag, methodologyTags]);
+  console.log('!!', filteredArticles);
+  let content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null);
+  if (!currentTag && (screenSize === 'sm' || screenSize === 'xs' || screenSize === 'md' || screenSize === 'xxs')) {
+    return;
+  }
+  if (!currentTag && (screenSize === 'lg' || screenSize === 'xlg')) {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      class: "childlab-widget methodology__description"
+    }, NO_TAG_PLACEHOLDER);
+  } else if (!filteredArticles.length && !(!currentTag && (screenSize === 'lg' || screenSize === 'xlg'))) {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      class: "childlab-widget methodology__description"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "empty-placeholder"
+    }, window.wp.i18n.__('Статья скоро появится', 'childlab')));
+  } else {
+    content = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "container"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "childlab-widget articles-list"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("header", {
+      className: "articles-list__header"
+    }, window.wp.i18n.__("Статьи по теме", "childlab")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "row"
+    }, filteredArticles.map(art => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "col-12"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_6__.ArticleCardComponent, {
+      key: art.id,
+      ...art,
+      size: "default"
+    }))))));
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "col-lg-5 col-md-12 col-sm-12 col-xs-12 order-xs-3 order-sm-3 order-md-3 order-lg-3"
+  }, content);
+};
+const MethodologyTree = () => {
+  const {
+    currentTaxonomy,
+    currentTag
+  } = (0,_shared_hooks__WEBPACK_IMPORTED_MODULE_7__.useCurrentSearch)();
+  const [graphRef, setGraphRef] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (graphRef?.clientWidth) {
+      // setTimeout(() => {
+      console.log('!!!gra', graphRef.clientWidth);
+      const graph = new _TagsGraph__WEBPACK_IMPORTED_MODULE_2__.TagsGraph({
+        container: graphRef,
+        activeTagSlug: currentTag !== null && currentTag !== void 0 ? currentTag : "Agency",
+        tags: JSON.parse(JSON.stringify(_graphConfig__WEBPACK_IMPORTED_MODULE_1__.initialTags)),
+        connections: JSON.parse(JSON.stringify(_graphConfig__WEBPACK_IMPORTED_MODULE_1__.initialConnections)),
+        curveIntensity: 0.7,
+        lineWidth: 2,
+        textOrientation: "horizontal",
+        backgroundColor: "rgba(255, 255, 255, 0.4)",
+        interactive: true,
+        onTagClick: tag => {
+          history.pushState({}, "", `?methodology=${tag.id}`);
+          window.dispatchEvent(new Event("pushstate"));
+          selectedTagId = tag.id;
+          console.log("Выбран тег:", tag.name);
+        },
+        onTagDrag: (tag, x, y) => {
+          console.log(`Перемещение ${tag.name}`);
+        },
+        onTagDirectionChange: tag => {
+          console.log(`Направление ${tag.name} изменено на: ${tag.direction}`);
+        },
+        onTagTextOrientationChange: tag => {
+          console.log(`Ориентация текста ${tag.name} изменена на: ${tag.textOrientation}`);
+        }
+      });
+      // }, 50)
+
+      // graph.resizeCanvas();
+      // graph.calculateLayout();
+      // graph.render();
+    }
+  }, [graphRef?.clientWidth]);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "col-lg-7 col-md-12 col-sm-12 col-xs-12 order-xs-1 order-sm-1 order-md-1 order-lg-2"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "methodology__tree-wrapper"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "methodology__tree"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    className: "methodology__tree-image",
+    src: TREE_IMAGE,
+    alt: "tree"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: r => {
+      setGraphRef(r);
+    },
+    className: "methodology__graph-container"
+  }))));
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/MethodologyTree/TagsGraph.ts"
+/*!**********************************************************!*\
+  !*** ./src/scripts/widgets/MethodologyTree/TagsGraph.ts ***!
+  \**********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   TagsGraph: () => (/* binding */ TagsGraph)
+/* harmony export */ });
+/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+
+
+// tag-graph.js
+class TagsGraph {
+  constructor(config) {
+    this.config = {
+      padding: 20,
+      scale: 1,
+      interactive: true,
+      enableDragging: false,
+      enableContextMenu: false,
+      ...config
+    };
+    this.tagConfig = {
+      fontSize: 14,
+      borderRadius: 16,
+      ...config.tagConfig
+    };
+    this.connectionConfig = {
+      lineWidth: 3,
+      ...config.connectionConfig
+    };
+    this.tags = [...config.tags];
+    this.connections = this.processConnections(config.connections || []);
+    this.isDragging = false;
+    this.dragTarget = null;
+    this.animationFrameId = null;
+    this.mousePos = {
+      x: 0,
+      y: 0
+    };
+    this.hoveredTag = null;
+    this.activeTag = this.tags.find(({
+      id
+    }) => id === this.config.activeTagSlug) || null;
+    this.canvas = document.createElement("canvas");
+    this.ctx = this.canvas.getContext("2d");
+    this.initCanvas();
+    this.calculateLayout();
+    if (this.config.interactive) {
+      this.setupInteractivity();
+    }
+    this.render();
+  }
+  processConnections(connections) {
+    const seen = new Set();
+    const uniqueConnections = [];
+    for (const conn of connections) {
+      const key1 = `${conn.source}-${conn.target}`;
+      const key2 = `${conn.target}-${conn.source}`;
+      if (!seen.has(key1) && !seen.has(key2)) {
+        seen.add(key1);
+        seen.add(key2);
+        uniqueConnections.push({
+          source: conn.source,
+          target: conn.target,
+          curveIntensity: conn.curveIntensity || 0,
+          lineWidth: (conn.lineWidth || this.connectionConfig.lineWidth) * this.config.scale,
+          connectFrom: conn.connectFrom || "auto",
+          connectTo: conn.connectTo || "auto",
+          shiftFrom: conn.shiftFrom || 0,
+          // новое поле
+          shiftTo: conn.shiftTo || 0 // новое поле
+        });
+      }
+    }
+    return uniqueConnections;
+  }
+  initCanvas() {
+    const container = this.config.container;
+    this.canvas.style.width = "100%";
+    this.canvas.style.height = "100%";
+    this.canvas.style.display = "block";
+    container.appendChild(this.canvas);
+    this.resizeCanvas();
+    window.addEventListener("resize", () => {
+      this.resizeCanvas();
+      this.calculateLayout();
+      this.render();
+    });
+  }
+  resizeCanvas() {
+    const container = this.config.container;
+    const dpr = window.devicePixelRatio || 1;
+    const rect = container.getBoundingClientRect();
+    this.canvas.width = rect.width * dpr;
+    this.canvas.height = rect.height * dpr;
+    this.ctx.scale(dpr, dpr);
+    this.updateScale();
+  }
+  calculateLayout() {
+    const width = this.canvas.width / window.devicePixelRatio;
+    const height = this.canvas.height / window.devicePixelRatio;
+
+    // Конвертируем координаты из процентов в пиксели
+    this.tags.forEach(tag => {
+      if (tag.xPercent !== undefined && tag.yPercent !== undefined) {
+        tag.x = width * tag.xPercent / 100;
+        tag.y = height * tag.yPercent / 100;
+      }
+    });
+  }
+  updateScale() {
+    const screenSize = (0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__.getScreenSize)(window.innerWidth);
+    if (screenSize === 'xlg') {
+      this.config.scale = 1;
+    } else if (screenSize === 'lg') {
+      this.config.scale = 0.9;
+    } else if (screenSize === 'md') {
+      this.config.scale = 0.85;
+    } else if (screenSize === 'sm') {
+      this.config.scale = 0.7;
+    } else if (screenSize === 'xs') {
+      this.config.scale = 0.6;
+    } else {
+      this.config.scale = 0.55;
+    }
+    // this.config.scale = 0.9
+  }
+  getTagButtonRect(tag) {
+    const {
+      x = 0,
+      y = 0
+    } = tag;
+    const fontSize = (tag.fontSize || this.tagConfig.fontSize) * this.config.scale;
+    const lineHeight = fontSize * 1.2;
+    const charWidth = fontSize * 0.6;
+    const lines = this.getTextLines(tag.name, tag.textOrientation, tag.fontSize);
+    let width, height;
+    if (tag.textOrientation === "vertical") {
+      const paddingVertical = 16 * this.config.scale;
+      const paddingHorizontal = 4 * this.config.scale;
+      width = lineHeight * lines.length + paddingHorizontal * 2;
+      height = charWidth * tag.name.length + paddingVertical * 2;
+    } else {
+      const paddingVertical = 6 * this.config.scale;
+      const paddingHorizontal = 16 * this.config.scale;
+      width = Math.max(...lines.map(line => this.measureTextWidth(line, fontSize))) + paddingHorizontal * 2;
+      height = lineHeight * lines.length + paddingVertical * 2;
+    }
+    return {
+      x: x - width / 2,
+      y: y - height / 2,
+      width,
+      height,
+      centerX: x,
+      centerY: y
+    };
+  }
+  getConnectionPoint(tag, side, shift = 0) {
+    const rect = this.getTagButtonRect(tag);
+    const borderRadius = (tag.borderRadius !== undefined ? tag.borderRadius : this.tagConfig.borderRadius) * this.config.scale;
+    switch (side) {
+      case "top":
+        // Центр верхней стороны с учетом смещения
+        // shift: -1 = крайний левый, 0 = центр, 1 = крайний правый
+        const topStartX = rect.x + borderRadius;
+        const topEndX = rect.x + rect.width - borderRadius;
+        const topCenterX = (topStartX + topEndX) / 2;
+        const topShiftRange = (topEndX - topStartX) / 2;
+        return {
+          x: topCenterX + shift * topShiftRange,
+          y: rect.y
+        };
+      case "bottom":
+        // Центр нижней стороны с учетом смещения
+        const bottomStartX = rect.x + borderRadius;
+        const bottomEndX = rect.x + rect.width - borderRadius;
+        const bottomCenterX = (bottomStartX + bottomEndX) / 2;
+        const bottomShiftRange = (bottomEndX - bottomStartX) / 2;
+        return {
+          x: bottomCenterX + shift * bottomShiftRange,
+          y: rect.y + rect.height
+        };
+      case "left":
+        // Центр левой стороны с учетом смещения
+        const leftStartY = rect.y + borderRadius;
+        const leftEndY = rect.y + rect.height - borderRadius;
+        const leftCenterY = (leftStartY + leftEndY) / 2;
+        const leftShiftRange = (leftEndY - leftStartY) / 2;
+        return {
+          x: rect.x,
+          y: leftCenterY + shift * leftShiftRange
+        };
+      case "right":
+        // Центр правой стороны с учетом смещения
+        const rightStartY = rect.y + borderRadius;
+        const rightEndY = rect.y + rect.height - borderRadius;
+        const rightCenterY = (rightStartY + rightEndY) / 2;
+        const rightShiftRange = (rightEndY - rightStartY) / 2;
+        return {
+          x: rect.x + rect.width,
+          y: rightCenterY + shift * rightShiftRange
+        };
+      case "auto":
+      default:
+        // Для центра возвращаем центр
+        return {
+          x: rect.centerX,
+          y: rect.centerY
+        };
+    }
+  }
+  getAutoConnectionPoint(sourceRect, targetRect) {
+    // Автоматически определяем лучшие точки соединения
+    const sourceCenter = {
+      x: sourceRect.centerX,
+      y: sourceRect.centerY
+    };
+    const targetCenter = {
+      x: targetRect.centerX,
+      y: targetRect.centerY
+    };
+
+    // Определяем относительное положение тегов
+    const dx = targetCenter.x - sourceCenter.x;
+    const dy = targetCenter.y - sourceCenter.y;
+
+    // Выбираем сторону в зависимости от угла
+    const angle = Math.atan2(dy, dx);
+    const angleDeg = angle * 180 / Math.PI;
+
+    // Для источника
+    let sourceSide;
+    if (Math.abs(angleDeg) <= 45) {
+      sourceSide = "right";
+    } else if (Math.abs(angleDeg) >= 135) {
+      sourceSide = "left";
+    } else if (angleDeg > 45 && angleDeg < 135) {
+      sourceSide = "bottom";
+    } else {
+      sourceSide = "top";
+    }
+
+    // Для цели (противоположная сторона)
+    let targetSide;
+    if (Math.abs(angleDeg) <= 45) {
+      targetSide = "left";
+    } else if (Math.abs(angleDeg) >= 135) {
+      targetSide = "right";
+    } else if (angleDeg > 45 && angleDeg < 135) {
+      targetSide = "top";
+    } else {
+      targetSide = "bottom";
+    }
+    return {
+      sourceSide,
+      targetSide
+    };
+  }
+  lightenColor(color, amount = 0.3) {
+    color = color.replace("#", "");
+    const r = parseInt(color.slice(0, 2), 16);
+    const g = parseInt(color.slice(2, 4), 16);
+    const b = parseInt(color.slice(4, 6), 16);
+    const lightR = Math.round(r + (255 - r) * amount);
+    const lightG = Math.round(g + (255 - g) * amount);
+    const lightB = Math.round(b + (255 - b) * amount);
+    return `#${lightR.toString(16).padStart(2, "0")}${lightG.toString(16).padStart(2, "0")}${lightB.toString(16).padStart(2, "0")}`;
+  }
+  getTextLines(text, textOrientation = "vertical", fontSize = 13) {
+    if (textOrientation === "vertical") {
+      return [text];
+    }
+    return text.split("\n").reduce((acc, word) => {
+      if (!acc.length) return [word];
+      const lastLine = acc[acc.length - 1];
+      if (this.measureTextWidth(lastLine + " " + word, fontSize) <= 100 * this.config.scale) {
+        acc[acc.length - 1] = lastLine + " " + word;
+      } else {
+        acc.push(word);
+      }
+      return acc;
+    }, []);
+  }
+  drawTag(tag) {
+    const ctx = this.ctx;
+    const {
+      x = 0,
+      y = 0,
+      name,
+      color,
+      textOrientation = "horizontal"
+    } = tag;
+    const fontSize = (tag.fontSize || this.tagConfig.fontSize) * this.config.scale;
+    const borderRadius = (tag.borderRadius !== undefined ? tag.borderRadius : this.tagConfig.borderRadius) * this.config.scale;
+    ctx.save();
+    let bgColor = color;
+    if (this.hoveredTag === tag && this.activeTag !== tag) {
+      bgColor = this.lightenColor(color, 0.2);
+    }
+    ctx.shadowColor = "rgba(0, 0, 0, 0.2)";
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    const rect = this.getTagButtonRect(tag);
+    ctx.fillStyle = bgColor;
+    this.roundRect(ctx, rect.x, rect.y, rect.width, rect.height, borderRadius);
+    ctx.fill();
+    ctx.font = `${fontSize}px Lora`;
+    if (this.activeTag === tag) {
+      ctx.shadowColor = tag.color;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+      ctx.shadowBlur = 8;
+      ctx.strokeStyle = "#FFFFFF";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    ctx.shadowColor = "transparent";
+    ctx.fillStyle = "#FFFFFF";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const lineHeight = fontSize * 1.2;
+    const lines = this.getTextLines(name, textOrientation, fontSize);
+    if (textOrientation === "vertical") {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(-Math.PI / 2);
+      ctx.fillText(lines[0], 0, 0);
+      ctx.restore();
+    } else {
+      const totalTextHeight = lines.length * lineHeight;
+      const startY = rect.y + (rect.height - totalTextHeight) / 2 + lineHeight / 2;
+      lines.forEach((line, index) => {
+        const lineY = startY + index * lineHeight;
+        ctx.fillText(line, x, lineY);
+      });
+    }
+    ctx.restore();
+  }
+  drawConnection(conn) {
+    const source = this.tags.find(t => t.id === conn.source);
+    const target = this.tags.find(t => t.id === conn.target);
+    if (!source || !target) {
+      return;
+    }
+    const ctx = this.ctx;
+    const curveIntensity = conn.curveIntensity || 0;
+    const lineWidth = (conn.lineWidth || this.connectionConfig.lineWidth) * this.config.scale;
+    const shiftFrom = conn.shiftFrom || 0; // смещение начала (от -1 до 1)
+    const shiftTo = conn.shiftTo || 0; // смещение конца (от -1 до 1)
+
+    const sourceRect = this.getTagButtonRect(source);
+    const targetRect = this.getTagButtonRect(target);
+    let sourceSide, targetSide;
+    if (conn.connectFrom === "auto" || conn.connectTo === "auto") {
+      const autoSides = this.getAutoConnectionPoint(sourceRect, targetRect);
+      sourceSide = conn.connectFrom === "auto" ? autoSides.sourceSide : conn.connectFrom;
+      targetSide = conn.connectTo === "auto" ? autoSides.targetSide : conn.connectTo;
+    } else {
+      sourceSide = conn.connectFrom;
+      targetSide = conn.connectTo;
+    }
+
+    // Получаем точки соединения с учетом смещения
+    const sourcePoint = this.getConnectionPoint(source, sourceSide, shiftFrom);
+    const targetPoint = this.getConnectionPoint(target, targetSide, shiftTo);
+    ctx.save();
+    const gradient = ctx.createLinearGradient(sourcePoint.x, sourcePoint.y, targetPoint.x, targetPoint.y);
+    gradient.addColorStop(0, source.color);
+    gradient.addColorStop(0.5, this.blendColors(source.color, target.color, 0.5));
+    gradient.addColorStop(1, target.color);
+    ctx.strokeStyle = gradient;
+    ctx.lineWidth = lineWidth;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(sourcePoint.x, sourcePoint.y);
+    if (curveIntensity === 0) {
+      ctx.lineTo(targetPoint.x, targetPoint.y);
+    } else {
+      const dx = targetPoint.x - sourcePoint.x;
+      const dy = targetPoint.y - sourcePoint.y;
+      const perpX = -dy * curveIntensity * 0.5;
+      const perpY = dx * curveIntensity * 0.5;
+      const cp1x = sourcePoint.x + dx * 0.25 + perpX;
+      const cp1y = sourcePoint.y + dy * 0.25 + perpY;
+      const cp2x = sourcePoint.x + dx * 0.75 + perpX;
+      const cp2y = sourcePoint.y + dy * 0.75 + perpY;
+      ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, targetPoint.x, targetPoint.y);
+    }
+    ctx.stroke();
+    if (this.config.connectionMarkers) {
+      ctx.fillStyle = source.color;
+      ctx.beginPath();
+      ctx.arc(sourcePoint.x, sourcePoint.y, lineWidth * 1.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = target.color;
+      ctx.beginPath();
+      ctx.arc(targetPoint.x, targetPoint.y, lineWidth * 1.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+  setupInteractivity() {
+    this.canvas.addEventListener("mousedown", this.handleMouseDown.bind(this));
+    this.canvas.addEventListener("mousemove", this.handleMouseMove.bind(this));
+    this.canvas.addEventListener("mouseup", this.handleMouseUp.bind(this));
+    this.canvas.addEventListener("click", this.handleClick.bind(this));
+    this.canvas.addEventListener("mouseleave", this.handleMouseLeave.bind(this));
+    if (this.config.enableContextMenu) {
+      this.canvas.addEventListener("contextmenu", this.handleContextMenu.bind(this));
+    }
+    this.canvas.addEventListener("touchstart", this.handleTouchStart.bind(this), {
+      passive: false
+    });
+    this.canvas.addEventListener("touchmove", this.handleTouchMove.bind(this), {
+      passive: false
+    });
+    this.canvas.addEventListener("touchend", this.handleTouchEnd.bind(this));
+    this.canvas.style.cursor = "default";
+  }
+  handleMouseDown(e) {
+    e.preventDefault();
+    const rect = this.canvas.getBoundingClientRect();
+    const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+    const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+    this.mousePos.x = (e.clientX - rect.left) * scaleX;
+    this.mousePos.y = (e.clientY - rect.top) * scaleY;
+    if (this.config.enableDragging) {
+      this.dragTarget = this.getTagAt(this.mousePos.x, this.mousePos.y);
+      this.isDragging = !!this.dragTarget;
+      if (this.dragTarget) {
+        this.canvas.style.cursor = "grabbing";
+        this.startAnimation();
+      }
+    }
+  }
+  handleMouseMove(e) {
+    const rect = this.canvas.getBoundingClientRect();
+    const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+    const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+    this.mousePos.x = (e.clientX - rect.left) * scaleX;
+    this.mousePos.y = (e.clientY - rect.top) * scaleY;
+    const prevHovered = this.hoveredTag;
+    this.hoveredTag = this.getTagAt(this.mousePos.x, this.mousePos.y);
+    if (prevHovered !== this.hoveredTag) {
+      this.render();
+    }
+    if (this.isDragging && this.dragTarget) {
+      const width = this.canvas.width / window.devicePixelRatio;
+      const height = this.canvas.height / window.devicePixelRatio;
+      this.dragTarget.x = this.mousePos.x;
+      this.dragTarget.y = this.mousePos.y;
+      this.dragTarget.xPercent = this.dragTarget.x / width * 100;
+      this.dragTarget.yPercent = this.dragTarget.y / height * 100;
+      if (this.config.onTagDrag) {
+        this.config.onTagDrag(this.dragTarget, this.dragTarget.xPercent, this.dragTarget.yPercent);
+      }
+    } else {
+      this.canvas.style.cursor = this.hoveredTag ? "pointer" : "default";
+    }
+  }
+  handleMouseUp() {
+    this.isDragging = false;
+    this.dragTarget = null;
+    this.canvas.style.cursor = this.hoveredTag ? "pointer" : "default";
+    this.stopAnimation();
+  }
+  handleMouseLeave() {
+    this.hoveredTag = null;
+    this.render();
+  }
+  handleClick(e) {
+    if (this.isDragging) {
+      this.isDragging = false;
+      return;
+    }
+    const rect = this.canvas.getBoundingClientRect();
+    const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+    const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
+    const tag = this.getTagAt(x, y);
+    if (tag) {
+      this.activeTag = tag;
+      if (this.config.onTagClick) {
+        this.config.onTagClick(tag);
+      }
+      this.render();
+    } else {
+      this.activeTag = null;
+      this.render();
+    }
+  }
+  handleContextMenu(e) {
+    e.preventDefault();
+    const rect = this.canvas.getBoundingClientRect();
+    const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+    const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
+    const tag = this.getTagAt(x, y);
+    if (tag) {
+      tag.textOrientation = tag.textOrientation === "horizontal" ? "vertical" : "horizontal";
+      this.render();
+      if (this.config.onTagTextOrientationChange) {
+        this.config.onTagTextOrientationChange(tag);
+      }
+    }
+  }
+  handleTouchStart(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = this.canvas.getBoundingClientRect();
+    const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+    const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+    this.mousePos.x = (touch.clientX - rect.left) * scaleX;
+    this.mousePos.y = (touch.clientY - rect.top) * scaleY;
+    if (this.config.enableDragging) {
+      this.dragTarget = this.getTagAt(this.mousePos.x, this.mousePos.y);
+      this.isDragging = !!this.dragTarget;
+      if (this.dragTarget) {
+        this.startAnimation();
+      }
+    }
+  }
+  handleTouchMove(e) {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const rect = this.canvas.getBoundingClientRect();
+    const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+    const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+    this.mousePos.x = (touch.clientX - rect.left) * scaleX;
+    this.mousePos.y = (touch.clientY - rect.top) * scaleY;
+    if (this.isDragging && this.dragTarget) {
+      const width = this.canvas.width / window.devicePixelRatio;
+      const height = this.canvas.height / window.devicePixelRatio;
+      this.dragTarget.x = this.mousePos.x;
+      this.dragTarget.y = this.mousePos.y;
+      this.dragTarget.xPercent = this.dragTarget.x / width * 100;
+      this.dragTarget.yPercent = this.dragTarget.y / height * 100;
+      if (this.config.onTagDrag) {
+        this.config.onTagDrag(this.dragTarget, this.dragTarget.xPercent, this.dragTarget.yPercent);
+      }
+    }
+  }
+  handleTouchEnd(e) {
+    if (!this.isDragging && e.changedTouches.length === 1) {
+      const touch = e.changedTouches[0];
+      const rect = this.canvas.getBoundingClientRect();
+      const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+      const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+      const x = (touch.clientX - rect.left) * scaleX;
+      const y = (touch.clientY - rect.top) * scaleY;
+      const tag = this.getTagAt(x, y);
+      if (tag) {
+        this.activeTag = tag;
+        if (this.config.onTagClick) {
+          this.config.onTagClick(tag);
+        }
+        this.render();
+      } else {
+        this.activeTag = null;
+        this.render();
+      }
+    } else if (e.changedTouches.length === 3) {
+      const touch = e.changedTouches[0];
+      const rect = this.canvas.getBoundingClientRect();
+      const scaleX = this.canvas.width / window.devicePixelRatio / rect.width;
+      const scaleY = this.canvas.height / window.devicePixelRatio / rect.height;
+      const x = (touch.clientX - rect.left) * scaleX;
+      const y = (touch.clientY - rect.top) * scaleY;
+      const tag = this.getTagAt(x, y);
+      if (tag) {
+        tag.textOrientation = tag.textOrientation === "horizontal" ? "vertical" : "horizontal";
+        this.render();
+        if (this.config.onTagTextOrientationChange) {
+          this.config.onTagTextOrientationChange(tag);
+        }
+      }
+    }
+    this.isDragging = false;
+    this.dragTarget = null;
+    this.stopAnimation();
+  }
+  getTagAt(x, y) {
+    for (const tag of this.tags) {
+      if (!tag.x || !tag.y) continue;
+      const rect = this.getTagButtonRect(tag);
+      const padding = 10;
+      if (x > rect.x - padding && x < rect.x + rect.width + padding && y > rect.y - padding && y < rect.y + rect.height + padding) {
+        return tag;
+      }
+    }
+    return null;
+  }
+  startAnimation() {
+    if (this.animationFrameId) return;
+    const animate = () => {
+      this.render();
+      this.animationFrameId = requestAnimationFrame(animate);
+    };
+    animate();
+  }
+  stopAnimation() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
+    }
+    this.render();
+  }
+  measureTextWidth(text, fontSize) {
+    this.ctx.font = `${fontSize}px Lora`;
+    return this.ctx.measureText(text).width;
+  }
+  blendColors(color1, color2, ratio) {
+    color1 = color1.replace("#", "");
+    color2 = color2.replace("#", "");
+    const r1 = parseInt(color1.slice(0, 2), 16);
+    const g1 = parseInt(color1.slice(2, 4), 16);
+    const b1 = parseInt(color1.slice(4, 6), 16);
+    const r2 = parseInt(color2.slice(0, 2), 16);
+    const g2 = parseInt(color2.slice(2, 4), 16);
+    const b2 = parseInt(color2.slice(4, 6), 16);
+    const r = Math.round(r1 * (1 - ratio) + r2 * ratio);
+    const g = Math.round(g1 * (1 - ratio) + g2 * ratio);
+    const b = Math.round(b1 * (1 - ratio) + b2 * ratio);
+    return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+  }
+  roundRect(ctx, x, y, width, height, radius) {
+    if (typeof radius === "number") {
+      radius = {
+        tl: radius,
+        tr: radius,
+        br: radius,
+        bl: radius
+      };
+    } else {
+      radius = {
+        ...{
+          tl: 0,
+          tr: 0,
+          br: 0,
+          bl: 0
+        },
+        ...radius
+      };
+    }
+    ctx.beginPath();
+    ctx.moveTo(x + radius.tl, y);
+    ctx.lineTo(x + width - radius.tr, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+    ctx.lineTo(x + width, y + height - radius.br);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height);
+    ctx.lineTo(x + radius.bl, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+    ctx.lineTo(x, y + radius.tl);
+    ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+    ctx.closePath();
+  }
+  render() {
+    const ctx = this.ctx;
+    const width = this.canvas.width / window.devicePixelRatio;
+    const height = this.canvas.height / window.devicePixelRatio;
+    ctx.clearRect(0, 0, width, height);
+    if (this.config.backgroundColor) {
+      ctx.fillStyle = "rgba(255,255,255,0)";
+      ctx.fillRect(0, 0, width, height);
+    }
+    this.connections.forEach(conn => {
+      this.drawConnection(conn);
+    });
+    this.tags.forEach(tag => {
+      this.drawTag(tag);
+    });
+  }
+  updateTag(id, updates) {
+    const tag = this.tags.find(t => t.id === id);
+    if (tag) {
+      Object.assign(tag, updates);
+      const width = this.canvas.width / window.devicePixelRatio;
+      const height = this.canvas.height / window.devicePixelRatio;
+      if (updates.x !== undefined) {
+        tag.xPercent = updates.x / width * 100;
+      }
+      if (updates.y !== undefined) {
+        tag.yPercent = updates.y / height * 100;
+      }
+      if (updates.xPercent !== undefined) {
+        tag.x = width * updates.xPercent / 100;
+      }
+      if (updates.yPercent !== undefined) {
+        tag.y = height * updates.yPercent / 100;
+      }
+      this.calculateLayout();
+      this.render();
+    }
+  }
+  setTagTextOrientation(id, orientation) {
+    const tag = this.tags.find(t => t.id === id);
+    if (tag && (orientation === "horizontal" || orientation === "vertical")) {
+      tag.textOrientation = orientation;
+      this.render();
+    }
+  }
+  setActiveTag(id) {
+    const tag = this.tags.find(t => t.id === id);
+    this.activeTag = tag || null;
+    this.render();
+  }
+  addTag(tag) {
+    if (!tag.textOrientation) {
+      tag.textOrientation = "horizontal";
+    }
+    if (!tag.fontSize) {
+      tag.fontSize = this.tagConfig.fontSize;
+    }
+    if (tag.borderRadius === undefined) {
+      tag.borderRadius = this.tagConfig.borderRadius;
+    }
+    const width = this.canvas.width / window.devicePixelRatio;
+    const height = this.canvas.height / window.devicePixelRatio;
+    if (tag.xPercent !== undefined && tag.yPercent !== undefined) {
+      tag.x = width * tag.xPercent / 100;
+      tag.y = height * tag.yPercent / 100;
+    }
+    this.tags.push(tag);
+    this.calculateLayout();
+    this.render();
+  }
+  removeTag(id) {
+    this.tags = this.tags.filter(t => t.id !== id);
+    this.connections = this.connections.filter(c => c.source !== id && c.target !== id);
+    if (this.activeTag && this.activeTag.id === id) {
+      this.activeTag = null;
+    }
+    this.calculateLayout();
+    this.render();
+  }
+  addConnection(conn) {
+    const existingConnections = this.connections.filter(c => c.source === conn.source && c.target === conn.target || c.source === conn.target && c.target === conn.source);
+    if (existingConnections.length === 0) {
+      this.connections.push({
+        source: conn.source,
+        target: conn.target,
+        curveIntensity: conn.curveIntensity || 0,
+        lineWidth: conn.lineWidth || this.connectionConfig.lineWidth,
+        connectFrom: conn.connectFrom || "auto",
+        connectTo: conn.connectTo || "auto",
+        shiftFrom: conn.shiftFrom || 0,
+        shiftTo: conn.shiftTo || 0
+      });
+      this.render();
+    }
+  }
+  removeConnection(sourceId, targetId) {
+    this.connections = this.connections.filter(c => !(c.source === sourceId && c.target === targetId || c.source === targetId && c.target === sourceId));
+    this.render();
+  }
+  setLayout(layout) {
+    this.config.layout = layout;
+    this.calculateLayout();
+    this.render();
+  }
+  setConfig(newConfig) {
+    this.config = {
+      ...this.config,
+      ...newConfig
+    };
+    this.calculateLayout();
+    this.render();
+  }
+  setTagConfig(newTagConfig) {
+    this.tagConfig = {
+      ...this.tagConfig,
+      ...newTagConfig
+    };
+    this.render();
+  }
+  setConnectionConfig(newConnectionConfig) {
+    this.connectionConfig = {
+      ...this.connectionConfig,
+      ...newConnectionConfig
+    };
+    this.render();
+  }
+  getTags() {
+    return this.tags.map(tag => ({
+      ...tag
+    }));
+  }
+  getConnections() {
+    return [...this.connections];
+  }
+  exportAsJSON() {
+    return {
+      tags: this.tags.map(tag => ({
+        id: tag.id,
+        name: tag.name,
+        color: tag.color,
+        textOrientation: tag.textOrientation,
+        fontSize: tag.fontSize,
+        borderRadius: tag.borderRadius,
+        xPercent: tag.xPercent,
+        yPercent: tag.yPercent
+      })),
+      connections: this.connections.map(conn => ({
+        source: conn.source,
+        target: conn.target,
+        curveIntensity: conn.curveIntensity,
+        lineWidth: conn.lineWidth,
+        connectFrom: conn.connectFrom,
+        connectTo: conn.connectTo,
+        shiftFrom: conn.shiftFrom,
+        shiftTo: conn.shiftTo
+      })),
+      config: {
+        layout: this.config.layout,
+        padding: this.config.padding
+      },
+      tagConfig: {
+        fontSize: this.tagConfig.fontSize,
+        borderRadius: this.tagConfig.borderRadius
+      },
+      connectionConfig: {
+        lineWidth: this.connectionConfig.lineWidth
+      }
+    };
+  }
+  importFromJSON(json) {
+    this.tags = json.tags || [];
+    this.connections = this.processConnections(json.connections || []);
+    this.config = {
+      ...this.config,
+      ...json.config
+    };
+    this.tagConfig = {
+      ...this.tagConfig,
+      ...json.tagConfig
+    };
+    this.connectionConfig = {
+      ...this.connectionConfig,
+      ...json.connectionConfig
+    };
+    const width = this.canvas.width / window.devicePixelRatio;
+    const height = this.canvas.height / window.devicePixelRatio;
+    this.tags.forEach(tag => {
+      if (tag.xPercent !== undefined && tag.yPercent !== undefined) {
+        tag.x = width * tag.xPercent / 100;
+        tag.y = height * tag.yPercent / 100;
+      }
+    });
+    this.activeTag = null;
+    this.calculateLayout();
+    this.render();
+  }
+  destroy() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+    this.canvas.remove();
+  }
+}
+
+/***/ },
+
+/***/ "./src/scripts/widgets/MethodologyTree/graphConfig.ts"
+/*!************************************************************!*\
+  !*** ./src/scripts/widgets/MethodologyTree/graphConfig.ts ***!
+  \************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   initialConfig: () => (/* binding */ initialConfig),
+/* harmony export */   initialConnections: () => (/* binding */ initialConnections),
+/* harmony export */   initialTags: () => (/* binding */ initialTags)
+/* harmony export */ });
+const initialTags = [{
+  id: "Agency",
+  name: wp.i18n.__("Субъектность", 'childlab'),
+  color: "#90b636",
+  textOrientation: "horizontal",
+  fontSize: 20,
+  xPercent: 50.0,
+  yPercent: 4
+}, {
+  id: "Self_regulatory_abilities",
+  name: wp.i18n.__("Регуляторные \n способности", 'childlab'),
+  color: "#38d37c",
+  textOrientation: "horizontal",
+  fontSize: 16,
+  xPercent: 25,
+  yPercent: 18.0
+}, {
+  id: "Cognitive_abilities",
+  name: wp.i18n.__("Познавательные \n способности", 'childlab'),
+  color: "#dcc22d",
+  textOrientation: "horizontal",
+  fontSize: 16,
+  xPercent: 76,
+  yPercent: 18.0
+}, {
+  id: "Communicative_abilities",
+  name: wp.i18n.__("Коммуникативные \n способности", 'childlab'),
+  color: "#db508f",
+  textOrientation: "horizontal",
+  fontSize: 16,
+  xPercent: 50.0,
+  yPercent: 27.0
+}, {
+  id: "Planning",
+  name: wp.i18n.__("Планирование", 'childlab'),
+  color: "#64af38",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 12,
+  yPercent: 10
+}, {
+  id: "Imagination",
+  name: wp.i18n.__("Воображение", 'childlab'),
+  color: "#becc1c",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 88,
+  yPercent: 10
+}, {
+  id: "Dialectical_thinking",
+  name: wp.i18n.__("Диалектическое \n мышление", 'childlab'),
+  color: "#f3c932",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 87,
+  yPercent: 27
+}, {
+  id: "Anticipation",
+  name: wp.i18n.__("Предвосхищение", 'childlab'),
+  color: "#e99030",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 85,
+  yPercent: 35
+}, {
+  id: "argumentation",
+  name: wp.i18n.__("Аргументация", 'childlab'),
+  color: "#ea6695",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 76,
+  yPercent: 42
+}, {
+  id: "Decentration",
+  name: wp.i18n.__("Децентрация", 'childlab'),
+  color: "#D34FB5",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 50.0,
+  yPercent: 35
+}, {
+  id: "Volitional_control",
+  name: wp.i18n.__("Произвольность", 'childlab'),
+  color: "#49C64F",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 14,
+  yPercent: 25
+}, {
+  id: "moral_reasoning",
+  name: wp.i18n.__("Моральные суждения", 'childlab'),
+  color: "#B949D4",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 50.0,
+  yPercent: 48
+}, {
+  id: "reflection",
+  name: wp.i18n.__("Рефлексия", 'childlab'),
+  color: "#9AD04A",
+  textOrientation: "horizontal",
+  fontSize: 13,
+  xPercent: 25,
+  yPercent: 42
+}, {
+  id: "construction",
+  name: wp.i18n.__("Конструирование", 'childlab'),
+  color: "#6E41D8",
+  textOrientation: "vertical",
+  fontSize: 16,
+  xPercent: 55,
+  yPercent: 74
+}, {
+  id: "shared_reading",
+  name: wp.i18n.__("Совместное чтение", 'childlab'),
+  color: "#4164D9",
+  textOrientation: "vertical",
+  fontSize: 16,
+  xPercent: 50,
+  yPercent: 71
+}, {
+  id: "storytelling",
+  name: wp.i18n.__("Сочинительство", 'childlab'),
+  color: "#50D4CB",
+  textOrientation: "vertical",
+  fontSize: 16,
+  xPercent: 45,
+  yPercent: 74
+}, {
+  id: "experimentation",
+  name: wp.i18n.__("Экспериментирование", 'childlab'),
+  color: "#42A0CC",
+  textOrientation: "vertical",
+  fontSize: 16,
+  xPercent: 60,
+  yPercent: 73
+}, {
+  id: "game",
+  name: wp.i18n.__("    Игра    ", 'childlab'),
+  color: "#C1593A",
+  textOrientation: "vertical",
+  fontSize: 16,
+  xPercent: 40,
+  yPercent: 74
+}, {
+  id: "attachment",
+  name: wp.i18n.__("Привязанность", 'childlab'),
+  color: "#8A6720",
+  textOrientation: "horizontal",
+  fontSize: 20,
+  xPercent: 50.0,
+  yPercent: 96
+}];
+const initialConnections = [{
+  source: "Agency",
+  target: "Self_regulatory_abilities",
+  curveIntensity: 0,
+  connectFrom: "bottom",
+  connectTo: "right",
+  lineWidth: 4
+}, {
+  source: "Agency",
+  target: "Cognitive_abilities",
+  curveIntensity: 0,
+  connectFrom: "bottom",
+  connectTo: "left",
+  lineWidth: 4
+}, {
+  source: "Self_regulatory_abilities",
+  target: "Cognitive_abilities",
+  curveIntensity: 0,
+  connectFrom: "right",
+  connectTo: "left",
+  lineWidth: 4
+}, {
+  source: "Self_regulatory_abilities",
+  target: "Communicative_abilities",
+  curveIntensity: 0,
+  connectFrom: "right",
+  connectTo: "top",
+  lineWidth: 4
+}, {
+  source: "Cognitive_abilities",
+  target: "Communicative_abilities",
+  curveIntensity: 0,
+  connectFrom: "left",
+  connectTo: "top",
+  lineWidth: 4
+}, {
+  source: "Agency",
+  target: "Communicative_abilities",
+  curveIntensity: 0,
+  connectFrom: "bottom",
+  connectTo: "top",
+  lineWidth: 4
+}, {
+  source: "Cognitive_abilities",
+  target: "Imagination",
+  curveIntensity: -0.4,
+  connectFrom: "top",
+  connectTo: "left",
+  lineWidth: 2
+}, {
+  source: "Planning",
+  target: "Self_regulatory_abilities",
+  curveIntensity: -0.4,
+  connectFrom: "right",
+  connectTo: "top",
+  lineWidth: 2
+}, {
+  source: "Dialectical_thinking",
+  target: "Cognitive_abilities",
+  curveIntensity: -0.3,
+  connectFrom: "left",
+  connectTo: "bottom",
+  shiftTo: -0.05,
+  lineWidth: 2
+}, {
+  source: "Anticipation",
+  target: "Cognitive_abilities",
+  curveIntensity: -0.2,
+  connectFrom: "top",
+  shiftFrom: -0.8,
+  connectTo: "bottom",
+  shiftTo: -0.2,
+  lineWidth: 2
+}, {
+  source: "argumentation",
+  target: "Cognitive_abilities",
+  curveIntensity: 0.05,
+  connectFrom: "top",
+  shiftFrom: -0.8,
+  connectTo: "bottom",
+  shiftTo: -0.3,
+  lineWidth: 2
+}, {
+  source: "Communicative_abilities",
+  target: "argumentation",
+  curveIntensity: 0.3,
+  connectFrom: "bottom",
+  shiftFrom: 0.9,
+  connectTo: "left",
+  lineWidth: 2
+}, {
+  source: "Communicative_abilities",
+  target: "Decentration",
+  curveIntensity: 0.2,
+  connectFrom: "bottom",
+  connectTo: "top",
+  lineWidth: 2
+}, {
+  source: "Self_regulatory_abilities",
+  target: "Volitional_control",
+  curveIntensity: -0.2,
+  connectFrom: "bottom",
+  shiftFrom: 0.2,
+  connectTo: "right",
+  lineWidth: 2
+}, {
+  source: "moral_reasoning",
+  target: "Cognitive_abilities",
+  curveIntensity: 0.2,
+  connectFrom: "top",
+  shiftFrom: 0.6,
+  connectTo: "bottom",
+  shiftTo: -0.5,
+  lineWidth: 2
+}, {
+  source: "reflection",
+  target: "Cognitive_abilities",
+  curveIntensity: 0.6,
+  connectFrom: "right",
+  connectTo: "bottom",
+  shiftTo: -0.7,
+  lineWidth: 2
+}, {
+  source: "reflection",
+  target: "Self_regulatory_abilities",
+  curveIntensity: 0.2,
+  connectFrom: "top",
+  connectTo: "bottom",
+  shiftTo: 0.5,
+  lineWidth: 2
+}, {
+  source: "construction",
+  target: "moral_reasoning",
+  curveIntensity: -0.05,
+  connectFrom: "top",
+  shiftFrom: 1,
+  connectTo: "bottom",
+  shiftTo: 0.6,
+  lineWidth: 2
+}, {
+  source: "experimentation",
+  target: "moral_reasoning",
+  curveIntensity: -0.07,
+  connectFrom: "top",
+  shiftFrom: 1,
+  connectTo: "bottom",
+  shiftTo: 1,
+  lineWidth: 2
+}, {
+  source: "moral_reasoning",
+  target: "storytelling",
+  curveIntensity: -0.05,
+  connectFrom: "bottom",
+  shiftFrom: -0.6,
+  connectTo: "top",
+  shiftTo: -1,
+  lineWidth: 2
+}, {
+  source: "moral_reasoning",
+  target: "game",
+  curveIntensity: -0.06,
+  connectFrom: "bottom",
+  shiftFrom: -1,
+  connectTo: "top",
+  shiftTo: -1,
+  lineWidth: 2
+}, {
+  source: "moral_reasoning",
+  target: "shared_reading",
+  curveIntensity: 0,
+  connectFrom: "bottom",
+  shiftFrom: 0,
+  connectTo: "top",
+  shiftTo: 0,
+  lineWidth: 2
+}, {
+  source: "construction",
+  target: "attachment",
+  curveIntensity: 0.05,
+  connectFrom: "bottom",
+  shiftFrom: -1,
+  connectTo: "top",
+  shiftTo: 0.6,
+  lineWidth: 2
+}, {
+  source: "experimentation",
+  target: "attachment",
+  curveIntensity: 0.07,
+  connectFrom: "bottom",
+  shiftFrom: 1,
+  connectTo: "top",
+  shiftTo: 1,
+  lineWidth: 2
+}, {
+  source: "storytelling",
+  target: "attachment",
+  curveIntensity: -0.05,
+  connectFrom: "bottom",
+  shiftFrom: 1,
+  connectTo: "top",
+  shiftTo: -0.6,
+  lineWidth: 2
+}, {
+  source: "game",
+  target: "attachment",
+  curveIntensity: -0.07,
+  connectFrom: "bottom",
+  shiftFrom: 1,
+  connectTo: "top",
+  shiftTo: -1,
+  lineWidth: 2
+}, {
+  source: "shared_reading",
+  target: "attachment",
+  curveIntensity: 0,
+  connectFrom: "bottom",
+  shiftFrom: 0,
+  connectTo: "top",
+  shiftTo: 0,
+  lineWidth: 2
+}];
+const initialConfig = {
+  curveIntensity: 0.5,
+  lineWidth: 3,
+  textOrientation: "horizontal"
+};
+
+/***/ },
+
+/***/ "./src/scripts/widgets/index.ts"
+/*!**************************************!*\
+  !*** ./src/scripts/widgets/index.ts ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ArticlesListComponent: () => (/* reexport safe */ _ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_1__.ArticlesListComponent),
+/* harmony export */   CoursesListComponent: () => (/* reexport safe */ _CoursesList_CoursesList__WEBPACK_IMPORTED_MODULE_2__.CoursesListComponent),
+/* harmony export */   FrontListComponent: () => (/* reexport safe */ _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__.FrontListComponent),
+/* harmony export */   MethodologyTreeComponent: () => (/* reexport safe */ _MethodologyTree_MethodologyTreeComponent__WEBPACK_IMPORTED_MODULE_3__.MethodologyTreeComponent)
+/* harmony export */ });
+/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+/* harmony import */ var _ArticlesList_ArticlesList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ArticlesList/ArticlesList */ "./src/scripts/widgets/ArticlesList/ArticlesList.tsx");
+/* harmony import */ var _CoursesList_CoursesList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CoursesList/CoursesList */ "./src/scripts/widgets/CoursesList/CoursesList.tsx");
+/* harmony import */ var _MethodologyTree_MethodologyTreeComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MethodologyTree/MethodologyTreeComponent */ "./src/scripts/widgets/MethodologyTree/MethodologyTreeComponent.tsx");
+
+
+
+
+
+/***/ },
+
+/***/ "./src/styles/courses-list.scss"
+/*!**************************************!*\
+  !*** ./src/styles/courses-list.scss ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "./src/styles/grid-system.scss"
+/*!*************************************!*\
+  !*** ./src/styles/grid-system.scss ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "./src/styles/header.scss"
+/*!********************************!*\
+  !*** ./src/styles/header.scss ***!
+  \********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "./src/styles/main.scss"
+/*!******************************!*\
+  !*** ./src/styles/main.scss ***!
+  \******************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "react"
+/*!************************!*\
+  !*** external "React" ***!
+  \************************/
+(module) {
+
+"use strict";
+module.exports = window["React"];
+
+/***/ },
+
+/***/ "react-dom"
+/*!***************************!*\
+  !*** external "ReactDOM" ***!
+  \***************************/
+(module) {
+
+"use strict";
+module.exports = window["ReactDOM"];
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Check if module exists (development only)
+/******/ 		if (__webpack_modules__[moduleId] === undefined) {
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
+(() => {
+"use strict";
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _styles_main_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/main.scss */ "./src/styles/main.scss");
+/* harmony import */ var _styles_grid_system_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles/grid-system.scss */ "./src/styles/grid-system.scss");
+/* harmony import */ var _styles_header_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles/header.scss */ "./src/styles/header.scss");
+/* harmony import */ var _styles_courses_list_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles/courses-list.scss */ "./src/styles/courses-list.scss");
+/* harmony import */ var _scripts_ui_kit_Button_Button_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./scripts/ui-kit/Button/Button.scss */ "./src/scripts/ui-kit/Button/Button.scss");
+/* harmony import */ var _scripts_ui_kit_ButtonGroup_ButtonGroup_scss__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./scripts/ui-kit/ButtonGroup/ButtonGroup.scss */ "./src/scripts/ui-kit/ButtonGroup/ButtonGroup.scss");
+/* harmony import */ var _scripts_ui_kit_Tag_Tag_scss__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./scripts/ui-kit/Tag/Tag.scss */ "./src/scripts/ui-kit/Tag/Tag.scss");
+/* harmony import */ var _scripts_widgets_CoursesList_CourseCard_CourseCard_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./scripts/widgets/CoursesList/CourseCard/CourseCard.scss */ "./src/scripts/widgets/CoursesList/CourseCard/CourseCard.scss");
+/* harmony import */ var _scripts_widgets_CourseBanner_CourseBanner_scss__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./scripts/widgets/CourseBanner/CourseBanner.scss */ "./src/scripts/widgets/CourseBanner/CourseBanner.scss");
+/* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./scripts/ArticleReader */ "./src/scripts/ArticleReader.js");
+/* harmony import */ var _scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_scripts_ArticleReader__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./scripts/shared/switcher */ "./src/scripts/shared/switcher.js");
+/* harmony import */ var _scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_scripts_shared_switcher__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _scripts_widgets__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./scripts/widgets */ "./src/scripts/widgets/index.ts");
+/* harmony import */ var _scripts_widgets_CourseBanner__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./scripts/widgets/CourseBanner */ "./src/scripts/widgets/CourseBanner/index.ts");
+/* harmony import */ var _scripts_entities_Course__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./scripts/entities/Course */ "./src/scripts/entities/Course/index.ts");
+/* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
+/* harmony import */ var _scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./scripts/entities/MethodologyTags */ "./src/scripts/entities/MethodologyTags.tsx");
+/* harmony import */ var _scripts_entities_Articles__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./scripts/entities/Articles */ "./src/scripts/entities/Articles.tsx");
+/* harmony import */ var _scripts_entities_Courses__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./scripts/entities/Courses */ "./src/scripts/entities/Courses/index.ts");
+/* harmony import */ var _scripts_widgets_ErrorBoundary_ErrorBoundary__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./scripts/widgets/ErrorBoundary/ErrorBoundary */ "./src/scripts/widgets/ErrorBoundary/ErrorBoundary.tsx");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const renderComponent = (selector, render) => {
+  try {
+    const container = react_dom_client__WEBPACK_IMPORTED_MODULE_15__.createRoot(document.querySelector(selector));
+    container.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_MethodologyTags__WEBPACK_IMPORTED_MODULE_16__.MethodologyTagsContextProvider, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_Articles__WEBPACK_IMPORTED_MODULE_17__.ArticlesContextProvider, null, render)));
+  } catch (e) {
+    console.error('ErrorRenderingReactComponent :: methodologyTagsMenu ', e);
+  }
+};
+renderComponent("#methodology-tags-menu", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_12__.FrontListComponent, null));
+renderComponent("#articles-list-component", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_12__.ArticlesListComponent, null));
+try {
+  const coursesContainer = react_dom_client__WEBPACK_IMPORTED_MODULE_15__.createRoot(document.querySelector("#courses-list-component"));
+  coursesContainer.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets_ErrorBoundary_ErrorBoundary__WEBPACK_IMPORTED_MODULE_19__["default"], {
+    name: "Courses"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_Courses__WEBPACK_IMPORTED_MODULE_18__.CoursesContextProvider, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_12__.CoursesListComponent, null))));
+} catch (e) {
+  console.error("ErrorRenderingReactComponent :: CoursesList ", e);
+}
+renderComponent("#methodology-tree-component", (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets__WEBPACK_IMPORTED_MODULE_12__.MethodologyTreeComponent, null));
+try {
+  const bannerContainer = document.querySelector("#course-banner-component");
+  if (bannerContainer) {
+    const postId = parseInt(bannerContainer.getAttribute("data-post-id") || "0", 10);
+    const root = react_dom_client__WEBPACK_IMPORTED_MODULE_15__.createRoot(bannerContainer);
+    root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_entities_Course__WEBPACK_IMPORTED_MODULE_14__.CourseContextProvider, {
+      postId: postId
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_scripts_widgets_CourseBanner__WEBPACK_IMPORTED_MODULE_13__.CourseBanner, null)));
+  }
+} catch (e) {
+  console.error("ErrorRenderingReactComponent :: CourseBanner ", e);
+}
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=index.js.map

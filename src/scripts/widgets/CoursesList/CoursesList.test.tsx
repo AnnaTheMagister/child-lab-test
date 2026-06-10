@@ -82,8 +82,8 @@ describe('CoursesListComponent', () => {
   it('defaults to "Родителям" filter when no URL param', () => {
     renderWithContext();
 
-    expect(screen.getByText('Курс для родителей')).toBeInTheDocument();
-    expect(screen.queryByText('Курс для педагогов')).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Курс для родителей/ })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: /Курс для педагогов/ })).not.toBeInTheDocument();
   });
 
   it('default active button is "Родителям"', () => {
@@ -98,8 +98,8 @@ describe('CoursesListComponent', () => {
 
     fireEvent.click(screen.getByText('Педагогам'));
 
-    expect(screen.getByText('Курс для педагогов')).toBeInTheDocument();
-    expect(screen.queryByText('Курс для родителей')).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Курс для педагогов/ })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: /Курс для родителей/ })).not.toBeInTheDocument();
   });
 
   it('switches active class when filter changes', () => {
@@ -130,8 +130,8 @@ describe('CoursesListComponent', () => {
 
     renderWithContext();
 
-    expect(screen.getByText('Курс для педагогов')).toBeInTheDocument();
-    expect(screen.queryByText('Курс для родителей')).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Курс для педагогов/ })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: /Курс для родителей/ })).not.toBeInTheDocument();
   });
 
   it('shows loading state when data is loading', () => {
@@ -164,7 +164,7 @@ describe('CoursesListComponent', () => {
   it('shows subtitle and description when present', () => {
     renderWithContext();
 
-    expect(screen.getByText('Подзаголовок 1')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Подзаголовок 1/ })).toBeInTheDocument();
     expect(screen.getByText('Описание 1')).toBeInTheDocument();
   });
 

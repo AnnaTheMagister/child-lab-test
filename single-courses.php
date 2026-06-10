@@ -7,8 +7,7 @@
 get_header();
 ?>
 
-<!-- Course Banner via template part -->
-<?php get_template_part('template-parts/course/banner'); ?>
+<div id="course-banner-component" data-post-id="<?php echo get_the_ID(); ?>"></div>
 
 <!-- Main content area -->
 <div class="container course-content">
