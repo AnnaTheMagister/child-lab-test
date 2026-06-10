@@ -38,10 +38,22 @@ const BORDER_RADIUS_OPTIONS = [
   { label: 'Round', value: '50%' },
 ];
 
-const SIZE_MAP: Record<ButtonSize, React.CSSProperties> = {
-  sm: { padding: '6px 12px', fontSize: '13px' },
-  md: { padding: '8px 16px', fontSize: '15px' },
-  lg: { padding: '10px 24px', fontSize: '16px' },
+const SIZE_MAP: Record<ButtonSize, { phone: React.CSSProperties; tablet: React.CSSProperties; desktop: React.CSSProperties }> = {
+  sm: {
+    phone: { padding: '8px 12px', fontSize: '16px' },
+    tablet: { padding: '8px 12px', fontSize: '16px' },
+    desktop: { padding: '8px 12px', fontSize: '16px' },
+  },
+  md: {
+    phone: { padding: '8px 24px', fontSize: '24px' },
+    tablet: { padding: '8px 24px', fontSize: '24px' },
+    desktop: { padding: '8px 24px', fontSize: '24px' },
+  },
+  lg: {
+    phone: { padding: '6px 18px', fontSize: '18px' },
+    tablet: { padding: '8px 24px', fontSize: '24px' },
+    desktop: { padding: '12px 36px', fontSize: '36px' },
+  },
 };
 
 function getSchemeBackground(colors: ButtonColors): string {
@@ -177,7 +189,7 @@ registerBlockType<ButtonBlockAttributes>('childlab/button', {
       : getSchemeTextColor(attributes.colors);
 
     const style: React.CSSProperties = {
-      ...(SIZE_MAP[attributes.size] || SIZE_MAP.md),
+      ...(SIZE_MAP[attributes.size]?.desktop || SIZE_MAP.md.desktop),
       background: background || '#ffffff',
       color: color || '#5230D0',
       border: '1px solid transparent',

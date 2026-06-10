@@ -4,6 +4,7 @@ import Loader from "../Loader/Loader";
 import { useCurrentSearch } from "../../shared/hooks";
 import { ButtonGroup, Button } from "../../ui-kit";
 import { CourseCard, Course } from "./CourseCard";
+import { getTermNameBySlug } from "../../shared/libs/terms";
 
 interface Term {
   id: number;
@@ -61,14 +62,6 @@ export const CoursesListComponent = () => {
     setSelectedAudience(slug);
   };
 
-  const getCourseTypeName = (typeSlug: string): string | null => {
-    if (!typeSlug) return null;
-    const term = (courseTypeTerms as Term[]).find(
-      (t) => t.slug === typeSlug,
-    );
-    return term?.name ?? null;
-  };
-
   const loading =
     coursesLoading || audienceTermsLoading || courseTypeTermsLoading;
 
@@ -101,7 +94,7 @@ export const CoursesListComponent = () => {
             <CourseCard
               key={course.id}
               course={course}
-              courseTypeName={getCourseTypeName(course.acf?.course_type)}
+              courseTypeName={getTermNameBySlug(course.acf?.course_type, courseTypeTerms as Term[])}
             />
           ))}
         </div>

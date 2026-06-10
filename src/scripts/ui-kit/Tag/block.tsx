@@ -47,6 +47,7 @@ registerBlockType<TagBlockAttributes>('childlab/tag', {
               options={[
                 { label: 'Small', value: 'sm' },
                 { label: 'Medium', value: 'md' },
+                { label: 'Large', value: 'lg' },
               ]}
               onChange={(size: TagSize) => setAttributes({ size })}
             />
@@ -80,11 +81,16 @@ registerBlockType<TagBlockAttributes>('childlab/tag', {
   },
 
   save: ({ attributes }) => {
+    const TAG_SIZES: Record<TagSize, React.CSSProperties> = {
+      sm: { padding: '4px 12px', fontSize: '12px', borderRadius: '12px' },
+      md: { padding: '6px 16px', fontSize: '14px', borderRadius: '16px' },
+      lg: { padding: '8px 24px', fontSize: '20px', borderRadius: '20px' },
+    };
+
     const style: React.CSSProperties = {
-      backgroundColor: attributes.color || 'rgba(255, 255, 255, 0.9)',
-      color: attributes.textColor || '#333',
-      padding: attributes.size === 'md' ? '6px 16px' : '4px 12px',
-      fontSize: attributes.size === 'md' ? '14px' : '12px',
+      backgroundColor: attributes.color || '#EB3F9B',
+      color: attributes.textColor || '#ffffff',
+      ...(TAG_SIZES[attributes.size] || TAG_SIZES.sm),
     };
 
     return (

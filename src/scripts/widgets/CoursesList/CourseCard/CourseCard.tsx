@@ -1,5 +1,6 @@
 import React from 'react';
 import { DEFAULT_IMAGE_URL } from '../../../shared/consts';
+import { resolveColors } from '../../../shared/libs/colors';
 import { Button, Icon, Tag } from '../../../ui-kit';
 
 export interface Course {
@@ -31,7 +32,15 @@ export const CourseCard = ({
 }) => {
   const imgSrc = course._embedded?.['wp:featuredmedia']?.[0]?.source_url;
   const imageUrl = imgSrc ?? DEFAULT_IMAGE_URL;
-  const courseColor = course.acf?.course_color || '#EB3F9B';
+
+  const {
+    courseColor, courseBackgroundColor,
+  } = resolveColors({
+    courseColor: course.acf?.course_color,
+    courseTitleColor: course.acf?.course_title_color,
+    courseButtonGradient: course.acf?.course_button_gradient,
+    courseBackgroundColor: course.acf?.course_background_color,
+  });
 
   return (
     <div
@@ -41,19 +50,19 @@ export const CourseCard = ({
         '--course-color': courseColor,
       } as React.CSSProperties}
     >
-      <div className="course-card__overlay" />
-      <div className="course-card__content">
+      <div className="course-card__overlay" style={{
+        background: `linear-gradient(to top, ${courseBackgroundColor} 0, rgba(255, 255, 255, 1) 100%)`,
+      }} />
+      <div className="course-card__content" >
         {courseTypeName && (
-          <Tag color={courseColor} textColor="#fff" size="sm" className="course-card__tag">
+          <Tag color={courseColor} textColor="#fff" size="lg" className="course-card__tag">
             {courseTypeName}
           </Tag>
         )}
-        <h3 className="course-card__title">{course.title.rendered}</h3>
-        {course.acf?.course_subtitle && (
-          <div className="course-card__subtitle">
-            {course.acf.course_subtitle}
-          </div>
-        )}
+        <h3 className="course-card__title" style={{ color: courseColor }}>{course.title.rendered}{' '}
+          {course.acf?.course_subtitle &&
+            course.acf.course_subtitle
+          }</h3>
         {course.acf?.course_description && (
           <div className="course-card__description truncate-multiline">
             {course.acf.course_description}
@@ -61,12 +70,13 @@ export const CourseCard = ({
         )}
         <Button
           href={course.link}
+          className="course-card-link"
           colors="custom"
           active={{ background: '#fff', color: courseColor }}
-          icon={<Icon name="chevron" />}
-          size="lg"
+          size="md"
         >
           {window.wp.i18n.__('Подробнее', 'childlab')}
+          <Icon name="arrow-right" size={32} />
         </Button>
       </div>
     </div>

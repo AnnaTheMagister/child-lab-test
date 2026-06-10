@@ -58,15 +58,23 @@ describe('Button', () => {
     expect(screen.getByRole('button').className).toContain('my-custom-class');
   });
 
-  it('applies padding based on size prop', () => {
+  it('sets responsive padding and font-size CSS custom properties based on size', () => {
     const { rerender } = render(<Button size="sm">Small</Button>);
-    expect(screen.getByRole('button').style.padding).toBe('6px 12px');
+    let s = screen.getByRole('button').style;
+    expect(s.getPropertyValue('--button-padding-phone')).toBe('8px 12px');
+    expect(s.getPropertyValue('--button-font-size-phone')).toBe('16px');
 
     rerender(<Button size="md">Medium</Button>);
-    expect(screen.getByRole('button').style.padding).toBe('8px 16px');
+    s = screen.getByRole('button').style;
+    expect(s.getPropertyValue('--button-padding-phone')).toBe('8px 24px');
+    expect(s.getPropertyValue('--button-font-size-phone')).toBe('24px');
 
     rerender(<Button size="lg">Large</Button>);
-    expect(screen.getByRole('button').style.padding).toBe('10px 24px');
+    s = screen.getByRole('button').style;
+    expect(s.getPropertyValue('--button-padding-phone')).toBe('6px 18px');
+    expect(s.getPropertyValue('--button-font-size-phone')).toBe('18px');
+    expect(s.getPropertyValue('--button-padding-tablet')).toBe('8px 24px');
+    expect(s.getPropertyValue('--button-font-size-tablet')).toBe('24px');
   });
 
   it('uses grape scheme by default', () => {

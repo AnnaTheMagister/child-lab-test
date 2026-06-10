@@ -18,6 +18,7 @@ npm test         # запуск тестов
 | `inc/` | PHP-хелперы, ACF-регистрация, шаблонные теги |
 | `src/scripts/` | React-компоненты, виджеты, ui-kit |
 | `src/scripts/ui-kit/` | UI-кит: `Button`, `ButtonGroup`, `Icon` |
+| `src/scripts/shared/libs/` | Переиспользуемые библиотеки: `colors` (HEX/RGB/HSL конвертация) |
 | `src/styles/` | SCSS-стили (включая `ui-kit.scss`) |
 | `template-parts/` | PHP-шаблоны |
 | `tests/` | Глобальные моки (тесты — рядом с компонентами) |

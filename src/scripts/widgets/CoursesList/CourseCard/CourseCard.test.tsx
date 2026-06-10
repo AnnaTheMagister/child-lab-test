@@ -33,12 +33,12 @@ beforeEach(() => {
 describe('CourseCard', () => {
   it('renders title', () => {
     render(<CourseCard course={baseCourse} courseTypeName="Webinar" />);
-    expect(screen.getByText('Test Course')).toBeInTheDocument();
+    expect(screen.getByRole('heading')).toHaveTextContent('Test Course');
   });
 
   it('renders subtitle when present', () => {
     render(<CourseCard course={baseCourse} courseTypeName="Webinar" />);
-    expect(screen.getByText('Test Subtitle')).toBeInTheDocument();
+    expect(screen.getByRole('heading')).toHaveTextContent('Test Subtitle');
   });
 
   it('renders description when present', () => {
