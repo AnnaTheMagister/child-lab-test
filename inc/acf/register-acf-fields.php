@@ -14,4 +14,3 @@ require_once get_template_directory() . '/inc/acf/field-groups/article-fields.ph
 require_once get_template_directory() . '/inc/acf/field-groups/author-fields.php';
 require_once get_template_directory() . '/inc/acf/field-groups/projects-fields.php';
 require_once get_template_directory() . '/inc/acf/field-groups/methodology-tag-fields.php';
-require_once get_template_directory() . '/inc/acf/field-groups/course-fields.php';

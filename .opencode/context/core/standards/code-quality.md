@@ -148,6 +148,35 @@ _n('One item', '%d items', $count, 'childlab');
 __('Text'); // Missing domain — won't be translatable
 ```
 
+### Gutenberg Block Registration
+
+Все блоки находятся в категории **Childlab** (регистрируется через `block_categories_all` в `register-blocks.php`).
+
+Блоки лежат рядом с React-компонентом, который они оборачивают. `block.json` + `block.js` (entry) находятся в той же папке, что и компонент. `@wordpress/scripts`:
+1. Авто-обнаруживает `src/**/block.json` и создаёт отдельный entry point
+2. Собирает JS → `build/scripts/ui-kit/{Component}/block.js`
+3. Копирует `block.json` → `build/scripts/ui-kit/{Component}/block.json`
+4. Извлекает CSS → `build/scripts/ui-kit/{Component}/style-block.css`
+
+**Важно**: при наличии `block.json`, `@wordpress/scripts` перестаёт собирать `src/index.js`. `webpack.config.js` должен явно добавлять `index: './src/index.js'` в entry.
+
+Регистрация в PHP:
+```php
+// inc/blocks/register-blocks.php — автоматическая регистрация всех блоков
+add_action('init', function () {
+    $build_dir = get_template_directory() . '/build';
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($build_dir, FilesystemIterator::SKIP_DOTS)
+    );
+    foreach ($iterator as $file) {
+        if ($file->getFilename() !== 'block.json') {
+            continue;
+        }
+        register_block_type($file->getPath());
+    }
+});
+```
+
 ### PHP Code Organization
 
 ```php
@@ -163,15 +192,46 @@ require_once get_template_directory() . '/inc/reading-mode-support.php';
 
 ## Part 2: React / TypeScript Standards
 
-### Component Architecture — Widget Pattern
+### Component Architecture — Folder Pattern
+
+Every React-компонент, хук, или контекст лежит в отдельной папке. Рядом с ним — тест. Папка экспортируется через `index.ts`.
 
 ```
-src/scripts/widgets/WidgetName/
-├── WidgetName.tsx          # Main component (PascalCase file + component)
-├── SubComponent.tsx        # Supporting components
-├── helperFunction.ts       # Pure logic functions (camelCase)
-└── (tests/)                # Tests when added
+src/
+├── entities/EntityName/
+│   ├── EntityComponent.tsx       # Основной модуль (PascalCase)
+│   ├── EntityComponent.test.tsx  # Тест — рядом, не в tests/
+│   └── index.ts                  # Баррель: export * from './EntityComponent'
+│
+├── shared/libs/LibName/
+│   ├── lib.ts                    # Чистые функции (camelCase)
+│   ├── lib.test.ts               # Тесты
+│   └── index.ts                  # Баррель
+│
+├── shared/hooks/useFoo/
+│
+└── widgets/WidgetName/
+    ├── WidgetName.tsx
+    ├── WidgetName.test.tsx
+    ├── WidgetName.scss          # Стили — рядом с компонентом
+    ├── SubComponent.tsx         # Вложенные компоненты (если есть)
+    ├── helpers.ts               # Утилиты (camelCase)
+    └── index.ts
 ```
+
+**Правила**:
+1. Один компонент/хук/контекст = одна папка
+2. Тест лежит внутри папки рядом с модулем (`Component.test.tsx`)
+3. Стили лежат внутри папки рядом с модулем (`Component.scss`)
+4. SCSS импортируется в `src/index.js` как `import "./scripts/path/Component.scss"`
+5. `index.ts` — баррель: `export * from './Component'` или `export { default } from './Component'`
+6. Импорт через папку: `import { Foo } from '../entities/Foo'`, НЕ через файл: `import { Foo } from '../entities/Foo/Foo'`
+7. Публичное API папки определяется в `index.ts` — можно скрывать внутренние модули (SubComponent, helpers), не экспортируя их
+
+**Исключения**:
+- `widgets/index.ts` — агрегирует экспорты всех виджетов (остаётся)
+- `shared/hooks/index.ts` — агрегирует все хуки
+- `styles/`, `entities/` без подпапки — файлы конфигурации, глобальные стили, legacy
 
 ### Context Provider Pattern
 
@@ -291,6 +351,76 @@ export const MyComponent: React.FC<ComponentProps> = ({ items, onSelect, loading
 | Hooks | `useCamelCase` | `useCurrentSearch`, `useArticles` |
 | Types/Interfaces | `PascalCase` | `MethodologyTag`, `Article` |
 | Constants | `UPPER_SNAKE` | `BASE_URL`, `MEDIA_URL` |
+| Module folders | `PascalCase` | `CoursesList/`, `ArticlesList/` |
+| Barrel files | `index.ts` | `export * from './Component'` |
+
+### Import Path Rules
+
+```tsx
+// ✅ Barrel import — чистый, скрывает внутреннюю структуру
+import { CoursesListComponent } from "../widgets/CoursesList";
+import { useCurrentSearch } from "../shared/hooks";
+
+// ❌ Путь до файла — хрупкий, требует знать структуру внутри папки
+import { CoursesListComponent } from "../widgets/CoursesList/CoursesList";
+
+// ❌ Путь до теста — тесты никогда не импортируются извне папки
+import { something } from "../widgets/Foo/Foo.test";
+```
+
+**Исключение**: `index.js` (точка входа webpack) и `widgets/index.ts` (агрегатор) могут импортировать напрямую из файлов — это корневые сборщики.
+
+### UI-Kit Components
+
+Общие переиспользуемые компоненты лежат в `src/scripts/ui-kit/`. Каждый компонент в своей папке со стандартной структурой (`index.ts`, `Component.tsx`, `Component.test.tsx`).
+
+Доступные компоненты:
+- `Button` — кастомная кнопка с поддержкой active/inactive цветов/градиентов, иконки, размеров, href (рендерит `<a>`). Импорт: `import { Button } from '../../ui-kit'`
+- `ButtonGroup` — Flex-контейнер для группы кнопок в стиле authors-menu. Импорт: `import { ButtonGroup } from '../../ui-kit'`
+- `Icon` — SVG-иконки (`arrow-right`, `arrow-left`, `adapt`, `chevron`). Импорт: `import { Icon } from '../../ui-kit'`
+- `Tag` — тег/метка с опциональным цветом фона и текста, размером sm/md. Импорт: `import { Tag } from '../../ui-kit'`. **Доступен как Gutenberg-блок** `childlab/tag` в категории Childlab.
+- `Button` — кастомная кнопка. **Доступен как Gutenberg-блок** `childlab/button` в категории Childlab. Атрибуты: текст, ссылка, цвет фона, цвет текста, размер.
+
+**Shared libs**:
+- `colors` (`src/scripts/shared/libs/colors/`) — работа с цветами: `hexToRgb`, `rgbToHex`, `addColors`, `hexToHsl`, `hslToHex`, `shiftLightness`. Импорт: `import { shiftLightness } from '../../shared/libs/colors'`
+
+**Entities**:
+- `Course` (`src/scripts/entities/Course/`) — контекст для единичного курса (single course page). `CourseContextProvider` + `useCourse`. Импорт: `import { useCourse } from '../../entities/Course'`
+- `Courses` (`src/scripts/entities/Courses/`) — контекст для списка курсов. `CoursesContextProvider` + `useCourses`.
+
+**API кнопки**:
+- `isActive` — состояние (`true` по умолчанию, кнопка всегда в active)
+- `active` — группа `{ background?, color?, borderColor? }` для активного состояния
+- `inactive` — группа `{ background?, color?, borderColor? }` для неактивного (используется только если кнопка может быть неактивной)
+- `colors` — `'grape' | 'raspberry' | 'strawberry' | 'custom'` (по умолчанию `'grape'`); при `custom` используются `active`/`inactive`
+- `borderRadius` — строка (единое значение) или `{ desktop?, tablet?, phone? }` (по умолчанию desktop/tablet: 8px, phone: 6px)
+- `icon` — ReactNode (например, `<Icon name="chevron" />`)
+- `size` — `'sm' | 'md' | 'lg'`
+- `href` — если передан, рендерит `<a>` вместо `<button>` (поддерживает `target`, `rel`)
+- Стандартные: `onClick`, `disabled`, `className`
+
+**Цветовые схемы**:
+- `grape` (активный): `linear-gradient(90deg, #5823EB → #6D00D2)` / текст `#fff`
+- `grape` (неактивный): `linear-gradient(90deg, #ECEFFF → #F2E8FF)` / текст `#5230D0`
+- `raspberry` (активный): `linear-gradient(90deg, rgb(215,69,255) → rgb(245,47,162))` / текст `#fff`
+- `raspberry` (неактивный): `linear-gradient(90deg, rgb(247,217,255) → rgb(255,200,232))` / текст `#BC00AD`
+- `strawberry` (активный): `linear-gradient(90deg, #F74098 → #F64B30)` / текст `#fff`
+- `strawberry` (неактивный): `linear-gradient(90deg, #FFD4E9 → #FFCFC8)` / текст `#BC00AD`
+
+**Hover/Pressed**:
+- Для схемы `grape` используются явные цвета: hover `#7955F9`, pressed `#3D1FAA`
+- Для остальных схем — `filter: brightness(0.92)` на hover, `filter: brightness(0.85)` на pressed
+- При добавлении новых схем с явными hover/pressed: определить в `COLOR_SCHEMES` + SCSS-правило `[data-colors="..."]:hover`
+
+**Gutenberg-блок**: `childlab/button` — атрибуты: `text`, `href`, `size`, `colors`, `customBackground`, `customTextColor`, `borderRadiusDesktop`, `borderRadiusTablet`, `borderRadiusPhone`.
+
+**Правила**:
+- ✅ Использовать ui-kit/Button вместо inline `<button>` для фильтров, меню, экшенов
+- ✅ Использовать ui-kit/ButtonGroup вместо `<div className="flex-row-center">` для групп кнопок
+- ✅ Использовать ui-kit/Icon вместо inline SVG
+- ✅ Использовать ui-kit/Tag вместо `<span className="*-tag">` для меток на карточках (тип курса, теги статей)
+- ✅ Стили ui-kit компонентов лежат в той же папке (`Button/Button.scss`, `ButtonGroup/ButtonGroup.scss`, `Tag/Tag.scss`) и импортируются в `src/index.js`
+- ❌ Не дублировать стили кнопок в CSS — ui-kit/Button управляет цветами через inline styles
 
 ---
 
@@ -298,15 +428,31 @@ export const MyComponent: React.FC<ComponentProps> = ({ items, onSelect, loading
 
 ### File Organization
 
-```
-src/styles/
-├── variables.scss     # Design tokens: colors, spacing, breakpoints, fonts
-├── mixins.scss        # Reusable mixins and functions
-├── main.scss          # Global/base styles
-├── grid-system.scss   # Layout grid
-└── header.scss        # Header-specific styles
+Стили компонентов — рядом с компонентом. Глобальные стили — в `src/styles/`.
 
-assets/styles/         # Standalone compiled CSS files
+```
+src/styles/                    # Глобальные стили (импортируются в index.js)
+├── variables.scss
+├── mixins.scss
+├── main.scss
+├── grid-system.scss
+└── header.scss
+
+src/scripts/ui-kit/Button/     # ui-kit компонент + Gutenberg-блок
+├── Button.tsx
+├── Button.scss                # Импортируется в index.js
+├── Button.test.tsx
+├── index.ts
+├── block.json                 # Метаданные Gutenberg-блока
+├── block.js                   # Edit + Save компоненты
+└── style.scss                 # Стили превью в редакторе
+
+src/scripts/widgets/WidgetName/ # Будущие виджеты
+├── WidgetName.tsx
+├── WidgetName.scss            # Импортируется в index.js
+└── index.ts
+
+assets/styles/                 # Legacy CSS (подключается через enqueue)
 ├── variables.css
 ├── common.css
 ├── header.css
@@ -376,12 +522,13 @@ return <List items={items} />;
 ## Anti-Patterns — Project-Specific
 
 ❌ **ACF field key collisions** — Every field key must be globally unique
-❌ **Missing `show_in_rest`** — React components can't access fields not exposed via REST
+❌ **Missing `show_in_rest` on ACF fields consumed by React** — If a field lacks `show_in_rest => 1`, it may not appear in the REST response's `acf` object (especially when empty). Always add `show_in_rest => 1` to every field in an ACF field group that React reads via REST API. The `register_rest_field()` fallback in `helpers.php` is a secondary safety net, not a substitute.
 ❌ **Duplicate taxonomy REST registration** — Terms need `register_rest_field()` in addition to `show_in_rest`
 ❌ **Hardcoded localhost URLs** — Use `BASE_URL` from `consts.ts` for API calls
 ❌ **Direct `get_template_directory_uri()` in JS** — Use localized `themeData.templateUrl` instead
 ❌ **PHP without i18n** — All UI-facing strings should use `__()`, `esc_html__()` with `'childlab'` domain
 ❌ **session_start() after output** — Reading mode init must happen early in request lifecycle
+❌ **Reading ACF taxonomy-style fields from top-level REST response** — ACF `checkbox`/`select` поля хранят строковые значения в `acf.*` (например, `acf.course_audience: ['parents']`). Не читать их с верхнего уровня REST-ответа (там пустые массивы, т.к. это не таксономия).
 
 ## Best Practices Checklist
 
@@ -390,7 +537,8 @@ return <List items={items} />;
 - [ ] WordPress hooks for integration points
 - [ ] wp_enqueue_* for asset loading
 - [ ] filemtime() for cache busting
-- [ ] show_in_rest: true for API-accessible fields
+- [ ] show_in_rest: true for EVERY ACF field consumed by React
+- [ ] Field type `url`: add `show_in_rest => 1` — otherwise REST returns empty string for unfilled fields
 - [ ] i18n with 'childlab' text domain
 - [ ] Validate at boundaries, return safe defaults
 - [ ] Unique ACF field keys
@@ -403,6 +551,8 @@ return <List items={items} />;
 - [ ] Widget folder pattern for components
 - [ ] Loading / empty / error state handling
 - [ ] PascalCase components, camelCase utilities
+- [ ] Адаптив на 3 брейкпоинта (phone/tablet/desktop) для каждого компонента
+- [ ] Размеры (padding, font-size, border-radius) согласованы с ui-kit аналогами
 
 ### SCSS
 - [ ] variables.scss for design tokens

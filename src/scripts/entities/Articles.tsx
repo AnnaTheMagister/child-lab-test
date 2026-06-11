@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext, useContext, useMemo } from "react";
 import { BASE_URL } from "../shared/consts";
-import { useCurrentSearch } from "../shared/useCurrentSearch";
+import { useCurrentSearch } from "../shared/hooks";
 
 interface Article {
     id: string

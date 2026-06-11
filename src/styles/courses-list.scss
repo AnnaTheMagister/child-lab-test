@@ -1,0 +1,14 @@
+@import "./variables";
+@import "./mixins";
+
+.courses-list-page {
+  margin-top: 32px;
+}
+
+.courses-filter {
+  margin-bottom: 32px;
+}
+
+.courses-list {
+  gap: 24px;
+}

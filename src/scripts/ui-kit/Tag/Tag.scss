@@ -1,0 +1,22 @@
+.ui-tag {
+  display: inline-block;
+  font-weight: 500;
+  line-height: 120%;
+  white-space: nowrap;
+
+  padding: var(--tag-padding-phone);
+  font-size: var(--tag-font-size-phone);
+  border-radius: var(--tag-radius-phone);
+
+  @media (min-width: 769px) {
+    padding: var(--tag-padding-tablet);
+    font-size: var(--tag-font-size-tablet);
+    border-radius: var(--tag-radius-tablet);
+  }
+
+  @media (min-width: 1025px) {
+    padding: var(--tag-padding-desktop);
+    font-size: var(--tag-font-size-desktop);
+    border-radius: var(--tag-radius-desktop);
+  }
+}

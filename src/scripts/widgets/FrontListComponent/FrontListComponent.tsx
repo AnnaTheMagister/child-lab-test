@@ -5,8 +5,7 @@ import {
   useMethodologyTags,
 } from "../../entities/MethodologyTags";
 import { distributeTags } from "./distributeTags";
-import { BASE_URL } from "../../shared/consts";
-import { useCurrentSearch } from "../../shared/useCurrentSearch";
+import { useCurrentSearch } from "../../shared/hooks";
 
 const DEFAULT_TAG = {
   id: -1,

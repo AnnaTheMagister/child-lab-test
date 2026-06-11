@@ -13,3 +13,4 @@
 - `development/wordpress/` — Theme SCSS, template hierarchy, React widget mounting
 - `core/standards/code-quality.md` — CSS, SCSS, React coding standards
 - `project-intelligence/technical-domain.md` — Tech stack and architecture context
+- `ui/design-system.md` — Design tokens, color schemes, design review rules

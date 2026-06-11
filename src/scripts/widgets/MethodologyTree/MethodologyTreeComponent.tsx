@@ -1,11 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
 import { initialConnections, initialTags } from "./graphConfig";
-import { useCurrentSearch } from "../../shared/useCurrentSearch";
 import { TagsGraph } from "./TagsGraph";
 import { useMethodologyTags } from "../../entities/MethodologyTags";
 import { useArticles } from "../../entities/Articles";
 import { getScreenSize } from "../FrontListComponent/FrontListComponent";
 import { ArticleCardComponent } from "../ArticlesList/ArticlesList";
+import { useCurrentSearch } from "../../shared/hooks";
 
 const TREE_IMAGE = themeData.templateUrl + "/assets/images/tree.png";
 

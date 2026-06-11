@@ -1,5 +1,6 @@
 <?php
 // В любом месте шаблона (header.php или sidebar.php)
+// TODO: Refactor .mode-btn to ui-kit/Button
 $current_mode = $GLOBALS['mode'];
 ?>
 <?php

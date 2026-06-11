@@ -7,6 +7,31 @@
     align-items: left;
     justify-content: left;
     margin-top: calc(var(--size-xxxlg) * -1);
+    height: 800px;
+    background-size: cover;
+    background-position: 340px 0;
+}
+
+/* Combined gradient overlay for course banner */
+.course-banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to top,
+        rgba(255, 0, 255, 1) 0,
+        rgba(255, 255, 255, 1) 100%
+    );
+    
+    mask: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 1) 340px,
+        rgba(255, 255, 255, 0) 80%
+    );
+
+    z-index: 1;
 }
 
 .course-banner-content {
@@ -16,6 +41,8 @@
     flex-direction: column;
     align-items: baseline;
     justify-content: center;
+    position: relative;
+    z-index: 3;
 }
 
 .course-banner-title {
@@ -32,6 +59,7 @@
     color: white;
 }
 
+/* TODO: Refactor to ui-kit/Button */
 .course-access-button {
     display: inline-block;
     background-color: #4a90e2;

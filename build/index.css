@@ -3978,6 +3978,329 @@ body {
 .childlab-primary-menu .current-menu-item a {
   background-color: rgb(238, 234, 250);
 }
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/styles/courses-list.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
+.courses-list-page {
+  margin-top: 32px;
+}
+
+.courses-filter {
+  margin-bottom: 32px;
+}
+
+.courses-list {
+  gap: 24px;
+}
+/*!**************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/scripts/ui-kit/Button/Button.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************/
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  line-height: 120%;
+  font-family: inherit;
+  padding: var(--button-padding-phone);
+  font-size: var(--button-font-size-phone);
+  border-radius: var(--button-radius-phone);
+}
+@media (min-width: 769px) {
+  .ui-button {
+    padding: var(--button-padding-tablet);
+    font-size: var(--button-font-size-tablet);
+    border-radius: var(--button-radius-tablet);
+  }
+}
+@media (min-width: 1025px) {
+  .ui-button {
+    padding: var(--button-padding-desktop);
+    font-size: var(--button-font-size-desktop);
+    border-radius: var(--button-radius-desktop);
+  }
+}
+.ui-button:hover {
+  box-shadow: var(--box-shadow-default);
+}
+.ui-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.ui-button:disabled:hover {
+  box-shadow: none;
+}
+
+.ui-button[data-hover-defined=true]:hover {
+  background: var(--button-hover-bg) !important;
+}
+
+.ui-button[data-hover-defined=true]:active {
+  background: var(--button-pressed-bg) !important;
+}
+
+.ui-button:not([data-hover-defined=true]):hover {
+  filter: brightness(0.92);
+}
+
+.ui-button:not([data-hover-defined=true]):active {
+  filter: brightness(0.85);
+}
+
+.ui-button__icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ui-button__text {
+  display: inline-flex;
+  align-items: center;
+}
+/*!************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/scripts/ui-kit/ButtonGroup/ButtonGroup.scss ***!
+  \************************************************************************************************************************************************************************************************************************************************************************/
+.ui-button-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+/*!********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/scripts/ui-kit/Tag/Tag.scss ***!
+  \********************************************************************************************************************************************************************************************************************************************************/
+.ui-tag {
+  display: inline-block;
+  font-weight: 500;
+  line-height: 120%;
+  white-space: nowrap;
+  padding: var(--tag-padding-phone);
+  font-size: var(--tag-font-size-phone);
+  border-radius: var(--tag-radius-phone);
+}
+@media (min-width: 769px) {
+  .ui-tag {
+    padding: var(--tag-padding-tablet);
+    font-size: var(--tag-font-size-tablet);
+    border-radius: var(--tag-radius-tablet);
+  }
+}
+@media (min-width: 1025px) {
+  .ui-tag {
+    padding: var(--tag-padding-desktop);
+    font-size: var(--tag-font-size-desktop);
+    border-radius: var(--tag-radius-desktop);
+  }
+}
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/scripts/widgets/CoursesList/CourseCard/CourseCard.scss ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+.course-card {
+  position: relative;
+  min-height: 360px;
+  padding: 48px;
+  border-radius: 32px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 40px;
+}
+@media screen and (min-width: 768px) {
+  .course-card {
+    align-items: center;
+    margin-bottom: 24px;
+  }
+}
+
+.course-card__overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  -webkit-mask: linear-gradient(to right, rgb(255, 255, 255) 340px, rgba(255, 255, 255, 0) 80%);
+          mask: linear-gradient(to right, rgb(255, 255, 255) 340px, rgba(255, 255, 255, 0) 80%);
+  z-index: 1;
+}
+
+.course-card__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  z-index: 1;
+}
+@media screen and (min-width: 768px) {
+  .course-card__content {
+    width: 50%;
+  }
+}
+
+.course-card__tag {
+  align-self: flex-start;
+}
+
+.course-card__title {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.2;
+}
+@media screen and (min-width: 768px) {
+  .course-card__title {
+    font-size: 48px;
+  }
+}
+
+.course-card__description {
+  color: #111111;
+  font-size: 14px;
+  line-height: 1.4;
+}
+@media screen and (min-width: 768px) {
+  .course-card__description {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .course-card {
+    min-height: 180px;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .course-card__overlay {
+    border-radius: 12px;
+  }
+  .course-card__content {
+    gap: 10px;
+  }
+}
+.course-card-link {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/scripts/widgets/CourseBanner/CourseBanner.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************/
+.course-banner {
+  position: relative;
+  width: 100%;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: calc(var(--size-xxxlg) * -1);
+  height: 800px;
+  background-size: cover;
+  background-position: 340px 0;
+}
+@media (max-width: 768px) {
+  .course-banner {
+    height: 300px;
+  }
+}
+@media (max-width: 1025px) {
+  .course-banner {
+    height: 550px;
+  }
+}
+
+.course-banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-mask: linear-gradient(to right, rgb(255, 255, 255) 340px, rgba(255, 255, 255, 0) 80%);
+          mask: linear-gradient(to right, rgb(255, 255, 255) 340px, rgba(255, 255, 255, 0) 80%);
+  z-index: 1;
+}
+
+.course-banner-content {
+  text-align: left;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
+}
+
+.course-banner-title {
+  font-size: 120px;
+  line-height: 110%;
+  font-weight: 600;
+  margin-top: 32px;
+}
+@media (max-width: 768px) {
+  .course-banner-title {
+    font-size: 48px;
+    margin-top: 16px;
+  }
+}
+@media (max-width: 1025px) {
+  .course-banner-title {
+    font-size: 96px;
+    margin-top: 24px;
+  }
+}
+
+.course-banner-subtitle {
+  font-size: 60px;
+  line-height: 110%;
+  font-weight: 400;
+  font-style: italic;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+@media (max-width: 768px) {
+  .course-banner-subtitle {
+    font-size: 24px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+}
+@media (max-width: 1025px) {
+  .course-banner-subtitle {
+    font-size: 32px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+}
+
+.course-banner-description {
+  font-size: 24px;
+  line-height: 140%;
+  font-weight: 400;
+  color: #111111;
+  margin-bottom: 64px;
+}
+@media (max-width: 768px) {
+  .course-banner-description {
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+}
+@media (max-width: 1025px) {
+  .course-banner-description {
+    font-size: 20px;
+    margin-bottom: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .course-banner-access-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
 /*!*******************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/scripts/widgets/Loader/Loader.css ***!
   \*******************************************************************************************************************************************************************************************/

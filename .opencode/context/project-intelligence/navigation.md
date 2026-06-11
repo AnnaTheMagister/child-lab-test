@@ -9,6 +9,7 @@
 ```
 .opencode/context/project-intelligence/
 ├── navigation.md              # This file — quick overview
+├── agent-behavior.md          # How the AI should behave — read this!
 ├── business-domain.md         # Business context: audience, value, roadmap
 ├── technical-domain.md        # Stack, architecture, project structure
 ├── business-tech-bridge.md    # How business needs map to solutions
@@ -24,7 +25,9 @@
 | Understand the "how" | `technical-domain.md` | WP + React + ACF stack, architecture, CPTs, project map |
 | See the connection | `business-tech-bridge.md` | Business → technical mapping for each feature |
 | Know the context | `decisions-log.md` | Why React via wp-scripts, ACF, session modes, etc. |
+| Agent behavior | `agent-behavior.md` | **MUST READ** — how this AI should behave |
 | Current state | `living-notes.md` | Active projects (CHI-93 courses), tech debt, patterns |
+| **Courses feature** | `../features/courses/navigation.md` | Detailed courses docs: domain, requirements, technical design |
 | All of the above | Read all files in order | Full project intelligence |
 
 ## Usage

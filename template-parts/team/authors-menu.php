@@ -1,4 +1,8 @@
 <?php
+/**
+ * TODO: Refactor to React widget using ui-kit/ButtonGroup + ui-kit/Button
+ * See CoursesList widget for reference pattern.
+ */
 $tags = get_terms(array('taxonomy' => 'article_author', 'hide_empty' => false));
 $author_term = get_queried_object();
 $author_id = $author_term->term_id;

@@ -132,6 +132,7 @@ a.article-card .block.stretch {
   justify-content: center;
 }
 
+/* TODO: Refactor to ui-kit/Button */
 .article-button {
   display: inline-block;
   padding: 8px 24px;

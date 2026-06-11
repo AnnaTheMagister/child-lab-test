@@ -1,0 +1,66 @@
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  line-height: 120%;
+  font-family: inherit;
+
+  padding: var(--button-padding-phone);
+  font-size: var(--button-font-size-phone);
+  border-radius: var(--button-radius-phone);
+
+  @media (min-width: 769px) {
+    padding: var(--button-padding-tablet);
+    font-size: var(--button-font-size-tablet);
+    border-radius: var(--button-radius-tablet);
+  }
+
+  @media (min-width: 1025px) {
+    padding: var(--button-padding-desktop);
+    font-size: var(--button-font-size-desktop);
+    border-radius: var(--button-radius-desktop);
+  }
+
+  &:hover {
+    box-shadow: var(--box-shadow-default);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+}
+
+.ui-button[data-hover-defined="true"]:hover {
+  background: var(--button-hover-bg) !important;
+}
+
+.ui-button[data-hover-defined="true"]:active {
+  background: var(--button-pressed-bg) !important;
+}
+
+.ui-button:not([data-hover-defined="true"]):hover {
+  filter: brightness(0.92);
+}
+
+.ui-button:not([data-hover-defined="true"]):active {
+  filter: brightness(0.85);
+}
+
+.ui-button__icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.ui-button__text {
+  display: inline-flex;
+  align-items: center;
+}

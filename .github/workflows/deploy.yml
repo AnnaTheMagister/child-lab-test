@@ -5,42 +5,38 @@ on:
     branches: ["main", "dev"]
 
 jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+
   deploy:
+    needs: [test]
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Получаем код из репозитория
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Устанавливаем Node.js (требуется для FTP-клиента lftp)
       - name: ⚙️ Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "18"
 
-      # 3. Устанавливаем мощный FTP-клиент lftp
       - name: 📦 Install LFTP
         run: sudo apt-get update && sudo apt-get install -y lftp
 
-      # 4. Обновляем имя темы в style.css в зависимости от ветки
       - name: 🛠️ Update theme name in style.css
         run: |
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            echo "Updating theme name for main branch deployment"
             sed -i 's/Theme Name: childlab-react-test/Theme Name: childlab-react/' /home/runner/work/child-lab-test/child-lab-test/style.css
             echo "Theme name updated to childlab-react"
           elif [ "${{ github.ref }}" = "refs/heads/dev" ]; then
-            echo "Updating theme name for dev branch deployment"
             sed -i 's/Theme Name: childlab-react-test/Theme Name: childlab-react-dev/' /home/runner/work/child-lab-test/child-lab-test/style.css
             echo "Theme name updated to childlab-react-dev"
           fi
 
-      # 5. Синхронизируем файлы с хостингом
       - name: 📤 Sync files to FTP server
         run: |
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            echo "Deploying to main branch directory"
             lftp -e "
               set ftp:ssl-allow no;
               set ssl:verify-certificate no;
@@ -54,7 +50,6 @@ jobs:
               bye;
             "
           elif [ "${{ github.ref }}" = "refs/heads/dev" ]; then
-            echo "Deploying to dev branch directory"
             lftp -e "
               set ftp:ssl-allow no;
               set ssl:verify-certificate no;
