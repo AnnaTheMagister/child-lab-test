@@ -72,11 +72,13 @@ export const CourseCard = ({
           href={course.link}
           className="course-card-link"
           colors="custom"
-          active={{ background: '#fff', color: courseColor }}
+          active={{ color: '#fff', background: courseColor }}
           size="md"
         >
-          {window.wp.i18n.__('Подробнее', 'childlab')}
-          <Icon name="arrow-right" size={32} />
+          {/* <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '12px' }}> */}
+            <div>{window.wp.i18n.__('Подробнее', 'childlab')}</div>
+            <Icon name="arrow-right" size={24} />
+          {/* </div> */}
         </Button>
       </div>
     </div>

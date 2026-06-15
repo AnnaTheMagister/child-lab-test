@@ -2,6 +2,66 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/scripts/shared/hooks/useBreakpoint/index.ts"
+/*!*********************************************************!*\
+  !*** ./src/scripts/shared/hooks/useBreakpoint/index.ts ***!
+  \*********************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useBreakpoint: () => (/* reexport safe */ _useBreakpoint__WEBPACK_IMPORTED_MODULE_0__.useBreakpoint)
+/* harmony export */ });
+/* harmony import */ var _useBreakpoint__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./useBreakpoint */ "./src/scripts/shared/hooks/useBreakpoint/useBreakpoint.ts");
+
+
+/***/ },
+
+/***/ "./src/scripts/shared/hooks/useBreakpoint/useBreakpoint.ts"
+/*!*****************************************************************!*\
+  !*** ./src/scripts/shared/hooks/useBreakpoint/useBreakpoint.ts ***!
+  \*****************************************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useBreakpoint: () => (/* binding */ useBreakpoint)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+const QUERIES = {
+  desktop: '(min-width: 1025px)',
+  tablet: '(min-width: 769px)'
+};
+function getActiveBreakpoint() {
+  if (typeof window === 'undefined' || !window.matchMedia) return 'desktop';
+  if (window.matchMedia(QUERIES.desktop).matches) return 'desktop';
+  if (window.matchMedia(QUERIES.tablet).matches) return 'tablet';
+  return 'phone';
+}
+function useBreakpoint() {
+  const [bp, setBp] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(getActiveBreakpoint);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!window.matchMedia) return;
+    const mqlDesktop = window.matchMedia(QUERIES.desktop);
+    const mqlTablet = window.matchMedia(QUERIES.tablet);
+    const update = () => {
+      if (mqlDesktop.matches) setBp('desktop');else if (mqlTablet.matches) setBp('tablet');else setBp('phone');
+    };
+    update();
+    mqlDesktop.addEventListener('change', update);
+    mqlTablet.addEventListener('change', update);
+    return () => {
+      mqlDesktop.removeEventListener('change', update);
+      mqlTablet.removeEventListener('change', update);
+    };
+  }, []);
+  return bp;
+}
+
+/***/ },
+
 /***/ "./src/scripts/ui-kit/Button/Button.tsx"
 /*!**********************************************!*\
   !*** ./src/scripts/ui-kit/Button/Button.tsx ***!
@@ -14,6 +74,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _shared_hooks_useBreakpoint__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/hooks/useBreakpoint */ "./src/scripts/shared/hooks/useBreakpoint/index.ts");
+
 
 
 const COLOR_SCHEMES = {
@@ -95,29 +157,35 @@ const sizeMap = {
   md: {
     phone: {
       padding: '8px 24px',
-      fontSize: '24px'
+      fontSize: '24px',
+      fontWeight: 400
     },
     tablet: {
       padding: '8px 24px',
-      fontSize: '24px'
+      fontSize: '24px',
+      fontWeight: 400
     },
     desktop: {
       padding: '8px 24px',
-      fontSize: '24px'
+      fontSize: '24px',
+      fontWeight: 400
     }
   },
   lg: {
     phone: {
       padding: '6px 18px',
-      fontSize: '18px'
+      fontSize: '18px',
+      fontWeight: 500
     },
     tablet: {
       padding: '8px 24px',
-      fontSize: '24px'
+      fontSize: '24px',
+      fontWeight: 500
     },
     desktop: {
       padding: '12px 36px',
-      fontSize: '36px'
+      fontSize: '36px',
+      fontWeight: 500
     }
   }
 };
@@ -188,11 +256,15 @@ const Button = ({
   rel,
   borderRadius
 }) => {
+  const bp = (0,_shared_hooks_useBreakpoint__WEBPACK_IMPORTED_MODULE_1__.useBreakpoint)();
   const currentColors = isActive ? resolveSchemeColors(colors, 'active', activeColors) : resolveSchemeColors(colors, 'inactive', inactiveColors);
   const style = {
     background: currentColors.background,
     color: currentColors.color,
     border: `1px solid ${currentColors.borderColor || 'transparent'}`,
+    padding: getSizeProp(size, bp, 'padding'),
+    fontSize: getSizeProp(size, bp, 'fontSize'),
+    fontWeight: getSizeProp(size, bp, 'fontWeight'),
     '--button-padding-desktop': getSizeProp(size, 'desktop', 'padding'),
     '--button-padding-tablet': getSizeProp(size, 'tablet', 'padding'),
     '--button-padding-phone': getSizeProp(size, 'phone', 'padding'),
@@ -326,29 +398,35 @@ const SIZE_MAP = {
   md: {
     phone: {
       padding: '8px 24px',
-      fontSize: '24px'
+      fontSize: '24px',
+      fontWeight: 400
     },
     tablet: {
       padding: '8px 24px',
-      fontSize: '24px'
+      fontSize: '24px',
+      fontWeight: 400
     },
     desktop: {
       padding: '8px 24px',
-      fontSize: '24px'
+      fontSize: '24px',
+      fontWeight: 400
     }
   },
   lg: {
     phone: {
       padding: '6px 18px',
-      fontSize: '18px'
+      fontSize: '18px',
+      fontWeight: 500
     },
     tablet: {
       padding: '8px 24px',
-      fontSize: '24px'
+      fontSize: '24px',
+      fontWeight: 500
     },
     desktop: {
       padding: '12px 36px',
-      fontSize: '36px'
+      fontSize: '36px',
+      fontWeight: 500
     }
   }
 };

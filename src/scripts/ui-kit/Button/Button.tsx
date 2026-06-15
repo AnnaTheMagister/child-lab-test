@@ -1,4 +1,5 @@
 import React from 'react';
+import { useBreakpoint } from '../../shared/hooks/useBreakpoint';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';
 export type ButtonColors = 'grape' | 'raspberry' | 'strawberry' | 'custom';
@@ -112,14 +113,14 @@ const sizeMap: Record<ButtonSize, SizeBreakpoints> = {
     desktop: { padding: '8px 12px', fontSize: '16px' },
   },
   md: {
-    phone: { padding: '8px 24px', fontSize: '24px' },
-    tablet: { padding: '8px 24px', fontSize: '24px' },
-    desktop: { padding: '8px 24px', fontSize: '24px' },
+    phone: { padding: '8px 24px', fontSize: '24px', fontWeight: 400 },
+    tablet: { padding: '8px 24px', fontSize: '24px', fontWeight: 400 },
+    desktop: { padding: '8px 24px', fontSize: '24px', fontWeight: 400 },
   },
   lg: {
-    phone: { padding: '6px 18px', fontSize: '18px' },
-    tablet: { padding: '8px 24px', fontSize: '24px' },
-    desktop: { padding: '12px 36px', fontSize: '36px' },
+    phone: { padding: '6px 18px', fontSize: '18px', fontWeight: 500 },
+    tablet: { padding: '8px 24px', fontSize: '24px', fontWeight: 500 },
+    desktop: { padding: '12px 36px', fontSize: '36px', fontWeight: 500 },
   },
 };
 
@@ -205,6 +206,8 @@ export const Button = ({
   rel,
   borderRadius,
 }: ButtonProps) => {
+  const bp = useBreakpoint();
+
   const currentColors = isActive
     ? resolveSchemeColors(colors, 'active', activeColors)
     : resolveSchemeColors(colors, 'inactive', inactiveColors);
@@ -213,6 +216,9 @@ export const Button = ({
     background: currentColors.background,
     color: currentColors.color,
     border: `1px solid ${currentColors.borderColor || 'transparent'}`,
+    padding: getSizeProp(size, bp, 'padding'),
+    fontSize: getSizeProp(size, bp, 'fontSize'),
+    fontWeight: getSizeProp(size, bp, 'fontWeight'),
     '--button-padding-desktop': getSizeProp(size, 'desktop', 'padding'),
     '--button-padding-tablet': getSizeProp(size, 'tablet', 'padding'),
     '--button-padding-phone': getSizeProp(size, 'phone', 'padding'),
