@@ -45,14 +45,14 @@ const SIZE_MAP: Record<ButtonSize, { phone: React.CSSProperties; tablet: React.C
     desktop: { padding: '8px 12px', fontSize: '16px' },
   },
   md: {
-    phone: { padding: '8px 24px', fontSize: '24px' },
-    tablet: { padding: '8px 24px', fontSize: '24px' },
-    desktop: { padding: '8px 24px', fontSize: '24px' },
+    phone: { padding: '8px 24px', fontSize: '24px', fontWeight: 400 },
+    tablet: { padding: '8px 24px', fontSize: '24px', fontWeight: 400 },
+    desktop: { padding: '8px 24px', fontSize: '24px', fontWeight: 400 },
   },
   lg: {
-    phone: { padding: '6px 18px', fontSize: '18px' },
-    tablet: { padding: '8px 24px', fontSize: '24px' },
-    desktop: { padding: '12px 36px', fontSize: '36px' },
+    phone: { padding: '6px 18px', fontSize: '18px', fontWeight: 500 },
+    tablet: { padding: '8px 24px', fontSize: '24px', fontWeight: 500 },
+    desktop: { padding: '12px 36px', fontSize: '36px', fontWeight: 500 },
   },
 };
 
