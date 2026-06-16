@@ -173,17 +173,52 @@
 
 /** Custom styles for navigations **/
 
+.childlab-testimonials {
+  margin-top: -36px;
+}
+
 .childlab-testimonials .splide__arrows {
   position: absolute;
-  right: 40px;
+  right: 36px;
   display: flex;
-  /* flex-direction: row-reverse; */
+  gap: 20px;
+}
+
+/** Replace default Splide arrow icons with color-controllable SVGs **/
+.childlab-testimonials .splide__arrow svg {
+  display: none;
+}
+
+.childlab-testimonials .splide__arrow--prev,
+.childlab-testimonials .splide__arrow--next {
+  background: transparent !important;
+  background-color: #999999 !important;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+.childlab-testimonials .splide__arrow--prev {
+  mask-image: url("../images/arrow-left.svg");
+  -webkit-mask-image: url("../images/arrow-left.svg");
+}
+
+.childlab-testimonials .splide__arrow--next {
+  mask-image: url("../images/arrow-right.svg");
+  -webkit-mask-image: url("../images/arrow-right.svg");
+}
+
+.childlab-testimonials .kb-splide .splide__track {
+  overflow: visible;
 }
 
 .childlab-testimonials .kt-blocks-carousel .slick-prev,
 .childlab-testimonials .kt-blocks-carousel .slick-next {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   /* transition: opacity 0.3s ease; */
   position: static !important;
 }
