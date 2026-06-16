@@ -1,0 +1,194 @@
+.childlab-testimonials .wp-block-kadence-testimonial {
+  margin: var(--size-xxlg) 0;
+}
+
+.childlab-testimonials .kt-blocks-testimonial-grid,
+.childlab-testimonials .kt-blocks-testimonial-carousel {
+  display: grid;
+  gap: var(--size-xlg);
+}
+
+.childlab-testimonials .kt-testimonial-item,
+.childlab-testimonials .kb-testimonial-item {
+  border-radius: var(--border-radius-widget);
+  background-color: var(--bg-color-default);
+  box-shadow: var(--box-shadow-default);
+  padding: var(--size-xxlg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.childlab-testimonials .kt-testimonial-item:hover,
+.childlab-testimonials .kb-testimonial-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 40px rgba(56, 87, 97, 0.15);
+}
+
+.childlab-testimonials .kt-testimonial-item-inner,
+.childlab-testimonials .kb-testimonial-item-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-md);
+  height: 100%;
+}
+
+.childlab-testimonials .kt-testimonial-title,
+.childlab-testimonials .kb-testimonial-title {
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-500);
+  color: var(--color-title);
+  margin: 0 0 var(--size-xs);
+}
+
+.childlab-testimonials .kt-testimonial-text,
+.childlab-testimonials .kb-testimonial-text,
+.childlab-testimonials .kt-testimonial-content,
+.childlab-testimonials .kb-testimonial-content {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-400);
+  color: var(--black);
+  line-height: 1.75;
+  margin: 0;
+  flex: 1;
+}
+
+.childlab-testimonials .kt-testimonial-content p,
+.childlab-testimonials .kb-testimonial-content p {
+  font-size: var(--font-size-16);
+  line-height: 1.75;
+  margin: 0 0 var(--size-sm);
+}
+
+.childlab-testimonials .kt-testimonial-content p:last-child,
+.childlab-testimonials .kb-testimonial-content p:last-child {
+  margin-bottom: 0;
+}
+
+.childlab-testimonials .kt-testimonial-media,
+.childlab-testimonials .kb-testimonial-media {
+  display: flex;
+  align-items: center;
+  gap: var(--size-md);
+  margin-top: auto;
+  padding-top: var(--size-md);
+  border-top: 1px solid var(--light-grey-2);
+}
+
+.childlab-testimonials .kt-testimonial-media img,
+.childlab-testimonials .kb-testimonial-media img,
+.childlab-testimonials .kb-testimonial-image {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.childlab-testimonials .kt-testimonial-name,
+.childlab-testimonials .kb-testimonial-name {
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-500);
+  color: var(--color-title);
+  margin: 0;
+}
+
+.childlab-testimonials .kt-testimonial-job,
+.childlab-testimonials .kb-testimonial-job {
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-400);
+  color: var(--color-meta);
+  margin: 0;
+}
+
+.childlab-testimonials .kt-testimonial-rating,
+.childlab-testimonials .kb-testimonial-rating {
+  display: flex;
+  gap: 2px;
+  margin-top: var(--size-xs);
+}
+
+.childlab-testimonials .kb-star-rating {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.childlab-testimonials .kb-star-rating .kb-star {
+  width: var(--size-lg);
+  height: var(--size-lg);
+  fill: var(--color-primary);
+}
+
+.childlab-testimonials .kt-testimonial-icon,
+.childlab-testimonials .kb-testimonial-icon {
+  color: var(--color-primary);
+  font-size: var(--font-size-32);
+  line-height: 1;
+  opacity: 0.3;
+}
+
+.childlab-testimonials .kt-blocks-carousel .slick-prev::before,
+.childlab-testimonials .kt-blocks-carousel .slick-next::before {
+  color: var(--white);
+  font-size: var(--font-size-20);
+}
+
+.childlab-testimonials .kt-blocks-carousel .slick-prev:hover,
+.childlab-testimonials .kt-blocks-carousel .slick-next:hover {
+  opacity: 0.8;
+}
+
+.childlab-testimonials .kt-blocks-carousel .slick-dots li button {
+  background-color: var(--light-grey-2);
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.childlab-testimonials .kt-blocks-carousel .slick-dots li.slick-active button {
+  background-color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .childlab-testimonials .kt-testimonial-item,
+  .childlab-testimonials .kb-testimonial-item {
+    padding: var(--size-md);
+  }
+
+  .childlab-testimonials .kt-testimonial-title,
+  .childlab-testimonials .kb-testimonial-title {
+    font-size: var(--font-size-16);
+  }
+
+  .childlab-testimonials .kt-testimonial-text,
+  .childlab-testimonials .kb-testimonial-text {
+    font-size: var(--font-size-14);
+  }
+
+  .childlab-testimonials .kt-testimonial-media img,
+  .childlab-testimonials .kb-testimonial-media img {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/** Custom styles for navigations **/
+
+.childlab-testimonials .splide__arrows {
+  position: absolute;
+  right: 40px;
+  display: flex;
+  /* flex-direction: row-reverse; */
+}
+
+.childlab-testimonials .kt-blocks-carousel .slick-prev,
+.childlab-testimonials .kt-blocks-carousel .slick-next {
+  width: 40px;
+  height: 40px;
+  /* transition: opacity 0.3s ease; */
+  position: static !important;
+}
+
+
+.childlab-testimonials .kt-testimonial-text-wrap {
+  text-align: left;
+}

@@ -48,12 +48,21 @@ require_once get_template_directory() . '/inc/author-data.php';
 require_once get_template_directory() . '/inc/blocks/register-blocks.php';
 
 // ==============================================
-// 7. Utility Libraries
+// 7. Kadence Blocks Wrappers (scoped styles)
 // ==============================================
-
+/**
+ * Wrap Kadence Testimonials blocks in a scoped container
+ * to avoid CSS specificity conflicts.
+ */
+add_filter( 'render_block', function ( $block_content, $block ) {
+	if ( isset( $block['blockName'] ) && str_contains( $block['blockName'], 'kadence/testimonials' ) ) {
+		$block_content = '<div class="childlab-testimonials">' . $block_content . '</div>';
+	}
+	return $block_content;
+}, 10, 2 );
 
 // ==============================================
-// 7. Theme Setup
+// 8. Theme Setup
 // ==============================================
 /**
  * Register theme support features.
@@ -108,14 +117,14 @@ add_action( 'after_setup_theme', function () {
 } );
 
 // ==============================================
-// 8. Default Images
+// 9. Default Images
 // ==============================================
 $GLOBALS['default_image']          = get_template_directory_uri() . '/assets/images/post-bg.jpg';
 $GLOBALS['unknown_user_image']     = get_template_directory_uri() . '/assets/images/unknown_user.png';
 $GLOBALS['default_projects_image'] = get_template_directory_uri() . '/assets/images/default-projects.jpg';
 
 // ==============================================
-// 9. Asset Loading
+// 10. Asset Loading
 // ==============================================
 /**
  * Enqueue all theme styles and scripts.
@@ -177,10 +186,10 @@ function childlab_load_assets() {
 		filemtime( get_template_directory() . '/assets/styles/projects.css' )
 	);
 	wp_enqueue_style(
-		'childlab-css-course-single',
-		get_theme_file_uri( '/assets/styles/course-single.css' ),
+		'childlab-css-kadence-testimonials',
+		get_theme_file_uri( '/assets/styles/kadence-testimonials.css' ),
 		array(),
-		filemtime( get_template_directory() . '/assets/styles/course-single.css' )
+		filemtime( get_template_directory() . '/assets/styles/kadence-testimonials.css' )
 	);
 
 	// Build output (wp-scripts)
@@ -218,7 +227,7 @@ function childlab_load_assets() {
 add_action( 'wp_enqueue_scripts', 'childlab_load_assets' );
 
 // ==============================================
-// 10. Shortcodes
+// 11. Shortcodes
 // ==============================================
 /**
  * Register shortcodes for various components.
