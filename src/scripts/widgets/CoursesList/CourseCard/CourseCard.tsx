@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DEFAULT_IMAGE_URL } from '../../../shared/consts';
 import { resolveColors } from '../../../shared/libs/colors';
 import { Button, Icon, Tag } from '../../../ui-kit';
+import { getScreenSize } from '../../FrontListComponent/FrontListComponent';
 
 export interface Course {
   id: number;
@@ -23,6 +24,10 @@ export interface Course {
   };
 }
 
+
+export const BG_IMAGE_URL = themeData.templateUrl + "/assets/images/course-overlay.jpg";
+
+
 export const CourseCard = ({
   course,
   courseTypeName,
@@ -42,16 +47,26 @@ export const CourseCard = ({
     courseBackgroundColor: course.acf?.course_background_color,
   });
 
+  const [size, setSize] = useState(getScreenSize(window.innerWidth))
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setSize(getScreenSize(window.innerWidth));
+    });
+  }, []);
+
+  const isVertical = size === 'xs' || size === 'sm' || size === 'xxs'
+
   return (
     <div
       className="course-card"
       style={{
-        backgroundImage: `url(${imageUrl})`,
+        backgroundImage: isVertical ? `url(${BG_IMAGE_URL})` : `url(${imageUrl})`,
         '--course-color': courseColor,
       } as React.CSSProperties}
     >
       <div className="course-card__overlay" style={{
-        background: `linear-gradient(to top, ${courseBackgroundColor} 0, rgba(255, 255, 255, 1) 100%)`,
+        background: `linear-gradient(to top, ${courseBackgroundColor} 50%, rgba(255, 255, 255, 1) 110%)`,
       }} />
       <div className="course-card__content" >
         {courseTypeName && (
@@ -64,7 +79,7 @@ export const CourseCard = ({
             course.acf.course_subtitle
           }</h3>
         {course.acf?.course_description && (
-          <div className="course-card__description truncate-multiline">
+          <div className="course-card__description">
             {course.acf.course_description}
           </div>
         )}
@@ -75,10 +90,8 @@ export const CourseCard = ({
           active={{ color: '#fff', background: courseColor }}
           size="md"
         >
-          {/* <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '12px' }}> */}
-            <div>{window.wp.i18n.__('Подробнее', 'childlab')}</div>
-            <Icon name="arrow-right" size={24} />
-          {/* </div> */}
+          <div>{window.wp.i18n.__('Подробнее', 'childlab')}</div>
+          <Icon name="arrow-right" size={24} />
         </Button>
       </div>
     </div>

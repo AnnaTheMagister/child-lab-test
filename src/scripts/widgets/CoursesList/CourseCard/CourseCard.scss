@@ -1,6 +1,24 @@
 @import "../../../../styles/variables";
 @import "../../../../styles/mixins";
 
+/* todo перенести настройки кнопок */
+
+.courses-filter {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  @media (max-width: 767px) {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+#courses-list-component .courses-filter .ui-button {
+  @media (max-width: 767px) {
+    padding: 6px 12px !important;
+    border-radius: 8px !important;
+  }
+}
+
 .course-card {
   position: relative;
   min-height: 360px;
@@ -16,6 +34,10 @@
   @include atMedium {
     align-items: center;
     margin-bottom: 24px;
+  }
+
+  @media (max-width: 767px) {
+    margin-bottom: 8px;
   }
 }
 
@@ -66,11 +88,30 @@
   }
 }
 
+.course-card-link {
+  width:fit-content;
+  .ui-button__text {
+    gap: 12px;
+  }
+}
+
+
 @media (max-width: 767px) {
   .course-card {
-    min-height: 180px;
+    min-height: 280px;
     padding: 20px;
     border-radius: 12px;
+    background-size: 300%;
+  }
+
+  .course-card__overlay {
+    mask: none;
+    opacity: 0.8;
+    mix-blend-mode: lighten;
+  }
+
+  .course-card__tag {
+    padding: 4px 12px !important;
   }
 
   .course-card__overlay {
@@ -78,13 +119,14 @@
   }
 
   .course-card__content {
-    gap: 10px;
+    gap: 20px;
   }
-}
 
-.course-card-link {
-  width:fit-content;
-  .ui-button__text {
-    gap: 12px;
+  .course-card-link {
+    width: 100%;
+    padding: 6px 18px !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    justify-content: center;
   }
 }
