@@ -1951,6 +1951,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   CourseBanner: () => (/* binding */ CourseBanner),
+/* harmony export */   CourseBannerContent: () => (/* binding */ CourseBannerContent),
 /* harmony export */   CourseBannerView: () => (/* binding */ CourseBannerView)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
@@ -1959,6 +1960,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_libs_colors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/libs/colors */ "./src/scripts/shared/libs/colors/index.ts");
 /* harmony import */ var _entities_Course__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../entities/Course */ "./src/scripts/entities/Course/index.ts");
 /* harmony import */ var _CourseBanner_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CourseBanner.scss */ "./src/scripts/widgets/CourseBanner/CourseBanner.scss");
+/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
+
 
 
 
@@ -1969,11 +1972,16 @@ const CourseBannerView = ({
   data
 }) => {
   const {
-    courseColor,
-    courseTitleColor,
-    courseButtonGradient,
     courseBackgroundColor
   } = (0,_shared_libs_colors__WEBPACK_IMPORTED_MODULE_2__.resolveColors)(data);
+  const [size, setSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
+  console.log('!!!!', size);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    window.addEventListener("resize", () => {
+      setSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
+    });
+  }, []);
+  const isVertical = size === 'xs' || size === 'sm' || size === 'xxs';
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "course-banner",
     style: {
@@ -1982,9 +1990,33 @@ const CourseBannerView = ({
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "course-banner-overlay",
     style: {
-      background: `linear-gradient(to top, ${courseBackgroundColor} 0, rgba(255, 255, 255, 1) 100%)`
+      background: `linear-gradient(to right, ${courseBackgroundColor} 0, rgba(255, 255, 255, 1) 100%)`
     }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CourseBannerContent, {
+    data: data
+  }));
+};
+const CourseBanner = () => {
+  const {
+    course,
+    loading,
+    error
+  } = (0,_entities_Course__WEBPACK_IMPORTED_MODULE_3__.useCourse)();
+  if (loading) return null;
+  if (error || !course) return null;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CourseBannerView, {
+    data: course
+  });
+};
+const CourseBannerContent = ({
+  data
+}) => {
+  const {
+    courseColor,
+    courseTitleColor,
+    courseButtonGradient
+  } = (0,_shared_libs_colors__WEBPACK_IMPORTED_MODULE_2__.resolveColors)(data);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "container course-banner-content"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "col-lg-6 col-md-6 col-sm-12"
@@ -2016,19 +2048,7 @@ const CourseBannerView = ({
     },
     size: "lg",
     target: "_blank"
-  }, "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0434\u043E\u0441\u0442\u0443\u043F"))));
-};
-const CourseBanner = () => {
-  const {
-    course,
-    loading,
-    error
-  } = (0,_entities_Course__WEBPACK_IMPORTED_MODULE_3__.useCourse)();
-  if (loading) return null;
-  if (error || !course) return null;
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CourseBannerView, {
-    data: course
-  });
+  }, "\u041F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0434\u043E\u0441\u0442\u0443\u043F")));
 };
 
 /***/ },
