@@ -24,8 +24,6 @@ export const CourseBannerView = ({ data }: { data: CourseBannerData }) => {
 
   const [size, setSize] = useState(getScreenSize(window.innerWidth))
 
-  console.log('!!!!', size)
-
   useEffect(() => {
     window.addEventListener("resize", () => {
       setSize(getScreenSize(window.innerWidth));

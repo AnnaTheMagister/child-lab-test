@@ -1975,7 +1975,6 @@ const CourseBannerView = ({
     courseBackgroundColor
   } = (0,_shared_libs_colors__WEBPACK_IMPORTED_MODULE_2__.resolveColors)(data);
   const [size, setSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
-  console.log('!!!!', size);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     window.addEventListener("resize", () => {
       setSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_5__.getScreenSize)(window.innerWidth));
@@ -2092,6 +2091,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   BG_IMAGE_URL: () => (/* binding */ BG_IMAGE_URL),
 /* harmony export */   CourseCard: () => (/* binding */ CourseCard)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
@@ -2099,11 +2099,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../shared/consts */ "./src/scripts/shared/consts.ts");
 /* harmony import */ var _shared_libs_colors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../shared/libs/colors */ "./src/scripts/shared/libs/colors/index.ts");
 /* harmony import */ var _ui_kit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../ui-kit */ "./src/scripts/ui-kit/index.ts");
+/* harmony import */ var _FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../FrontListComponent/FrontListComponent */ "./src/scripts/widgets/FrontListComponent/FrontListComponent.tsx");
 
 
 
 
 
+
+const BG_IMAGE_URL = themeData.templateUrl + "/assets/images/course-overlay.jpg";
 const CourseCard = ({
   course,
   courseTypeName
@@ -2119,16 +2122,23 @@ const CourseCard = ({
     courseButtonGradient: course.acf?.course_button_gradient,
     courseBackgroundColor: course.acf?.course_background_color
   });
+  const [size, setSize] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_4__.getScreenSize)(window.innerWidth));
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    window.addEventListener("resize", () => {
+      setSize((0,_FrontListComponent_FrontListComponent__WEBPACK_IMPORTED_MODULE_4__.getScreenSize)(window.innerWidth));
+    });
+  }, []);
+  const isVertical = size === 'xs' || size === 'sm' || size === 'xxs';
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "course-card",
     style: {
-      backgroundImage: `url(${imageUrl})`,
+      backgroundImage: isVertical ? `url(${BG_IMAGE_URL})` : `url(${imageUrl})`,
       '--course-color': courseColor
     }
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "course-card__overlay",
     style: {
-      background: `linear-gradient(to top, ${courseBackgroundColor} 0, rgba(255, 255, 255, 1) 100%)`
+      background: `linear-gradient(to top, ${courseBackgroundColor} 50%, rgba(255, 255, 255, 1) 110%)`
     }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "course-card__content"
@@ -2143,7 +2153,7 @@ const CourseCard = ({
       color: courseColor
     }
   }, course.title.rendered, ' ', course.acf?.course_subtitle && course.acf.course_subtitle), course.acf?.course_description && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "course-card__description truncate-multiline"
+    className: "course-card__description"
   }, course.acf.course_description), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ui_kit__WEBPACK_IMPORTED_MODULE_3__.Button, {
     href: course.link,
     className: "course-card-link",

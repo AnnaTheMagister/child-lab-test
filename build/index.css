@@ -4066,8 +4066,13 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 1rem;
+  gap: 20px;
   flex-wrap: wrap;
+}
+@media (max-width: 767px) {
+  .ui-button-group {
+    gap: 10px;
+  }
 }
 /*!********************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/scripts/ui-kit/Tag/Tag.scss ***!
@@ -4098,6 +4103,26 @@ body {
 /*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/scripts/widgets/CoursesList/CourseCard/CourseCard.scss ***!
   \***********************************************************************************************************************************************************************************************************************************************************************************/
+@charset "UTF-8";
+/* todo перенести настройки кнопок */
+.courses-filter {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+@media (max-width: 767px) {
+  .courses-filter {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  #courses-list-component .courses-filter .ui-button {
+    padding: 6px 12px !important;
+    border-radius: 8px !important;
+  }
+}
+
 .course-card {
   position: relative;
   min-height: 360px;
@@ -4114,6 +4139,11 @@ body {
   .course-card {
     align-items: center;
     margin-bottom: 24px;
+  }
+}
+@media (max-width: 767px) {
+  .course-card {
+    margin-bottom: 8px;
   }
 }
 
@@ -4168,25 +4198,43 @@ body {
   }
 }
 
-@media (max-width: 767px) {
-  .course-card {
-    min-height: 180px;
-    padding: 20px;
-    border-radius: 12px;
-  }
-  .course-card__overlay {
-    border-radius: 12px;
-  }
-  .course-card__content {
-    gap: 10px;
-  }
-}
 .course-card-link {
   width: -moz-fit-content;
   width: fit-content;
 }
 .course-card-link .ui-button__text {
   gap: 12px;
+}
+
+@media (max-width: 767px) {
+  .course-card {
+    min-height: 280px;
+    padding: 20px;
+    border-radius: 12px;
+    background-size: 300%;
+  }
+  .course-card__overlay {
+    -webkit-mask: none;
+            mask: none;
+    opacity: 0.8;
+    mix-blend-mode: lighten;
+  }
+  .course-card__tag {
+    padding: 4px 12px !important;
+  }
+  .course-card__overlay {
+    border-radius: 12px;
+  }
+  .course-card__content {
+    gap: 20px;
+  }
+  .course-card-link {
+    width: 100%;
+    padding: 6px 18px !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    justify-content: center;
+  }
 }
 /*!***************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/scripts/widgets/CourseBanner/CourseBanner.scss ***!
