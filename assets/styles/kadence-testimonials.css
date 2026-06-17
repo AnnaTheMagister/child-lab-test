@@ -174,14 +174,20 @@
 /** Custom styles for navigations **/
 
 .childlab-testimonials {
-  margin-top: -36px;
+  margin-top: -52px;
+  overflow: hidden;
 }
 
 .childlab-testimonials .splide__arrows {
   position: absolute;
   right: 36px;
+  top: 20px;
   display: flex;
   gap: 20px;
+}
+
+.childlab-testimonials .kt-testimonial-item-wrap {
+  margin-top: 52px;
 }
 
 /** Replace default Splide arrow icons with color-controllable SVGs **/
@@ -226,4 +232,10 @@
 
 .childlab-testimonials .kt-testimonial-text-wrap {
   text-align: left;
+}
+
+@media screen and (max-width: 768px) {
+  .childlab-testimonials .splide__arrows {
+    display: none;
+  }
 }
