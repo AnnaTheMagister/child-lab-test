@@ -81,10 +81,10 @@ add_action( 'after_setup_theme', 'childlab_add_support' );
  */
 function childlab_ensure_required_pages() {
 	$pages = array(
-		'courses'  => __( 'Курсы', 'childlab' ),
+		// 'courses'  => __( 'Курсы', 'childlab' ),
 		'articles' => __( 'Статьи', 'childlab' ),
 		'projects' => __( 'Проекты', 'childlab' ),
-		'authors'  => __( 'Авторы', 'childlab' ),
+		// 'authors'  => __( 'Авторы', 'childlab' ),
 	);
 
 	foreach ( $pages as $slug => $title ) {
