@@ -11,12 +11,8 @@ get_header();
 
 <!-- Main content area -->
 <div class="container course-content">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="course-main-content">
-                <?php the_content(); ?>
-            </div>
-        </div>
+    <div class="course-main-content">
+        <?php the_content(); ?>
     </div>
 </div>
 
